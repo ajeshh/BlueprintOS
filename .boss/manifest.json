@@ -1,0 +1,12 @@
+{
+  "name": "BlueprintOS",
+  "bossVersion": "0.6.0",
+  "stage": "L1-mvp",
+  "mode": "MVP",
+  "selfHosted": true,
+  "installedLayers": ["L0-quickstart", "L1-mvp"],
+  "agents": ["pm", "coder-generalist", "mentor-venture", "tester", "program-manager"],
+  "skills": ["boss", "triage", "canvas", "boss-learn", "boss-sync", "spec", "smoke", "log", "close"],
+  "note": "BOSS is its own first project. Retrofitted by hand ahead of the MVP-mode template; authoring MVP mode = extracting these practices UP into stages/L1-mvp/. Some listed agents/skills are planned (tracked in docs/ideas/).",
+  "createdAt": "2026-05-21T00:00:00.000Z"
+}

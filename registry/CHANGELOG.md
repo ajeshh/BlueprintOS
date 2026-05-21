@@ -2,6 +2,17 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.6.0 — 2026-05-21
+
+- **BOSS now dogfoods itself.** BlueprintOS is its own first registered project (`.boss/` stamp,
+  mode MVP, self-hosted) — retrofitted ahead of the MVP-mode template, which will be *extracted UP*
+  from this repo's working practice (Principle 1).
+- Added BOSS's own dogfooded docs: root `CLAUDE.md`, `docs/IDS.md`, `docs/ideas/` (IDEA-001 learning
+  loop, IDEA-002 MVP mode, IDEA-003 mentor layer), `docs/ideas/CANVAS.md` (BOSS's own Humane
+  Product Canvas), and `docs/RESUME.md` (multi-session continuity).
+- Recorded the **mentor layer** vision: two agent classes — builders (make the app) and mentors
+  (coach the founder); mentors accumulate a founder dossier toward funding/hiring.
+
 ## 0.5.0 — 2026-05-21
 
 - **PRINCIPLES.md** — BOSS's six operating principles. #1: always scaffolding, but pause to sort
