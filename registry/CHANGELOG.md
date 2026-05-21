@@ -2,6 +2,25 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.8.0 — 2026-05-21
+
+- **The learning loop (IDEA-001).** PRINCIPLES #1 made operational, in both directions:
+  - **`boss sync [--apply]`** — brings a project's BOSS-managed skills/agents (across all its
+    installed modes) up to the current version. Previews as `new` / `changed (N lines)` / up-to-date,
+    reconciles stale mode labels (an old `L0-sketch` pin → `L0-quickstart`), and on `--apply` writes
+    the files + bumps the project's `.boss` pin. Syncs BOSS-managed skills/agents only; user-editable
+    files (`CLAUDE.md`, `settings.json`) are left for hand-merge.
+  - **`boss learn <path> --as <category>`** — promotes a proven pattern UP into
+    `library/<category>/` (`agents|skills|hooks|practices|memory-seed`), bumps `VERSION` +
+    `package.json` in sync, and prepends a CHANGELOG stub. Finds the BOSS **source** repo via the
+    registry's self-hosted entry (or `$BOSS_SRC`), so it works when `boss` runs from a global install.
+  - **`/boss-sync` + `/boss-learn` skills** — the judgment layer. `/boss-learn` is a two-destination
+    **router** (UP = BOSS superset practice; DOWN = harden into the app's own core), never one-way.
+    `/boss-sync` narrates the diff from the CHANGELOG and flags local edits before overwriting.
+- **`claude-append.md` support in `boss unlock`.** A mode template can carry a `claude-append.md`
+  whose contents are *appended* to the project's CLAUDE.md under an idempotent marker — additive
+  working rules, never an overwrite. (Needed by the MVP mode next.)
+
 ## 0.7.0 — 2026-05-21
 
 - **Package / dogfood separation.** Clean boundary between the shippable package and BOSS's own

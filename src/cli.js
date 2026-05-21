@@ -4,6 +4,8 @@ import { execSync } from 'node:child_process';
 import { bossVersion, STAGE_ORDER, resolveStageId } from './paths.js';
 import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
+import { planSync, applySync } from './sync.js';
+import { learn, LIBRARY_CATEGORIES } from './learn.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -95,10 +97,10 @@ function cmdUnlock(args) {
   if (!target) return fail(`unknown mode '${layer}'. options: ${STAGE_ORDER.join(', ')}`);
   if (stamp.installedLayers.includes(target)) return fail(`${target} already installed.`);
 
-  let m;
+  let m, applied;
   try {
     m = readStageManifest(target);
-    applyStage(target, process.cwd(), stageVars(stamp.name, target, m.name));
+    applied = applyStage(target, process.cwd(), stageVars(stamp.name, target, m.name));
   } catch (e) {
     return fail(`${target} not authored yet — ${e.message}`);
   }
@@ -110,7 +112,9 @@ function cmdUnlock(args) {
   stamp.skills = [...new Set([...(stamp.skills || []), ...(m.skills || [])])];
   writeStamp(process.cwd(), stamp);
   registerProject({ name: stamp.name, path: process.cwd(), stage: target, mode: m.name, bossVersion: bossVersion() });
-  console.log(`\n  ✦ Unlocked ${m.name} mode (${target}).\n`);
+  console.log(`\n  ✦ Unlocked ${m.name} mode (${target}).`);
+  if (applied.appendedClaude) console.log(`    + appended ${m.name} working rules to CLAUDE.md`);
+  console.log('');
 }
 
 function cmdStatus() {
@@ -142,6 +146,83 @@ function cmdList() {
   console.log('');
 }
 
+// Minimal flag parser: returns { _: [positionals], flag: value|true }.
+function parseArgs(args) {
+  const out = { _: [] };
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a.startsWith('--')) {
+      const key = a.slice(2);
+      const next = args[i + 1];
+      if (next !== undefined && !next.startsWith('--')) { out[key] = next; i++; }
+      else out[key] = true;
+    } else {
+      out._.push(a);
+    }
+  }
+  return out;
+}
+
+function cmdSync(args) {
+  const { _: pos, apply } = parseArgs(args);
+  void pos;
+  const stamp = readStamp(process.cwd());
+  if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+
+  const plan = planSync(process.cwd(), stamp);
+  const changed = plan.entries.filter((e) => e.status !== 'ok');
+
+  console.log(`\n  ${stamp.name} — sync`);
+  console.log(`    pin:    ${plan.pin}${plan.drift ? `  →  current ${plan.current}` : '  (current)'}`);
+  console.log(`    layers: ${plan.layers.join(' → ')}\n`);
+
+  if (!changed.length) {
+    console.log('    ✓ BOSS-managed skills/agents are up to date.');
+    if (plan.drift && !apply) console.log('    (run `boss sync --apply` to bump the pin to current.)');
+  } else {
+    for (const e of changed) {
+      const mark = e.status === 'new' ? '+ new    ' : `~ changed (${e.delta} lines)`;
+      console.log(`    ${mark}  ${e.kind}/${e.name}  →  ${e.rel}`);
+    }
+  }
+
+  if (!apply) {
+    console.log('\n  Preview only. Run `boss sync --apply` to write these and bump the pin,');
+    console.log('  or use `/boss-sync` in Claude for a reviewed, narrated update.\n');
+    return;
+  }
+
+  const { written, stamp: next } = applySync(process.cwd(), plan, stamp);
+  writeStamp(process.cwd(), next);
+  registerProject({
+    name: next.name, path: process.cwd(), stage: next.stage, mode: next.mode, bossVersion: next.bossVersion,
+  });
+  console.log(`\n  ✦ Synced ${written.length} file(s); pin now ${next.bossVersion}.`);
+  if (written.length) console.log('    Review the changes with `git diff` before committing.\n');
+  else console.log('');
+}
+
+function cmdLearn(args) {
+  const f = parseArgs(args);
+  const versionKind = f.major ? 'major' : f.patch ? 'patch' : 'minor';
+  let res;
+  try {
+    res = learn({
+      srcPath: f._[0],
+      category: f.as,
+      note: typeof f.note === 'string' ? f.note : undefined,
+      versionKind,
+      explicitVersion: typeof f.version === 'string' ? f.version : undefined,
+    });
+  } catch (e) {
+    return fail(e.message);
+  }
+  console.log(`\n  ✦ Learned ${res.name} UP into ${res.dest}`);
+  console.log(`    BOSS ${res.prev} → ${res.next}  (VERSION + package.json + CHANGELOG updated)`);
+  console.log(`    in ${res.root}`);
+  console.log('    Review, then commit. Connected projects pull it via `boss sync` / `/boss-sync`.\n');
+}
+
 function fail(msg) {
   console.error(`  boss: ${msg}`);
   process.exitCode = 1;
@@ -154,15 +235,19 @@ export function run(argv) {
     case 'unlock': return cmdUnlock(args);
     case 'status': return cmdStatus();
     case 'list': return cmdList();
+    case 'sync': return cmdSync(args);
+    case 'learn': return cmdLearn(args);
     case 'version': case '--version': case '-v':
       return console.log(bossVersion());
     default:
       console.log(`BlueprintOS (BOSS) ${bossVersion()}\n`);
-      console.log('  boss new <name>      scaffold a new project in Quickstart mode + register it');
-      console.log('  boss unlock <mode>   level up: quickstart → mvp → v1 → scale');
-      console.log('  boss status          this project: mode, pinned version, drift');
-      console.log('  boss list            all connected projects');
-      console.log('  boss version         BOSS version\n');
+      console.log('  boss new <name>          scaffold a new project in Quickstart mode + register it');
+      console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
+      console.log('  boss status              this project: mode, pinned version, drift');
+      console.log('  boss list                all connected projects');
+      console.log('  boss sync [--apply]      pull current BOSS skills/agents into this project (DOWN)');
+      console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
+      console.log('  boss version             BOSS version\n');
       console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');
   }
 }

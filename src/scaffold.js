@@ -1,8 +1,14 @@
 import {
-  cpSync, readdirSync, statSync, readFileSync, writeFileSync, existsSync,
+  cpSync, readdirSync, statSync, readFileSync, writeFileSync, existsSync, rmSync,
 } from 'node:fs';
 import { join } from 'node:path';
 import { STAGES_DIR } from './paths.js';
+
+// A stage template may carry this file. Instead of being copied verbatim, its
+// (substituted) contents are APPENDED to the project's CLAUDE.md under an
+// idempotent marker — so unlocking a mode adds its working rules without ever
+// clobbering rules the project (or earlier modes) already wrote.
+const CLAUDE_APPEND = 'claude-append.md';
 
 const TEXT_EXT = new Set([
   '.md', '.json', '.js', '.ts', '.tsx', '.txt', '.yaml', '.yml',
@@ -38,7 +44,25 @@ function substituteInTree(dir, vars) {
   }
 }
 
+// Append a stage's claude-append.md block to the project's CLAUDE.md, once.
+// Idempotent: keyed by a per-stage marker, so re-applying a stage is a no-op.
+// If CLAUDE.md doesn't exist yet, it's created from the block.
+function appendClaudeBlock(stageId, targetDir, body) {
+  const claudePath = join(targetDir, 'CLAUDE.md');
+  const startMark = `<!-- boss:${stageId} start -->`;
+  const endMark = `<!-- boss:${stageId} end -->`;
+  const existing = existsSync(claudePath) ? readFileSync(claudePath, 'utf8') : '';
+  if (existing.includes(startMark)) return false; // already applied
+  const block = `${startMark}\n${body.trim()}\n${endMark}\n`;
+  const sep = existing && !existing.endsWith('\n\n')
+    ? (existing.endsWith('\n') ? '\n' : '\n\n')
+    : '';
+  writeFileSync(claudePath, existing + sep + block);
+  return true;
+}
+
 // Copy a stage's template/ tree into targetDir and fill placeholders.
+// Returns { appendedClaude } so callers can report what changed.
 export function applyStage(stageId, targetDir, vars) {
   const templateDir = join(STAGES_DIR, stageId, 'template');
   if (!existsSync(templateDir)) {
@@ -46,4 +70,14 @@ export function applyStage(stageId, targetDir, vars) {
   }
   cpSync(templateDir, targetDir, { recursive: true });
   substituteInTree(targetDir, vars);
+
+  // Handle the additive CLAUDE.md block: the file was copied into the project
+  // by cpSync; lift it out and fold it into CLAUDE.md instead of leaving it.
+  let appendedClaude = false;
+  const stray = join(targetDir, CLAUDE_APPEND);
+  if (existsSync(stray)) {
+    appendedClaude = appendClaudeBlock(stageId, targetDir, readFileSync(stray, 'utf8'));
+    rmSync(stray);
+  }
+  return { appendedClaude };
 }
