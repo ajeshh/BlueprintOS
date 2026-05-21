@@ -2,6 +2,20 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.10.0 — 2026-05-21
+
+- **The conscience — first moment lands (`/triage` validation check).** BOSS starts behaving like the
+  *build's conscience*, not just a set of skills you invoke. The first of four conscience moments —
+  **"what does this prove?"** — is now baked into `/triage`:
+  - **Fires when** the active idea has ≥3 capture-log entries and no canvas with a filled riskiest
+    assumption (the "capturing lots, validating nothing" drift) — and *only* then.
+  - **Says one spare line** in BOSS's voice (the seasoned hand): names the drift, asks what would make
+    it real, points at `/canvas`, hands the decision back. Never blocks a capture, never nags.
+  - Turns the validation thinking that already lived in `/canvas` + `mentor-venture` (invoke-only) into
+    a *moment that fires* in the flow where drift actually happens.
+  - Template `CLAUDE.md` names the conscience in the Quickstart arc.
+  - Existing projects pick it up via `boss sync` / `/boss-sync`.
+
 ## 0.9.0 — 2026-05-21
 
 - **Mentor layer — structure + cornerstone (IDEA-003).** BOSS's second agent class lands.

@@ -56,6 +56,29 @@ Add a row to `docs/ideas/INDEX.md`.
 - Move any resolved item out of **Open questions**; add new ones that surfaced.
 - Don't restructure or "finalize" — this is an evolving notebook, not a deliverable.
 
+## The validation check — BOSS's conscience
+
+Quickstart makes it *easy* to keep capturing. That's the trap: a growing pile of captured ideas can
+feel like progress while nothing has actually been tested. So after you capture or add, glance at the
+state — and if it's drifting, **say one thing, then get out of the way.** This is the first of BOSS's
+conscience moments: *what does this prove?*
+
+**When to speak (keep it rare):** the idea you just added to has **≥3 capture-log entries** and there's
+**no `IDEA-NNN-canvas.md` with a filled riskiest assumption** (no canvas at all, or the *Riskiest
+assumption* line is still a placeholder). That's the "building lots, proving nothing" signal — and the
+only time this fires.
+
+**What to say:** one spare line, in BOSS's voice — name the drift, ask what would make it real, point at
+the next real step, hand the decision back. Don't lecture, don't block the capture, don't make it a gate.
+Tune it to them by ear; don't paste this verbatim:
+
+> *"That's the third thing you've added here, and none of it's been tested yet. What would show you it's
+> real? `/canvas` will name the riskiest bet — or just tell me who you'd ask first."*
+
+**Stay quiet otherwise.** Say it once. If they keep capturing without acting, don't repeat it every run —
+a conscience that nags is just noise. Raise it again only if a lot more piles up, or they ask. Assume
+they're smart: you're flagging a blind spot, not grading them.
+
 ## When it has legs
 
 If the idea feels real (recurring, exciting, worth betting time on), say so and offer the next rung:
@@ -68,3 +91,4 @@ If the idea feels real (recurring, exciting, worth betting time on), say so and 
 - One idea per doc. If they chain several with "also", split into separate docs.
 - Never start building from `/triage` — this is capture only.
 - Preserve the original spark verbatim in the capture log; sharpen in "Current shape," not by overwriting history.
+- The validation check is a nudge, never a gate — it never blocks a capture and never repeats into a nag.

@@ -30,6 +30,10 @@ Quickstart is a tiny incubator: **capture → keep adding → canvas → unlock 
 3. **Canvas** it with `/canvas` once it has legs — a humane business pressure-test (the Humane Product Canvas + lean/Lenny prompts) that names the riskiest assumption and a one-week experiment.
 4. **Unlock MVP** (`boss unlock mvp`) when the canvas holds up and you're ready to build.
 
+BOSS plays **conscience** along the way: if you keep capturing without testing anything, `/triage` will
+pause once to ask *what does this prove?* — a nudge toward `/canvas`, never a gate. Capturing isn't the
+same as validating.
+
 ## The four modes (unlock additively)
 
 This project is in **{{MODE}}** mode. Modes level up as the project earns it:
