@@ -1,4 +1,5 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { REGISTRY_FILE } from './paths.js';
 
 function load() {
@@ -11,6 +12,7 @@ function load() {
 }
 
 function save(data) {
+  mkdirSync(dirname(REGISTRY_FILE), { recursive: true }); // ensure ~/.boss exists
   writeFileSync(REGISTRY_FILE, JSON.stringify(data, null, 2) + '\n');
 }
 

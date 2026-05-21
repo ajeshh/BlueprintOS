@@ -1,7 +1,7 @@
 {
   "name": "blueprintos",
-  "version": "0.1.0",
-  "description": "BlueprintOS (BOSS) — npm-inverted scaffolding system: cold-starts new projects at the right level of agentic ceremony and grows them stage by stage.",
+  "version": "0.7.0",
+  "description": "BlueprintOS (BOSS) — a just-in-time startup incubator: cold-starts new projects at the right level of agentic ceremony, grows them through modes (Quickstart → MVP → V1 → Scale), and mentors the founder.",
   "type": "module",
   "bin": {
     "boss": "bin/boss"
@@ -9,8 +9,18 @@
   "engines": {
     "node": ">=18"
   },
+  "files": [
+    "bin/",
+    "src/",
+    "stages/",
+    "library/",
+    "VERSION",
+    "PRINCIPLES.md",
+    "registry/CHANGELOG.md"
+  ],
   "scripts": {
-    "link": "npm install -g ."
+    "link": "npm install -g .",
+    "pack:preview": "npm pack --dry-run"
   },
   "license": "MIT"
 }

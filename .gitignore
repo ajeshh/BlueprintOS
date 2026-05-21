@@ -1,3 +1,7 @@
 node_modules/
 *.log
 .DS_Store
+
+# Machine-local registry now lives in ~/.boss/registry.json (not in the repo).
+# Ignore any stray legacy copy so local project paths never get committed again.
+registry/projects.json

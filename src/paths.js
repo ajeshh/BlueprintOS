@@ -1,13 +1,20 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 import { readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 
 // BOSS install root — resolves correctly even when `boss` is globally linked,
-// because import.meta.url points at the real file in src/.
+// because import.meta.url points at the real file in src/. This is the PACKAGE
+// (immutable, what gets published). Never write into it at runtime.
 export const BOSS_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-export const REGISTRY_FILE = join(BOSS_ROOT, 'registry', 'projects.json');
 export const STAGES_DIR = join(BOSS_ROOT, 'stages');
+
+// Mutable, machine-local state lives in the user's home — NOT in the package.
+// This keeps the published package immutable and keeps a user's project list
+// (with absolute paths) out of the repo.
+export const BOSS_HOME = join(homedir(), '.boss');
+export const REGISTRY_FILE = join(BOSS_HOME, 'registry.json');
 
 export function bossVersion() {
   return readFileSync(join(BOSS_ROOT, 'VERSION'), 'utf8').trim();

@@ -2,6 +2,17 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.7.0 — 2026-05-21
+
+- **Package / dogfood separation.** Clean boundary between the shippable package and BOSS's own
+  incubation layer:
+  - `package.json` `files` allowlist — only `bin/ src/ stages/ library/ VERSION PRINCIPLES.md
+    registry/CHANGELOG.md` (+ README/LICENSE) ship. `docs/`, `.boss/`, root `CLAUDE.md`, and the
+    local registry are never published. (`npm run pack:preview` to verify.)
+  - **Registry moved out of the repo** to `~/.boss/registry.json` — machine-local state (your
+    project list + absolute paths) no longer lives in (or leaks into) the package/repo.
+  - `VERSION` and `package.json` version synced to 0.7.0.
+
 ## 0.6.0 — 2026-05-21
 
 - **BOSS now dogfoods itself.** BlueprintOS is its own first registered project (`.boss/` stamp,

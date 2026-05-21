@@ -16,7 +16,10 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.6.0)
+## State (shipped, v0.7.0)
+- **Package/dogfood separation (v0.7.0):** `package.json` `files` allowlist ships only the package;
+  `docs/`, `.boss/`, root `CLAUDE.md` stay dev-only. Registry moved to `~/.boss/registry.json`
+  (machine-local, out of the repo). `npm run pack:preview` verifies what ships.
 - **CLI** (zero-dep Node): `boss new / unlock / status / list / version`. On PATH via `npm i -g .`.
 - **Quickstart mode (L0) authored** — the incubator arc: capture → keep adding → canvas → unlock MVP.
   - Skills: `/boss` (spin-up), `/triage` (living idea capture), `/canvas` (Humane Product Canvas + lean/Lenny + heartbeat).
@@ -53,5 +56,6 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 
 ## Working reminders
 - Commit with GH noreply env-var (never global config): `NR=$(gh api user --jq '"\(.id)+\(.login)@users.noreply.github.com"')`.
-- After CLI changes: `npm i -g ~/Projects/BlueprintOS`, test in `/tmp`, prune `/tmp` entries from `registry/projects.json`.
+- After CLI changes: `npm i -g ~/Projects/BlueprintOS`, test in `/tmp`, prune `/tmp` entries from `~/.boss/registry.json` (registry is machine-local now, not in the repo).
+- Keep `VERSION` and `package.json` version in sync. `npm run pack:preview` to confirm only the package ships.
 - Every capability: VERSION bump + `registry/CHANGELOG.md` entry + update this RESUME.
