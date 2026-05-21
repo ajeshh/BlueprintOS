@@ -44,8 +44,8 @@ Append an entry to `docs/ideas/INDEX.md` and create `docs/ideas/IDEA-001-<slug>.
   line and, on agreement, record the decision in the IDEA doc and specialize
   `.claude/agents/coder-generalist.md` (fill in its build/test/run commands). If unclear, stay
   stack-neutral and say the decision is pending the first build step. Never silently assume a stack.
-- **Stage:** Default is L0. If the PRD is rich and clearly a real product to build now, *recommend*
-  `boss unlock L1` (specs + `/smoke` gate) — but don't run it for them; suggest the command.
+- **Mode:** Default is Quickstart (L0). If the PRD is rich and clearly a real product to build now,
+  *recommend* `boss unlock mvp` (specs + `/smoke` gate) — but don't run it for them; suggest the command.
 
 ## 5. GitHub repo (the gated step)
 
@@ -83,8 +83,8 @@ and offer to retry.
 ## 6. Wrap up
 
 Give a tight summary: what the idea is, where it's captured (`IDEA-001`), the stack decision (or that
-it's pending), the stage, and the repo URL if created. Then the single best next step (usually: start
-building the smallest version, or `boss unlock L1` if it's clearly a real build).
+it's pending), the mode, and the repo URL if created. Then the single best next step (usually: start
+building the smallest version, or `boss unlock mvp` if it's clearly a real build).
 
 ## Rules
 

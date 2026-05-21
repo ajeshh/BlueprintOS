@@ -1,6 +1,6 @@
-# L3 · Structure — NOT YET AUTHORED
+# L3 · Scale — NOT YET AUTHORED
 
-The full agentic-org layer. Planned contents (generalized from dhun):
+The full agentic-org mode — "a fully blown-out, complex app." Planned contents (generalized from dhun):
 
 - PM org: Chief of Staff (`pm`) + Principal-PM pattern, `/pm`, `/pm-roundup`, `/product-council`
 - lab governance tiers (3-tier change control for algorithm-like subsystems)

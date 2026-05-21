@@ -42,28 +42,28 @@ boss version
 ## Use
 
 ```bash
-boss new my-app         # scaffold L0 + git init + register
+boss new my-app         # scaffold Quickstart mode + git init + register
 cd my-app
 claude                  # open in Claude Code
 > /boss                 # (once wired) drop a PRD; the team spins up
 ...
-boss status             # stage + pinned BOSS version + drift
-boss unlock L1          # additively lay down the next layer
+boss status             # mode + pinned BOSS version + drift
+boss unlock mvp         # level up: quickstart → mvp → v1 → scale
 boss list               # every connected project
 ```
 
-## The four stages (progressive unlock)
+## The four modes (progressive unlock)
 
-Each stage is a folder the CLI lays down additively. Construction metaphor; rename freely.
+Each mode is a stage folder the CLI lays down additively as the project earns it.
 
-| Layer | Unlocks | When you've earned it |
-|---|---|---|
-| **L0 · Sketch** | CLAUDE.md skeleton, idea capture (`IDEA-NNN`), memory system, `/triage`, **pm + coder-generalist** | you have an idea or rough PRD |
-| **L1 · Foundation** | `/spec` + `FEAT-NNN`, `/smoke` gate, devlog, `/close` + RESUME.md, session hooks, **tester, program-manager** | building the first working spine |
-| **L2 · Frame** | design tokens + `/design-review`/`/ux-check`, prototypes, `/board`, doc-placement contract, **designer, db-architect, docs-writer** | 3+ features and design matters |
-| **L3 · Structure** | PM org, lab governance, `/refactor-wave`, `/code-health`, `/product-council`, full IDS | managing a real product with sub-domains |
+| Mode | Stage | Unlocks | When you've earned it |
+|---|---|---|---|
+| **Quickstart** | L0 | CLAUDE.md skeleton, idea capture (`IDEA-NNN`), `/boss` spin-up, `/triage`, memory, **pm + coder-generalist** | you have an idea or rough PRD |
+| **MVP** | L1 | `/spec` + `FEAT-NNN`, `/smoke` gate, devlog, `/close` + RESUME.md, session hooks, **tester, program-manager** | ready to build the first working version |
+| **V1** | L2 | design tokens + `/design-review`/`/ux-check`, prototypes, `/board`, doc-placement contract, **designer, db-architect, docs-writer** | ready for a real, shippable v1 |
+| **Scale** | L3 | PM org, lab governance, `/refactor-wave`, `/code-health`, `/product-council`, full IDS | a fully blown-out, complex app |
 
-Only **L0 is authored today.** `boss unlock L1+` reports "not authored yet" gracefully.
+Only **Quickstart is authored today.** `boss unlock mvp` (or `v1`/`scale`) reports "not authored yet" gracefully.
 
 ## The learning loop — why neutral + version-pin pays off
 
@@ -85,8 +85,8 @@ BlueprintOS/
 ├── bin/boss              # CLI entry
 ├── src/                  # CLI: cli, scaffold, registry, paths
 ├── VERSION               # BOSS semver — what projects pin to
-├── stages/               # progressive layers (L0 authored; L1–L3 stubbed)
-│   └── L0-sketch/{manifest.json, template/}
+├── stages/               # progressive modes (Quickstart authored; MVP/V1/Scale stubbed)
+│   └── L0-quickstart/{manifest.json, template/}
 ├── library/              # the superset (de-dhuned, generalized)
 │   ├── agents/ skills/ hooks/ practices/ memory-seed/
 ├── registry/
@@ -97,13 +97,14 @@ BlueprintOS/
 
 ## Roadmap (how BOSS itself gets built)
 
-1. ✅ Repo + registry + CLI skeleton (`new` / `unlock` / `status` / `list`) + L0 stage.
-2. ✅ `/boss` spin-up skill v1 (read PRD → shape → capture IDEA → stack/stage → optional private GitHub repo).
-3. Mine dhun's memory → `library/practices/` + `library/memory-seed/`.
-4. L1 stage + `/smoke` generalization.
-5. `/boss-learn` + `/boss-sync` + versioning — close the loop.
-6. L2, then L3 stages.
-7. Retro-fit dhun itself as a registered project (proves sync on a real codebase).
+1. ✅ Repo + registry + CLI skeleton (`new` / `unlock` / `status` / `list`) + Quickstart mode.
+2. ✅ `/boss` spin-up skill v1 (read PRD → shape → capture IDEA → stack/mode → optional private GitHub repo).
+3. ✅ Modes vocabulary: Quickstart → MVP → V1 → Scale.
+4. Mine dhun's memory → `library/practices/` + `library/memory-seed/`.
+5. MVP mode + `/smoke` generalization.
+6. `/boss-learn` + `/boss-sync` + versioning — close the loop.
+7. V1, then Scale modes.
+8. Retro-fit dhun itself as a registered project (proves sync on a real codebase).
 
 ## What comes from dhun (and what doesn't)
 

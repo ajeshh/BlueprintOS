@@ -9,7 +9,7 @@ status: active
 
 Stable IDs make work addressable across sessions and docs. New types unlock as the project matures.
 
-## Active at L0
+## Active in Quickstart mode
 
 | Prefix | Means | Lives in |
 |---|---|---|
@@ -17,13 +17,13 @@ Stable IDs make work addressable across sessions and docs. New types unlock as t
 
 ## Unlocks later
 
-| Prefix | Means | Unlocks at |
+| Prefix | Means | Unlocks in mode |
 |---|---|---|
-| `FEAT-NNN` | A scoped feature with a spec | L1 |
-| `FIX-NNN` / `BUG-NNN` | A cross-cutting fix or bug | L1 |
-| `DEC-YYYY-MM-DD-NNN` | A logged decision | L2 |
-| `RFC-NNN` | A decision document | L3 |
-| `EXP-NNN` | A lab experiment | L3 |
+| `FEAT-NNN` | A scoped feature with a spec | MVP |
+| `FIX-NNN` / `BUG-NNN` | A cross-cutting fix or bug | MVP |
+| `DEC-YYYY-MM-DD-NNN` | A logged decision | V1 |
+| `RFC-NNN` | A decision document | Scale |
+| `EXP-NNN` | A lab experiment | Scale |
 
 ## Frontmatter (required on every new doc)
 

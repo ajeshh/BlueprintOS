@@ -14,4 +14,16 @@ export function bossVersion() {
 }
 
 // Stage order — index = maturity level. Used to validate `unlock` jumps.
-export const STAGE_ORDER = ['L0-sketch', 'L1-foundation', 'L2-frame', 'L3-structure'];
+// Each stage is a "mode" in the user's vocabulary: Quickstart → MVP → V1 → Scale.
+export const STAGE_ORDER = ['L0-quickstart', 'L1-mvp', 'L2-v1', 'L3-scale'];
+
+// Resolve a user-typed layer to a canonical stage id.
+// Accepts the full id ('L1-mvp'), the level ('L1'), or the mode name ('mvp').
+export function resolveStageId(input) {
+  if (!input) return undefined;
+  const q = input.toLowerCase();
+  return STAGE_ORDER.find((s) => {
+    const sl = s.toLowerCase();
+    return sl === q || sl.startsWith(q + '-') || sl.replace(/^l\d+-/, '') === q;
+  });
+}

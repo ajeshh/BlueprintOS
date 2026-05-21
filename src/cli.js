@@ -1,18 +1,19 @@
 import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { execSync } from 'node:child_process';
-import { bossVersion, STAGE_ORDER } from './paths.js';
+import { bossVersion, STAGE_ORDER, resolveStageId } from './paths.js';
 import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 
 const STAMP = '.boss/manifest.json';
 
-function stageVars(name, stageId) {
+function stageVars(name, stageId, mode) {
   return {
     PROJECT_NAME: name,
     DATE: new Date().toISOString().slice(0, 10),
     BOSS_VERSION: bossVersion(),
     STAGE: stageId,
+    MODE: mode || stageId,
   };
 }
 
@@ -33,15 +34,16 @@ function cmdNew(args) {
   const targetDir = resolve(process.cwd(), name);
   if (existsSync(targetDir)) return fail(`'${name}' already exists here.`);
 
-  const stageId = 'L0-sketch';
-  mkdirSync(targetDir, { recursive: true });
-  applyStage(stageId, targetDir, stageVars(name, stageId));
-
+  const stageId = STAGE_ORDER[0]; // L0-quickstart
   const manifest = readStageManifest(stageId);
+  mkdirSync(targetDir, { recursive: true });
+  applyStage(stageId, targetDir, stageVars(name, stageId, manifest.name));
+
   const stamp = {
     name,
     bossVersion: bossVersion(),
     stage: stageId,
+    mode: manifest.name,
     installedLayers: [stageId],
     agents: manifest.agents || [],
     skills: manifest.skills || [],
@@ -68,11 +70,12 @@ function cmdNew(args) {
     name,
     path: targetDir,
     stage: stageId,
+    mode: manifest.name,
     bossVersion: bossVersion(),
     createdAt: stamp.createdAt,
   });
 
-  console.log(`\n  ✦ Created ${name} at stage ${stageId} (BOSS ${bossVersion()})`);
+  console.log(`\n  ✦ Created ${name} — ${manifest.name} mode (${stageId}, BOSS ${bossVersion()})`);
   console.log(`    agents: ${stamp.agents.join(', ') || '—'}`);
   console.log(`    skills: ${stamp.skills.join(', ') || '—'}`);
   console.log(`\n  Next:`);
@@ -86,26 +89,28 @@ function cmdUnlock(args) {
   const layer = args[0];
   const stamp = readStamp(process.cwd());
   if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
-  if (!layer) return fail(`usage: boss unlock <layer>   (current: ${stamp.stage})`);
+  if (!layer) return fail(`usage: boss unlock <mode>   (current: ${stamp.mode || stamp.stage})`);
 
-  const target = STAGE_ORDER.find((s) => s === layer || s.startsWith(layer));
-  if (!target) return fail(`unknown layer '${layer}'. options: ${STAGE_ORDER.join(', ')}`);
+  const target = resolveStageId(layer);
+  if (!target) return fail(`unknown mode '${layer}'. options: ${STAGE_ORDER.join(', ')}`);
   if (stamp.installedLayers.includes(target)) return fail(`${target} already installed.`);
 
+  let m;
   try {
-    applyStage(target, process.cwd(), stageVars(stamp.name, target));
+    m = readStageManifest(target);
+    applyStage(target, process.cwd(), stageVars(stamp.name, target, m.name));
   } catch (e) {
     return fail(`${target} not authored yet — ${e.message}`);
   }
 
-  const m = readStageManifest(target);
   stamp.stage = target;
+  stamp.mode = m.name;
   stamp.installedLayers.push(target);
   stamp.agents = [...new Set([...(stamp.agents || []), ...(m.agents || [])])];
   stamp.skills = [...new Set([...(stamp.skills || []), ...(m.skills || [])])];
   writeStamp(process.cwd(), stamp);
-  registerProject({ name: stamp.name, path: process.cwd(), stage: target, bossVersion: bossVersion() });
-  console.log(`\n  ✦ Unlocked ${target}. Stage is now ${stamp.stage}.\n`);
+  registerProject({ name: stamp.name, path: process.cwd(), stage: target, mode: m.name, bossVersion: bossVersion() });
+  console.log(`\n  ✦ Unlocked ${m.name} mode (${target}).\n`);
 }
 
 function cmdStatus() {
@@ -113,7 +118,7 @@ function cmdStatus() {
   if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
   const current = bossVersion();
   console.log(`\n  ${stamp.name}`);
-  console.log(`    stage:        ${stamp.stage}`);
+  console.log(`    mode:         ${stamp.mode || stamp.stage}  (${stamp.stage})`);
   console.log(`    layers:       ${stamp.installedLayers.join(' → ')}`);
   console.log(`    BOSS pinned:  ${stamp.bossVersion}`);
   console.log(`    BOSS current: ${current}`);
@@ -131,7 +136,7 @@ function cmdList() {
   }
   console.log(`\n  ${projects.length} connected project(s):\n`);
   for (const p of projects) {
-    console.log(`    ${p.name.padEnd(20)} ${(p.stage || '?').padEnd(14)} BOSS@${p.bossVersion || '?'}`);
+    console.log(`    ${p.name.padEnd(20)} ${(p.mode || p.stage || '?').padEnd(12)} BOSS@${p.bossVersion || '?'}`);
     console.log(`    ${''.padEnd(20)} ${p.path}`);
   }
   console.log('');
@@ -153,10 +158,11 @@ export function run(argv) {
       return console.log(bossVersion());
     default:
       console.log(`BlueprintOS (BOSS) ${bossVersion()}\n`);
-      console.log('  boss new <name>      scaffold a new project at L0 + register it');
-      console.log('  boss unlock <layer>  additively lay down the next stage');
-      console.log('  boss status          this project: stage, pinned version, drift');
+      console.log('  boss new <name>      scaffold a new project in Quickstart mode + register it');
+      console.log('  boss unlock <mode>   level up: quickstart → mvp → v1 → scale');
+      console.log('  boss status          this project: mode, pinned version, drift');
       console.log('  boss list            all connected projects');
       console.log('  boss version         BOSS version\n');
+      console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');
   }
 }

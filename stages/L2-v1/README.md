@@ -1,6 +1,6 @@
-# L2 · Frame — NOT YET AUTHORED
+# L2 · V1 — NOT YET AUTHORED
 
-The growing-product layer. Planned contents (generalized from dhun):
+The shippable-v1 mode — "ready for a real, polished release." Planned contents (generalized from dhun):
 
 - design tokens + `/design-review` + `/ux-check`
 - prototype process + REGISTRY

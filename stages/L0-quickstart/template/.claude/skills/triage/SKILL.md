@@ -17,7 +17,7 @@ Capture intent before it evaporates. Takes a rough thought and produces a struct
    - **Scope** — what's in, what's explicitly out.
    - **Next step** — the smallest thing that moves it forward.
 3. Append an entry to `docs/ideas/INDEX.md` and (if substantial) create `docs/ideas/IDEA-NNN-<slug>.md` with frontmatter (`id`, `type: idea`, `owner`, `status: seedling`).
-4. If the idea is clearly ready to build, say so and suggest looping in `pm` to scope it — or, if the project is outgrowing L0, suggest `boss unlock L1` for the full spec + build gate.
+4. If the idea is clearly ready to build, say so and suggest looping in `pm` to scope it — or, if the project is outgrowing Quickstart, suggest `boss unlock mvp` for the full spec + build gate.
 
 ## Rules
 

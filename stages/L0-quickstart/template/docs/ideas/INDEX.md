@@ -8,7 +8,7 @@ status: active
 # {{PROJECT_NAME}} — Idea Pool
 
 Raw ideas, captured before they're built. Use `/triage <thought>` to add one.
-Promote an idea to a spec (`FEAT-NNN`) once L1 is unlocked and it's ready to build.
+Promote an idea to a spec (`FEAT-NNN`) once MVP mode is unlocked and it's ready to build.
 
 | ID | Title | Status | Note |
 |---|---|---|---|
@@ -18,7 +18,7 @@ Promote an idea to a spec (`FEAT-NNN`) once L1 is unlocked and it's ready to bui
 
 - `seedling` — captured, not yet examined
 - `exploring` — being thought through
-- `ready` — scoped, ready to build (promote to FEAT at L1)
+- `ready` — scoped, ready to build (promote to FEAT in MVP mode)
 - `building` — in progress
 - `shipped` — done
 - `dropped` — decided against (keep the row; record why)
