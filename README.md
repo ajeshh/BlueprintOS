@@ -23,6 +23,9 @@ with its own git repo, and every project it touches keeps a `.boss/` stamp point
    stage: L1      stage: L3          stage: L0
 ```
 
+> **What BOSS is** is defined by [`PRINCIPLES.md`](PRINCIPLES.md) — six rules, chief among them:
+> *always scaffolding, but pause to sort patterns UP (BOSS superset practice) or DOWN (app core).*
+
 ## Two halves
 
 - **`boss` CLI** — *deterministic*: scaffold files, copy stage layers, manage the registry,

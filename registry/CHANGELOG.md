@@ -2,6 +2,16 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.5.0 — 2026-05-21
+
+- **PRINCIPLES.md** — BOSS's six operating principles. #1: always scaffolding, but pause to sort
+  patterns UP (BOSS superset practice) or DOWN (app core); `/boss-learn` becomes a two-way router.
+  #3: nothing valuable gets locked into code (style → tokens, prototypes reuse the same system).
+- **Design-system practice** (`library/practices/design-system.md`) — generalized from dhun:
+  tokens as single source of truth, central style utils, 5-state rule, prototype reuse, JIT
+  enforcement (turns on at V1; seed tokens the moment real UI appears).
+- V1 mode stub fleshed out with the design layer + enforcement timing.
+
 ## 0.4.0 — 2026-05-21
 
 - **Quickstart becomes a tiny incubator:** capture → keep adding → canvas → unlock MVP.
