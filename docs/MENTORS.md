@@ -67,8 +67,9 @@ Dossier artifacts live in `docs/` (likely `docs/dossier/`), under the founder's 
 
 ## Encoding real people
 
-Mentor voices and heuristics are seeded from **real practitioners' best-practices** (Ajesh maintains a
-list — pending). The loop: study a person → distill their transferable heuristics → route UP via
+Mentor voices and heuristics are seeded from **real practitioners' best-practices**. The source roster
+(deduplicated, grouped by archetype) lives in [`mentor-practitioners.md`](mentor-practitioners.md). The
+loop: study a person → distill their transferable heuristics → route UP via
 `/boss-learn` into `library/practices/` (the named practice) and `library/memory-seed/` (feedback every
 new project starts with) → a mentor agent cites those practices.
 

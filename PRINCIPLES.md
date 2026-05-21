@@ -1,5 +1,21 @@
 # BlueprintOS — Operating Principles
 
+## The why (the problem BOSS exists for)
+
+Founders can now build faster than they can validate. AI makes a polished prototype cheap — which
+creates a new trap: confusing a **pseudo app** (an impressive demo with no proven pain, workflow fit,
+willingness to pay, distribution, or reliability) with a **real business value app** (solves a painful
+problem for a specific customer, fits a real workflow, creates measurable value, has a path to
+distribution). BOSS is the guidance layer between those two states.
+
+> **BOSS helps founders build faster without fooling themselves** — compressing the loop from idea to
+> evidence while continuously checking the work against real pain, real workflows, real buyers, real
+> economics, and real distribution. The goal is not more pseudo apps; it's real business value apps.
+
+The six rules below are how that promise is kept.
+
+---
+
 The few rules that define what BOSS *is*. Everything else (modes, skills, the CLI) is in service of these.
 
 ## 1. Always scaffolding — pause to extract patterns

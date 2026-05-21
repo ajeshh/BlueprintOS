@@ -2,6 +2,10 @@
 
 > A meta-system that captures everything learned building real apps and lets you cold-start
 > new projects at the **right level of agentic ceremony** — then grow them stage by stage.
+>
+> The promise: **BOSS helps founders build faster without fooling themselves** — turning a pseudo app
+> (an impressive demo) into a real business-value app (proven pain, workflow fit, willingness to pay).
+> See [`PRINCIPLES.md`](PRINCIPLES.md).
 
 **BOSS is npm inverted.** npm is a registry of packages your projects pull *down*. BOSS is the
 *upstream*: it scaffolds projects, keeps a registry of every project it has birthed, pushes

@@ -14,6 +14,7 @@ BOSS's own backlog, dogfooding its own ID system.
 | [IDEA-001](IDEA-001-learning-loop.md) | Learning loop (`/boss-learn` two-way router + `/boss-sync`) | ready | next build; closes UP/DOWN extraction (Principle 1) |
 | [IDEA-002](IDEA-002-mvp-mode.md) | Author MVP mode (L1-mvp) | ready | extract this repo's own practice UP into the template |
 | [IDEA-003](IDEA-003-mentor-layer.md) | Mentor layer — incubator/advisory agents + founder dossier | exploring | the "much bigger idea"; design in `docs/MENTORS.md` |
+| [IDEA-004](IDEA-004-temple-culture.md) | Temple culture layer — human-agent collaboration as decision infra | exploring | values as do/avoid/escalate rules + elevation ladder; the claimed differentiator |
 
 Canvas for BOSS itself: [CANVAS.md](CANVAS.md).
 

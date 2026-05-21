@@ -32,6 +32,11 @@ created: 2026-05-21
 - 2026-05-21 — **structure shipped in v0.9.0:** `docs/MENTORS.md` (two-class model, roster, JIT-per-mode
   mapping, dossier, the hard line) + cornerstone `mentor-venture` agent seeded into Quickstart. Status
   → building. Remaining: encode the people list, author the rest of the roster per mode, dossier templates.
+- 2026-05-21 — **the people list arrived.** Ajesh's vision doc (`~/Documents/stuff/founder_mentor_
+  process_map_temple.md`) carries the full named roster. Extracted + deduplicated + archetype-mapped into
+  [`docs/mentor-practitioners.md`](../mentor-practitioners.md) — the *input* for the `/boss-learn` UP step.
+  Suggested encoding order: `mentor-venture` feeders first (Fitzpatrick, Torres, Moesta, Savoia, Maurya).
+  The doc also spawned [IDEA-004](IDEA-004-temple-culture.md) (the Temple/culture layer).
 
 ## Open questions
 - Where mentors live (project `.claude/agents/` with `mentor-` prefix vs a separate surface)?
