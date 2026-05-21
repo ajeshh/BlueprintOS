@@ -2,6 +2,20 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.9.0 — 2026-05-21
+
+- **Mentor layer — structure + cornerstone (IDEA-003).** BOSS's second agent class lands.
+  - **`docs/MENTORS.md`** — the design: two classes (builders make the app, `mentor-*` coach the
+    founder), the roster + JIT-per-mode mapping (venture → architect/GTM → fundraising/pitch/talent/
+    business → humane), the founder **dossier** (canvas → proposal → architecture brief → pitch →
+    hiring plan → data room), and the hard line (no binding legal/financial advice; humane before viable).
+  - **`mentor-venture` agent** seeded into Quickstart (`library/agents/` + template + manifest). The
+    cornerstone mentor: pressure-tests whether an idea is worth it, names the riskiest assumption,
+    points at the next real step, owns the canvas conversation. Advisory only — never writes code/specs.
+  - Existing projects pull `mentor-venture` + the new skills via `boss sync` / `/boss-sync`.
+  - _Still open:_ encoding real practitioners' best-practices UP into `practices/` + `memory-seed/`
+    (awaiting the list); authoring the rest of the roster as their modes get built.
+
 ## 0.8.0 — 2026-05-21
 
 - **The learning loop (IDEA-001).** PRINCIPLES #1 made operational, in both directions:

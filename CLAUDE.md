@@ -29,7 +29,7 @@ A just-in-time startup incubator: it scaffolds a project at the right level of c
 
 ## Reference
 
-### Two classes of agents (see [`docs/MENTORS.md`](docs/MENTORS.md) when authored)
+### Two classes of agents (see [`docs/MENTORS.md`](docs/MENTORS.md))
 - **Builders** — make the product (pm, coder, tester, designer…).
 - **Mentors** (`mentor-*`) — coach the founder (venture lead, business, architect, fundraising, talent, pitch).
 

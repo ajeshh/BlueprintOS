@@ -16,8 +16,8 @@
 
 ## What exists in this mode ({{MODE}})
 
-- **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen).
-- **Skills:** `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs).
+- **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen), `mentor-venture` (coaches *you*, the founder — is this worth it, what's the riskiest assumption, what's the next real step).
+- **Skills:** `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
 - **Docs:** `docs/ideas/` (living idea docs + canvases), `docs/IDS.md` (the ID system, minimal here).
 - **Memory:** Claude's auto-memory is active — it records who you are, your preferences, and project context across sessions.
 
@@ -60,6 +60,7 @@ _TBD — describe the project here, or point at the PRD._
 |---|---|
 | `pm` | What's worth building, scope, priority. Not a coder. |
 | `coder-generalist` | Implementation in the chosen stack. Configured when the stack is decided. |
+| `mentor-venture` | Coaches the founder: is this worth it, riskiest assumption, next step. Advisory only — no code. More mentors unlock per mode (see `docs/MENTORS.md`). |
 
 ### Conventions
 

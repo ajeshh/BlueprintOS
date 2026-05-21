@@ -2,7 +2,7 @@
 id: IDEA-003
 type: idea
 owner: pm
-status: exploring
+status: building
 created: 2026-05-21
 ---
 
@@ -29,6 +29,9 @@ created: 2026-05-21
   we should study and encode into the mentor roster (and likely `library/practices/` +
   `memory-seed/` via `/boss-learn`). *Awaiting the list.* Each person → source material for a
   mentor's voice/heuristics, or a named practice doc. (See open question on attribution below.)
+- 2026-05-21 — **structure shipped in v0.9.0:** `docs/MENTORS.md` (two-class model, roster, JIT-per-mode
+  mapping, dossier, the hard line) + cornerstone `mentor-venture` agent seeded into Quickstart. Status
+  → building. Remaining: encode the people list, author the rest of the roster per mode, dossier templates.
 
 ## Open questions
 - Where mentors live (project `.claude/agents/` with `mentor-` prefix vs a separate surface)?

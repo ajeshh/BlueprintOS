@@ -1,9 +1,9 @@
 {
   "id": "L0-quickstart",
   "name": "Quickstart",
-  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — one PM + one coder, almost no ceremony.",
+  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony.",
   "requires": null,
-  "agents": ["pm", "coder-generalist"],
+  "agents": ["pm", "coder-generalist", "mentor-venture"],
   "skills": ["boss", "triage", "canvas", "boss-sync", "boss-learn"],
   "hooks": [],
   "unlocksNext": "L1-mvp",
