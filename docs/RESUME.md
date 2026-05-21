@@ -45,14 +45,29 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 - Sync of user-editable files (CLAUDE.md/settings.json): v1 syncs only BOSS-managed skills/agents; merge strategy for the rest = later.
 - BOSS's own business model — open (canvas says don't monetize lock-in). Decide later, on evidence.
 - Mentor agents' home: project `.claude/agents/` with `mentor-` prefix (leaning yes).
+- Optional: scrub the old `registry/projects.json` (home path + `margin`) from git history. Removed
+  going forward as of v0.7.0; only matters if the public history bothers you (needs force-push).
 
 ## Prompt for the next session
-> Continue BlueprintOS. Read docs/RESUME.md. We're dogfooding BOSS on itself (v0.6.0, MVP mode).
-> Next: (1) add `claude-append.md` support to `boss unlock`, then build the learning loop —
-> `boss sync` + `boss learn` CLI and the `/boss-sync` + `/boss-learn` skills (two-way UP/DOWN router,
-> IDEA-001). (2) Author MVP mode by extracting this repo's own practices into stages/L1-mvp/ (IDEA-002).
-> (3) Author docs/MENTORS.md + seed mentor-venture (IDEA-003). Bump VERSION + CHANGELOG per capability,
-> test the CLI in /tmp and prune the test entry from registry, commit with the noreply env-var, push.
+> Continue BlueprintOS (in ~/Projects/BlueprintOS). Read docs/RESUME.md and PRINCIPLES.md first.
+> We're at v0.7.0, dogfooding BOSS on itself (MVP mode); registry is machine-local at
+> ~/.boss/registry.json; the npm `files` allowlist keeps docs/ + .boss/ + root CLAUDE.md out of the
+> shipped package.
+>
+> Next, in order:
+> 1. IDEA-001 — Learning loop. First add `claude-append.md` support to `boss unlock` (additive
+>    CLAUDE.md, no overwrite). Then `boss sync` (bring a project's installed-mode skills/agents to
+>    current, reviewable, bump its `.boss` pin) + `boss learn <path> --as <cat>` (copy a pattern UP
+>    into library/, bump VERSION + CHANGELOG). Skills `/boss-sync` + `/boss-learn` (two-way UP/DOWN
+>    router per PRINCIPLES #1). Then sync `margin` (on v0.2.0) up to prove the loop.
+> 2. IDEA-002 — Author MVP mode by extracting this repo's own practices into stages/L1-mvp/
+>    (/spec+FEAT, /smoke placeholder, /log+devlog, /close+RESUME, tester + program-manager).
+> 3. IDEA-003 — Author docs/MENTORS.md (builders vs mentors, roster, JIT-per-mode, founder dossier);
+>    seed mentor-venture into Quickstart.
+>
+> Per capability: bump VERSION + package.json (keep in sync) + add a registry/CHANGELOG.md entry +
+> update this RESUME. Test the CLI in /tmp, prune /tmp entries from ~/.boss/registry.json, commit
+> with the GH noreply env-var (never global config), push.
 
 ## Working reminders
 - Commit with GH noreply env-var (never global config): `NR=$(gh api user --jq '"\(.id)+\(.login)@users.noreply.github.com"')`.
