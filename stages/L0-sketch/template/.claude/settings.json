@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Bash",
+      "Agent",
+      "TodoWrite"
+    ]
+  }
+}

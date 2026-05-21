@@ -1,0 +1,16 @@
+{
+  "name": "blueprintos",
+  "version": "0.1.0",
+  "description": "BlueprintOS (BOSS) — npm-inverted scaffolding system: cold-starts new projects at the right level of agentic ceremony and grows them stage by stage.",
+  "type": "module",
+  "bin": {
+    "boss": "bin/boss"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "link": "npm install -g ."
+  },
+  "license": "MIT"
+}
