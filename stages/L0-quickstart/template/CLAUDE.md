@@ -17,9 +17,18 @@
 ## What exists in this mode ({{MODE}})
 
 - **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen).
-- **Skills:** `/boss` (spin up an idea into a shaped, captured starting point), `/triage` (turn a vague thought into a structured `IDEA-NNN`).
-- **Docs:** `docs/ideas/` (the idea pool), `docs/IDS.md` (the ID system, minimal here).
+- **Skills:** `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs).
+- **Docs:** `docs/ideas/` (living idea docs + canvases), `docs/IDS.md` (the ID system, minimal here).
 - **Memory:** Claude's auto-memory is active — it records who you are, your preferences, and project context across sessions.
+
+### The Quickstart arc
+
+Quickstart is a tiny incubator: **capture → keep adding → canvas → unlock MVP.**
+
+1. **Capture** a raw idea with `/triage` (or `/boss`). It becomes a living `docs/ideas/IDEA-NNN.md`.
+2. **Keep adding.** Re-run `/triage` whenever a new thought lands — it appends to the capture log and sharpens the idea. No pressure to "finish."
+3. **Canvas** it with `/canvas` once it has legs — a humane business pressure-test (the Humane Product Canvas + lean/Lenny prompts) that names the riskiest assumption and a one-week experiment.
+4. **Unlock MVP** (`boss unlock mvp`) when the canvas holds up and you're ready to build.
 
 ## The four modes (unlock additively)
 

@@ -4,7 +4,7 @@
   "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — one PM + one coder, almost no ceremony.",
   "requires": null,
   "agents": ["pm", "coder-generalist"],
-  "skills": ["boss", "triage"],
+  "skills": ["boss", "triage", "canvas"],
   "hooks": [],
   "unlocksNext": "L1-mvp",
   "graduationHint": "When you're ready to actually build, switch to MVP mode: boss unlock mvp."

@@ -2,6 +2,17 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.4.0 — 2026-05-21
+
+- **Quickstart becomes a tiny incubator:** capture → keep adding → canvas → unlock MVP.
+- `/triage` rewritten as **living idea capture** — one evolving doc per idea (sharpening
+  "current shape" + append-only capture log). Re-run anytime to keep adding.
+- New `/canvas` skill: a **humane business pressure-test** — Ajesh Shah's Humane Product Canvas
+  (Human Foundation / Product Expression / Stewardship) as the spine, with Lean + Lenny-style
+  prompts folded into each cell, plus the incubation heartbeat (riskiest assumption + one
+  experiment this week). Acts as the Quickstart→MVP graduation gate.
+- North star recorded: BOSS is a just-in-time startup incubator — the right support shows up per mode.
+
 ## 0.3.0 — 2026-05-20
 
 - Stages renamed to **modes** (the user's vocabulary): Quickstart → MVP → V1 → Scale
