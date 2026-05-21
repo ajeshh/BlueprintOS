@@ -49,6 +49,17 @@ function cmdNew(args) {
   };
   writeStamp(targetDir, stamp);
 
+  // User-tunable defaults the /boss spin-up skill reads. Separate from manifest.json
+  // (the install record) so users can edit prefs without touching the layer ledger.
+  writeFileSync(
+    join(targetDir, '.boss', 'config.json'),
+    JSON.stringify({
+      github: 'ask',          // ask | always | never — create a remote when an idea lands
+      visibility: 'private',  // private | public
+      license: 'proprietary', // proprietary | MIT | Apache-2.0 | AGPL-3.0
+    }, null, 2) + '\n',
+  );
+
   try {
     execSync('git init -q', { cwd: targetDir });
   } catch { /* git optional */ }

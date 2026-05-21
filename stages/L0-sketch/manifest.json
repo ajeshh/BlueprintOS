@@ -4,7 +4,7 @@
   "summary": "Idea captured, repo born. The smallest agentic footprint: capture intent, remember context, one PM + one coder.",
   "requires": null,
   "agents": ["pm", "coder-generalist"],
-  "skills": ["triage"],
+  "skills": ["boss", "triage"],
   "hooks": [],
   "unlocksNext": "L1-foundation",
   "graduationHint": "When you have 3+ captured ideas worth building and want specs + a build gate, unlock L1."

@@ -98,7 +98,7 @@ BlueprintOS/
 ## Roadmap (how BOSS itself gets built)
 
 1. ✅ Repo + registry + CLI skeleton (`new` / `unlock` / `status` / `list`) + L0 stage.
-2. `/boss` spin-up skill v1 (read PRD → pick stage → configure stack → seed ideas).
+2. ✅ `/boss` spin-up skill v1 (read PRD → shape → capture IDEA → stack/stage → optional private GitHub repo).
 3. Mine dhun's memory → `library/practices/` + `library/memory-seed/`.
 4. L1 stage + `/smoke` generalization.
 5. `/boss-learn` + `/boss-sync` + versioning — close the loop.
