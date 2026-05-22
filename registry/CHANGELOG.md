@@ -2,6 +2,31 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.14.0 — 2026-05-22
+
+- **MVP mode (L1-mvp) is authored — `boss unlock mvp` works for real (closes IDEA-002).** Until now
+  the L1 stage was a placeholder README; unlocking MVP errored out as "not authored yet." This release
+  extracts this repo's own MVP practice UP into a real `stages/L1-mvp/{manifest.json,template/}`:
+  - **Skills:** `/spec` (promote `IDEA-NNN` → `FEAT-NNN` with goal, acceptance criteria, smoke check,
+    out-of-scope), `/smoke` (stack-configured build-health gate; saves the command to `.boss/smoke.json`
+    on first use), `/log` (append-only `docs/devlog.md` — newest at the top, dated, FEAT-tagged),
+    `/close` (session-end ritual that rewrites `docs/RESUME.md` and runs `/log`).
+  - **Builder agents:** `tester` (owns `/smoke` + FEAT acceptance — surfaces, doesn't fix),
+    `program-manager` (the *when* — sequences FEATs, names blocks, distinct from `pm`'s *what*).
+  - **Mentor agents (advisory, never code):** `mentor-architect` (load-bearing decisions: data shape,
+    boundaries, what to defer — the calibration against over-architecting an MVP) and `mentor-gtm`
+    (first 100 users, channels, message — earned-when-needed, humane before viable).
+  - **Additive CLAUDE.md** via `claude-append.md` — the mechanism shipped in v0.8.0 finally has its
+    first real consumer. MVP's working rules (spec → smoke → log → close loop, conscience still runs)
+    fold into the existing CLAUDE.md under the `boss:L1-mvp` marker; never overwrites Quickstart's rules.
+  - **`boss sync` carries it for free** — the manifest's agents/skills are picked up by `managedFiles`
+    in `src/sync.js`, so projects pinned at older versions get the MVP files via `/boss-sync` once they
+    unlock the layer. (Hooks list is empty in this manifest — moments #3/#4 remain TBD.)
+  - Tested in `/tmp`: scaffolded a Quickstart project, `boss unlock mvp` added 4 skills + 4 agents,
+    appended the MVP working-rules block to CLAUDE.md, updated the stamp (`L0-quickstart → L1-mvp`,
+    merged agents/skills), kept Quickstart files untouched, re-running unlock no-ops cleanly, `boss
+    sync` recognizes everything as up-to-date.
+
 ## 0.13.0 — 2026-05-21
 
 - **`boss sync` now carries hooks + settings (closes the conscience's reach gap).** Until now the

@@ -2,8 +2,9 @@
 id: IDEA-002
 type: idea
 owner: pm
-status: ready
+status: shipped
 created: 2026-05-21
+shipped: 2026-05-22 (v0.14.0)
 ---
 
 # Author MVP mode (L1-mvp)
@@ -19,6 +20,7 @@ created: 2026-05-21
 
 ## Capture log
 - 2026-05-21 — `applyStage` overwrites files; MVP must add NEW files only + append to CLAUDE.md via a `claude-append.md` mechanism (build into `boss unlock`).
+- 2026-05-22 — **Shipped in v0.14.0.** `stages/L1-mvp/{manifest.json,template/}` authored. Skills: `/spec` (`IDEA→FEAT-NNN`), `/smoke` (stack-configured via `.boss/smoke.json`), `/log` (devlog), `/close` (RESUME ritual). Builder agents: `tester` (surfaces, doesn't fix), `program-manager` (the *when*). Mentor agents: `mentor-architect` (load-bearing decisions + what to defer), `mentor-gtm` (first 100, humane before viable). Working rules via `claude-append.md` — additive under `boss:L1-mvp` marker; never overwrites Quickstart. End-to-end tested in `/tmp`: scaffold → unlock mvp → 4 skills + 4 agents land, CLAUDE.md gets the MVP block, stamp merges correctly, re-unlock is a no-op, `boss sync` shows everything as up-to-date.
 
 ## Open questions
 - `/smoke` is stack-specific — template ships a placeholder smoke skill the spin-up fills per stack.

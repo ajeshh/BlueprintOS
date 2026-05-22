@@ -1,0 +1,11 @@
+{
+  "id": "L1-mvp",
+  "name": "MVP",
+  "summary": "Ready to build the first working version. Adds a spec convention (/spec + FEAT-NNN), a stack-configured build gate (/smoke), a devlog (/log), and a session-end ritual (/close + RESUME.md). Adds a tester + program-manager builder pair, and the mentors that matter when you start building: architect (stack/data/boundaries) and GTM (first 100 users).",
+  "requires": "L0-quickstart",
+  "agents": ["tester", "program-manager", "mentor-architect", "mentor-gtm"],
+  "skills": ["spec", "smoke", "log", "close"],
+  "hooks": [],
+  "unlocksNext": "L2-v1",
+  "graduationHint": "When you have real users and the app needs design rigor, a real db, and prototypes — boss unlock v1."
+}
