@@ -7,7 +7,9 @@ description: Pull current BOSS practices into this project — bring the install
 
 The distribution half of the learning loop (PRINCIPLES #1): improvements promoted UP into the BOSS
 library flow back DOWN into every connected project. This skill brings *this* project's BOSS-managed
-files (the skills + agents of its installed modes) up to the current version — reviewed, not blind.
+files (the skills, agents, and hooks of its installed modes) up to the current version — reviewed, not
+blind. Hook *registrations* are merged into `.claude/settings.json` additively, never clobbering your
+own permissions or hooks.
 
 ## 0. Orient (silent)
 
@@ -17,8 +19,10 @@ files (the skills + agents of its installed modes) up to the current version —
 
 ## 1. Preview
 
-Run `boss sync` (no flags). It lists each BOSS-managed file as `new`, `changed (N lines)`, or up to date,
-across all installed modes, and reconciles any stale mode label (e.g. an old `L0-sketch` pin → `L0-quickstart`).
+Run `boss sync` (no flags). It lists each BOSS-managed file (skills, agents, hooks) as `new`,
+`changed (N lines)`, or up to date, across all installed modes; flags a `~ merge settings/hooks` line if
+hook registrations need adding to `.claude/settings.json`; and reconciles any stale mode label (e.g. an
+old `L0-sketch` pin → `L0-quickstart`).
 
 ## 2. Review (the judgment)
 
@@ -34,12 +38,15 @@ Before applying, for each **changed** file:
 - Then show `git diff` and let the user review and commit. The project is the source of truth for its
   own history; BOSS just proposes the update.
 
-## Scope (v1)
+## Scope
 
-- Syncs only **BOSS-managed skills/agents** for installed modes.
-- Does **not** auto-merge user-editable files (`CLAUDE.md`, `.claude/settings.json`). If the CHANGELOG
-  implies those should change, surface it and let the user merge by hand.
-- New skills/agents added to a mode since the pin are pulled in; nothing is removed.
+- Syncs **BOSS-managed skills, agents, and hook scripts** for installed modes.
+- **Merges hook registrations into `.claude/settings.json`** additively — adds the `UserPromptSubmit`
+  (etc.) entries BOSS ships, matched by command so it's idempotent, and **preserves your permissions and
+  any hooks you added.** This is the one user-editable file sync touches, and only the `hooks` block.
+- Does **not** auto-merge `CLAUDE.md` or other `settings.json` keys. If the CHANGELOG implies those should
+  change, surface it and let the user merge by hand.
+- New skills/agents/hooks added to a mode since the pin are pulled in; nothing is removed.
 
 ## Rules
 

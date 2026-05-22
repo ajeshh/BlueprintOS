@@ -2,6 +2,38 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.13.0 — 2026-05-21
+
+- **`boss sync` now carries hooks + settings (closes the conscience's reach gap).** Until now the
+  conscience hook (v0.12.0) reached *new* projects only — `boss sync` carried skills/agents but not
+  hooks or `settings.json`, so existing projects (e.g. `betabeta`) couldn't get it. Fixed:
+  - **Hook scripts sync like any managed file** — `manifest.hooks` → `.claude/hooks/<name>.sh`, shown as
+    `new`/`changed`/`ok` in the preview, written on `--apply`.
+  - **Hook registrations merge into `.claude/settings.json` additively** — `boss sync` adds the
+    `UserPromptSubmit` (etc.) entries BOSS ships, **matched by command so it's idempotent**, and
+    **preserves the user's permissions and their own hooks.** It's the one user-editable file sync
+    touches, and only the `hooks` block. (`computeSettingsMerge` in `src/sync.js`.)
+  - The `.boss` stamp now tracks `hooks` (alongside agents/skills); `boss new`/`unlock` record them.
+  - `/boss-sync` skill narrates the new behavior. Tested in `/tmp`: an "old" project (no hook,
+    permissions-only settings, pinned 0.10.0) → sync adds the hook + merges settings (permissions
+    preserved) + bumps the pin; idempotent on re-run.
+  - **Existing projects can now `boss sync --apply` (or `/boss-sync`) to receive the conscience.**
+
+## 0.12.0 — 2026-05-21
+
+- **The conscience can now speak *unprompted* (spike → shipped).** Until now both moments only fired
+  when you ran a skill (`/triage`, `/canvas`). A new **`UserPromptSubmit` hook** lets moment #1
+  ("what does this prove?") surface on its own:
+  - `.claude/hooks/conscience.sh` — detection only: if ≥3 dated capture-log entries exist across
+    `docs/ideas/` and no canvas has a *filled* riskiest assumption (capturing-lots / validating-nothing),
+    it returns `additionalContext` — a **signal**, not canned copy. Claude keeps the voice and the
+    judgment: it decides whether the moment fits, says it once in BOSS's register, or stays silent.
+  - Registered in the template `.claude/settings.json`; invoked via `bash …` so it needs no execute bit.
+    `manifest.json` hooks: `["conscience"]`.
+  - Confirms the architecture for the remaining moments: **hook = detection, model = tact + voice.**
+  - _Caveats:_ reaches **new** projects only (`boss sync` doesn't carry `settings.json`/hooks yet); the
+    *feel* (wise vs. naggy) still needs live validation, like moment #1 in `betabeta`.
+
 ## 0.11.0 — 2026-05-21
 
 - **The conscience — second moment: "Done!" (`/canvas` graduation).** The *affirming* register,

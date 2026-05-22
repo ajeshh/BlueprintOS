@@ -49,6 +49,7 @@ function cmdNew(args) {
     installedLayers: [stageId],
     agents: manifest.agents || [],
     skills: manifest.skills || [],
+    hooks: manifest.hooks || [],
     createdAt: new Date().toISOString(),
   };
   writeStamp(targetDir, stamp);
@@ -110,6 +111,7 @@ function cmdUnlock(args) {
   stamp.installedLayers.push(target);
   stamp.agents = [...new Set([...(stamp.agents || []), ...(m.agents || [])])];
   stamp.skills = [...new Set([...(stamp.skills || []), ...(m.skills || [])])];
+  stamp.hooks = [...new Set([...(stamp.hooks || []), ...(m.hooks || [])])];
   writeStamp(process.cwd(), stamp);
   registerProject({ name: stamp.name, path: process.cwd(), stage: target, mode: m.name, bossVersion: bossVersion() });
   console.log(`\n  ✦ Unlocked ${m.name} mode (${target}).`);
@@ -171,18 +173,22 @@ function cmdSync(args) {
 
   const plan = planSync(process.cwd(), stamp);
   const changed = plan.entries.filter((e) => e.status !== 'ok');
+  const settingsChanged = !!(plan.settings && plan.settings.changed);
 
   console.log(`\n  ${stamp.name} — sync`);
   console.log(`    pin:    ${plan.pin}${plan.drift ? `  →  current ${plan.current}` : '  (current)'}`);
   console.log(`    layers: ${plan.layers.join(' → ')}\n`);
 
-  if (!changed.length) {
-    console.log('    ✓ BOSS-managed skills/agents are up to date.');
+  if (!changed.length && !settingsChanged) {
+    console.log('    ✓ BOSS-managed skills/agents/hooks are up to date.');
     if (plan.drift && !apply) console.log('    (run `boss sync --apply` to bump the pin to current.)');
   } else {
     for (const e of changed) {
       const mark = e.status === 'new' ? '+ new    ' : `~ changed (${e.delta} lines)`;
       console.log(`    ${mark}  ${e.kind}/${e.name}  →  ${e.rel}`);
+    }
+    if (settingsChanged) {
+      console.log(`    ~ merge    settings/hooks  →  ${plan.settings.rel}  (additive — keeps your permissions)`);
     }
   }
 
@@ -245,7 +251,7 @@ export function run(argv) {
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
       console.log('  boss status              this project: mode, pinned version, drift');
       console.log('  boss list                all connected projects');
-      console.log('  boss sync [--apply]      pull current BOSS skills/agents into this project (DOWN)');
+      console.log('  boss sync [--apply]      pull current BOSS skills/agents/hooks into this project (DOWN)');
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
       console.log('  boss version             BOSS version\n');
       console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');

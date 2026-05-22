@@ -39,7 +39,60 @@ function managedFiles(stageId, manifest) {
       rel: join('.claude', 'skills', s, 'SKILL.md'),
     });
   }
+  for (const h of manifest.hooks || []) {
+    out.push({
+      kind: 'hook',
+      name: h,
+      src: join(base, 'hooks', `${h}.sh`),
+      rel: join('.claude', 'hooks', `${h}.sh`),
+    });
+  }
   return out;
+}
+
+// Hook *scripts* sync like any managed file (above). Their *registration* lives in
+// settings.json — a user-editable file — so we merge it in additively instead of
+// overwriting: BOSS owns the hook entries it ships, the user owns everything else
+// (permissions, their own hooks). Matched by command, so re-syncing is idempotent.
+function templateHooks(stageId) {
+  const f = join(STAGES_DIR, stageId, 'template', '.claude', 'settings.json');
+  if (!existsSync(f)) return {};
+  try { return JSON.parse(readFileSync(f, 'utf8')).hooks || {}; } catch { return {}; }
+}
+
+function eventCommands(entries) {
+  const cmds = new Set();
+  for (const entry of entries || []) {
+    for (const h of entry.hooks || []) if (h.command) cmds.add(h.command);
+  }
+  return cmds;
+}
+
+// Merge BOSS-owned hook registrations from the installed layers into the project's
+// settings.json. Returns { changed, merged, rel } — caller writes `merged` on apply.
+export function computeSettingsMerge(projectDir, layers) {
+  const rel = join('.claude', 'settings.json');
+  const dest = join(projectDir, rel);
+  let merged = {};
+  if (existsSync(dest)) {
+    try { merged = JSON.parse(readFileSync(dest, 'utf8')); } catch { merged = {}; }
+  }
+  let changed = false;
+  for (const stageId of layers) {
+    for (const [event, tEntries] of Object.entries(templateHooks(stageId))) {
+      merged.hooks ||= {};
+      merged.hooks[event] ||= [];
+      const present = eventCommands(merged.hooks[event]);
+      for (const entry of tEntries) {
+        const cmds = (entry.hooks || []).map((h) => h.command).filter(Boolean);
+        if (cmds.length && cmds.every((c) => present.has(c))) continue; // already registered
+        merged.hooks[event].push(JSON.parse(JSON.stringify(entry)));
+        cmds.forEach((c) => present.add(c));
+        changed = true;
+      }
+    }
+  }
+  return { changed, merged, rel };
 }
 
 function substitute(body, vars) {
@@ -106,6 +159,7 @@ export function planSync(projectDir, stamp) {
     pin: stamp.bossVersion,
     current,
     drift: stamp.bossVersion !== current,
+    settings: computeSettingsMerge(projectDir, layers),
   };
 }
 
@@ -121,15 +175,26 @@ export function applySync(projectDir, plan, stamp) {
     written.push(e);
   }
 
+  // Merge BOSS-owned hook registrations into settings.json (additive — preserves
+  // the user's permissions and their own hooks).
+  if (plan.settings && plan.settings.changed) {
+    const dest = join(projectDir, plan.settings.rel);
+    mkdirSync(dirname(dest), { recursive: true });
+    writeFileSync(dest, JSON.stringify(plan.settings.merged, null, 2) + '\n');
+    written.push({ kind: 'settings', name: 'settings.json', rel: plan.settings.rel });
+  }
+
   // Reconcile the stamp to current canonical layers + the union of their
-  // agents/skills, and bump the pin. Mode/stage track the most-mature layer.
+  // agents/skills/hooks, and bump the pin. Mode/stage track the most-mature layer.
   const agents = new Set();
   const skills = new Set();
+  const hooks = new Set();
   for (const stageId of plan.layers) {
     try {
       const m = readStageManifest(stageId);
       (m.agents || []).forEach((a) => agents.add(a));
       (m.skills || []).forEach((s) => skills.add(s));
+      (m.hooks || []).forEach((h) => hooks.add(h));
     } catch { /* skip unauthored */ }
   }
   const top = plan.layers[plan.layers.length - 1];
@@ -145,6 +210,7 @@ export function applySync(projectDir, plan, stamp) {
       installedLayers: plan.layers,
       agents: [...agents],
       skills: [...skills],
+      hooks: [...hooks],
       bossVersion: plan.current,
     },
   };

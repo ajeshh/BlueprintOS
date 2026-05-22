@@ -16,8 +16,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.11.0)
-- **The conscience — both registers live (v0.10.0 + v0.11.0):** BOSS *behaves* like the build's conscience,
+## State (shipped, v0.13.0)
+- **The conscience — both registers live + can fire unprompted + reaches existing projects (v0.10.0–v0.13.0):** BOSS *behaves* like the build's conscience,
   not just skills you invoke. **This is the concrete output of the ethos work** (see the `boss-ethos` /
   `boss-voice` memories): catalyst/build-tool → conscience → 4 moments → seasoned-hand voice.
   - **Caution — "what does this prove?" (v0.10.0, in `/triage`):** when the active idea has ≥3 capture-log
@@ -28,9 +28,19 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     validation plan), `/canvas` marks the threshold in two beats — *arrival* (name what became real) +
     *next doorway* (`boss unlock mvp`). A threshold, not a finish line; never forced. (Renamed from
     "Celebration of Done" → just **"Done!"** per Ajesh.) Tested in `/tmp`; registry pruned.
+  - **Unprompted firing — solved (v0.12.0):** a `UserPromptSubmit` hook (`.claude/hooks/conscience.sh`,
+    in the template) detects moment #1's drift and injects `additionalContext` — a *signal*, not canned
+    copy — so Claude voices the nudge on its own, with judgment, even when you didn't run `/triage`. Settled
+    the architecture for all moments: **hook = detection, model = tact + voice.** (Not `Stop` — that fires
+    too late / has a block cap; `UserPromptSubmit` is the right event.) *Caveat:* the *feel* still needs
+    live validation (in a fresh `boss new` project, or any existing one after `boss sync`).
+  - **Reaches existing projects (v0.13.0):** `boss sync` now carries **hook scripts** (like skills/agents)
+    and **merges hook registrations into `.claude/settings.json` additively** (matched by command,
+    idempotent, preserves the user's permissions/hooks — `computeSettingsMerge` in `src/sync.js`). The
+    stamp tracks `hooks`. So `betabeta` (and any pre-0.12 project) can now `boss sync --apply` / `/boss-sync`
+    to receive the conscience. Tested in `/tmp`.
   - *Remaining moments:* **capture** (Principle 1/3 — reusable value at a breakpoint) and **restraint**
-    (Principle 2 — premature ceremony), each needing detect-triggers; plus a Stop-hook path so moments can
-    fire *unprompted* (not only inside a skill the founder runs).
+    (Principle 2 — premature ceremony), each needing detect-triggers (now buildable as hook + voice).
 - **Mentor layer — structure (v0.9.0, IDEA-003 — building):** BOSS's second agent class.
   `docs/MENTORS.md` defines builders-vs-mentors, the roster + JIT-per-mode mapping, the founder
   dossier, and the hard line (no binding legal/financial advice; humane before viable). Cornerstone
@@ -72,7 +82,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 3. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor structure~~ — **DONE in v0.9.0**.
 
 ## Open decisions
-- Sync of user-editable files (CLAUDE.md/settings.json): v1 syncs only BOSS-managed skills/agents; merge strategy for the rest = later.
+- Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
+  CLAUDE.md and other settings.json keys (permissions etc.) = hand-merge for now.
 - BOSS's own business model — open (canvas says don't monetize lock-in). Decide later, on evidence.
 - Mentor agents' home: project `.claude/agents/` with `mentor-` prefix (leaning yes).
 - Optional: scrub the old `registry/projects.json` (home path + `margin`) from git history. Removed
