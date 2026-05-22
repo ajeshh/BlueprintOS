@@ -16,16 +16,21 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.10.0)
-- **The conscience — first moment (v0.10.0):** BOSS starts *behaving* like the build's conscience, not
-  just skills you invoke. Moment #1 — **"what does this prove?"** — baked into `/triage`: when the active
-  idea has ≥3 capture-log entries and no canvas with a filled riskiest assumption (capturing-lots /
-  validating-nothing drift), `/triage` says one spare line in BOSS's voice, points at `/canvas`, hands the
-  decision back — never blocks, never nags. Template `CLAUDE.md` names the conscience. Tested in `/tmp`
-  (drift fires, canvas clears it); registry pruned. **This is the first concrete output of the ethos work**
-  (see the `boss-ethos` / `boss-voice` memories): catalyst/build-tool → conscience → 4 moments + "done" →
-  the seasoned-hand voice. *Remaining:* author the other moments (capture, restraint, done) + their detect-
-  triggers; a `mentor-venture` / Stop-hook path for *unprompted* (not just in-`/triage`) firing.
+## State (shipped, v0.11.0)
+- **The conscience — both registers live (v0.10.0 + v0.11.0):** BOSS *behaves* like the build's conscience,
+  not just skills you invoke. **This is the concrete output of the ethos work** (see the `boss-ethos` /
+  `boss-voice` memories): catalyst/build-tool → conscience → 4 moments → seasoned-hand voice.
+  - **Caution — "what does this prove?" (v0.10.0, in `/triage`):** when the active idea has ≥3 capture-log
+    entries and no canvas with a filled riskiest assumption (capturing-lots / validating-nothing drift),
+    `/triage` says one spare line, points at `/canvas`, hands the decision back — never blocks, never nags.
+    Template `CLAUDE.md` names the conscience. **Validated live by Ajesh in `betabeta`.**
+  - **Completion — "Done!" (v0.11.0, in `/canvas`):** at graduation (cells real + riskiest assumption has a
+    validation plan), `/canvas` marks the threshold in two beats — *arrival* (name what became real) +
+    *next doorway* (`boss unlock mvp`). A threshold, not a finish line; never forced. (Renamed from
+    "Celebration of Done" → just **"Done!"** per Ajesh.) Tested in `/tmp`; registry pruned.
+  - *Remaining moments:* **capture** (Principle 1/3 — reusable value at a breakpoint) and **restraint**
+    (Principle 2 — premature ceremony), each needing detect-triggers; plus a Stop-hook path so moments can
+    fire *unprompted* (not only inside a skill the founder runs).
 - **Mentor layer — structure (v0.9.0, IDEA-003 — building):** BOSS's second agent class.
   `docs/MENTORS.md` defines builders-vs-mentors, the roster + JIT-per-mode mapping, the founder
   dossier, and the hard line (no binding legal/financial advice; humane before viable). Cornerstone

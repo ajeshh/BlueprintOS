@@ -25,7 +25,8 @@ is ready to `boss unlock mvp`.
 4. Leave `_(not yet)_` on anything unknown — blanks are honest signal, not failure. Re-run anytime.
 5. After each pass, name the **single riskiest assumption** and propose **one experiment this week**
    to test it. Write both in. That's the heartbeat of incubation.
-6. When most cells are filled + the top risk has a validation plan, say so and offer `boss unlock mvp`.
+6. When most cells are filled + the top risk has a validation plan, mark it **Done!** (below) — name
+   what became real — then offer `boss unlock mvp`.
 
 ## The canvas template
 
@@ -75,6 +76,31 @@ _Impact, risks, and the values that guide decisions._
 - **Experiment this week:** _(the smallest test to prove/disprove it)_
 - **What result would change the plan?** _(decide before you run it)_
 ```
+
+## Done! — the graduation moment
+
+When the canvas holds up — most cells filled with real answers (not `_(not yet)_` placeholders) and the
+**riskiest assumption has a validation plan** (an experiment + what result would change the plan) — the
+idea has crossed a real threshold: it's *done enough to build*. Most founders blow right past this and
+just start coding. Don't. This is the conscience's **affirming** voice — the counterpart to "what does
+this prove?" — and you mark it in two beats:
+
+1. **Arrival.** Name what became real. Where did they start, and what's solid now — a specific person, a
+   real tension, a sharp promise, the one bet that could sink it *with* a way to test it? Say it plainly
+   and let it land. This isn't praise; it's acknowledging the idea grew up.
+2. **Next doorway.** Point at what's next without rushing: `boss unlock mvp` brings the build tools and
+   the next mentors (architect, GTM). The canvas keeps — they're free to sit with it.
+
+In BOSS's voice (the warm register — still spare; tune by ear, don't paste verbatim):
+
+> *"Worth stopping here a second. You came in with 'an app that plans meals' — now there's a specific
+> person, a tension that's real, and the one bet that could sink it, with a way to test it this week.
+> That's the idea becoming real. When you're ready, `boss unlock mvp` brings the build tools. No rush —
+> the canvas keeps."*
+
+A threshold, not a finish line: "done" here means *ready for the next thing*, and the canvas keeps
+evolving as you learn. Never force it — a half-filled canvas with a sharp riskiest assumption is a fine
+place to sit; mark it Done only when it's genuinely earned, not as a box to tick.
 
 ## Rules
 

@@ -2,6 +2,19 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.11.0 — 2026-05-21
+
+- **The conscience — second moment: "Done!" (`/canvas` graduation).** The *affirming* register,
+  counterpart to moment #1's caution. When the canvas holds up (most cells real + riskiest assumption
+  has a validation plan), `/canvas` no longer just offers `boss unlock mvp` — it marks the threshold in
+  two beats:
+  - **Arrival** — names what became real (started with a hunch → now a specific person, real tension,
+    sharp promise, a testable riskiest bet). Said plainly, let to land. Acknowledgment, not praise.
+  - **Next doorway** — points at `boss unlock mvp` (build tools + next mentors) without rushing; the
+    canvas keeps.
+  - A threshold, not a finish line; never forced — the celebration is for when it's genuinely earned.
+  - Completes the conscience's *two registers* (caution + completion) in Quickstart.
+
 ## 0.10.0 — 2026-05-21
 
 - **The conscience — first moment lands (`/triage` validation check).** BOSS starts behaving like the
