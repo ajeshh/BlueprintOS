@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.23.0)
+updated: 2026-05-23 (v0.24.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,18 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.23.0)
+## State (shipped, v0.24.0)
+- **Positioning pass landed (v0.24.0)** — first non-feature release in BOSS's history. The
+  Dunford exercise (recommended v0.15 advisory pass; deferred 8 releases; finally shipped).
+  Full positioning at [`docs/dossier/positioning-pass-001.md`](dossier/positioning-pass-001.md).
+  Lead sentence on the record: *"BOSS is the just-in-time conscience for AI-native founders.
+  Pause it any time."* (13 words; killer-test winner.) README opening updated with the
+  longer-form positioning (*"For founders building with AI — the thinking layer that nudges
+  when you're drifting and pauses on command. No growth-hacking pressure. Override-friendly."*).
+  Category frame: *"the thinking layer for AI-native founders"* — drops "incubator" as primary
+  descriptor (reads YC-shaped). 8 cohort-tailored variants on the record. BOSS explicitly does
+  NOT compete on code generation (Lovable / v0 / Bolt own that turf); BOSS is complementary —
+  the thinking layer between code-generating and the founder.
 - **Conscience pause primitive (v0.23.0):** `boss conscience pause [--for 8h | --until-resume]
   [--reason "..."]` + `boss conscience resume`. State lives in `.boss/config.json`'s
   `conscience` block. Hook reads pause first; exits silent when paused-not-expired; auto-
@@ -208,13 +219,9 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    killer description that survives the stranger-read test. Ajesh adopted the catalog as the
    live working backlog (*"a lot is critical, can see the value of all of it, lets add it"*).
 
-6. **v0.24 — Positioning pass (Dunford exercise).** NOT a feature release. Captures
-   `docs/dossier/positioning-pass-001.md`: what BOSS's target founder uses today
-   (alternatives, specifically not aspirationally); what BOSS does uniquely well vs. each;
-   a one-sentence killer description that survives the stranger-read test; cohort-tailored
-   variants per persona; possibly updates the README's opening. **Gates the next 3-5 feature
-   decisions.** The pre-v0.17 advisory pass first called for this; we've deferred it through
-   8 releases. Time.
+6. ~~v0.24 — Positioning pass (Dunford exercise).~~ **DONE in v0.24.0.** First non-feature
+   release; the deliverable is the thinking + the README edit. The positioning that gates the
+   next 3-5 feature decisions is on the record.
 
 7. **v0.25 — AI cost tracking.** Per IDEA-012's persona overlay, the only universal-cohort
    candidate — every persona cared. `/ai-cost` skill + `cost-budget-loop` + cohort-aware
@@ -258,7 +265,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     ~~v0.19 persona-reactions design changes (inspect / cohort-aware / voice lineage)~~ —
     **DONE in v0.20.0**. ~~MVP discipline upgrades + moment #4 + IDEA-010 Phase 2~~ —
     **DONE in v0.21.0**. ~~V1 mode authored + IDEA-010 Phase 3~~ — **DONE in v0.22.0**.
-    ~~Conscience pause primitive (IDEA-011 Phase 1)~~ — **DONE in v0.23.0**.
+    ~~Conscience pause primitive (IDEA-011 Phase 1)~~ — **DONE in v0.23.0**. ~~Positioning
+    pass (Dunford exercise; IDEA-012 follow-through)~~ — **DONE in v0.24.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

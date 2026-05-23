@@ -1,9 +1,15 @@
 # BlueprintOS
 
-> A just-in-time incubator for AI-native projects. Scaffolds at the right level of ceremony,
-> grows with you as you earn each next layer, brings a mentor board, and adds a *conscience* —
-> a tool that nudges (never blocks) when you're drifting and gets out of the way when you're
-> in flow. Calm-company by default. Open. Override-friendly. Pause-friendly.
+> **For founders building with AI — the thinking layer that nudges when you're drifting and
+> pauses on command. No growth-hacking pressure. Override-friendly.**
+>
+> *(The shorter version: BOSS is the just-in-time conscience for AI-native founders. Pause it
+> any time.)*
+>
+> Cursor and Lovable generate the code. BOSS scaffolds the *thinking about what to build, when
+> to ship, and when the discipline should get out of your way.* Brings a mentor board for the
+> parts code can't teach, a conscience that catches drift early, modes that scale ceremony to
+> evidence. Calm-company by default. Open. Inspectable. Local-only state.
 
 ## If this is you
 

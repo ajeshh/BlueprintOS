@@ -2,6 +2,47 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.24.0 — 2026-05-23
+
+- **Positioning pass — first non-feature release in BOSS's history.** The deliverable is *the
+  thinking* (positioning + README edit), not code. Per IDEA-012's revised roadmap, v0.24 was
+  explicitly the positioning pass, not a feature release. The Dunford exercise was first
+  recommended in the v0.15 advisory pass and deferred through 8 capability releases; finally
+  executed.
+- **Output:** [`docs/dossier/positioning-pass-001.md`](docs/dossier/positioning-pass-001.md) —
+  full Dunford exercise: target cohort (the founder using Cursor/Claude Code 3+ months with
+  2+ unfinished projects), 8 competitive alternatives, 8 unique attributes that survive
+  scrutiny, attributes mapped to value, 7 market-frame options, **8 candidate killer one-
+  sentences stranger-tested**, 8 cohort-tailored variants per persona, the trend layer
+  (*AI raised the speed limit; almost nothing raised the discipline limit*), 6 decisions to
+  act on, downstream consequences.
+- **Decisions on the record:**
+  - **Lead sentence (elevator):** *"BOSS is the just-in-time conscience for AI-native
+    founders. Pause it any time."* (13 words; killer for verbal intros.)
+  - **README opening sentence:** *"For founders building with AI — the thinking layer that
+    nudges when you're drifting and pauses on command. No growth-hacking pressure. Override-
+    friendly."* (22 words; killer for the README + landing-page hero.)
+  - **Category frame:** *"the thinking layer for AI-native founders"* — drops "incubator" as
+    the primary descriptor because it reads YC-shaped to strangers. "Incubator" stays valid
+    as a secondary descriptor.
+  - **Cohort-tailored variants:** 8 versions (one per persona archetype). Pattern: cohort-
+    naming first phrase + feature-that-lands-hardest second.
+  - **What BOSS doesn't compete on, named explicitly:** code generation (Lovable / v0 / Bolt).
+    BOSS is *complementary* to those — a founder could use Lovable to scaffold the app + BOSS
+    to scaffold the thinking about it.
+- **README updated** — the TL;DR replaced with the v0.24 positioning. Old: *"a just-in-time
+  incubator for AI-native projects."* New: the candidate #8 framing above.
+- **What this positioning is NOT** (recorded in the dossier):
+  - Not validated (synthetic-tested only until real founder reads + articulates back)
+  - Not permanent (evolves with the product)
+  - Not the only frame BOSS could use (picked AI-native-founder audience; the anti-VC
+    indie-hacker frame is a legitimate secondary positioning that could split into its own
+    surface later)
+- **Discipline applied to BOSS itself:** the Dunford exercise was on the record since v0.15.
+  Eight releases of capability shipped before it landed. The positioning pass finally
+  shipping is the discipline-on-the-discipline-tool move applied again — *not the most
+  exciting release; probably the highest-leverage one in months*.
+
 ## 0.23.0 — 2026-05-23
 
 - **Conscience pause primitive — the discipline-on-the-discipline-tool move (IDEA-011
