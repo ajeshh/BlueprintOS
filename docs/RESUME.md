@@ -173,13 +173,21 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    premature ceremony) needs a `spec-loop` authored (canvas-loop's downstream) AND skill-aware
    detection — `/spec` checks canvas-loop closure before proceeding. Both validated via
    eval-set + persona-reaction discipline before shipping.
-4. **v0.21 — MVP-mode discipline upgrades.** `/spec` adds validated-learning field (Ries, the
-   smallest cut highest leverage). `/evals` skill paired with `/smoke` (Husain). `/pretotype`
-   skill OR fold into `/canvas` (Savoia — Ajesh's open call from v0.16 era).
+4. **v0.21 — MVP-mode discipline upgrades + design-tokens-loop.** `/spec` adds validated-
+   learning field (Ries, the smallest cut highest leverage). `/evals` skill paired with
+   `/smoke` (Husain). `/pretotype` skill OR fold into `/canvas` (Savoia — Ajesh's open call
+   from v0.16 era). **Plus IDEA-010 Phase 2:** `design-tokens-loop` in MVP-stage template
+   (JIT scaffolding at first UI commit, cohort-aware delivery), `/design-tokens-init` skill,
+   eval examples for the new loop. The 47-blues / pattern-reinvention / billion-line-drift
+   failure modes addressed early enough to prevent rather than retroactively audit.
 5. **v0.22 — V1 mode authored.** Same playbook that worked for MVP authoring in v0.14: manifest
    + template + claude-append + template versions of `mentor-business`, `mentor-fundraising`,
    `mentor-pitch`, `mentor-talent`, `designer`, `db-architect`, `/board`, `/design`, `/proto`
-   skills.
+   skills. **Plus IDEA-010 Phase 3:** `design-drift-loop` + `ui-designer` + `ux-designer`
+   agents + `/design-review` + `/ux-check` skills + PostToolUse hook for hardcoded-style
+   detection (the existing `library/practices/design-system.md` plan, now AI-failure-mode-
+   aware). **Plus IDEA-010 Phase 4:** `/design-prompt` skill encoding the prompting patterns
+   that prevent drift (or fold into `/design-review`).
 6. **v0.23 — Scale mode authored.** Catches the macro scaffold up to the full design.
    `mentor-humane` promoted from BOSS-local to template (the board). PM org, code-health,
    product council.
