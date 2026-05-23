@@ -2,6 +2,61 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.18.0 — 2026-05-22
+
+- **IDEA-008 → FEAT-001: generic loop runtime in Node; bash hook retired.** The biggest
+  architectural release since v0.8.0 (learning loop). The conscience hook used to be hand-coded
+  bash with a single hard-wired detector for moment-1. It's now a generic Node runtime that
+  reads `docs/loops/*.md` from the project, evaluates entry/exit predicates, and emits
+  structured signals — *any* loop drifting fires *its* moment, no per-moment code. Moments
+  #3 and #4 will be authored as loops (not detectors) in v0.20.
+  - **`conscience.js`** (replaces `conscience.sh`) — zero-dep Node, ~50 lines. Loads loops,
+    classifies state, composes signals, prints JSON. Fails silent — never blocks a prompt.
+  - **`lib/loop-runtime.js`** — the engine. Loads loops from `docs/loops/*.md`, evaluates a
+    closed predicate vocabulary (`exists`, `count_at_least`, `any_file_matches`) against the
+    live filesystem, classifies each loop as `unopenable | open | closed`, returns structured
+    signals only for hook-runner loops with a `drift_moment`. Loops without `drift_moment` are
+    *structural* (express dependencies but don't drift — caught the over-fires-on-fresh-project
+    bug live during the build; capture-loop is the canonical structural loop).
+  - **`lib/yaml.js`** — zero-dep YAML parser lifted from the eval runner so the same code parses
+    loop specs at hook time and eval examples at test time.
+  - **Two named loops authored** in the Quickstart template (`docs/loops/`):
+    - `capture-loop` — structural; expresses "at least one captured idea exists." Downstream
+      loops (canvas-loop) check this via their own entry predicates.
+    - `canvas-loop` — encodes moment-1's full logic *declaratively* via predicates. Entry: ≥3
+      dated capture-log entries across active (non-dropped) idea files. Exit: at least one
+      canvas tied to an active idea has a real (≥3-char alphanumeric) riskiest assumption.
+      Drift = open + not closed = moment-1 caution. The hand-coded bash logic is now expressed
+      in YAML.
+  - **`manifest.json` gains a `loops` array.** `src/scaffold.js` + `src/sync.js` handle loops
+    as a new managed-file kind (`kind: loop`, `rel: docs/loops/<name>.md`). Hook-library files
+    (`lib/*.js`) auto-discovered from the template and synced alongside the hook script. The
+    `.boss` stamp tracks `loops` (alongside agents/skills/hooks).
+  - **`runner_type` field on loop specs** — resolves the moment-2 shape question from v0.16's
+    meta-learnings. Today only `hook` is honored by the conscience runtime; `skill`, `manual`,
+    `external` will be honored by future runners (skill-prompt eval, manual review, external
+    detector — e.g. CI).
+  - **Settings migration (bash → node).** Existing projects pinned at <= 0.13.0 have
+    `bash …conscience.sh` in their settings.json. The merge logic now applies hook-command
+    *migrations* before the additive merge: it drops stale bash entries before adding the new
+    node entry. Tested with a synthetic pre-0.18 project: bash entry dropped, node entry added,
+    user's permissions preserved, idempotent on re-sync.
+  - **Eval set unchanged; 43/43 still pass against the generic runtime** (regression-coverage
+    in place). The runner now invokes `node conscience.js`, materializes `docs/loops/` into
+    the test project before each example (so the runtime has loops to load), and the existing
+    examples test the *generic detector* end-to-end. One bug found during the build (POSIX
+    regex char classes — `[[:space:]]` doesn't work in JS) fixed by switching loop specs to
+    JS-native regex (`\s+`, `[a-zA-Z0-9]{3,}`). Eval-first discipline catching itself.
+  - **BOSS dogfoods:** `docs/loops/capture-loop.md` + `docs/loops/canvas-loop.md` now live in
+    BOSS itself (alongside the existing `docs/loops/eval.md`). BOSS-the-project runs the same
+    runtime against its own state.
+  - **Verdict on the primitive (from v0.16's meta-learnings): confirmed under contact with
+    real Node implementation.** The four-field shape (entry / purpose / exit / drift) held up.
+    Predicate vocabulary covered everything moment-1 needed declaratively. The structural-loop
+    pattern (no `drift_moment`) handles dependencies-only cases cleanly. Net code change:
+    `conscience.sh` (40 lines bash) replaced by `conscience.js` + `lib/` (~250 lines Node) —
+    bigger surface, but moments #3+ will be loop specs (~30 lines YAML each), not new detectors.
+
 ## 0.17.0 — 2026-05-22
 
 - **Builder team seated alongside the mentor board.** Three new builder agents in BOSS's own

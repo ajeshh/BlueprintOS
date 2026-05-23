@@ -12,7 +12,7 @@
 //
 // Exit: 0 if all non-skipped cases pass; 1 otherwise.
 
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, cpSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { execSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -20,7 +20,9 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '../../..');
-const HOOK = join(REPO_ROOT, 'stages/L0-quickstart/template/.claude/hooks/conscience.sh');
+const HOOK_DIR = join(REPO_ROOT, 'stages/L0-quickstart/template/.claude/hooks');
+const HOOK = join(HOOK_DIR, 'conscience.js');
+const LOOPS_DIR = join(REPO_ROOT, 'stages/L0-quickstart/template/docs/loops');
 
 // ---------------------------------------------------------------------------
 // Minimal YAML parser — covers the subset used by our eval files:
@@ -260,6 +262,16 @@ function buildProjectDir(example) {
   const tempBase = join(tmpdir(), `boss-evals-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
   mkdirSync(tempBase, { recursive: true });
 
+  // Copy loop specs so the v0.18+ generic runtime can read them at hook time.
+  // The runtime expects docs/loops/*.md in the project root.
+  const projectLoopsDir = join(tempBase, 'docs', 'loops');
+  mkdirSync(projectLoopsDir, { recursive: true });
+  if (existsSync(LOOPS_DIR)) {
+    for (const f of readdirSync(LOOPS_DIR)) {
+      if (f.endsWith('.md')) cpSync(join(LOOPS_DIR, f), join(projectLoopsDir, f));
+    }
+  }
+
   const state = example.project_state || {};
   // Honor the "dir doesn't exist" case
   if (state.ideas_dir_exists === false) {
@@ -288,7 +300,9 @@ function buildProjectDir(example) {
 function runHook(projectDir) {
   try {
     const env = { ...process.env, CLAUDE_PROJECT_DIR: projectDir };
-    const out = execSync(`bash "${HOOK}"`, { env, encoding: 'utf8' });
+    // v0.18.0+: hook is Node-based; the runtime reads docs/loops/*.md in the
+    // project to decide what to evaluate. Predecessor was `bash conscience.sh`.
+    const out = execSync(`node "${HOOK}"`, { env, encoding: 'utf8' });
     return out.trim() ? JSON.parse(out) : { fires: false };
   } catch (e) {
     return { error: e.message };

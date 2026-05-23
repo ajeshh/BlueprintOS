@@ -50,6 +50,7 @@ function cmdNew(args) {
     agents: manifest.agents || [],
     skills: manifest.skills || [],
     hooks: manifest.hooks || [],
+    loops: manifest.loops || [],
     createdAt: new Date().toISOString(),
   };
   writeStamp(targetDir, stamp);
@@ -112,6 +113,7 @@ function cmdUnlock(args) {
   stamp.agents = [...new Set([...(stamp.agents || []), ...(m.agents || [])])];
   stamp.skills = [...new Set([...(stamp.skills || []), ...(m.skills || [])])];
   stamp.hooks = [...new Set([...(stamp.hooks || []), ...(m.hooks || [])])];
+  stamp.loops = [...new Set([...(stamp.loops || []), ...(m.loops || [])])];
   writeStamp(process.cwd(), stamp);
   registerProject({ name: stamp.name, path: process.cwd(), stage: target, mode: m.name, bossVersion: bossVersion() });
   console.log(`\n  ✦ Unlocked ${m.name} mode (${target}).`);

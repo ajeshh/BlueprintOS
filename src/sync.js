@@ -1,5 +1,5 @@
 import {
-  readFileSync, writeFileSync, existsSync, mkdirSync,
+  readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync,
 } from 'node:fs';
 import { join, dirname } from 'node:path';
 import {
@@ -21,7 +21,8 @@ export function canonicalLayer(layerId) {
 // The files BOSS manages for a stage: one .md per agent, one SKILL.md per skill.
 // Each entry maps a source template file → its path inside the project.
 function managedFiles(stageId, manifest) {
-  const base = join(STAGES_DIR, stageId, 'template', '.claude');
+  const stageRoot = join(STAGES_DIR, stageId, 'template');
+  const base = join(stageRoot, '.claude');
   const out = [];
   for (const a of manifest.agents || []) {
     out.push({
@@ -40,11 +41,40 @@ function managedFiles(stageId, manifest) {
     });
   }
   for (const h of manifest.hooks || []) {
+    // Hook scripts may be .js (v0.18.0+ Node-based) or .sh (legacy). Prefer .js
+    // when present; fall back to .sh for backwards-compatibility with legacy stages.
+    const jsSrc = join(base, 'hooks', `${h}.js`);
+    const shSrc = join(base, 'hooks', `${h}.sh`);
+    const ext = existsSync(jsSrc) ? 'js' : 'sh';
     out.push({
       kind: 'hook',
       name: h,
-      src: join(base, 'hooks', `${h}.sh`),
-      rel: join('.claude', 'hooks', `${h}.sh`),
+      src: ext === 'js' ? jsSrc : shSrc,
+      rel: join('.claude', 'hooks', `${h}.${ext}`),
+    });
+  }
+  // Hook library files (helpers like loop-runtime, yaml parser) — non-manifest;
+  // discovered by scanning the template's hooks/lib/ dir if present.
+  const libDir = join(base, 'hooks', 'lib');
+  if (existsSync(libDir)) {
+    for (const f of readdirSync(libDir)) {
+      if (!f.endsWith('.js')) continue;
+      out.push({
+        kind: 'hook-lib',
+        name: f,
+        src: join(libDir, f),
+        rel: join('.claude', 'hooks', 'lib', f),
+      });
+    }
+  }
+  // Loop specs (IDEA-008, v0.18.0+) live in docs/loops/. Each is a managed
+  // markdown file with YAML frontmatter that the runtime parses.
+  for (const l of manifest.loops || []) {
+    out.push({
+      kind: 'loop',
+      name: l,
+      src: join(stageRoot, 'docs', 'loops', `${l}.md`),
+      rel: join('docs', 'loops', `${l}.md`),
     });
   }
   return out;
@@ -68,6 +98,45 @@ function eventCommands(entries) {
   return cmds;
 }
 
+// One-time hook-command migrations: when BOSS refactors a hook (e.g. bash → node
+// in v0.18.0), existing projects need their old command entries replaced, not
+// merely supplemented (otherwise both old + new fire, and the old points at a
+// file that's been removed). Each migration matches the old command and either
+// rewrites or removes that entry. Keep the list short and dated — these are
+// load-bearing for in-the-wild projects.
+const HOOK_MIGRATIONS = [
+  {
+    // v0.18.0 — conscience hook moved from bash to node. The shipped file
+    // (conscience.sh) is no longer in the template; leaving its registration
+    // would mean Claude Code invokes a missing script. Drop the stale entry;
+    // the additive merge then registers the new node command.
+    matches: (cmd) => /conscience\.sh/i.test(cmd),
+    action: 'drop',
+    note: 'v0.18.0 migration: conscience hook moved from bash to node',
+  },
+];
+
+function applyHookMigrations(merged) {
+  if (!merged.hooks) return false;
+  let changed = false;
+  for (const event of Object.keys(merged.hooks)) {
+    const entries = merged.hooks[event] || [];
+    for (const entry of entries) {
+      const before = entry.hooks ? entry.hooks.length : 0;
+      entry.hooks = (entry.hooks || []).filter((h) => {
+        for (const m of HOOK_MIGRATIONS) {
+          if (m.matches(h.command || '')) return m.action !== 'drop';
+        }
+        return true;
+      });
+      if ((entry.hooks?.length || 0) !== before) changed = true;
+    }
+    // Remove empty entry containers (an entry with no hooks left).
+    merged.hooks[event] = entries.filter((e) => (e.hooks || []).length > 0);
+  }
+  return changed;
+}
+
 // Merge BOSS-owned hook registrations from the installed layers into the project's
 // settings.json. Returns { changed, merged, rel } — caller writes `merged` on apply.
 export function computeSettingsMerge(projectDir, layers) {
@@ -78,6 +147,9 @@ export function computeSettingsMerge(projectDir, layers) {
     try { merged = JSON.parse(readFileSync(dest, 'utf8')); } catch { merged = {}; }
   }
   let changed = false;
+  // Apply hook-command migrations first (e.g. v0.18.0 bash→node) so stale entries
+  // don't masquerade as already-present and block the new entry from being added.
+  if (applyHookMigrations(merged)) changed = true;
   for (const stageId of layers) {
     for (const [event, tEntries] of Object.entries(templateHooks(stageId))) {
       merged.hooks ||= {};
@@ -185,16 +257,18 @@ export function applySync(projectDir, plan, stamp) {
   }
 
   // Reconcile the stamp to current canonical layers + the union of their
-  // agents/skills/hooks, and bump the pin. Mode/stage track the most-mature layer.
+  // agents/skills/hooks/loops, and bump the pin. Mode/stage track the most-mature layer.
   const agents = new Set();
   const skills = new Set();
   const hooks = new Set();
+  const loops = new Set();
   for (const stageId of plan.layers) {
     try {
       const m = readStageManifest(stageId);
       (m.agents || []).forEach((a) => agents.add(a));
       (m.skills || []).forEach((s) => skills.add(s));
       (m.hooks || []).forEach((h) => hooks.add(h));
+      (m.loops || []).forEach((l) => loops.add(l));
     } catch { /* skip unauthored */ }
   }
   const top = plan.layers[plan.layers.length - 1];
@@ -211,6 +285,7 @@ export function applySync(projectDir, plan, stamp) {
       agents: [...agents],
       skills: [...skills],
       hooks: [...hooks],
+      loops: [...loops],
       bossVersion: plan.current,
     },
   };

@@ -2,8 +2,10 @@
 id: IDEA-008
 type: idea
 owner: pm
-status: exploring
+status: shipped
 created: 2026-05-22
+shipped: 2026-05-22 (v0.18.0)
+promoted_to: FEAT-001
 ---
 
 # Evidence-keyed loops + the remix model

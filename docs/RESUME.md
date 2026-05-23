@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-22 (v0.17.0)
+updated: 2026-05-22 (v0.18.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,18 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.17.0)
+## State (shipped, v0.18.0)
+- **IDEA-008 promoted to FEAT-001 — generic loop runtime in Node; bash hook retired (v0.18.0):**
+  the biggest architectural release since v0.8.0. The conscience hook is now a generic
+  predicate evaluator that reads `docs/loops/*.md` from the project — *any* loop drifting fires
+  *its* moment, no per-moment code. Moments #3 and #4 will be authored as loops (not new
+  detectors) in v0.20. Two named loops shipped in the Quickstart template — `capture-loop`
+  (structural — expresses dependencies for downstream loops) and `canvas-loop` (encodes
+  moment-1's full logic declaratively via predicates). Settings migration handles
+  bash→node transition for pre-0.18 projects. All 43 conscience-evals still pass against the
+  generic runtime. The four-field primitive (entry / purpose / exit / drift) confirmed under
+  contact with real Node code; predicate vocabulary covered everything moment-1 needed.
+  BOSS dogfoods its own loops.
 - **Builder team seated (v0.17.0):** three new builder agents in `.claude/agents/` —
   `designer` (UX of the entire interaction experience), `voice-keeper` (guards BOSS's voice
   consistency across every user-touching surface), `prompt-coach` (helps the founder learn to
@@ -122,15 +133,13 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 > The conversation-loop (real-founder Mom Test calls) is explicitly overridden through v0.19;
 > re-open conditions in `docs/dossier/boss-advisory-pass-001.md`.
 
-1. **v0.18 — Generic loop primitive (IDEA-008 → FEAT).** Node runtime that reads
-   `docs/loops/*.md`, evaluates predicates, returns structured signals. Replaces the hand-coded
-   bash hook with a generic detector. Ships 3 new named loops (capture, canvas, conversation)
-   in the Quickstart template — canvas-loop encodes the current moment-1 logic generically.
-   `runner_type` field added (`hook | skill | manual | external`) resolving the moment-2
-   shape-question. manifest.json gains a `loops` array; `boss sync` carries loops as a new
-   managed-file kind. Eval set extended for the generic runtime; full regression coverage.
-   Folds in Ajesh's read on m1-snf-021 (single-idea-deepening) — leaning toward "depth, not
-   drift" with per-idea threshold.
+1. ~~v0.18 — Generic loop primitive (IDEA-008 → FEAT-001).~~ **DONE in v0.18.0.** Node runtime
+   reads `docs/loops/*.md`, evaluates predicates, returns structured signals. Bash hook retired.
+   Two named loops in Quickstart template (capture-loop = structural; canvas-loop = moment-1
+   declarative). Settings migration handles bash→node for pre-0.18 projects. 43/43 evals pass
+   against generic runtime. BOSS dogfoods. **Still open from v0.16 meta-learnings:** Ajesh's
+   read on m1-snf-021 (single-idea-deepening — drift or depth?) — applies to canvas-loop's
+   threshold tuning when convenient.
 2. **v0.19 — Proto-personas (the founder-experience eval channel).** 8 persona agents in
    `.claude/agents/` with `persona-` prefix (parallel to `mentor-`). The 5 Ajesh named —
    `vibe-coder-newbie`, `eng-builder`, `non-tech-founder`, `first-product`, `vibe-virtuoso` —
@@ -167,7 +176,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 10. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor *structure*~~ — **DONE
     in v0.9.0**. ~~IDEA-002 MVP mode~~ — **DONE in v0.14.0**. ~~Full mentor board seated~~ —
     **DONE in v0.15.0**. ~~Eval-loop closed + primitive validated~~ — **DONE in v0.16.0**.
-    ~~Builder team seated~~ — **DONE in v0.17.0**.
+    ~~Builder team seated~~ — **DONE in v0.17.0**. ~~IDEA-008 → FEAT-001 (generic loop runtime)~~
+    — **DONE in v0.18.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

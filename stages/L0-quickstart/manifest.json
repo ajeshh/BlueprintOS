@@ -6,6 +6,7 @@
   "agents": ["pm", "coder-generalist", "mentor-venture"],
   "skills": ["boss", "triage", "canvas", "boss-sync", "boss-learn"],
   "hooks": ["conscience"],
+  "loops": ["capture-loop", "canvas-loop"],
   "unlocksNext": "L1-mvp",
   "graduationHint": "When you're ready to actually build, switch to MVP mode: boss unlock mvp."
 }
