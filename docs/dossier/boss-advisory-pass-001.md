@@ -126,6 +126,21 @@ mentors_consulted: [mentor-venture, mentor-architect, mentor-gtm, mentor-busines
 - **Category claim vs. position-into.** Do we want to claim "JIT incubation" / "conscience-driven development" as a new category (high cost, high distinctiveness), or position BOSS into existing language (lower cost, easier reach)?
 - **The "right-sized by default" stance — explicit or implicit?** Stating it out loud closes some doors. Worth a `/triage` on its own.
 
+## Overrides
+
+- **2026-05-22** — **OVERRIDE:** skipped `conversation-loop` (item #2 above, the 5 real-founder
+  Mom Test calls). Rationale: at zero users + product still defining its shape, expensive real-
+  founder calls are premature. Cheap synthetic signal from proto-personas (v0.19 work) is the
+  right call now; conversation-loop re-opens when there's something crystallized enough to test
+  with real humans. The override is the contract per IDEA-008's pattern; the recommendation is
+  not deleted, just deferred. *Decided by Ajesh; recorded here because the recommendation lives
+  here.*
+  - **Re-open conditions:** the persona reactions surface a coherent product story (positioning
+    + smallest-viable-audience clear) **OR** an alpha-user (someone other than Ajesh) starts
+    using BOSS in earnest **OR** the eval-set discipline catches a class of bug only real-founder
+    feedback could surface.
+
 ## Next pass
 
-Re-convene the board after items 1–3 above. The conversations will reorder everything below them.
+Re-convene the board after items 1, 3, 4, 5 above (item 2 overridden, see above). The persona
+reactions (v0.19) will reorder everything below them.

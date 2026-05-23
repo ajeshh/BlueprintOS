@@ -2,6 +2,47 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.17.0 — 2026-05-22
+
+- **Builder team seated alongside the mentor board.** Three new builder agents in BOSS's own
+  `.claude/agents/` — they make BOSS *feel right*, parallel to the mentor board which makes
+  BOSS *be right*. Builders, not mentors: they propose concrete diffs, not advice. Cover the
+  interaction-design layer that wasn't covered by either the mentor board or the existing builder
+  agents (pm, coder-generalist, tester, program-manager).
+  - **`designer`** — owns the UX of the entire BOSS interaction experience. Not "the visual
+    designer" (BOSS is a CLI + Claude Code experience, not a webapp). Owns: when BOSS speaks vs
+    stays quiet, what a skill *feels* like when run, the rhythm of mode unlocks, the surprise
+    vs predictability of conscience moments, what the founder is being asked to *do* vs read at
+    every step. Sources: Norman, Krug, Nielsen, Spool, Wroblewski, Walter + AI-specific UX
+    heuristics (options-not-truth; visible confidence; deliberate failure states).
+  - **`voice-keeper`** — guards what BOSS *sounds like*. Reviews skill text, agent system
+    prompts, hook signal language, README, CHANGELOG, error messages. Catches performed warmth,
+    scolding tone, voice-mode bleed, framework-jargon leaking into user-facing text, assumed
+    knowledge, hedging. Proposes concrete edits side-by-side. Inward-facing language guardian.
+    Sources: `boss-voice` memory (canonical spec), Strunk & White, Raskin + Neumeier (pitch =
+    product voice), Godin (write to one person).
+  - **`prompt-coach`** — helps the founder write better prompts (to BOSS, to Claude, to AI in
+    general) and teaches the craft over time. Outward-facing counterpart to voice-keeper.
+    Builds a per-founder pattern library in `docs/dossier/founder-prompt-patterns.md`. Catches
+    vague / multi-prompt / missing-constraint / missing-output-format / leading-question /
+    missing-context / wrong-role-assignment / stop-word-missing failure modes. Sources:
+    Karpathy (think in distributions), Mollick (AI-as-different-roles), Willison (prompt-as-
+    code), Liu (Pydantic-first), Husain (look at the output), Fitzpatrick (Mom Test discipline
+    applied to interview prompts).
+- **Advisory-pass #1 (real-founder Mom Test calls) explicitly overridden — first real use of
+  IDEA-008's override grammar.** Ajesh's call: at zero users + product still defining its shape,
+  expensive real-founder calls are premature; cheap synthetic signal from proto-personas (v0.19
+  work) is the right move now. Override recorded in `docs/dossier/boss-advisory-pass-001.md`
+  with explicit re-open conditions (persona reactions surface a coherent product story, OR a
+  non-Ajesh user starts using BOSS in earnest, OR the eval set catches something only real-
+  founder feedback could surface). The recommendation isn't deleted — it's deferred under the
+  IDEA-008 contract: deviation made conscious, recorded, re-openable.
+- **Roadmap published** (in RESUME): v0.17 builder team → v0.18 generic loop primitive (IDEA-008
+  to FEAT) → v0.19 proto-personas as named loops → v0.20+ moments #3/#4 + MVP discipline
+  upgrades + V1/Scale mode authoring + IDEA-003 finish + externalization + backlog. Ten releases
+  sequenced for build-on-build; the discipline rails (evals, structured output, loops, personas)
+  make each one buildable in a focused session.
+
 ## 0.16.0 — 2026-05-22
 
 - **The eval-loop closed — conscience now has evals + structured output (proves IDEA-008's
