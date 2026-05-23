@@ -193,11 +193,16 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    **Deferred to v0.23:** moment #3 (capture — reusable value at breakpoint, needs LLM-as-judge
    or heuristic detector — not predicate-based); PostToolUse hook for hardcoded-style detection
    (new hook-type plumbing).
-5. **v0.23 — Scale mode authored + moment #3 + PostToolUse hook plumbing + IDEA-010 Phase 4.**
-   `mentor-humane` promoted from BOSS-local to template (the board). PM org, code-health,
-   product council. **Plus the deferred items from v0.22:** moment #3 detector (LLM-as-judge or
-   heuristic — not predicate-based), PostToolUse hook for hardcoded-style detection (new hook
-   surface), `/design-prompt` skill or fold into `/design-review`. Substantial release.
+5. **v0.23 — Scale mode + moment #3 + PostToolUse hook + IDEA-011 pause primitive + IDEA-010
+   Phase 4.** `mentor-humane` promoted from BOSS-local to template (the board). PM org,
+   code-health, product council. **Plus the deferred items from v0.22:** moment #3 detector
+   (LLM-as-judge or heuristic — not predicate-based), PostToolUse hook for hardcoded-style
+   detection (new hook surface), `/design-prompt` skill or fold into `/design-review`. **Plus
+   IDEA-011 Phase 1 — conscience pause primitive:** `boss conscience pause/resume` CLI +
+   `.boss/config.json` state + hook honors it. Closes the canvas R&H #1 gap operationally
+   (founder can silence the conscience for a bounded session; deviation conscious + recorded
+   + auto-resumes). Substantial release; the pause primitive is small (~1-2 hrs) and
+   highest-leverage of the bunch.
 7. **v0.24 — IDEA-003 finish.** Reshape per IDEA-008: practitioners encoded UP as *named
    variants of loops* with attribution, not free-floating practice docs. `library/loops/`
    populates from `docs/mentor-practitioners.md`. Mentors cite specific loop IDs.
