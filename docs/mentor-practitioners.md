@@ -124,17 +124,54 @@ entry if it's a default every project should start with. 4. The mapped mentor ag
 
 ## Builders (not mentors) — UX/UI craft → `designer` agent
 
+### Foundational UX / design thinking
+
 | Practitioner | Lens to distill |
 |---|---|
-| Don Norman | Human-centered design, affordances |
-| Jakob Nielsen / NN Group | Usability heuristics, UX research |
-| Jared Spool | UX strategy, experience quality |
+| Don Norman | Human-centered design, affordances, signifiers, mapping |
+| Jakob Nielsen / NN Group | Usability heuristics (the 10), UX research rigor |
+| Jared Spool | UX strategy, experience quality as a system property |
 | Steve Krug | Clarity, "don't make me think" |
-| Luke Wroblewski | Forms, mobile, interaction |
+| Luke Wroblewski | Forms, mobile, interaction; *show first, ask second* |
 | Aarron Walter | Emotional design, product personality |
+| Erika Hall | *Just Enough Research* — smallest viable research discipline |
+| Mike Monteiro | Design ethics, *Ruined by Design* — designer responsibility |
+| Dieter Rams | 10 principles for good design (pre-AI but foundational) |
 
-> AI-specific UX heuristics (AI as options not truth; human-in-loop for consequential actions; visible
-> confidence; undo/edit/regenerate; deliberate failure states) cut across designer + `mentor-humane`.
+### Design systems & atomic discipline (added v0.20.x, feeds [IDEA-010](ideas/IDEA-010-scalable-ai-design.md))
+
+| Practitioner | Lens to distill |
+|---|---|
+| **Brad Frost** | **Atomic Design** — atoms / molecules / organisms / templates / pages; the foundational language for component composition. Also writes specifically about AI generation + design system discipline. |
+| **Nathan Curtis** (EightShapes) | Design tokens layer-cake (global → alias → component); governance models; the canonical token thinking |
+| **Jina Anne** | W3C Design Tokens Community Group chair; tokens evangelism; portable token format spec |
+| **Diana Mounter** | GitHub Primer leadership; design systems at scale; AI-aware system design |
+| **Dan Mall** | Design systems consulting; hot takes on systems that ship vs. systems that decay |
+| Ryan Singer (Shape Up) | Cycle-based design+product methodology from 37signals — calm-company analog to OKR-heavy frameworks |
+
+### AI-augmented design & AI-workflow practitioners (added v0.20.x — cross-cuts with `mentor-architect` + `prompt-coach`)
+
+| Practitioner | Lens to distill |
+|---|---|
+| **John Maeda** | *Design in Tech* reports; laws of simplicity; AI in design tooling pragmatism |
+| **Christopher Noessel** | *Designing Agentive Technology* — UX patterns for AI agents acting on behalf of users |
+| **Linus Lee** | AI tool design (Notion AI lead); the craft of integrating AI into product UI |
+| **Karri Saarinen** | Linear — discipline + shipping speed coexisting; design-engineering convergence |
+| **Maggie Appleton** | AI tinkering + writing on AI tools; *Tools for Thought* lineage applied to LLMs |
+| **Geoffrey Litt** | Memex-shaped tools; end-user programming + AI; *Malleable Software* thinking |
+| **Sarah Drasner** | Design tokens + animation + AI tooling integration; the practical engineer's design lens |
+| **Joel Spolsky** | *UI for Programmers* — practical UI discipline for engineers building UI |
+
+### AI-specific UX heuristics (cross-cuts designer + `mentor-humane`)
+
+> Operationalized at runtime, not just in design specs:
+> - AI as **options**, not truth (visible confidence; multiple plausible answers)
+> - **Human-in-the-loop** for consequential actions (no auto-apply on irreversible)
+> - **Visible confidence** — the structured hook output ships this (v0.16+)
+> - **Undo / edit / regenerate** — every AI surface needs all three
+> - **Deliberate failure states** — what does the user get when the AI is unavailable or wrong?
+> - **Brand voice anchoring** — canvas Promises cell IS the design brief; AI defaults are
+>   internet-averages (the brand-default problem from [IDEA-010](ideas/IDEA-010-scalable-ai-design.md))
 
 ## `mentor-humane` — agency, dignity, harm (Scale board; routes in earlier on trigger)
 

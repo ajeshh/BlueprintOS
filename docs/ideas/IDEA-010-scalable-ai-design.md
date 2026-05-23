@@ -49,10 +49,25 @@ when IDEA-009 surveyed it. Specific recent writing:
 - **intodesignsystems.com** — runs *"AI Conference for Designers 2026"* — the field is
   conferencing on this.
 - **Brad Frost** — Atomic Design (foundational, pre-AI but applies). Has written more
-  recently on Twitter about AI generation and atomic discipline.
-- **Nathan Curtis** — design tokens canonical work, including layer-cake architecture
-  (global / alias / component).
-- **W3C Design Tokens Community Group** — the token format spec.
+  recently on Twitter about AI generation and atomic discipline. **Now on the BOSS practitioner
+  roster** (`docs/mentor-practitioners.md` Builders → designer agent, design-systems section).
+- **Nathan Curtis** (EightShapes) — design tokens canonical work, including layer-cake
+  architecture (global / alias / component); governance models for systems that don't decay.
+  *On the roster.*
+- **Jina Anne** — W3C Design Tokens Community Group chair; tokens evangelism. *On the roster.*
+- **Diana Mounter** — GitHub Primer leadership; design systems at scale; AI-aware system
+  design. *On the roster.*
+- **Dan Mall** — design systems consulting; hot takes on which systems ship vs. decay. *On
+  the roster.*
+- **W3C Design Tokens Community Group** — the canonical token format spec.
+- **John Maeda** — *Design in Tech* reports; laws of simplicity applied to AI design tooling.
+  *On the AI-augmented design roster.*
+- **Christopher Noessel** — *Designing Agentive Technology* — UX patterns for AI agents acting
+  on behalf of users. The most-directly-relevant book for BOSS's own design discipline. *On
+  the roster.*
+- **Linus Lee** (Notion AI), **Karri Saarinen** (Linear), **Maggie Appleton**, **Geoffrey
+  Litt**, **Sarah Drasner** — voices on practical AI-tool design + AI-workflow integration.
+  *On the AI-augmented design roster as of v0.20.x.*
 
 Specific failure modes already named in the field:
 
