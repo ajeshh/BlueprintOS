@@ -33,7 +33,7 @@
 //     just-closed transitions and emit "done" signals).
 //   - Entry predicates not satisfied → loop is UNOPENABLE; no signal.
 
-import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from './yaml.js';
@@ -231,6 +231,32 @@ export function readCohort(projectDir) {
   try {
     return JSON.parse(readFileSync(f, 'utf8')).cohort || null;
   } catch { return null; }
+}
+
+// Read the conscience pause state from .boss/config.json (v0.23.0+, IDEA-011).
+// Returns { mode, since, expires, reason } or null. Mode is 'paused' or 'active'
+// (or null when never set). When paused, the hook exits silent if not expired.
+export function readPauseState(projectDir) {
+  const f = join(projectDir, '.boss', 'config.json');
+  if (!existsSync(f)) return null;
+  try {
+    return JSON.parse(readFileSync(f, 'utf8')).conscience || null;
+  } catch { return null; }
+}
+
+// Clear the conscience pause state (set mode: 'active'). Called by the hook when
+// it detects an expired pause — the auto-resume IS the kindness. The founder
+// learns the pause ended because the conscience starts speaking again on the
+// next prompt; we don't emit a special "your pause expired" signal (that would
+// be performative noise; IDEA-011 explicitly chose silent auto-resume).
+export function clearPauseState(projectDir) {
+  const f = join(projectDir, '.boss', 'config.json');
+  if (!existsSync(f)) return;
+  try {
+    const cfg = JSON.parse(readFileSync(f, 'utf8'));
+    cfg.conscience = { mode: 'active' };
+    writeFileSync(f, JSON.stringify(cfg, null, 2) + '\n');
+  } catch { /* fail silent — hook must never block */ }
 }
 
 // Per-cohort framing directives (v0.20.0+). Added to additionalContext so the

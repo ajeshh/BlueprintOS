@@ -2,6 +2,54 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.23.0 — 2026-05-23
+
+- **Conscience pause primitive — the discipline-on-the-discipline-tool move (IDEA-011
+  Phase 1).** Single-purpose release. Closes the canvas R&H #1 gap operationally: the founder
+  can now silence the conscience for a bounded session without having to edit settings.json
+  or rip out hooks. The four other items originally queued for v0.23 (Scale mode authoring,
+  moment #3 detector, PostToolUse hook plumbing, IDEA-010 Phase 4 `/design-prompt`) are
+  deferred to v0.24+ — see RESUME's restructured roadmap. **Discipline applied to BOSS
+  itself: ship only the one most-load-bearing thing in a release that *could* have been
+  bigger.**
+  - **`boss conscience pause [--for 8h | --until-resume] [--reason "..."]`** — records a
+    pause in `.boss/config.json`'s `conscience` block: `{ mode, since, expires, reason }`.
+    Default duration: 8h (a build session). `--until-resume` for indefinite pauses.
+  - **`boss conscience resume`** — explicit un-pause. Also happens automatically when the
+    recorded expiry passes (the hook auto-clears the state).
+  - **Hook reads pause state FIRST.** When `mode: paused` and `expires > now` → exit silent.
+    When `mode: paused` and `expires <= now` → call `clearPauseState` and continue normally.
+    The auto-resume IS the kindness; no special "your pause expired" signal (would be
+    performative noise; IDEA-011 explicitly chose silent auto-resume).
+  - **`boss status --conscience` surfaces pause state prominently** — at the TOP of the
+    output, marked with `⏸ PAUSED`, showing since/expires/reason. When expired but not yet
+    auto-cleared, shows `⏸ PAUSED (EXPIRED — will auto-resume on next prompt)`.
+  - **Help text updated** to include the new commands.
+  - **`readPauseState` + `clearPauseState`** added to `lib/loop-runtime.js` (template) —
+    the canonical version. BOSS's CLI imports from there so there's one source of truth.
+- **The architectural principle the pause demonstrates** (worth naming): **fractal-consistent
+  override discipline.** The same IDEA-008 grammar applied at two scales — per-loop overrides
+  in devlog (micro), and whole-conscience pause in config (macro). Same shape: deviation
+  conscious, recorded, never blocked, never forgotten (auto-resume is the kindness). Same
+  recipe, different scope. *Not novel as a pattern* (Focus modes are OS-level table stakes);
+  *worth claiming if anything* as the fractal-consistent application — Phase 3 externalization
+  may turn this into a publishable practice if BOSS gets used on > 1 project.
+- **End-to-end tested in /tmp — 5 flows verified:**
+  1. Baseline drifted state → hook fires (`caution low`)
+  2. `boss conscience pause --for 8h --reason ...` → state recorded
+  3. Hook fires after pause → silent ✓
+  4. `boss status --conscience` → shows ⏸ PAUSED prominently with since/expires/reason
+  5. `boss conscience resume` → hook fires again next prompt ✓
+  Plus expired-auto-clear: hook reads expired pause → clears it → emits signal normally next
+  prompt; config returns to `{ mode: 'active' }`.
+- **43/43 evals regression-clean.**
+- **Why a release for one feature?** Because it's the right discipline applied to BOSS itself.
+  The other four queued v0.23 items are real and queued for v0.24+. The pause primitive's
+  ratio of "leverage : code-size" is the highest of anything left in the roadmap (~50 lines
+  of code + tests; closes the canvas R&H #1 gap directly). MVP discipline: minimum experiment
+  that produces validated learning. Validated learning here: *did the pause primitive
+  actually make BOSS feel nimble?* Founder using BOSS to do an all-night build will tell us.
+
 ## 0.22.0 — 2026-05-23
 
 - **V1 mode authored — `boss unlock v1` works for real.** The third major mode arrives. Same

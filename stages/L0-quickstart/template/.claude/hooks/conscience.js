@@ -16,11 +16,23 @@
 //
 // Always exits 0. Empty output = no signal = stay silent.
 
-import { detectSignals, composeContext, readCohort } from './lib/loop-runtime.js';
+import { detectSignals, composeContext, readCohort, readPauseState, clearPauseState } from './lib/loop-runtime.js';
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
 try {
+  // Check pause state first (IDEA-011 v0.23.0+). When paused-and-not-expired,
+  // exit silent — the founder explicitly asked for this. When paused-and-expired,
+  // auto-clear and continue normally. The auto-resume IS the kindness.
+  const pause = readPauseState(projectDir);
+  if (pause && pause.mode === 'paused') {
+    if (!pause.expires || new Date(pause.expires) > new Date()) {
+      process.exit(0);
+    }
+    // Expired — clear the pause; the hook resumes normal operation.
+    clearPauseState(projectDir);
+  }
+
   const signals = detectSignals(projectDir);
   if (signals.length === 0) {
     process.exit(0);

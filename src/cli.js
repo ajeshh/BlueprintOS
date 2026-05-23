@@ -6,7 +6,7 @@ import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
-import { statusConscience } from './conscience.js';
+import { statusConscience, consciencePause, conscienceResume } from './conscience.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -248,6 +248,24 @@ function cmdLearn(args) {
   console.log('    Review, then commit. Connected projects pull it via `boss sync` / `/boss-sync`.\n');
 }
 
+function cmdConscience(args) {
+  const [sub, ...rest] = args;
+  const flags = parseArgs(rest);
+  try {
+    if (sub === 'pause') return consciencePause(flags);
+    if (sub === 'resume') return conscienceResume();
+    if (sub === 'status' || !sub) {
+      const stamp = readStamp(process.cwd());
+      if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+      console.log(`\n  ${stamp.name}`);
+      return statusConscience(process.cwd());
+    }
+    return fail(`unknown subcommand 'conscience ${sub}'. options: pause | resume | status`);
+  } catch (e) {
+    return fail(e.message);
+  }
+}
+
 function fail(msg) {
   console.error(`  boss: ${msg}`);
   process.exitCode = 1;
@@ -262,6 +280,7 @@ export function run(argv) {
     case 'list': return cmdList();
     case 'sync': return cmdSync(args);
     case 'learn': return cmdLearn(args);
+    case 'conscience': return cmdConscience(args);
     case 'version': case '--version': case '-v':
       return console.log(bossVersion());
     default:
@@ -269,9 +288,12 @@ export function run(argv) {
       console.log('  boss new <name>          scaffold a new project in Quickstart mode + register it');
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
       console.log('  boss status              this project: mode, pinned version, drift');
+      console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
       console.log('  boss list                all connected projects');
       console.log('  boss sync [--apply]      pull current BOSS skills/agents/hooks into this project (DOWN)');
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
+      console.log('  boss conscience pause    silence the conscience for a bounded session [--for 8h|--until-resume]');
+      console.log('  boss conscience resume   re-enable the conscience');
       console.log('  boss version             BOSS version\n');
       console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');
   }

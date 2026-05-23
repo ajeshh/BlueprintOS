@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.22.0)
+updated: 2026-05-23 (v0.23.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,15 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.22.0)
+## State (shipped, v0.23.0)
+- **Conscience pause primitive (v0.23.0):** `boss conscience pause [--for 8h | --until-resume]
+  [--reason "..."]` + `boss conscience resume`. State lives in `.boss/config.json`'s
+  `conscience` block. Hook reads pause first; exits silent when paused-not-expired; auto-
+  clears expired pauses (the auto-resume IS the kindness — no performative "your pause
+  expired" signal). `boss status --conscience` surfaces pause state prominently at the TOP
+  of the output. The discipline-on-the-discipline-tool move: ship only the one most-load-
+  bearing thing in a release that could have been bigger. Closes canvas R&H #1
+  ("BOSS bloats into a heavy framework") operationally. 43/43 evals regression-clean.
 - **V1 mode authored — `boss unlock v1` works (v0.22.0):** the third macro stage real.
   3 new builder agents (`ui-designer`, `ux-designer`, `db-architect`), 4 template mentor
   copies (business / fundraising / pitch / talent — promoted from BOSS-local), 3 new skills
@@ -193,16 +201,20 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    **Deferred to v0.23:** moment #3 (capture — reusable value at breakpoint, needs LLM-as-judge
    or heuristic detector — not predicate-based); PostToolUse hook for hardcoded-style detection
    (new hook-type plumbing).
-5. **v0.23 — Scale mode + moment #3 + PostToolUse hook + IDEA-011 pause primitive + IDEA-010
-   Phase 4.** `mentor-humane` promoted from BOSS-local to template (the board). PM org,
-   code-health, product council. **Plus the deferred items from v0.22:** moment #3 detector
-   (LLM-as-judge or heuristic — not predicate-based), PostToolUse hook for hardcoded-style
-   detection (new hook surface), `/design-prompt` skill or fold into `/design-review`. **Plus
-   IDEA-011 Phase 1 — conscience pause primitive:** `boss conscience pause/resume` CLI +
-   `.boss/config.json` state + hook honors it. Closes the canvas R&H #1 gap operationally
-   (founder can silence the conscience for a bounded session; deviation conscious + recorded
-   + auto-resumes). Substantial release; the pause primitive is small (~1-2 hrs) and
-   highest-leverage of the bunch.
+5. **Next — strategic planning pass before more capability.** Ajesh's call after v0.22 audit:
+   *"BOSS.DK was just a back-pocket idea. I think we need to find more KEY FEATURES, roadmap
+   and planning."* Translation: the published v0.24+ queue (Scale mode, moment #3, IDEA-003
+   finish, externalization) is incomplete — there are key features we haven't named yet.
+   **Before shipping more capability, do a strategic feature-audit pass:** what's BOSS missing
+   that a real founder would need (test/CI integration, observability, deploy, auth, billing,
+   email, AI cost tracking, performance budgets, doc generation, common-app-archetype
+   templates, ...)? What's the killer use case nobody's articulated? What would BOSS's
+   strangers-can-read-it README actually need to say? Likely captured as IDEA-012 — feature-
+   audit + revised roadmap.
+
+6. **v0.24 — TBD by IDEA-012's outcome.** Will pull from: Scale mode + moment #3 + PostToolUse
+   hook + IDEA-010 Phase 4 (`/design-prompt`) + IDEA-011 Phase 2 (per-loop opt-out, etc.) +
+   whatever new features IDEA-012 surfaces. Sequencing depends on the planning pass.
 7. **v0.24 — IDEA-003 finish.** Reshape per IDEA-008: practitioners encoded UP as *named
    variants of loops* with attribution, not free-floating practice docs. `library/loops/`
    populates from `docs/mentor-practitioners.md`. Mentors cite specific loop IDs.
@@ -220,6 +232,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     ~~v0.19 persona-reactions design changes (inspect / cohort-aware / voice lineage)~~ —
     **DONE in v0.20.0**. ~~MVP discipline upgrades + moment #4 + IDEA-010 Phase 2~~ —
     **DONE in v0.21.0**. ~~V1 mode authored + IDEA-010 Phase 3~~ — **DONE in v0.22.0**.
+    ~~Conscience pause primitive (IDEA-011 Phase 1)~~ — **DONE in v0.23.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
