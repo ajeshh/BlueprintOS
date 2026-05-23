@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.19.0)
+updated: 2026-05-23 (v0.19.1 docs)
 ---
 
 # RESUME — BlueprintOS

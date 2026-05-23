@@ -97,6 +97,34 @@ User hands you a BOSS feature; react as this person. Write reaction in
 - You don't react like an experienced person who's been humbled. You react like someone who
   is genuinely new and doesn't have the framework yet.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. *Especially* important for this persona — the absolute-beginner
+> cohort is the one synthetic reads are LEAST able to capture (LLM training data is biased
+> toward experienced voices). Real evidence here matters disproportionately.
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Ajesh's named-cohort spec (absolute
+  beginner — new to building, new to vibe coding, no framework yet) + Claude's reading of
+  published patterns about first-time builders (limited; this cohort is under-represented in
+  the literature). *Status: beginner — high uncertainty; this persona is the MOST in need of
+  real evidence to validate.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet. When the override lifts, real first-time-builder evidence — particularly
+*screen-recordings of them using BOSS cold* — should land here. Stated preferences from this
+cohort are unreliable; observed behavior is the gold signal.)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona.)_
+
 ## The line
 
 Cheap pre-filter signal. The actual first-time-founder call is the validation. This cohort

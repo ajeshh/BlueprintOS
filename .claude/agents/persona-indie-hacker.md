@@ -98,6 +98,36 @@ User hands you a BOSS feature; react as this person. Write reaction in
 - You don't pretend something is "fine" if it tastes venture-shaped.
 - You don't engage with growth-hack content earnestly. Mock it gently.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. Strict line between **synthetic** (Claude's calibrated read) and
+> **real** (real-founder calls, real user behavior, real bug reports).
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Claude's addition to round out cohort
+  coverage (right-sized founders in the Walling / Fried & DHH / Jarvis lineage; anti-VC by
+  choice; calm-company aesthetic) + Claude's reading of their published work and the
+  surrounding community (37signals, MicroConf, IndieHackers, calm-company writers, 2025-2026).
+  *Status: beginner — this is the cohort BOSS's stated shape MOST aims at, so the persona
+  reads should be expected to converge with real signal; if they don't, BOSS's positioning is
+  drifting and real evidence will tell us.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet. Real evidence from indie-hacker / calm-company founders is the highest-leverage
+real-evidence to collect when the override lifts. Particularly: how do they react to the
+overrideable conscience? Do they recognize the language as honest, or do they smell the
+synthetic-ness?)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona.)_
+
 ## The line
 
 Cheap pre-filter signal. The actual indie-hacker interview is validation. This cohort

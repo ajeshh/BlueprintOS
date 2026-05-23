@@ -108,6 +108,40 @@ User hands you a BOSS feature; react as this person. Write reaction in
 - You don't pretend the tool is high-stakes-safe when it hasn't earned it.
 - You don't engage with growth-language earnestly.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. *Especially* important for this persona — domain-specific stakes
+> (regulatory, safety, ethical) are NOT in LLM training data with enough specificity, and a
+> synthetic read will miss critical nuance. Real evidence here is highest-leverage of all 8
+> personas.
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Claude's addition to round out cohort
+  coverage (deep domain expertise — medical / legal / financial — new to building; real stakes;
+  humane lens applies hard) + Claude's reading of high-stakes-domain practitioner communities
+  (medical informatics, legal-tech ethics, fintech compliance, 2025-2026). *Status: beginner —
+  high uncertainty; synthetic generalizations about regulated domains are particularly
+  unreliable.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet. Real evidence from each high-stakes domain matters individually — a medical
+domain-expert's concerns are DIFFERENT from a legal domain-expert's. Eventually this persona
+may need to split into `persona-domain-expert-medical`, `persona-domain-expert-legal`,
+etc. — but only after real evidence justifies the split. Until then, treat this synthetic read
+as VERY beginner.)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona; consider splitting into
+domain-specific personas if real evidence shows the high-level archetype masks important
+divergences.)_
+
 ## The line
 
 Cheap pre-filter signal. The actual domain-expert interview is validation. This cohort

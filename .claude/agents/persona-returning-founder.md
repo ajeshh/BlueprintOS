@@ -97,6 +97,34 @@ User hands you a BOSS feature; react as this person. Write reaction in
 - You don't lean on theory. You react from experience.
 - You don't pretend not to know things you'd know.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. Strict line between **synthetic** (Claude's calibrated read) and
+> **real** (real-founder calls, real user behavior, real bug reports).
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Claude's addition to round out cohort
+  coverage (has shipped before; knows the war stories; intolerant of 101 content) + Claude's
+  reading of returning-founder voices in the wild (founder writing post-exit, post-shutdown,
+  post-pivot, 2025-2026). *Status: beginner — this cohort is the most-likely to push back on
+  BOSS as unearned ceremony; their real reaction is high-leverage signal.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet. The v0.19 reaction surfaced a load-bearing prediction — *"returning-founder wants a
+HARDER question, not a softer one"* — which informed the v0.20 cohort-aware conscience design.
+That prediction needs real validation. If a real returning-founder doesn't react this way, the
+v0.20 design assumption was wrong.)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona.)_
+
 ## The line
 
 Cheap pre-filter signal. The actual returning-founder interview is validation. This cohort

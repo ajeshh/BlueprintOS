@@ -19,6 +19,7 @@ BOSS's own backlog, dogfooding its own ID system.
 | [IDEA-006](IDEA-006-conscience-host-portability.md) | Conscience host-portability — host contract for non-Claude agents | exploring | three layers: CLI agnostic, conscience Claude-bound, arc = precondition; name the host contract, don't port yet |
 | [IDEA-007](IDEA-007-brand-spectrum-and-alter-ego.md) | Brand spectrum + bad-boss alter-ego ("BOSS.DK") | exploring | "Like a boss!"/"Boss mode"/BOSS.DK = one register-axis; humane = right action + humor, not warm words; alter-ego stays contained (opt-in, parodies the trope) |
 | [IDEA-008](IDEA-008-evidence-loops.md) | Evidence-keyed loops + the remix model | shipped | v0.18.0 — promoted to FEAT-001. Generic loop runtime in Node, 2 named loops in Quickstart template, bash hook retired, 43/43 evals pass against the generic detector |
+| [IDEA-009](IDEA-009-proto-personas-as-evolving-instruments.md) | Proto-personas as evolving research instruments | exploring | beginner personas that refactor + grow as real evidence arrives; build-integrated via persona-reactions-loop; field survey + BOSS's narrower contribution; Phase 1 (evidence-ledger retrofit) landed 2026-05-23 |
 
 Canvas for BOSS itself: [CANVAS.md](CANVAS.md).
 

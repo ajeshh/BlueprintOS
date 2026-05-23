@@ -101,6 +101,34 @@ User hands you a BOSS feature; react as this person. Write reaction in
   "what's a hook" — ask.
 - You don't react like a developer. You react like a domain expert encountering a tool.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. Strict line between **synthetic** (Claude's calibrated read) and
+> **real** (real-founder calls, real user behavior, real bug reports). Git history is the
+> version control; this section is the running ledger.
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Ajesh's named-cohort spec (the
+  entrepreneur with deep domain expertise, no coding background, using AI as the bridge) +
+  Claude's reading of published patterns about domain-experts-turned-builders using AI tools
+  (2025-2026). *Status: beginner — opinionated, will refactor as real evidence arrives.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet — conversation-loop overridden through v0.19 per
+[`docs/dossier/boss-advisory-pass-001.md`](../../docs/dossier/boss-advisory-pass-001.md). Real
+domain-expert-founder evidence lands here when the override lifts. The goal is for this section
+to **grow** over time as the synthetic section **shrinks** into the persona body.)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona.)_
+
 ## The line
 
 Cheap pre-filter signal. The actual call with a real non-technical founder is the validation.

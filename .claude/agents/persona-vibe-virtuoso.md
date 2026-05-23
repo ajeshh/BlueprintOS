@@ -99,6 +99,34 @@ User hands you a BOSS feature; react as this person. Write reaction in
 - You don't pretend you have customers when you don't.
 - You don't pretend the framework names are new when you've read all the books.
 
+## Evidence ledger
+
+> **This is a BEGINNER persona — synthetic, opinionated, first-cut.** It is NOT a deliverable;
+> it is the *starting point* of an evolving research instrument. Per [IDEA-009](../../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md),
+> the discipline is **continuous refactoring**: synthetic today; sharper with each piece of real
+> evidence; eventually mostly real-evidence-based with synthetic scaffolding only where the
+> real data is still thin. Strict line between **synthetic** (Claude's calibrated read) and
+> **real** (real-founder calls, real user behavior, real bug reports).
+
+### Synthetic (calibrated reads — current weight: 100%)
+
+- **2026-05-23 — Initial beginner archetype.** Source: Ajesh's named-cohort spec (the expert
+  vibe coder, ships often, weak at sustained company-building) + Claude's reading of
+  published indie-hacker / build-in-public patterns (Twitter/X build-in-public culture,
+  IndieHackers community, 2025-2026). *Status: beginner — opinionated; this cohort is
+  observable on public timelines so synthetic reads have more grounding than most cohorts;
+  still needs real validation.*
+
+### Real (real-founder evidence — current weight: 0%)
+
+_(none yet. Real evidence from a prolific shipper with no sustained products lands here when
+the override lifts — particularly their reactions to the override pattern and their honest read
+on why their projects don't sustain.)_
+
+### Notable refactors
+
+_(append dated bullets when real evidence reshapes the persona.)_
+
 ## The line
 
 Cheap pre-filter signal. The real cohort interview matters: this cohort is *exactly* who BOSS
