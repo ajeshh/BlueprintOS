@@ -1,129 +1,176 @@
-# BlueprintOS (BOSS)
+# BlueprintOS
 
-> A meta-system that captures everything learned building real apps and lets you cold-start
-> new projects at the **right level of agentic ceremony** — then grow them stage by stage.
->
-> The promise: **BOSS helps founders build faster without fooling themselves** — turning a pseudo app
-> (an impressive demo) into a real business-value app (proven pain, workflow fit, willingness to pay).
-> See [`PRINCIPLES.md`](PRINCIPLES.md).
+> A just-in-time incubator for AI-native projects. Scaffolds at the right level of ceremony,
+> grows with you as you earn each next layer, brings a mentor board, and adds a *conscience* —
+> a tool that nudges (never blocks) when you're drifting and gets out of the way when you're
+> in flow. Calm-company by default. Open. Override-friendly. Pause-friendly.
 
-**BOSS is npm inverted.** npm is a registry of packages your projects pull *down*. BOSS is the
-*upstream*: it scaffolds projects, keeps a registry of every project it has birthed, pushes
-practice updates *down* to them, and pulls proven learnings *up* from them. It's a tiny tool
-with its own git repo, and every project it touches keeps a `.boss/` stamp pointing home.
+## If this is you
 
-```
-                    ┌─────────────────────────┐
-                    │   BlueprintOS (BOSS)     │  ← its own git repo, the superset
-                    │  practices · agents ·    │
-                    │  skills · hooks · stages │
-                    │  registry/projects.json  │  ← knows every child + its version
-                    └───────────┬─────────────┘
-              boss new │ boss sync ↓      ↑ boss learn (human-gated promotion)
-        ┌─────────────┼──────────────────┼─────────────┐
-        ▼             ▼                  ▼              ▼
-   project-A      project-B          project-C       (dhun, retro-fitted later)
-   .boss@1.2      .boss@1.4          .boss@1.4
-   stage: L1      stage: L3          stage: L0
-```
+You've been using Cursor or Claude Code for a few months. You've shipped one project this
+year. There are two more in `~/projects/` you didn't finish, and a folder of ideas you didn't
+start. Each new project, you re-invent the same scaffolding — and somewhere around screen 3
+the design starts drifting (47 different blues, every component a snowflake), or you realize
+you never actually pressure-tested whether the bet was real.
 
-> **What BOSS is** is defined by [`PRINCIPLES.md`](PRINCIPLES.md) — six rules, chief among them:
-> *always scaffolding, but pause to sort patterns UP (BOSS superset practice) or DOWN (app core).*
+The honest question AI raised: *if I can build anything, what should I build, and how do I
+know if it's worth finishing?*
 
-## Two halves
+BOSS is one answer.
 
-- **`boss` CLI** — *deterministic*: scaffold files, copy stage layers, manage the registry,
-  compute sync diffs, version bookkeeping. Dumb and reliable. (This repo's `bin/` + `src/`.)
-- **`/boss` skills** — *intelligent*: read your PRD, pick the right starting stage, configure
-  stack-neutral coders from the idea, drive spin-up, judge learnings, review sync diffs.
-  _(Skills land as the learning loop is wired — see Roadmap.)_
+## What BOSS is, plainly
 
-## Install
+A CLI plus a set of skills, agents, and loops that run inside Claude Code:
+
+- **`boss new my-app`** — scaffolds a project at the lightest level (Quickstart). Five seconds
+  to working. One idea-capture skill, an optional private GitHub repo, a `CLAUDE.md` that
+  fits on a screen.
+- **`boss unlock mvp`** — adds the spec discipline (`/spec` with validated-learning + evals
+  fields), the smoke gate, the demand-test step (`/pretotype` — Savoia), and JIT design-tokens
+  scaffolding when your project earns it.
+- **`boss unlock v1`** — adds full design review (`/design-review` + `/ux-check` + token
+  enforcement), cross-FEAT sequencing (`/board`), and the next-tier mentors (business,
+  fundraising, pitch, talent).
+- **A conscience that nudges.** When you've captured three ideas and tested none, it speaks
+  once. When you're spec'ing a feature your canvas never validated, it surfaces restraint.
+  Cohort-aware (set yours during spin-up; it adjusts the voice). Always overridable; never
+  blocking. Silence it for a sprint: `boss conscience pause --for 8h`.
+- **A mentor board.** Eight advisors (venture, architect, GTM, business, fundraising, pitch,
+  talent, humane) coach the founder. Plus a builder team (designer, voice-keeper, prompt-
+  coach) for the craft. Plus eight proto-personas (vibe-coder-newbie, eng-builder,
+  indie-hacker, returning-founder, domain-expert, …) you can show features to before showing
+  them to real founders.
+
+Built on Node — zero dependencies. Markdown + YAML everywhere a human reads; predicate-based
+loops everywhere a machine evaluates. Lives in Claude Code. Everything runs locally.
+
+## A concrete moment
+
+You've used `/triage` four times this week capturing ideas. You haven't run `/canvas` on any.
+You submit a prompt — anything — and the conscience fires once:
+
+> *"That's the fourth thing you've added here, and none of it's been tested. Who would you
+> talk to first to find out if any of them are real? `/canvas` is one way to pressure-test
+> it — but a 15-minute call with the right person beats it."*
+
+Then it goes quiet. You decide.
+
+That's the shape of every interaction. Discipline shows up when it can help, hands the
+decision back, gets out of the way. Discipline never accumulates as ceremony you have to
+work around.
+
+## What you actually get
+
+`boss new` (Quickstart mode):
+- 3 agents — `pm`, `coder-generalist`, `mentor-venture`
+- 5 skills — `/boss`, `/triage`, `/canvas`, `/boss-sync`, `/boss-learn`
+- The conscience hook + 2 loops (`capture-loop`, `canvas-loop`)
+
+`boss unlock mvp` (additive):
+- 4 more agents — `tester`, `program-manager`, `mentor-architect`, `mentor-gtm`
+- 7 more skills — `/spec`, `/smoke`, `/evals`, `/pretotype`, `/design-tokens-init`, `/log`, `/close`
+- 3 more loops — `spec-loop`, `pretotype-loop`, `design-tokens-loop`
+
+`boss unlock v1` (additive):
+- 7 more agents — `ui-designer`, `ux-designer`, `db-architect` + 4 template mentors (business,
+  fundraising, pitch, talent)
+- 3 more skills — `/board`, `/design-review`, `/ux-check`
+- 1 more loop — `design-drift-loop`
+
+Each unlock is additive; nothing gets ripped out. Each unlock is your call, not the tool's.
+A project that stays in Quickstart forever is a legitimate project.
+
+## What BOSS isn't
+
+- **Not a framework you have to learn.** First hour: `boss new`, `/boss`, `/triage`. That's
+  the whole vocabulary you need.
+- **Not a replacement for talking to real users.** The proto-personas pre-filter what to ask
+  real founders; they don't replace the conversations. The advisory pass and the v1 playbook
+  are explicit about this — see [`docs/dossier/`](docs/dossier/).
+- **Not a YC.** Doesn't take equity. Doesn't push toward venture-scale. Defaults to *"you
+  should probably not raise; you should probably not hire; you should probably stay right-
+  sized"* until evidence says otherwise.
+- **Not magic.** Each piece is inspectable. `boss status --conscience` shows what's open, what
+  would close it, what overrides you've recorded. The source is plain Node.
+- **Not opinionated about your stack.** Stack-neutral until your first build decision; then
+  the coder specializes itself. Design tokens are stack-agnostic with per-stack patterns.
+
+## Install + first 5 minutes
 
 ```bash
+# alpha install — clone the repo, link the CLI globally
+git clone <this-repo> BlueprintOS
 cd BlueprintOS
-npm install -g .        # puts `boss` on your PATH
-boss version
+npm install -g .
+
+boss new my-app                 # 5 seconds
+cd my-app
+claude                          # open in Claude Code
+> /boss                         # describe your idea; the team spins up
 ```
 
-## Use
+After that:
 
 ```bash
-boss new my-app         # scaffold Quickstart mode + git init + register
-cd my-app
-claude                  # open in Claude Code
-> /boss                 # (once wired) drop a PRD; the team spins up
-...
-boss status             # mode + pinned BOSS version + drift
-boss unlock mvp         # level up: quickstart → mvp → v1 → scale
-boss list               # every connected project
+boss status                     # mode + pinned BOSS version + drift
+boss status --conscience        # loops state + recent overrides + cohort
+boss unlock mvp                 # earn the next layer when ready
+boss conscience pause --for 8h  # silence everything for a bounded sprint
+boss conscience resume          # bring it back
 ```
 
-## The four modes (progressive unlock)
+## The principle
 
-Each mode is a stage folder the CLI lays down additively as the project earns it.
+Six rules in [`PRINCIPLES.md`](PRINCIPLES.md). The one that matters most: **humane before
+viable.** A tool that exists to help founders build well must itself behave well. BOSS pauses
+on command. Overrides every loop on request. Records every override so future-you sees the
+deviation. Refuses to nag. Refuses to grade. *The seasoned hand who's built many things and
+doesn't need the credit.*
 
-| Mode | Stage | Unlocks | When you've earned it |
-|---|---|---|---|
-| **Quickstart** | L0 | CLAUDE.md skeleton, idea capture (`IDEA-NNN`), `/boss` spin-up, `/triage`, memory, **pm + coder-generalist** | you have an idea or rough PRD |
-| **MVP** | L1 | `/spec` + `FEAT-NNN`, `/smoke` gate, devlog, `/close` + RESUME.md, session hooks, **tester, program-manager** | ready to build the first working version |
-| **V1** | L2 | design tokens + `/design-review`/`/ux-check`, prototypes, `/board`, doc-placement contract, **designer, db-architect, docs-writer** | ready for a real, shippable v1 |
-| **Scale** | L3 | PM org, lab governance, `/refactor-wave`, `/code-health`, `/product-council`, full IDS | a fully blown-out, complex app |
+The other five rules govern when to add ceremony (only as earned), when to capture practice
+UP into BOSS's library (when reusable across projects), when to push practice DOWN into a
+project (when validated), how to keep changes small (each release the minimum experiment that
+produces validated learning), and how to keep style decoupled from code (design tokens as
+authority).
 
-Only **Quickstart is authored today.** `boss unlock mvp` (or `v1`/`scale`) reports "not authored yet" gracefully.
+## Where this is
 
-## The learning loop — why neutral + version-pin pays off
+v0.23.0. Quickstart + MVP + V1 modes authored. 23 capability releases. Self-hosted (BOSS
+itself runs in MVP mode, using BOSS). All discipline patterns demonstrated by BOSS-on-BOSS
+before they ship anywhere else.
 
-BOSS ships **zero stack assumptions** (stack-neutral by design). The first time you build, say,
-a Next.js app, spin-up configures its smoke gate / coders / hooks for that stack. Once proven,
-`/boss-learn` captures that as an **emergent stack profile** — not guessed in advance, *earned*.
-The next Next.js project starts from it.
+**This is alpha.** The conscience eval set has 84 cases; the conscience has been pressure-
+tested only against synthetic personas. Real-founder validation hasn't happened yet
+(deliberate override — see [`docs/dossier/boss-advisory-pass-001.md`](docs/dossier/boss-advisory-pass-001.md)).
+If you try BOSS and it falls down, *that's the most useful thing you can tell me.*
 
-So **"stack packs" are an output of the learning loop, not an input.** Stages teach *process*
-maturity; the learning loop teaches *stack* maturity. Two orthogonal axes, both compounding.
+## License + shape
 
-Version-pinning means old projects don't silently inherit churn — they see *"BOSS is at 1.6,
-you're on 1.2, here are 4 practices to adopt"* and choose via `/boss-sync`.
+Open source. Calm-company by default. No monetization of lock-in. No telemetry. Local-only
+state — your project's data stays in your repo + `~/.boss/registry.json` on your machine. If
+a business model ever emerges, it'll be hosted advisory sessions or patronage; never the CLI
+itself.
 
-## Repo layout
+[The Humane Product Canvas](docs/ideas/CANVAS.md) makes BOSS's whole bet visible — the
+People, Problem, Promises, Risks & Harms, Principles, and the live riskiest assumption. Read
+it if you want to know what BOSS is betting on, and what could kill it.
 
-```
-BlueprintOS/
-├── bin/boss              # CLI entry
-├── src/                  # CLI: cli, scaffold, registry, paths
-├── VERSION               # BOSS semver — what projects pin to
-├── stages/               # progressive modes (Quickstart authored; MVP/V1/Scale stubbed)
-│   └── L0-quickstart/{manifest.json, template/}
-├── library/              # the superset (de-dhuned, generalized)
-│   ├── agents/ skills/ hooks/ practices/ memory-seed/
-├── registry/
-│   ├── projects.json     # every connected project: path, stage, pinned version
-│   └── CHANGELOG.md       # per-version notes (drives sync messages)
-└── .claude/              # BOSS dogfoods itself
-```
+## Acknowledgements
 
-## Roadmap (how BOSS itself gets built)
+BOSS draws on a roster of practitioners — Don Norman, Brad Frost, Nathan Curtis, Jakob
+Nielsen, Steve Krug, Ash Maurya, Eric Ries, Alberto Savoia, Rob Fitzpatrick, Bob Moesta,
+Teresa Torres, Andrej Karpathy, Simon Willison, Ethan Mollick, Guillermo Rauch, Hamel Husain,
+Jason Liu, Christopher Noessel, Indi Young, John Maeda, April Dunford, Andy Raskin, Jason
+Fried & DHH, Rob Walling, Paul Jarvis, Erika Hall, Mike Monteiro, Tristan Harris, Cathy
+O'Neil, Cal Newport, and many more — see [`docs/mentor-practitioners.md`](docs/mentor-practitioners.md).
+Mentor agents cite specific practices by attribution; **no agent impersonates a person**.
 
-1. ✅ Repo + registry + CLI skeleton (`new` / `unlock` / `status` / `list`) + Quickstart mode.
-2. ✅ `/boss` spin-up skill v1 (read PRD → shape → capture IDEA → stack/mode → optional private GitHub repo).
-3. ✅ Modes vocabulary: Quickstart → MVP → V1 → Scale.
-4. Mine dhun's memory → `library/practices/` + `library/memory-seed/`.
-5. MVP mode + `/smoke` generalization.
-6. `/boss-learn` + `/boss-sync` + versioning — close the loop.
-7. V1, then Scale modes.
-8. Retro-fit dhun itself as a registered project (proves sync on a real codebase).
+The Humane Product Canvas framework is by Ajesh Shah; reused as the spine of BOSS's `/canvas`
+skill.
 
-## What comes from dhun (and what doesn't)
+---
 
-**In (generalized):** program-manager, pm + Principal-PM pattern, generalist/tester/designer/
-db-architect/docs-writer/historian/code-health/release agents; `/smoke` `/spec` `/triage`
-`/board` `/close` `/log` `/track` `/code-health` `/design-review` `/ux-check` `/refactor-wave`
-`/reflect` `/product-council` `/saturday`; lab-governance tiers, wave decomposition,
-doc-placement contract, IDS, RESUME.md, the auto-memory framework.
-
-**Out (dhun-specific):** anything music/DJ — dj-expert, music-collector, the Audio Lab,
-raag/Rangoli/Taal, `/new-style`, `/handbook-check`.
-
-**Goldmine:** dhun's project-agnostic *feedback* memories (claude-md structure, incremental
-writes, wave decomposition, RFC discipline, no-worktree-writers, tests-first, pressure-test,
-RESUME convention…) *are* BOSS's starter practice library. Mining them is step 3.
+*[For the interior architecture — how the CLI works, how the loop primitive composes, how
+the conscience hook reads predicates, how the registry tracks projects, how sync works —
+read [`PRINCIPLES.md`](PRINCIPLES.md), [`docs/RESUME.md`](docs/RESUME.md), and the
+[`docs/ideas/`](docs/ideas/) backlog. Not necessary for first-use.]*

@@ -140,6 +140,25 @@ mentors_consulted: [mentor-venture, mentor-architect, mentor-gtm, mentor-busines
     using BOSS in earnest **OR** the eval-set discipline catches a class of bug only real-founder
     feedback could surface.
 
+- **2026-05-23 (v0.23.0)** — **OVERRIDE EXTENDED:** the conversation-loop override is extended
+  through v0.24+ (the README rewrite era). Rationale (Ajesh, after IDEA-011 audit + the
+  "what's next" recommendation): *"I wanna try building this without talking to anyone ... I
+  think we have enough data to see what we can stew together. I can run boss on a project
+  later ... let's keep improving the stew."* The synthetic signal (8 personas + 84 evals +
+  advisory pass + playbook + IDEAs 009-011) plus founder judgment is the working evidence;
+  externalization happens via README rewrite (v0.24 work) which enables a later founder to
+  encounter the project before any conversation is scheduled. The override stays the contract;
+  the recommendation stays not-deleted.
+  - **Re-open conditions (additive):** the README rewrite ships AND a non-Ajesh founder
+    actually reaches the repo via that surface AND can articulate back what BOSS does — that's
+    when the conversation-loop opens for real (with a sharpened ask). Until then, the
+    synthetic-signal discipline holds.
+  - **Honest meta-note:** this is the *second consecutive* override of this recommendation;
+    the conscience would name that pattern. The pattern is: ship more capability + more
+    capture + externalization, defer real conversations until the externalization gives them
+    something to react to. Legitimate founder call; *not* infinitely re-extendable without
+    becoming the build-trap failure mode itself.
+
 ## Next pass
 
 Re-convene the board after items 1, 3, 4, 5 above (item 2 overridden, see above). The persona
