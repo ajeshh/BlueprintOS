@@ -201,20 +201,46 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    **Deferred to v0.23:** moment #3 (capture — reusable value at breakpoint, needs LLM-as-judge
    or heuristic detector — not predicate-based); PostToolUse hook for hardcoded-style detection
    (new hook-type plumbing).
-5. **Next — strategic planning pass before more capability.** Ajesh's call after v0.22 audit:
-   *"BOSS.DK was just a back-pocket idea. I think we need to find more KEY FEATURES, roadmap
-   and planning."* Translation: the published v0.24+ queue (Scale mode, moment #3, IDEA-003
-   finish, externalization) is incomplete — there are key features we haven't named yet.
-   **Before shipping more capability, do a strategic feature-audit pass:** what's BOSS missing
-   that a real founder would need (test/CI integration, observability, deploy, auth, billing,
-   email, AI cost tracking, performance budgets, doc generation, common-app-archetype
-   templates, ...)? What's the killer use case nobody's articulated? What would BOSS's
-   strangers-can-read-it README actually need to say? Likely captured as IDEA-012 — feature-
-   audit + revised roadmap.
+5. ~~Strategic planning pass~~ — **DONE in IDEA-012** (commit pending). Authored the full
+   strategic feature audit: 30+ candidate features cataloged across 10 categories;
+   persona-reactions overlay shows which cohorts care about which; **killer-use-case finding**
+   — the most acute gap may not be any feature in the catalog but BOSS's missing one-sentence
+   killer description that survives the stranger-read test. Ajesh adopted the catalog as the
+   live working backlog (*"a lot is critical, can see the value of all of it, lets add it"*).
 
-6. **v0.24 — TBD by IDEA-012's outcome.** Will pull from: Scale mode + moment #3 + PostToolUse
-   hook + IDEA-010 Phase 4 (`/design-prompt`) + IDEA-011 Phase 2 (per-loop opt-out, etc.) +
-   whatever new features IDEA-012 surfaces. Sequencing depends on the planning pass.
+6. **v0.24 — Positioning pass (Dunford exercise).** NOT a feature release. Captures
+   `docs/dossier/positioning-pass-001.md`: what BOSS's target founder uses today
+   (alternatives, specifically not aspirationally); what BOSS does uniquely well vs. each;
+   a one-sentence killer description that survives the stranger-read test; cohort-tailored
+   variants per persona; possibly updates the README's opening. **Gates the next 3-5 feature
+   decisions.** The pre-v0.17 advisory pass first called for this; we've deferred it through
+   8 releases. Time.
+
+7. **v0.25 — AI cost tracking.** Per IDEA-012's persona overlay, the only universal-cohort
+   candidate — every persona cared. `/ai-cost` skill + `cost-budget-loop` + cohort-aware
+   defaults + pairs with mentor-architect/mentor-business. Highly BOSS-distinctive; closes
+   what's likely the biggest "obvious gap" we missed.
+
+8. **v0.26+ — Pull from IDEA-012 catalog based on positioning outcomes.** Likely candidates
+   per the audit (in rough priority order, subject to positioning):
+   - **AI-first product template** (BOSS-distinctive; v0.24 positioning may make this v0.26)
+   - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
+   - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
+     mentors per question
+   - **First-time BOSS-user onboarding** (`/welcome` skill) — closes v0.19 first-product
+     cohort gap
+   - **Database migration discipline** — pairs with existing db-architect
+   - **Moment #3 (capture)** — needs LLM-as-judge or heuristic design
+   - **IDEA-003 finish** — practitioners encoded UP as named loops
+   - **IDEA-011 Phase 2** — per-loop opt-out, perf instrumentation, override discoverability
+   - **PostToolUse hook plumbing** — IDEA-010 Phase 3 enforcement upgrade
+   - **GDPR/CCPA + domain-compliance scaffolds**
+   - **End-user onboarding flows** (paired with ux-designer)
+   - **IDEA-006 host portability** — name the contract; don't port
+   - **Scale mode authoring** — explicitly DEPRIORITIZED (premature; no projects at scale)
+
+   See [IDEA-012](ideas/IDEA-012-strategic-feature-audit.md) for the full catalog + tags
+   (BOSS-distinctive vs. better-elsewhere vs. mixed).
 7. **v0.24 — IDEA-003 finish.** Reshape per IDEA-008: practitioners encoded UP as *named
    variants of loops* with attribution, not free-floating practice docs. `library/loops/`
    populates from `docs/mentor-practitioners.md`. Mentors cite specific loop IDs.
