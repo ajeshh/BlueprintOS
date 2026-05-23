@@ -2,6 +2,40 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.15.0 — 2026-05-22
+
+- **BOSS now has its full mentor board seated, and the board has had its first session on BOSS
+  itself.** Step back before the next build axis: identify and instantiate all the experts we'd
+  want consulting on how to build an AI-native MVP right, then have them actually review BOSS.
+  - **8 mentor agents live in this repo's `.claude/agents/`** (BOSS-local; the project-as-its-own-
+    founder): `mentor-venture` (cornerstone), `mentor-architect`, `mentor-gtm` (the three that
+    already existed in stage templates, now BOSS-tuned), plus 5 new: `mentor-business`,
+    `mentor-fundraising`, `mentor-pitch`, `mentor-talent`, `mentor-humane`. Each cites the
+    practitioners from `docs/mentor-practitioners.md` it draws on — no agent impersonates a
+    person; mentors cite named practices (per the encoding decision in `docs/MENTORS.md`).
+  - **`mentor-humane` carries explicit override authority** when a humane concern is on the table
+    — the conscience's conscience. Seated from day one despite the Scale-level slot in the
+    roster, because BOSS itself is the special case (it has to *be* humane in its construction,
+    not just preach it).
+  - **`mentor-architect` retuned for the AI-native MVP era** (both BOSS-local and the MVP template
+    in `stages/L1-mvp/template/.claude/agents/`). Leads with AI as the modality; classical-stack
+    choices are supporting cast. Names the load-bearing AI questions: surface, eval strategy,
+    prompt vs. fine-tune vs. RAG, structured outputs, human-in-loop boundaries, cost/latency
+    budgets, fallback. Cites Karpathy, Willison, Husain (evals — load-bearing), Liu (structured
+    outputs — load-bearing), Mollick, Huyen.
+  - **First advisory pass captured at `docs/dossier/boss-advisory-pass-001.md`.** Honest, not
+    flattering. Each mentor's read on BOSS as-of v0.14.0, citing their practitioners. Five
+    cross-cutting themes converged: (1) pause "more features" to earn founder contact; (2) evals
+    are the next architecture investment (moments #3/#4 should be eval-set-first); (3)
+    right-sized is the default shape (calm-company / OSS / patronage, not venture); (4) interior
+    story rich, exterior story missing (strangers can't read the README); (5) the conscience is
+    the moat *and* the most under-validated thing — plug this gap first.
+  - **Next moves (re-ordered by the pass — supersedes the prior queue):** conscience-evals doc +
+    structured hook output, *then* moments #3/#4; 5 real-founder Mom-Test interviews; Dunford
+    positioning exercise + strangers-can-read-it README; humane upgrades to the conscience spec
+    (cumulative-pressure check, BOSS.DK exemplar lines, cross-link humane practitioners into
+    architect's lens); name the right-sized shape on the canvas.
+
 ## 0.14.0 — 2026-05-22
 
 - **MVP mode (L1-mvp) is authored — `boss unlock mvp` works for real (closes IDEA-002).** Until now

@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-22 (v0.14.0)
+updated: 2026-05-22 (v0.15.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,18 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.14.0)
+## State (shipped, v0.15.0)
+- **Full mentor board seated + first advisory pass on BOSS itself (v0.15.0):** stepped back before
+  the next build axis. All 8 mentors live in this repo's `.claude/agents/` (BOSS-local): `mentor-
+  venture` (cornerstone), `mentor-architect` (retuned for AI-native era — both BOSS-local and the
+  MVP template), `mentor-gtm`, and 5 new — `mentor-business`, `mentor-fundraising`, `mentor-pitch`,
+  `mentor-talent`, `mentor-humane` (with explicit override authority on humane concerns). Each cites
+  the practitioners from `docs/mentor-practitioners.md` it draws on; no agent impersonates a person.
+  First convening captured at [`docs/dossier/boss-advisory-pass-001.md`](dossier/boss-advisory-pass-001.md)
+  — honest, not flattering. **The queue has been re-ordered by the pass** (see Next tasks): pause
+  features to earn founder contact, eval the conscience before building moments #3/#4, run the
+  Dunford positioning exercise. Cross-cutting theme: the conscience is the moat AND the most
+  under-validated thing — plug that gap first.
 - **MVP mode is authored — `boss unlock mvp` works for real (v0.14.0, closes IDEA-002):** this repo's
   own MVP practice extracted UP into `stages/L1-mvp/{manifest.json,template/}`. Adds 4 skills (`/spec`
   for `IDEA→FEAT-NNN` promotion, `/smoke` build-health gate with stack-configured command saved to
@@ -80,24 +91,39 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 - **BOSS now dogfoods itself** (v0.6.0): registered project, `.boss/` stamp (mode MVP, self-hosted),
   `docs/ideas/` (IDEA-001..003), own `CLAUDE.md` + `IDS.md` + this RESUME + its own `/canvas`.
 
-## Next tasks (in order)
-1. **IDEA-003 (finish) — Encode the people list.** Ajesh has a list of real people whose app-startup
-   best-practices to encode. Get the list; decide person→mentor vs **archetype-seeded-by-named-practices**
-   mapping (leaning archetype — see IDEA-003 open Qs); `/boss-learn` them UP into `library/practices/`
-   (+ `memory-seed/`); have `mentor-venture` (+ now `mentor-architect`, `mentor-gtm`) cite them.
-2. **Validate the conscience live.** v0.12.0 hook detection works but the *feel* (wise vs. naggy) still
-   needs a real session — either a fresh `boss new` project or `boss sync --apply` on `betabeta`.
-   Tune the signal language if it lands wrong.
-3. **Conscience moments #3 (capture) and #4 (restraint) — detect-triggers.** Architecture settled
-   (hook = detection, model = tact + voice); both moments need detectors. #3 = reusable value at a
-   breakpoint (Principle 1/3); #4 = premature ceremony (Principle 2) — could plausibly fire from
-   `/spec` when an idea is being specced without canvas validation.
-4. **Self-eat the MVP mode.** BOSS is registered as MVP-mode and the L1-mvp template now exists —
-   could plausibly `boss sync --apply` against this repo to import the new skills (`/spec`, `/log`,
-   `/close`, `/smoke`) instead of hand-rolling them here. Or keep this repo hand-tuned and let MVP
-   be defined by what it produces in other projects. Decide on evidence.
-5. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor structure~~ — **DONE in v0.9.0**.
-   ~~IDEA-002 MVP mode~~ — **DONE in v0.14.0**.
+## Next tasks (in order — re-ordered by advisory pass 001)
+
+> The advisory pass (`docs/dossier/boss-advisory-pass-001.md`) explicitly recommends pausing
+> "more features" and earning founder contact + evals first. Items 4–6 below are the *deferred*
+> threads from the prior queue.
+
+1. **Conscience evals pass (mentor-architect/Husain + mentor-humane).** Write
+   `docs/architecture/conscience-evals.md` with 20+ "should fire / should NOT fire" examples *per
+   moment*. Refactor the hook to return structured `{moment, confidence, evidence}` instead of a
+   free-form string (mentor-architect/Liu). Only *then* build moments #3/#4 — eval-set-first, not
+   signal-first. Closes the highest-leverage architecture gap and unblocks all future moments.
+2. **5 real-founder Mom-Test conversations (mentor-venture/Fitzpatrick).** Not "would you use
+   this" — "show me your last project, where did you stall, what would have helped." Capture in
+   `docs/dossier/founder-conversations-001.md`. Pause new capabilities until done. Likely needs:
+   pick 5 names, draft an outreach line, run 30-min calls, capture raw + synthesis.
+3. **Positioning + strangers-can-read-it README (mentor-gtm/Dunford + mentor-pitch/Raskin).** Run
+   the Dunford exercise explicitly (`docs/dossier/positioning-pass-001.md`). Rewrite the README's
+   opening for a stranger using the Raskin spine drafted in the advisory pass. Decide
+   *category-claim vs. position-into-existing-language* as its own `/triage`.
+4. **Humane upgrades to the conscience spec (mentor-humane).** (a) Design a cumulative-pressure
+   check (per-user, not per-session) — even if not yet built. (b) Write 5–10 exemplar lines for
+   BOSS.DK that *show* the punching-down line (IDEA-007 open Q). (c) Cross-link humane
+   practitioners (Benjamin, Noble) into `mentor-architect`'s lens — AI architecture is not
+   value-neutral.
+5. **Name the right-sized shape on the canvas (mentor-business + mentor-fundraising + mentor-talent
+   converged).** Update Business Model cell from "open" to "*calm-company / OSS default; any other
+   shape requires a deliberate decision*." Reduces drift risk.
+6. **Deferred (will re-open after items 1–3):** IDEA-003 finish (encode practitioners as named
+   practices UP into `library/practices/`), conscience moments #3/#4 (after evals exist),
+   IDEA-005 brownfield adoption, IDEA-006 host portability, self-eating the MVP mode in this repo.
+7. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor *structure*~~ — **DONE in
+   v0.9.0**. ~~IDEA-002 MVP mode~~ — **DONE in v0.14.0**. ~~Full mentor board seated~~ — **DONE in
+   v0.15.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
@@ -108,25 +134,27 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   going forward as of v0.7.0; only matters if the public history bothers you (needs force-push).
 
 ## Prompt for the next session
-> Continue BlueprintOS (in ~/Projects/blueprintos). Read docs/RESUME.md and PRINCIPLES.md first.
-> We're at v0.14.0. The pipeline is now real on both ends: **Quickstart → MVP works** for any
-> project (`boss unlock mvp` adds `/spec`+FEAT, `/smoke`, `/log`+devlog, `/close`+RESUME, plus
-> `tester`/`program-manager` builders and `mentor-architect`/`mentor-gtm`), and the **conscience**
-> nudges from inside the build (moments #1 caution and #2 Done!; hook lets #1 fire unprompted; sync
-> carries hooks to existing projects). DONE: learning loop (v0.8), mentor-layer structure (v0.9),
-> conscience moments #1+#2 (v0.10–v0.13), MVP mode authoring (v0.14 — closes IDEA-002).
+> Continue BlueprintOS (in ~/Projects/blueprintos). Read docs/RESUME.md and PRINCIPLES.md first;
+> then read [`docs/dossier/boss-advisory-pass-001.md`](dossier/boss-advisory-pass-001.md) — the
+> queue below is re-ordered by that pass and you need its rationale before picking up.
+>
+> We're at v0.15.0. **The full mentor board is seated** in this repo's `.claude/agents/` (8 mentors
+> citing practitioners from `docs/mentor-practitioners.md`) and has had its first session on BOSS.
+> The board's loud finding: pause "more features" — earn founder contact, eval the conscience
+> before building moments #3/#4. The conscience is BOSS's moat *and* the most under-validated thing.
 >
 > Next, in order:
-> 1. IDEA-003 (finish) — Ajesh has a list of real people whose app-startup best-practices to encode.
->    Get the list; map archetype-seeded-by-named-practices (leaning archetype); `/boss-learn` them UP
->    into library/practices/ + memory-seed/; have mentor-venture (+ now mentor-architect, mentor-gtm)
->    cite them.
-> 2. Validate the conscience live (fresh `boss new` or `boss sync --apply` on betabeta) — tune signal
->    language if it lands wrong. Then build detect-triggers for moments #3 (capture) and #4 (restraint;
->    plausibly fires from `/spec`).
-> 3. Decide: do we eat our own MVP-mode dogfood here (`boss sync --apply` against BlueprintOS to
->    import the new /spec etc. skills) or leave this repo hand-tuned and let MVP be defined by what
->    it produces in other projects?
+> 1. Conscience evals — `docs/architecture/conscience-evals.md` with 20+ should-fire/should-NOT-fire
+>    examples per moment; refactor hook to return structured `{moment, confidence, evidence}`.
+>    *Then* moments #3/#4.
+> 2. 5 real-founder Mom-Test conversations — pick names, outreach line, 30-min calls, capture in
+>    `docs/dossier/founder-conversations-001.md`. Pause capabilities until done.
+> 3. Positioning pass (Dunford) + strangers-can-read-it README (Raskin spine drafted in the
+>    advisory pass).
+> 4. Humane upgrades to conscience spec; right-sized shape named on the canvas.
+>
+> Deferred until 1–3 land: IDEA-003 finish (practitioners as named practices UP), moments #3/#4,
+> IDEA-005 brownfield, IDEA-006 host portability.
 >
 > Per capability: bump VERSION + package.json (keep in sync) + add a registry/CHANGELOG.md entry +
 > update this RESUME. Test the CLI in /tmp, prune /tmp entries from ~/.boss/registry.json, commit
