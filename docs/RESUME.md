@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-22 (v0.15.0)
+updated: 2026-05-22 (v0.16.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,18 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.15.0)
+## State (shipped, v0.16.0)
+- **Eval-loop closed — conscience has evals + structured output; IDEA-008 primitive validated
+  (v0.16.0):** two ladders climbed at once. Produced the conscience eval set (84 labeled
+  examples across 2 moments, categorized failure modes per Husain), zero-dep Node runner with
+  a minimal YAML parser, hook refactored to structured `{moment, confidence, evidence,
+  suppress_if}` output (Liu). **43/43 pass on every runnable case; 41 skipped as documented
+  future-work** (moment-2 lives in /canvas skill; suppress_if + devlog awareness pending). The
+  eval set itself caught + fixed **3 real bugs** (single-char placeholders, dropped-idea
+  filtering on counts + canvas validation). IDEA-008's four-field primitive (entry/purpose/
+  exit/drift) **held up** under contact with reality; the predicate vocabulary survived; the
+  loop is ready to promote to FEAT. One shape-question surfaced (moment-2 isn't hook-detected
+  — argues for a `runner_type` field). First loop authored at [`docs/loops/eval.md`](loops/eval.md).
 - **Full mentor board seated + first advisory pass on BOSS itself (v0.15.0):** stepped back before
   the next build axis. All 8 mentors live in this repo's `.claude/agents/` (BOSS-local): `mentor-
   venture` (cornerstone), `mentor-architect` (retuned for AI-native era — both BOSS-local and the
@@ -105,17 +116,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 > (`docs/dossier/ai-mvp-playbook-001.md`) is marked superseded-pending — its practitioner material
 > stays correct, its 4-week cadence is replaced by the loop graph in IDEA-008.
 
-1. **Run the eval loop as the first proof of IDEA-008's primitive.** Two simultaneous threads
-   from the same artifact:
-   - **The eval loop itself** — write `docs/architecture/conscience-evals.md` with 20+ should-fire
-     and 20+ should-NOT-fire examples *per moment*, categorized by failure mode. Refactor the
-     hook to ship structured `{moment, confidence, evidence, suppress_if}`. *(This is the
-     advisory pass's #1 plus the playbook's Husain + Liu disciplines, executed.)*
-   - **The loop-spec form itself as the artifact** — does the four-field primitive (entry /
-     purpose / exit / drift) survive contact with reality? Does the remix space hold (skip /
-     swap discipline / author your own)? Refine the IDEA-008 spec based on what running ONE
-     loop teaches.
-   Closes the highest-leverage architecture gap AND tests the meta-design before generalizing.
+1. ~~Run the eval loop as the first proof of IDEA-008's primitive.~~ **DONE in v0.16.0.**
+   84 examples + zero-dep runner + structured hook output + 3 bugs caught and fixed; primitive
+   held up; ready to promote IDEA-008 → FEAT. **Two follow-ups Ajesh's read decides:**
+   - **Single-idea-deepening (m1-snf-021)** — is 3+ captures on ONE idea drift, or is it deep
+     iteration (the opposite of drift)? Current hook treats as drift; eval marks as
+     `should-not-fire`. Honest case for either reading. Affects how the generic detector treats
+     per-idea vs aggregate counts.
+   - **Add `runner_type` to loop specs?** Moment-2 lives in `/canvas` skill prompt, not a hook.
+     Surfaces that future loops will need different runners (`hook | skill | manual | external`)
+     depending on where the detector lives. Add the field to the primitive now (small change),
+     or wait until a second loop forces it?
 2. **5 real-founder Mom-Test conversations = the first conversation-loop** (mentor-venture/
    Fitzpatrick). Not "would you use this" — "show me your last project, where did you stall,
    what would have helped." Capture in `docs/dossier/founder-conversations-001.md`. Pause new

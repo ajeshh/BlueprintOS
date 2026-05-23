@@ -2,6 +2,49 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.16.0 — 2026-05-22
+
+- **The eval-loop closed — conscience now has evals + structured output (proves IDEA-008's
+  primitive on its first real run).** Two ladders climbed at once: produced the conscience eval
+  set (the artifact the advisory pass / playbook said BOSS most needed) AND validated the loop
+  primitive from IDEA-008 by running ONE loop end-to-end. Both succeeded.
+  - **84 labeled eval examples** (43 moment-1 caution + 41 moment-2 Done!) in
+    `docs/architecture/conscience-evals/{moment-1-caution,moment-2-done}.yml`. Should-fire +
+    categorized should-NOT-fire entries (failure_mode taxonomy per Husain's discipline:
+    `over-fires-on-fresh-project`, `fires-mid-other-work`, `repeats-itself`, `shame-toned`,
+    `false-positive-canvas-exists`, `false-positive-not-drift`, `acknowledged-already`,
+    `fires-too-early`, `performed-warmth`, `removes-agency`, `riskiest-assumption-stale`,
+    `triggered-by-trivial-change`). Each example has structured `project_state` (the synthetic
+    docs/ideas/ tree the runner builds in a temp dir) + `expected_detection`.
+  - **Zero-dep Node runner** at `docs/architecture/conscience-evals/runner.js` — includes a
+    minimal YAML parser for the subset our eval files use (so the data stays human-readable
+    without breaking the zero-dep rule). Constructs synthetic state, invokes the actual hook,
+    parses output, asserts. Reports per-example + a categorized summary table.
+  - **Hook refactored to structured output** (Liu's discipline): now ships
+    `{moment, confidence, evidence: {capture_count, canvases_with_filled_assumption,
+    active_idea_count}, suppress_if}` in addition to the `additionalContext` string. Model still
+    composes the voice; hook ships a schema.
+  - **3 real bugs caught and fixed by the eval set itself** (Husain's "look at your data"
+    discipline in action):
+    1. Single-char placeholders like `?` slipped through the riskiest-assumption regex.
+       Tightened to require ≥3 alphanumeric chars (rejects `?`, `??`, `_TBD_`, empty, etc.).
+    2. Hook counted captures across *all* ideas — including `status: dropped`. Drift signal
+       from already-walked-away ideas is meaningless. Hook now filters active vs. dropped.
+    3. Filled canvases on dropped ideas were stopping the "validated" check. Same fix:
+       active-status filtering on canvas checks too.
+  - **Runner results: 43/43 pass on every runnable case. 41 skipped as categorized future-work**
+    (moment-2 lives in `/canvas` skill prompt not a hook; suppress_if cases need session-state /
+    devlog awareness; signal-text violations need a separate runner — all explicitly tracked).
+  - **IDEA-008 primitive verdict — ready to promote to FEAT.** The four-field shape (entry,
+    purpose, exit, drift) held up. The predicate vocabulary (`exists`, `contains`,
+    `count_at_least`, `recorded_at`) survived contact with reality. Multi-part exit artifacts
+    work. Skip-with-reason is the right runner pattern. ~half of examples test future features
+    (suppress_if + devlog + skill-based detection), which is the right ratio — the eval set
+    is forward-looking, not just current-implementation snapshot. One real shape-question
+    surfaced (moment-2 isn't hook-detected — argues for a `runner_type` field on loop specs).
+  - First loop authored: `docs/loops/eval.md` — the eval-loop spec using the four-field primitive
+    with predicates in YAML frontmatter. The template for every future loop.
+
 ## 0.15.0 — 2026-05-22
 
 - **BOSS now has its full mentor board seated, and the board has had its first session on BOSS

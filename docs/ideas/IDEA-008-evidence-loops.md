@@ -211,28 +211,184 @@ remix; the conscience can check entry/exit/drift mechanically.
   resolve into one primitive: artifact-keyed loops that compose freely. The conscience becomes
   method-agnostic; it checks type dependencies, not curriculum compliance.
 
-## Open questions
+## Resolved decisions (each can be refined when the eval loop runs)
 
-- **What's the smallest set of named loops at MVP?** Sketched here: pretotype, prototype, eval,
-  conversation, decision. Probably right; needs the first real run to confirm.
-- **Where does a project store its loop graph?** Candidates: `docs/loops/` (per-loop files +
-  index), or extend `.boss/manifest.json` to track open/closed loops, or both (machine state +
-  human-readable docs). Leaning: `.boss/loops.json` for machine state, `docs/loops/<name>.md` for
-  human-readable per-loop rationale.
-- **How does the conscience implement artifact-dependency checking generically?** Today's
-  conscience hook is hand-coded for moment #1. The generic version reads the loops, their
-  declared entry/exit/drift, and the project state — that's a real implementation question worth
-  scoping.
-- **What's the override capture format?** When a founder skips a loop, where does the record
-  live? Could be the devlog (`/log`), could be a dedicated `docs/overrides.md`. Leaning: devlog,
-  with a structured tag.
-- **Does this idea earn promotion to FEAT before the eval loop ships?** I.e., do we spec it as a
-  buildable feature now, or do we run the eval loop as a *user* of the loop primitive (without
-  formalizing the primitive in code yet) and decide after?
-- **Does any of this conflict with existing IDEAs?** IDEA-004 (temple culture), IDEA-006 (host
-  portability) — loops live underneath both; loops generalize the moment-detector across hosts.
-  IDEA-005 (brownfield adoption) — loops let a brownfield project declare what artifacts it
-  already has, skipping upstream loops legitimately.
+### 1. Smallest set of named loops at MVP — **5 loops: pretotype, prototype, eval, conversation, decision**
+
+Tried to collapse and couldn't:
+
+| Loop | Entry | Purpose | Exit | Lead practitioners |
+|---|---|---|---|---|
+| **pretotype-loop** | Sharp riskiest assumption named on canvas | Test *demand* before building | Demand signal recorded (signups, click-throughs, "yes I'd buy" commitments) | Savoia, Maurya |
+| **prototype-loop** | Demand signal + sharp UVP | Build smallest live version | Deployed URL doing the smallest thing | Rauch, Karpathy, Mollick, Willison |
+| **eval-loop** | Any LLM-mediated control-flow point | Make AI behavior measurable | ≥20 should-fire + ≥20 should-NOT-fire examples (categorized) + structured outputs | Husain, Liu |
+| **conversation-loop** | A working pretotype OR prototype OR a sharp hypothesis | Hear from real humans, not the model | ≥5 transcribed interviews + ≥3 synthesized patterns | Fitzpatrick, Maurya, Torres |
+| **decision-loop** | Other loops have produced their exit artifacts | Close the cycle with a verdict | Written pivot/persevere/kill decision in canvas | Ries, Maurya |
+
+The five are irreducible — each has a distinct entry, purpose, exit, and lead discipline. Could
+argue conversation is *part of* pretotype/decision, but Ries/Fitzpatrick treat it as its own
+discipline (the question is different in each); keep separate.
+
+### 2. Loop-graph storage — **`docs/loops/<name>.md` is the single source of truth**
+
+Human-authored markdown with YAML frontmatter. No `.boss/loops.json`. The conscience reads the
+markdown at hook time and parses the predicates (next decision). Same pattern as `docs/ideas/` —
+one file = one entity, frontmatter is structured, body is rationale.
+
+Rationale: dual sources of truth drift; the JSON would just be a derived index. Defer it until
+performance forces it (Node can parse 5–20 markdown files in <50ms; that's well inside the hook
+budget). When/if it's needed, generate it from the docs, never the other way.
+
+### 3. Generic artifact-dependency checking — **predicate vocabulary in the loop frontmatter; one Node evaluator replaces the hand-coded hook**
+
+Each loop's entry/exit artifact is declared as a predicate the conscience can evaluate against
+the project's filesystem. A small, closed vocabulary:
+
+| Predicate | Meaning | Example |
+|---|---|---|
+| `exists: <path>` | A file exists at this path | `exists: docs/ideas/IDEA-NNN-canvas.md` |
+| `contains: { path, pattern }` | File matches a regex on a line | `contains: { path: docs/ideas/*-canvas.md, pattern: 'Riskiest assumption:\*\*\\s+[^_]' }` |
+| `count_at_least: { path_glob, pattern, min }` | ≥N matches across globbed files | `count_at_least: { path_glob: docs/ideas/IDEA-*.md, pattern: '^- \\d{4}-\\d{2}-\\d{2}', min: 3 }` |
+| `recorded_at: <path>` | Founder wrote external signal at a known path | `recorded_at: docs/loops/pretotype/signal.md` |
+
+The conscience hook becomes a generic loop-evaluator: load all `docs/loops/*.md`, evaluate each
+loop's entry-artifact predicates against the project state, classify each loop as
+`unopenable / openable / open / closed`, detect drift (an "open" loop with no recent progress on
+its exit predicate, or a user attempting downstream work without upstream artifacts). Returns the
+same `additionalContext` shape — Claude composes the voice.
+
+The current hand-coded hook becomes ONE instance of this vocabulary (the count-at-least + the
+contains predicates on canvas state). Implementation effort: ~1 day once the predicate set
+survives the eval loop's first run.
+
+### 4. Override capture — **devlog with a structured tag**
+
+When a founder skips a loop or proceeds with an unmet upstream artifact, the override is captured
+inline in `docs/devlog.md` (the existing append-only journal). One tag, one grammar:
+
+```markdown
+## 2026-05-29
+- **OVERRIDE:** skipped `pretotype-loop` — rationale: prior similar product validated;
+  re-open if prototype hits resistance.
+- **OVERRIDE:** proceeded `eval-loop` without `prototype-loop` exit — rationale: evals are
+  for the conscience itself, prototype doesn't apply.
+```
+
+Grammar (regex-grep-able by the conscience): `^- \*\*OVERRIDE:\*\* (skipped|proceeded) \`(\S+)\` — rationale: (.+)$`
+
+The conscience reads overrides at hook time so it doesn't re-fire on already-acknowledged drift.
+The founder owns their record; future-them sees the rationale; the conscience respects the
+choice. This makes deviation conscious without making it bureaucratic.
+
+### 5. FEAT promotion timing — **Path B: run the eval loop *as a user* of the primitive first; promote to FEAT after**
+
+Don't spec IDEA-008 as a buildable feature yet. Write `docs/loops/eval.md` by hand using the
+four-field shape; run it; produce the example set + the schemafied hook. See if the four fields
+held up unambiguously, whether the predicate vocabulary above covered what the loop needed,
+whether the override-capture format was natural.
+
+Two outcomes possible:
+
+- **The primitive holds:** promote IDEA-008 → FEAT-NNN. Spec covers: predicate evaluator (~1 day),
+  generic conscience hook reading `docs/loops/*.md` (~half-day), MVP-template's loop library
+  populated with 5 loop docs (~1 day). Retire moment #1's bespoke hook by porting it into the
+  generic evaluator — net code *decreases*.
+- **The primitive doesn't hold:** refine IDEA-008's shape *before* any code. Specifically: which
+  field was ambiguous? Did a real loop need a 5th field? Did the predicates fail to cover a
+  case? Capture that, iterate the spec, re-run.
+
+This is the Savoia move on the meta-design itself: don't build the framework; pretotype one
+instance and let it teach you the framework's shape.
+
+### 6. Conflict check with existing IDEAs — **no conflicts; three refinements to apply**
+
+- **IDEA-003 (mentor practitioners → encoded UP):** *refinement* — what `/boss-learn` carries UP
+  is now *loop specs* with the four fields, not free-floating practice docs. Sharpens the IDEA-003
+  finish task: practitioner encoding produces named loops (or named *variants* of existing loops),
+  attributed, citable, composable. Loops are the artifact shape that makes practitioner
+  encoding load-bearing rather than decorative.
+- **IDEA-004 (temple culture):** *no conflict, fits underneath* — temple values become predicates
+  attached to specific loops (e.g., a values-check predicate on decision-loop's exit: "does this
+  decision pass the do/avoid/escalate filter?"). Loops carry temple; temple uses loops.
+- **IDEA-005 (brownfield adoption):** *no conflict, gets simpler* — `boss adopt` declares which
+  loops are already closed-by-existing-evidence in a brownfield project (the app shipped years
+  ago; the prototype-loop is closed by definition). Loops give brownfield a clean way to *skip
+  past* upstream artifacts without losing the conscience.
+- **IDEA-006 (host portability):** *no conflict, gets sharper* — loops cleanly separate two
+  layers: the predicate evaluator (host-agnostic filesystem checks, plain Node) and the
+  signal-injection (host-bound; Claude Code's `additionalContext` today, something else
+  elsewhere). The host contract IDEA-006 needs to name is now just "signal-injection," which is
+  ~10 lines of API surface, not the whole conscience.
+- **IDEA-007 (brand spectrum):** no interaction.
+
+## Meta-learnings from running the eval loop (v0.16.0 — first proof of primitive)
+
+The eval loop was run as the first real instance of the primitive. Artifacts produced: the loop
+spec at `docs/loops/eval.md`, 84 labeled examples across two moments (43 + 41), a zero-dep
+Node runner with a custom YAML parser, the hook refactored to structured `{moment, confidence,
+evidence, suppress_if}` output. The runner: **43/43 pass on every runnable case; 41 skipped
+as future-work (documented).** Caught + fixed 3 real hook bugs the evals exposed (single-char
+placeholders like `?` slipped through; dropped ideas weren't being excluded from drift counts).
+
+What the run taught us about the primitive itself:
+
+- ✅ **The four fields held up.** Entry, purpose, exit, drift were all unambiguous and useful.
+  No need for a 5th field. The proposed `lead practitioners` + `also relevant` + `how to remix`
+  + `when this loop re-opens` belong in the loop *body*, not as additional structured fields —
+  prose handles them better than fields would.
+- ✅ **Predicate vocabulary survived.** `exists`, `contains`, `count_at_least`, `recorded_at`
+  covered everything the eval loop needed. The runner constructs synthetic project state from
+  these and runs the actual hook against it — no abstraction leaks observed.
+- ✅ **Multi-part exit artifacts are fine.** The eval loop had 5 exit artifacts (two YAML
+  files, README, runner, structured hook output). The primitive correctly modeled this as a
+  list under `exit:` rather than forcing one-artifact-per-loop.
+- ✅ **Eval-first discipline worked exactly as Husain says.** 3 bugs surfaced in ~30 min of
+  running — one (status-aware filtering) was a hole nobody would have written a test for
+  retroactively; only `should-NOT-fire` discipline surfaces it.
+- ✅ **Skip-with-reason is the right runner pattern.** ~49% of examples (41/84) test features
+  not yet implemented (`suppress_if` cases, devlog awareness, moment-2 which lives in `/canvas`
+  skill, signal-text violations). Skipping with categorized reasons (vs failing) keeps the eval
+  set forward-looking without breaking the green gate.
+
+What the run *did* surface that needs Ajesh's read:
+
+- ⚠️ **Moment-2 isn't hook-detected — it's a `/canvas` skill behavior.** The eval set captures
+  expected behavior; the runner has no way to *execute* the detector today (the skill prompt
+  is in markdown, not code). This isn't a flaw in the loop primitive — the eval loop's exit
+  artifact (the labeled set + the structured signal where applicable) is still right. It does
+  mean **future loops will need different *runners*** depending on whether the detector is
+  code (hook), prompt (skill), or human (manual review). Worth naming as a *runner type* axis
+  alongside the predicate vocabulary.
+- ⚠️ **m1-snf-021 (single-idea-deepening) is a real ambiguity that needs Ajesh's call.** Is
+  3+ captures on ONE idea drift, or is it deep iteration on one bet (the opposite of drift)?
+  Current hook treats it as drift (counts total). The eval marks it `should-not-fire` with
+  category `false-positive-not-drift` — but is that right? Honest case for either reading.
+
+What was deferred and remains future work:
+
+- `suppress_if` implementation requires session-state tracking (recently-fired, state-hash
+  comparison) — the structured output is in place, the runtime suppression logic isn't.
+- Devlog awareness (`acknowledged_in_devlog` override) — the most useful unimplemented
+  suppress_if. Honest founder-respect requires this.
+- Project-config opt-out (CLAUDE.md amendments disabling a moment) — implementation TBD.
+- Signal-text evals — moment-2's `performed-warmth` / `removes-agency` categories test the
+  signal *text*, which needs a separate runner (likely LLM-as-judge with examples of the judge
+  being wrong, per Husain).
+
+**Verdict on the primitive: the four-field shape is correct and ready to promote to FEAT.**
+Build the generic conscience evaluator (replaces hand-coded moment-1 detector), add 2-3 more
+named loops (pretotype, conversation, decision), retire moment #1's bespoke trigger by porting
+it into the generic evaluator. Net code *decreases* as the abstraction lands.
+
+## Still-open (need Ajesh's read, not more thinking)
+
+- The single-idea-deepening case (m1-snf-021): drift or depth? Affects how the generic detector
+  treats per-idea vs aggregate counts.
+- Whether to add a `runner_type` field to loop specs (`hook | skill | manual | external`) so
+  the evaluator knows what kind of detector to invoke. (Probably yes — surfaced by moment-2.)
+- Override-capture grammar: was the `**OVERRIDE:** action `loop` — rationale: ...` format we
+  declared in resolved-decisions section #4 right? Not yet tested — needs to be exercised by
+  a real override in some loop before we can know.
 
 ## Canvas
 _Covered by BOSS's overall canvas ([CANVAS.md](CANVAS.md))._
