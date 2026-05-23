@@ -27,7 +27,12 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   — honest, not flattering. **The queue has been re-ordered by the pass** (see Next tasks): pause
   features to earn founder contact, eval the conscience before building moments #3/#4, run the
   Dunford positioning exercise. Cross-cutting theme: the conscience is the moat AND the most
-  under-validated thing — plug that gap first.
+  under-validated thing — plug that gap first. Companion **AI-MVP playbook** at
+  [`docs/dossier/ai-mvp-playbook-001.md`](dossier/ai-mvp-playbook-001.md) compiles 9 named
+  practitioners (Group A = Mollick/Karpathy/Willison/Rauch — speed+AI; Group B = Ries/Maurya/
+  Savoia/Husain/Liu — discipline+measurement) into a 4-week MVP cadence + decision rules for
+  choosing which voice leads when. Also names 3 concrete `/spec` & `/smoke`/`/evals` & `/pretotype`
+  upgrades to MVP mode (queued behind the advisory pass moves).
 - **MVP mode is authored — `boss unlock mvp` works for real (v0.14.0, closes IDEA-002):** this repo's
   own MVP practice extracted UP into `stages/L1-mvp/{manifest.json,template/}`. Adds 4 skills (`/spec`
   for `IDEA→FEAT-NNN` promotion, `/smoke` build-health gate with stack-configured command saved to
@@ -91,21 +96,32 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 - **BOSS now dogfoods itself** (v0.6.0): registered project, `.boss/` stamp (mode MVP, self-hosted),
   `docs/ideas/` (IDEA-001..003), own `CLAUDE.md` + `IDS.md` + this RESUME + its own `/canvas`.
 
-## Next tasks (in order — re-ordered by advisory pass 001)
+## Next tasks (in order — re-ordered by IDEA-008 + advisory pass 001)
 
-> The advisory pass (`docs/dossier/boss-advisory-pass-001.md`) explicitly recommends pausing
-> "more features" and earning founder contact + evals first. Items 4–6 below are the *deferred*
-> threads from the prior queue.
+> **IDEA-008 (evidence-keyed loops + remix) is the new scaffolding primitive.** It changes the
+> shape of the work below: the conscience-evals pass below is no longer a free-floating task —
+> it's *the first concrete run of the eval-loop*, which is in turn the proof-of-primitive for
+> IDEA-008. So both ladders climb at once. The v1 playbook
+> (`docs/dossier/ai-mvp-playbook-001.md`) is marked superseded-pending — its practitioner material
+> stays correct, its 4-week cadence is replaced by the loop graph in IDEA-008.
 
-1. **Conscience evals pass (mentor-architect/Husain + mentor-humane).** Write
-   `docs/architecture/conscience-evals.md` with 20+ "should fire / should NOT fire" examples *per
-   moment*. Refactor the hook to return structured `{moment, confidence, evidence}` instead of a
-   free-form string (mentor-architect/Liu). Only *then* build moments #3/#4 — eval-set-first, not
-   signal-first. Closes the highest-leverage architecture gap and unblocks all future moments.
-2. **5 real-founder Mom-Test conversations (mentor-venture/Fitzpatrick).** Not "would you use
-   this" — "show me your last project, where did you stall, what would have helped." Capture in
-   `docs/dossier/founder-conversations-001.md`. Pause new capabilities until done. Likely needs:
-   pick 5 names, draft an outreach line, run 30-min calls, capture raw + synthesis.
+1. **Run the eval loop as the first proof of IDEA-008's primitive.** Two simultaneous threads
+   from the same artifact:
+   - **The eval loop itself** — write `docs/architecture/conscience-evals.md` with 20+ should-fire
+     and 20+ should-NOT-fire examples *per moment*, categorized by failure mode. Refactor the
+     hook to ship structured `{moment, confidence, evidence, suppress_if}`. *(This is the
+     advisory pass's #1 plus the playbook's Husain + Liu disciplines, executed.)*
+   - **The loop-spec form itself as the artifact** — does the four-field primitive (entry /
+     purpose / exit / drift) survive contact with reality? Does the remix space hold (skip /
+     swap discipline / author your own)? Refine the IDEA-008 spec based on what running ONE
+     loop teaches.
+   Closes the highest-leverage architecture gap AND tests the meta-design before generalizing.
+2. **5 real-founder Mom-Test conversations = the first conversation-loop** (mentor-venture/
+   Fitzpatrick). Not "would you use this" — "show me your last project, where did you stall,
+   what would have helped." Capture in `docs/dossier/founder-conversations-001.md`. Pause new
+   capabilities until done. *This is also a remix-test: does Maurya-Lean-Canvas-style customer
+   development feel right, or does the founder want to lean Torres-continuous-discovery? Watch
+   which way Ajesh remixes — that's data on the primitive.*
 3. **Positioning + strangers-can-read-it README (mentor-gtm/Dunford + mentor-pitch/Raskin).** Run
    the Dunford exercise explicitly (`docs/dossier/positioning-pass-001.md`). Rewrite the README's
    opening for a stranger using the Raskin spine drafted in the advisory pass. Decide
@@ -118,10 +134,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 5. **Name the right-sized shape on the canvas (mentor-business + mentor-fundraising + mentor-talent
    converged).** Update Business Model cell from "open" to "*calm-company / OSS default; any other
    shape requires a deliberate decision*." Reduces drift risk.
-6. **Deferred (will re-open after items 1–3):** IDEA-003 finish (encode practitioners as named
-   practices UP into `library/practices/`), conscience moments #3/#4 (after evals exist),
-   IDEA-005 brownfield adoption, IDEA-006 host portability, self-eating the MVP mode in this repo.
-7. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor *structure*~~ — **DONE in
+6. **Generalize loops if the primitive holds.** If task 1 confirms the four-field primitive
+   works, design 2–3 more named loops from the playbook material (pretotype-loop = Savoia/Maurya;
+   conversation-loop = Fitzpatrick/Maurya/Mom-Test; decision-loop = Ries pivot-or-persevere).
+   Then build the generic artifact-dependency conscience detector — moments #3/#4 fall out
+   naturally rather than being bespoke.
+7. **Deferred (will re-open after task 1):** IDEA-003 finish (now reshaped — practitioners encode
+   UP as *loops* with attribution, not free-floating practices), conscience moments #3/#4 as
+   bespoke (replaced by the generic detector in task 6), IDEA-005 brownfield (loops let it
+   declare existing artifacts cleanly), IDEA-006 host portability, self-eating the MVP mode in
+   this repo.
+8. ~~IDEA-001 learning loop~~ — **DONE in v0.8.0**. ~~IDEA-003 mentor *structure*~~ — **DONE in
    v0.9.0**. ~~IDEA-002 MVP mode~~ — **DONE in v0.14.0**. ~~Full mentor board seated~~ — **DONE in
    v0.15.0**.
 

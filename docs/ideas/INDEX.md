@@ -18,6 +18,7 @@ BOSS's own backlog, dogfooding its own ID system.
 | [IDEA-005](IDEA-005-brownfield-adoption.md) | Brownfield adoption — `boss adopt` for an already-started app | exploring | greenfield-only today; non-destructive primitives exist; "lite" = adopt at the register the app earned (Principle 2) |
 | [IDEA-006](IDEA-006-conscience-host-portability.md) | Conscience host-portability — host contract for non-Claude agents | exploring | three layers: CLI agnostic, conscience Claude-bound, arc = precondition; name the host contract, don't port yet |
 | [IDEA-007](IDEA-007-brand-spectrum-and-alter-ego.md) | Brand spectrum + bad-boss alter-ego ("BOSS.DK") | exploring | "Like a boss!"/"Boss mode"/BOSS.DK = one register-axis; humane = right action + humor, not warm words; alter-ego stays contained (opt-in, parodies the trope) |
+| [IDEA-008](IDEA-008-evidence-loops.md) | Evidence-keyed loops + the remix model | exploring | the new scaffolding primitive; time is dead, founders remix freely; one mechanism (artifact-dependency drift) collapses conscience moments #3/#4; supersedes the v1 playbook's 4-week cadence |
 
 Canvas for BOSS itself: [CANVAS.md](CANVAS.md).
 
