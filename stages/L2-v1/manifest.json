@@ -1,0 +1,12 @@
+{
+  "id": "L2-v1",
+  "name": "V1",
+  "summary": "Ready for a real, shippable v1. The design layer turns on (PRINCIPLES.md #3): three-layer design tokens enforced via design-drift-loop, ui-designer + ux-designer as visual+flow authorities, db-architect for real data shape. /board for cross-FEAT sequencing, /design-review before code, /ux-check after. Plus the next tier of mentors: business (model + pricing), fundraising (whether/when/how), pitch (story + deck), talent (first hires + cadence) — promoted from BOSS-local in v0.15.0 to scaffolded-project templates here.",
+  "requires": "L1-mvp",
+  "agents": ["ui-designer", "ux-designer", "db-architect", "mentor-business", "mentor-fundraising", "mentor-pitch", "mentor-talent"],
+  "skills": ["board", "design-review", "ux-check"],
+  "hooks": [],
+  "loops": ["design-drift-loop"],
+  "unlocksNext": "L3-scale",
+  "graduationHint": "When the team grows, the org gets real, and the product council needs to be a thing — boss unlock scale."
+}

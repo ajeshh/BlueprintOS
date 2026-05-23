@@ -2,6 +2,61 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.22.0 — 2026-05-23
+
+- **V1 mode authored — `boss unlock v1` works for real.** The third major mode arrives. Same
+  playbook as MVP authoring (v0.14.0): manifest + template + claude-append + agents + skills +
+  loops. V1 is the *real shippable release* mode — design layer turns on, the second-tier
+  mentors arrive, data shape becomes a first-class decision, and a cross-FEAT sequencing
+  surface appears.
+  - **3 new builder agents:**
+    - `ui-designer` — token + visual authority. Reads `DESIGN_TOKENS.md` as truth; refuses raw
+      hex; three-layer architecture enforced (primitives → semantic → component). Cites Brad
+      Frost (Atomic Design), Nathan Curtis (layer-cake), Jina Anne (W3C DTCG), Diana Mounter
+      (Primer), Aarron Walter (emotional design). Holds the WCAG AA floor.
+    - `ux-designer` — flow + state + interaction authority. **5-state requirement** non-
+      optional (default / hover / active / disabled / empty + loading + error). Nielsen 10
+      heuristics; Krug clarity; Norman affordances; Luke Wroblewski forms; Christopher
+      Noessel for agentive patterns; Erika Hall for just-enough-research.
+    - `db-architect` — schema + data-shape authority. Schema before code, even solo. Cites
+      Codd, Date, Stonebraker, Kleppmann + AI-native data voices (Liu structured outputs,
+      Husain data quality, Huyen production). Flags AI-data failure modes (unstructured-LLM-
+      output in control flow; hallucinated-data pollution; eval-data-isn't-user-data).
+  - **4 template mentor copies** (promoted from BOSS-local v0.15.0 to scaffolded-project
+    templates — `{{PROJECT_NAME}}` / `{{MODE}}` placeholders): `mentor-business`,
+    `mentor-fundraising`, `mentor-pitch`, `mentor-talent`. Same source practitioners as the
+    BOSS-local versions; phrased to coach the founder of a generic scaffolded project. All
+    advisory; never binding legal/financial/medical. Default position for mentor-fundraising
+    + mentor-talent: *don't raise / don't hire yet, possibly never*.
+  - **3 new skills:**
+    - `/board` — cross-FEAT sequencing surface. Live read computed from FEAT frontmatter +
+      smoke/evals state + override entries. Flags: `--next`, `--blocked`, `--by-cohort`,
+      `--deferred`, `--evals`. Owned by `program-manager`.
+    - `/design-review` — before-code design review. Runs `ui-designer` (token + visual) + 
+      `ux-designer` (flows + 5 states) sequentially against the proposed UI. Reads tokens
+      file, style guide, canvas Promises cell. Outputs concrete diffs. Cohort-aware delivery.
+    - `/ux-check` — after-code UX review. Walks the *shipped* experience (not the spec),
+      checks states are real, runs accessibility heuristics, applies AI-specific UX where
+      relevant. Pairs with `/design-review`.
+  - **1 new loop:** `design-drift-loop` (V1-stage, runner_type: hook). The V1-stage counterpart
+    to MVP's `design-tokens-loop` — gates *whether tokens are still authoritative*, not just
+    *whether they exist*. **Subtle pattern worth naming:** this loop's exit predicate is the
+    *bad signal* (≥1 raw hex code in code, excluding the tokens file) — the loop is
+    "drift-emitting" when the bad signal is present. The IDEA-008 primitive supports this
+    without modification. Emits the `coherence` moment (introduced v0.21).
+  - **L2-v1 manifest** declares 7 agents + 3 skills + 1 loop; `boss sync` carries them via the
+    managed-file kinds (agent, skill, loop). `.boss` stamp tracks them. claude-append.md
+    reads as a clean V1-working-rules catalog.
+- **End-to-end tested in /tmp:** `boss new` → `boss unlock mvp` → `boss unlock v1` lands all
+  three modes' files cleanly. Final stamp: 14 agents + 15 skills + 6 loops + 1 hook + 3
+  installed layers. `boss status --conscience` shows all 6 loops in correct states on a fresh
+  project. 43/43 evals still pass (regression-clean).
+- **Deferred to v0.23:** moment #3 (capture — reusable value at breakpoint, needs LLM-as-judge
+  or heuristic detector — not predicate-based); PostToolUse hook for hardcoded-style detection
+  (new hook-type plumbing — its own concern); Scale mode authoring (mentor-humane template
+  promotion, PM org, code-health, product council); `/design-prompt` skill or fold into
+  `/design-review`.
+
 ## 0.21.0 — 2026-05-23
 
 - **MVP discipline upgrades + IDEA-010 Phase 2 (design-tokens-loop) — all in one release.**

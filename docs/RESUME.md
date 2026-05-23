@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.21.0)
+updated: 2026-05-23 (v0.22.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,15 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.21.0)
+## State (shipped, v0.22.0)
+- **V1 mode authored — `boss unlock v1` works (v0.22.0):** the third macro stage real.
+  3 new builder agents (`ui-designer`, `ux-designer`, `db-architect`), 4 template mentor
+  copies (business / fundraising / pitch / talent — promoted from BOSS-local), 3 new skills
+  (`/board`, `/design-review`, `/ux-check`), 1 new loop (`design-drift-loop` — V1-stage
+  counterpart to MVP's design-tokens-loop; uses an *inverted* exit predicate where the bad
+  signal triggers drift). End-to-end tested: `boss new → unlock mvp → unlock v1` lands 14
+  agents + 15 skills + 6 loops + 1 hook across 3 installed layers. 43/43 evals regression-
+  clean. The macro scaffold (Quickstart → MVP → V1) is now real for any project.
 - **MVP discipline upgrades + IDEA-010 Phase 2 (v0.21.0):** Three new MVP skills (`/evals` —
   Husain; `/pretotype` — Savoia; `/design-tokens-init` — IDEA-010 Phase 2 with cohort-aware
   delivery), three new MVP-stage loops (`spec-loop`, `pretotype-loop`, `design-tokens-loop` —
@@ -180,20 +188,16 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    /spec carries validated-learning + evals fields. **Moment #3 (capture — reusable value at
    breakpoint) re-deferred to v0.22** — it genuinely needs a different detector design (not
    predicate-based; possibly LLM-as-judge looking at artifacts for generalizability signals).
-4. **v0.22 — V1 mode authored + moment #3 (capture) + IDEA-010 Phase 3.** *(shifted from
-   v0.22 because v0.21 absorbed v0.21's original scope.)* V1 mode authoring per the existing
-   `library/practices/design-system.md` plan: `ui-designer` + `ux-designer` agents,
-   `/design-review` + `/ux-check` skills, PostToolUse hook for hardcoded-style detection,
-   `design-drift-loop` (the V1+ counterpart to v0.21's `design-tokens-loop`). Plus design-system
-   template artifacts (component audit + state checklist, prototype registry). **Plus moment
-   #3 (capture — reusable value at breakpoint)** — needs different detector design from the
-   predicate vocabulary; possibly an LLM-as-judge approach where a slim model reads recently-
-   modified artifacts and flags ones that look generalizable. Validated via persona-eval
-   discipline. Plus template versions of `mentor-business`, `mentor-fundraising`,
-   `mentor-pitch`, `mentor-talent`.
-5. **v0.23 — Scale mode authored** *(was v0.23; unchanged)*. `mentor-humane` promoted from
-   BOSS-local to template (the board). PM org, code-health, product council. IDEA-010
-   Phase 4 (`/design-prompt` skill) may land here if not folded into v0.22's `/design-review`.
+4. ~~v0.22 — V1 mode authored + IDEA-010 Phase 3.~~ **DONE in v0.22.0.** V1 mode shipped with
+   the 3 new builder agents + 4 template mentor copies + 3 new skills + design-drift-loop.
+   **Deferred to v0.23:** moment #3 (capture — reusable value at breakpoint, needs LLM-as-judge
+   or heuristic detector — not predicate-based); PostToolUse hook for hardcoded-style detection
+   (new hook-type plumbing).
+5. **v0.23 — Scale mode authored + moment #3 + PostToolUse hook plumbing + IDEA-010 Phase 4.**
+   `mentor-humane` promoted from BOSS-local to template (the board). PM org, code-health,
+   product council. **Plus the deferred items from v0.22:** moment #3 detector (LLM-as-judge or
+   heuristic — not predicate-based), PostToolUse hook for hardcoded-style detection (new hook
+   surface), `/design-prompt` skill or fold into `/design-review`. Substantial release.
 7. **v0.24 — IDEA-003 finish.** Reshape per IDEA-008: practitioners encoded UP as *named
    variants of loops* with attribution, not free-floating practice docs. `library/loops/`
    populates from `docs/mentor-practitioners.md`. Mentors cite specific loop IDs.
@@ -210,7 +214,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     — **DONE in v0.18.0**. ~~Proto-personas + first reactions pass~~ — **DONE in v0.19.0**.
     ~~v0.19 persona-reactions design changes (inspect / cohort-aware / voice lineage)~~ —
     **DONE in v0.20.0**. ~~MVP discipline upgrades + moment #4 + IDEA-010 Phase 2~~ —
-    **DONE in v0.21.0**.
+    **DONE in v0.21.0**. ~~V1 mode authored + IDEA-010 Phase 3~~ — **DONE in v0.22.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
