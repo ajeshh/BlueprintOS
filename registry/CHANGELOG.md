@@ -2,6 +2,67 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.21.0 — 2026-05-23
+
+- **MVP discipline upgrades + IDEA-010 Phase 2 (design-tokens-loop) — all in one release.**
+  Three new skills, three new loops, one upgraded skill, moment #4 (restraint) lands skill-side.
+  Moment #3 (capture — reusable value at breakpoint) deferred to v0.22 — it needs a different
+  detector design (predicate evaluation doesn't fit "noticing this artifact is more general
+  than its loop").
+  - **`/spec` upgraded** (the smallest cut, highest leverage per the v1 playbook):
+    - Adds **validated-learning field** (Ries, *The Lean Startup*): "If this FEAT works
+      perfectly, what do we learn?" If the answer is "users like it" or "the feature works,"
+      don't build it. The MVP is the minimum experiment that produces validated learning, not
+      the minimum product to polish.
+    - Adds **evals field** (Husain): when a FEAT puts an LLM in control flow, the eval set
+      lives at `docs/evals/FEAT-NNN.yml`. Schema'd output (Liu) strongly recommended.
+    - **Moment #4 restraint check** (IDEA-008's collapsed-moments architecture): `/spec`
+      reads canvas-loop state before creating a FEAT spec; if canvas-loop isn't closed for
+      the active idea, the skill surfaces a Fitzpatrick-plain restraint nudge (cohort-aware
+      via v0.20's framing). Override grammar lives in devlog. Never blocks; always records.
+  - **`/evals` skill (new)** — Husain discipline as a first-class MVP skill paired with
+    `/smoke`. Smoke answers "is it alive"; evals answers "is it correct." Eval set first
+    (20 cases beats 0). Failure modes categorized by mode (Husain: failure modes are more
+    valuable than success modes). Structured outputs recommended (Liu: Pydantic-first).
+    Cites Husain + Liu + LLM-as-judge caveats.
+  - **`/pretotype` skill (new)** — Savoia's discipline as a first-class MVP skill. The
+    demand-test between `/canvas` and `/spec` — "make sure you're building the right It
+    before building It right." Six patterns named (fake door / WoZ / Mechanical Turk /
+    Pinocchio / YouTube test / impresario). The TRI metric (tangible / real-time /
+    imminent). Threshold-before-running (Ries pivot discipline). YODA (your-own-data >
+    anything).
+  - **`/design-tokens-init` skill (new)** — IDEA-010 Phase 2. Scaffolds the three-layer
+    token system at the first-UI-commit inflection. **Cohort-aware delivery** (v0.20's
+    framing): vibe-coder-newbie gets SHOWING; eng-builder gets OFFERING; vibe-virtuoso gets
+    OVERRIDE-FRIENDLY; first-product gets DEFINE-TERMS; indie-hacker gets RIGHT-SIZED;
+    returning-founder gets SKIP-THE-101; non-tech-founder + domain-expert get PLAIN-
+    LANGUAGE-COACH; unspecified gets neutral. The three-layer architecture (primitives →
+    semantic → component) is Curtis's layer-cake; the AI-tolerance argument is that
+    two-layer systems are fragile under AI generation (the field's consensus). Reads canvas
+    Promises cell to brand-anchor the primitives (prevents the brand-default problem from
+    IDEA-010).
+  - **Three new MVP-stage loops** on the v0.18 generic loop primitive:
+    - `spec-loop` (runner_type: skill) — encodes moment #4 restraint. Entry: canvas-loop
+      closed for some active idea. Exit: `FEAT-NNN-<slug>.md` exists. `/spec` is the
+      detector + runner.
+    - `pretotype-loop` (runner_type: skill) — structural by default (no drift_moment to
+      avoid over-firing). Records that demand-testing happened before significant build.
+      `/pretotype` is the runner.
+    - `design-tokens-loop` (runner_type: hook) — JIT, *only opens once UI starts
+      accumulating* (≥3 style declarations across src/). Drift moment: **`coherence`**
+      (new — system-vs-code drift; a flavor of caution specific to design-system mismatch).
+      Stack-agnostic regex catches common React/Vue/Svelte/Solid patterns; founders can
+      edit the spec for their stack.
+- **L1-mvp manifest** declares the new 3 skills + 3 loops; `boss sync` carries them; `.boss`
+  stamp tracks them. The `claude-append.md` reads as a clean catalog of what MVP offers.
+- **End-to-end tested in /tmp:** scaffold → unlock mvp → all 7 skills + 5 loops land + stamp
+  merges correctly + status --conscience shows the 5 loops in their right states (capture
+  open-structural, canvas/spec/pretotype/design-tokens all unopenable on a fresh project, no
+  spurious hook fires). 43/43 evals still pass (regression-clean).
+- **Deferred to v0.22:** moment #3 (capture — reusable value at breakpoint), V1 mode authoring
+  including the design-drift-loop (IDEA-010 Phase 3) + ui-designer + ux-designer agents +
+  /design-review + /ux-check + PostToolUse hook for hardcoded-style detection.
+
 ## 0.20.0 — 2026-05-23
 
 - **The three design changes from v0.19's persona-reactions pass — landed.** Closes the loop on

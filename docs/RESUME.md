@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.20.0)
+updated: 2026-05-23 (v0.21.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,15 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.20.0)
+## State (shipped, v0.21.0)
+- **MVP discipline upgrades + IDEA-010 Phase 2 (v0.21.0):** Three new MVP skills (`/evals` —
+  Husain; `/pretotype` — Savoia; `/design-tokens-init` — IDEA-010 Phase 2 with cohort-aware
+  delivery), three new MVP-stage loops (`spec-loop`, `pretotype-loop`, `design-tokens-loop` —
+  the last emitting a new `coherence` moment for system-vs-code drift), and `/spec` upgraded
+  to include validated-learning field (Ries) + evals field (Husain) + moment #4 restraint
+  check (skill-side detection of canvas-loop closure; Fitzpatrick-plain cohort-aware nudge
+  when entry-unmet). Moment #3 deferred to v0.22 (needs different detector design). End-to-end
+  tested; 43/43 evals regression-clean.
 - **The three design changes from v0.19's persona-reactions pass — landed (v0.20.0):**
   (a) `boss status --conscience` inspect affordance (asked-for by eng-builder / indie-hacker /
   vibe-virtuoso personas); (b) cohort-aware conscience — `.boss/config.json` declares cohort,
@@ -167,30 +175,25 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    the conscience moment-1 firing scenario. Surfaced 3 concrete design changes (cohort-aware
    conscience, inspect affordance, pick voice lineage) and 2 surprises (returning-founder
    wants HARDER question; indie-hacker caught a voice-fights-itself issue eval set missed).
-3. **v0.21 — Conscience moments #3 + #4 (the deferred half of original v0.20).** Moment #3
-   (capture — reusable value at breakpoint) needs a non-predicate detector design — something
-   noticing when an artifact is more general than its loop's purpose. Moment #4 (restraint —
-   premature ceremony) needs a `spec-loop` authored (canvas-loop's downstream) AND skill-aware
-   detection — `/spec` checks canvas-loop closure before proceeding. Both validated via
-   eval-set + persona-reaction discipline before shipping.
-4. **v0.21 — MVP-mode discipline upgrades + design-tokens-loop.** `/spec` adds validated-
-   learning field (Ries, the smallest cut highest leverage). `/evals` skill paired with
-   `/smoke` (Husain). `/pretotype` skill OR fold into `/canvas` (Savoia — Ajesh's open call
-   from v0.16 era). **Plus IDEA-010 Phase 2:** `design-tokens-loop` in MVP-stage template
-   (JIT scaffolding at first UI commit, cohort-aware delivery), `/design-tokens-init` skill,
-   eval examples for the new loop. The 47-blues / pattern-reinvention / billion-line-drift
-   failure modes addressed early enough to prevent rather than retroactively audit.
-5. **v0.22 — V1 mode authored.** Same playbook that worked for MVP authoring in v0.14: manifest
-   + template + claude-append + template versions of `mentor-business`, `mentor-fundraising`,
-   `mentor-pitch`, `mentor-talent`, `designer`, `db-architect`, `/board`, `/design`, `/proto`
-   skills. **Plus IDEA-010 Phase 3:** `design-drift-loop` + `ui-designer` + `ux-designer`
-   agents + `/design-review` + `/ux-check` skills + PostToolUse hook for hardcoded-style
-   detection (the existing `library/practices/design-system.md` plan, now AI-failure-mode-
-   aware). **Plus IDEA-010 Phase 4:** `/design-prompt` skill encoding the prompting patterns
-   that prevent drift (or fold into `/design-review`).
-6. **v0.23 — Scale mode authored.** Catches the macro scaffold up to the full design.
-   `mentor-humane` promoted from BOSS-local to template (the board). PM org, code-health,
-   product council.
+3. ~~v0.21 — Moment #4 + MVP discipline upgrades + design-tokens-loop.~~ **DONE in v0.21.0.**
+   Moment #4 (restraint) landed skill-side via spec-loop; 3 new skills + 3 new loops shipped;
+   /spec carries validated-learning + evals fields. **Moment #3 (capture — reusable value at
+   breakpoint) re-deferred to v0.22** — it genuinely needs a different detector design (not
+   predicate-based; possibly LLM-as-judge looking at artifacts for generalizability signals).
+4. **v0.22 — V1 mode authored + moment #3 (capture) + IDEA-010 Phase 3.** *(shifted from
+   v0.22 because v0.21 absorbed v0.21's original scope.)* V1 mode authoring per the existing
+   `library/practices/design-system.md` plan: `ui-designer` + `ux-designer` agents,
+   `/design-review` + `/ux-check` skills, PostToolUse hook for hardcoded-style detection,
+   `design-drift-loop` (the V1+ counterpart to v0.21's `design-tokens-loop`). Plus design-system
+   template artifacts (component audit + state checklist, prototype registry). **Plus moment
+   #3 (capture — reusable value at breakpoint)** — needs different detector design from the
+   predicate vocabulary; possibly an LLM-as-judge approach where a slim model reads recently-
+   modified artifacts and flags ones that look generalizable. Validated via persona-eval
+   discipline. Plus template versions of `mentor-business`, `mentor-fundraising`,
+   `mentor-pitch`, `mentor-talent`.
+5. **v0.23 — Scale mode authored** *(was v0.23; unchanged)*. `mentor-humane` promoted from
+   BOSS-local to template (the board). PM org, code-health, product council. IDEA-010
+   Phase 4 (`/design-prompt` skill) may land here if not folded into v0.22's `/design-review`.
 7. **v0.24 — IDEA-003 finish.** Reshape per IDEA-008: practitioners encoded UP as *named
    variants of loops* with attribution, not free-floating practice docs. `library/loops/`
    populates from `docs/mentor-practitioners.md`. Mentors cite specific loop IDs.
@@ -206,7 +209,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     ~~Builder team seated~~ — **DONE in v0.17.0**. ~~IDEA-008 → FEAT-001 (generic loop runtime)~~
     — **DONE in v0.18.0**. ~~Proto-personas + first reactions pass~~ — **DONE in v0.19.0**.
     ~~v0.19 persona-reactions design changes (inspect / cohort-aware / voice lineage)~~ —
-    **DONE in v0.20.0**.
+    **DONE in v0.20.0**. ~~MVP discipline upgrades + moment #4 + IDEA-010 Phase 2~~ —
+    **DONE in v0.21.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

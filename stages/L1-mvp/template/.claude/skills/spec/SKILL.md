@@ -17,6 +17,22 @@ the build contract.
 - You're ready to write code against it. If you're still figuring out *whether* to build, go back to
   `/triage` or `/canvas`; don't spec a maybe.
 
+## Moment #4 — restraint check (v0.21.0+)
+
+Before any FEAT spec is created, check `docs/loops/spec-loop.md` (which declares spec-loop's entry
+predicate: canvas-loop must be closed for the active idea). If canvas-loop is NOT closed for the idea
+being specced — i.e., the idea has no canvas, or its canvas has only placeholder cells, or the
+riskiest assumption is unfilled — **surface BOSS's restraint nudge in your own voice**, cohort-aware
+(read `.boss/config.json` `cohort` field; lean Fitzpatrick-plain):
+
+> Frame: name what's missing in one line, offer to back up to /canvas, hand the decision back. Never
+> block. The founder can override (record in `docs/devlog.md` with IDEA-008's grammar:
+> `- **OVERRIDE:** proceeded `spec-loop` without `canvas-loop` exit — rationale: <substantive
+> reason>`).
+
+Then proceed with the spec if the founder confirms — overriding the conscience is a legitimate move;
+*recording the override* is the contract.
+
 ## How to run it
 
 1. Pick the source: `[IDEA-NNN]` if given, else the idea the user names, else the most active idea
@@ -55,6 +71,19 @@ _Checkable. A reader who's never seen the code should be able to verify these._
 ## Smoke check
 _How `/smoke` proves this didn't break things. One or two commands, or one manual path._
 - …
+
+## Validated learning (v0.21.0+ — Ries discipline)
+_If this FEAT works perfectly, **what do we learn**? Not "the feature works" — what does it teach
+us about the bet that we didn't already know? If the answer is "the feature works" or "users like
+it," **don't build this**. The MVP is the minimum experiment that produces validated learning, not
+the minimum product to polish (Eric Ries, **The Lean Startup**). Smallest cut, highest leverage._
+- **Learning hypothesis:** …
+- **What result would change the plan:** …
+
+## Evals (v0.21.0+ — for AI-mediated FEATs only)
+_If this FEAT involves an LLM call in control flow, name the eval set this FEAT ships against. See
+`/evals` skill + the conscience-evals pattern. Failure modes categorized (Husain discipline)._
+- Eval set path: `docs/evals/FEAT-NNN.yml` _(or omit this section if no LLM in control flow)_
 
 ## Out of scope
 _What this FEAT explicitly does NOT do. Future FEATs may; this one doesn't._

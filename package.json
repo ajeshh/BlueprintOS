@@ -1,6 +1,6 @@
 {
   "name": "blueprintos",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "BlueprintOS (BOSS) — a just-in-time startup incubator: cold-starts new projects at the right level of agentic ceremony, grows them through modes (Quickstart → MVP → V1 → Scale), and mentors the founder.",
   "type": "module",
   "bin": {
