@@ -2,6 +2,55 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.19.0 — 2026-05-23
+
+- **Proto-personas layer + first reactions pass — the founder-experience eval channel.** 8
+  synthetic-founder agents now seated in BOSS's `.claude/agents/` with `persona-` prefix
+  (parallel to `mentor-`, parallel to the builder team). They REACT to BOSS features (not
+  advise, not mentor) so BOSS gets cheap pre-filter signal on how it lands across cohorts
+  *before* spending the expensive real-founder Mom Test call (which remains explicitly
+  overridden per advisory-pass #1; the override's re-open condition includes "persona
+  reactions surface a coherent product story" — this layer is how that signal arrives).
+  - The 8 personas: `vibe-coder-newbie` (no eng/startup background, picked up Cursor 3-6
+    months ago), `eng-builder` (10+ years eng, first-time founder, skeptical of magic),
+    `non-tech-founder` (deep domain expertise, can't code, AI is the bridge),
+    `first-product` (absolute beginner — to building, to vibe coding, to everything),
+    `vibe-virtuoso` (50+ shipped projects, zero sustained products, expert at idea-to-demo,
+    bad at company-building), `indie-hacker` (right-sized lens — Walling/Fried/Jarvis;
+    anti-VC; suspicious of venture-shaped language), `returning-founder` (has shipped before;
+    intolerant of 101 content; wants depth), `domain-expert` (medical/legal/financial;
+    stakes are real; humane lens applies hard).
+  - **`persona-reactions-loop`** authored in `docs/loops/` — captures the discipline (runner_
+    type: manual; uses the v0.18 loop primitive). Entry: persona agents exist. Exit: a
+    `docs/dossier/persona-reactions/<feature>.md` doc with structured reactions + synthesis +
+    design changes + real-founder questions the reactions sharpen.
+  - **First reactions pass complete** at
+    [`docs/dossier/persona-reactions/conscience-moment-1.md`](docs/dossier/persona-reactions/conscience-moment-1.md).
+    All 8 personas reacting to the conscience moment-1 firing scenario.
+  - **Three concrete design changes the reactions argue for** (ordered, with priorities):
+    1. **Cohort-aware conscience** — the model composing the conscience voice should know what
+       cohort the founder is in (`.boss/config.json` declares it, set by `/boss` during
+       scaffold). First-product needs *teaching*; returning-founder needs *a harder
+       question*; vibe-virtuoso needs *sharper architecture*. Same signal; different voice.
+    2. **Inspect affordance** — `boss status --conscience` or `boss conscience --explain` so
+       humans can see what loops are open / what would close them / what overrides exist.
+       Engineers + indie-hackers + vibe-virtuosos all asked for this. Plausibly v0.20
+       alongside moments #3/#4.
+    3. **Pick the lineage in the conscience voice** — current voice mixes Fitzpatrick
+       (talk-to-someone) and Maurya (riskiest-assumption) in one breath. Indie-hacker caught
+       this; the eval set didn't. Lean one direction consistently.
+  - **Three real-founder interview questions** the reactions sharpen for the eventual call:
+    (1) read-aloud comprehension test; (2) curious-vs-defensive-vs-confused for first-timer
+    cohort; (3) cohort-aware variant test for returning-founder cohort.
+  - **Two surprises from the reactions** that hadn't surfaced via any other discipline:
+    returning-founder wants a HARDER question, not a softer one (suggesting cohort-aware
+    direction); indie-hacker noticed the voice-fights-itself issue (Fitzpatrick vs Maurya
+    lineage mix) that 84 eval examples missed. **Argument for routine persona-eval passes on
+    every user-facing text.**
+- **Roadmap status:** v0.17 (builder team) + v0.18 (loop primitive) + v0.19 (personas) all
+  shipped this push. Next up: v0.20 (moments #3+#4 via the generic detector, leveraging the
+  v0.19 reactions for cohort-aware language) + v0.21 (MVP discipline upgrades).
+
 ## 0.18.0 — 2026-05-22
 
 - **IDEA-008 → FEAT-001: generic loop runtime in Node; bash hook retired.** The biggest

@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-22 (v0.18.0)
+updated: 2026-05-23 (v0.19.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,19 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.18.0)
+## State (shipped, v0.19.0)
+- **Proto-personas layer + first reactions pass (v0.19.0):** 8 persona agents in
+  `.claude/agents/` with `persona-` prefix (`vibe-coder-newbie`, `eng-builder`,
+  `non-tech-founder`, `first-product`, `vibe-virtuoso`, `indie-hacker`, `returning-founder`,
+  `domain-expert`). The founder-experience eval channel parallel to the conscience-evals.
+  `persona-reactions-loop` authored. First pass run against the conscience moment-1 firing
+  scenario captured at
+  [`docs/dossier/persona-reactions/conscience-moment-1.md`](dossier/persona-reactions/conscience-moment-1.md)
+  — surfaced 3 concrete design changes (cohort-aware conscience; inspect affordance; pick the
+  voice lineage) and 2 real surprises (returning-founder wants a *harder* question;
+  indie-hacker caught a voice-fights-itself issue the eval set missed). 11 agents now (8
+  mentors + 3 builders) + 8 personas + 7 builder agents — 26 agents in BOSS's own
+  `.claude/agents/` total.
 - **IDEA-008 promoted to FEAT-001 — generic loop runtime in Node; bash hook retired (v0.18.0):**
   the biggest architectural release since v0.8.0. The conscience hook is now a generic
   predicate evaluator that reads `docs/loops/*.md` from the project — *any* loop drifting fires
@@ -140,20 +152,19 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    against generic runtime. BOSS dogfoods. **Still open from v0.16 meta-learnings:** Ajesh's
    read on m1-snf-021 (single-idea-deepening — drift or depth?) — applies to canvas-loop's
    threshold tuning when convenient.
-2. **v0.19 — Proto-personas (the founder-experience eval channel).** 8 persona agents in
-   `.claude/agents/` with `persona-` prefix (parallel to `mentor-`). The 5 Ajesh named —
-   `vibe-coder-newbie`, `eng-builder`, `non-tech-founder`, `first-product`, `vibe-virtuoso` —
-   plus `indie-hacker` (right-sized lens), `returning-founder` (intolerant of basics),
-   `domain-expert` (medical/legal stakes — humane lens applies hard). Each persona is also
-   authored as a *named loop* (built on v0.18's primitive): entry = a BOSS feature to react to;
-   purpose = surface what this cohort feels; exit = a `persona-reactions/<feature>.md` doc with
-   the persona's read + the real-founder test the cheap signal pre-filters. Run all 8 against
-   current BOSS state (triage, canvas, conscience, mentor board) and capture initial reactions
-   as the first persona-eval pass.
-3. **v0.20 — Conscience moments #3 + #4 via generic detector.** Moment #3 (capture — reusable
-   value at breakpoint) and #4 (restraint — premature ceremony) — both built as artifact-
-   dependency predicates on the v0.18 primitive, not bespoke detectors. Eval-set discipline +
-   persona-eval discipline both applied. One mechanism, four+ surface behaviours.
+2. ~~v0.19 — Proto-personas (the founder-experience eval channel).~~ **DONE in v0.19.0.**
+   8 personas authored, persona-reactions-loop spec'd, first reactions pass complete against
+   the conscience moment-1 firing scenario. Surfaced 3 concrete design changes (cohort-aware
+   conscience, inspect affordance, pick voice lineage) and 2 surprises (returning-founder
+   wants HARDER question; indie-hacker caught a voice-fights-itself issue eval set missed).
+3. **v0.20 — Conscience moments #3 + #4 via generic detector, INCORPORATING v0.19 reactions.**
+   Moment #3 (capture — reusable value at breakpoint) and #4 (restraint — premature
+   ceremony) as artifact-dependency predicates on the v0.18 primitive. Plus the persona-
+   reaction design changes that should land alongside: (a) cohort-aware conscience —
+   `.boss/config.json` declares cohort (set by `/boss` during scaffold); model composes the
+   voice differently per cohort; (b) inspect affordance — `boss status --conscience` /
+   `boss conscience --explain` so humans can see what's open and what would close it;
+   (c) pick voice lineage — Fitzpatrick OR Maurya consistently, not mixed.
 4. **v0.21 — MVP-mode discipline upgrades.** `/spec` adds validated-learning field (Ries, the
    smallest cut highest leverage). `/evals` skill paired with `/smoke` (Husain). `/pretotype`
    skill OR fold into `/canvas` (Savoia — Ajesh's open call from v0.16 era).
@@ -177,7 +188,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     in v0.9.0**. ~~IDEA-002 MVP mode~~ — **DONE in v0.14.0**. ~~Full mentor board seated~~ —
     **DONE in v0.15.0**. ~~Eval-loop closed + primitive validated~~ — **DONE in v0.16.0**.
     ~~Builder team seated~~ — **DONE in v0.17.0**. ~~IDEA-008 → FEAT-001 (generic loop runtime)~~
-    — **DONE in v0.18.0**.
+    — **DONE in v0.18.0**. ~~Proto-personas + first reactions pass~~ — **DONE in v0.19.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
