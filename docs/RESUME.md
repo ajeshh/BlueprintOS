@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.19.1 docs)
+updated: 2026-05-23 (v0.20.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.19.0)
+## State (shipped, v0.20.0)
+- **The three design changes from v0.19's persona-reactions pass — landed (v0.20.0):**
+  (a) `boss status --conscience` inspect affordance (asked-for by eng-builder / indie-hacker /
+  vibe-virtuoso personas); (b) cohort-aware conscience — `.boss/config.json` declares cohort,
+  hook ships cohort framing in `additionalContext` so Claude composes the voice per cohort;
+  (c) voice lineage Fitzpatrick consistently (indie-hacker caught the prior Fitzpatrick/Maurya
+  mix). `/boss` skill now asks one optional question to set cohort during spin-up. 43/43
+  evals regression-clean; end-to-end tested in /tmp. **Moments #3 (capture — reusable value)
+  and #4 (restraint — premature ceremony) explicitly deferred to v0.21** — they need their own
+  design (moment #3's detection is harder than predicate evaluation; moment #4 needs a spec-loop
+  + skill-aware detection).
 - **Proto-personas layer + first reactions pass (v0.19.0):** 8 persona agents in
   `.claude/agents/` with `persona-` prefix (`vibe-coder-newbie`, `eng-builder`,
   `non-tech-founder`, `first-product`, `vibe-virtuoso`, `indie-hacker`, `returning-founder`,
@@ -157,14 +167,12 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    the conscience moment-1 firing scenario. Surfaced 3 concrete design changes (cohort-aware
    conscience, inspect affordance, pick voice lineage) and 2 surprises (returning-founder
    wants HARDER question; indie-hacker caught a voice-fights-itself issue eval set missed).
-3. **v0.20 — Conscience moments #3 + #4 via generic detector, INCORPORATING v0.19 reactions.**
-   Moment #3 (capture — reusable value at breakpoint) and #4 (restraint — premature
-   ceremony) as artifact-dependency predicates on the v0.18 primitive. Plus the persona-
-   reaction design changes that should land alongside: (a) cohort-aware conscience —
-   `.boss/config.json` declares cohort (set by `/boss` during scaffold); model composes the
-   voice differently per cohort; (b) inspect affordance — `boss status --conscience` /
-   `boss conscience --explain` so humans can see what's open and what would close it;
-   (c) pick voice lineage — Fitzpatrick OR Maurya consistently, not mixed.
+3. **v0.21 — Conscience moments #3 + #4 (the deferred half of original v0.20).** Moment #3
+   (capture — reusable value at breakpoint) needs a non-predicate detector design — something
+   noticing when an artifact is more general than its loop's purpose. Moment #4 (restraint —
+   premature ceremony) needs a `spec-loop` authored (canvas-loop's downstream) AND skill-aware
+   detection — `/spec` checks canvas-loop closure before proceeding. Both validated via
+   eval-set + persona-reaction discipline before shipping.
 4. **v0.21 — MVP-mode discipline upgrades.** `/spec` adds validated-learning field (Ries, the
    smallest cut highest leverage). `/evals` skill paired with `/smoke` (Husain). `/pretotype`
    skill OR fold into `/canvas` (Savoia — Ajesh's open call from v0.16 era).
@@ -189,6 +197,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     **DONE in v0.15.0**. ~~Eval-loop closed + primitive validated~~ — **DONE in v0.16.0**.
     ~~Builder team seated~~ — **DONE in v0.17.0**. ~~IDEA-008 → FEAT-001 (generic loop runtime)~~
     — **DONE in v0.18.0**. ~~Proto-personas + first reactions pass~~ — **DONE in v0.19.0**.
+    ~~v0.19 persona-reactions design changes (inspect / cohort-aware / voice lineage)~~ —
+    **DONE in v0.20.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

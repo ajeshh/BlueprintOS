@@ -6,6 +6,7 @@ import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
+import { statusConscience } from './conscience.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -63,6 +64,14 @@ function cmdNew(args) {
       github: 'ask',          // ask | always | never — create a remote when an idea lands
       visibility: 'private',  // private | public
       license: 'proprietary', // proprietary | MIT | Apache-2.0 | AGPL-3.0
+      // Optional founder-cohort declaration (v0.20.0+). When set, the conscience
+      // hook includes the cohort in its additionalContext so Claude composes the
+      // voice appropriately for the cohort — first-product gets teaching;
+      // returning-founder gets a harder question; vibe-virtuoso gets sharper
+      // architecture. Options: vibe-coder-newbie | eng-builder | non-tech-founder
+      // | first-product | vibe-virtuoso | indie-hacker | returning-founder |
+      // domain-expert | null. /boss skill asks during spin-up; user can edit later.
+      cohort: null,
     }, null, 2) + '\n',
   );
 
@@ -121,9 +130,17 @@ function cmdUnlock(args) {
   console.log('');
 }
 
-function cmdStatus() {
+function cmdStatus(args) {
   const stamp = readStamp(process.cwd());
   if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+  const f = parseArgs(args || []);
+  // `boss status --conscience` — drill into the conscience-state surface
+  // (asked-for by eng-builder / indie-hacker / vibe-virtuoso personas in
+  // v0.19 reactions: "I want to see what fired and why").
+  if (f.conscience) {
+    console.log(`\n  ${stamp.name}`);
+    return statusConscience(process.cwd());
+  }
   const current = bossVersion();
   console.log(`\n  ${stamp.name}`);
   console.log(`    mode:         ${stamp.mode || stamp.stage}  (${stamp.stage})`);
@@ -241,7 +258,7 @@ export function run(argv) {
   switch (cmd) {
     case 'new': return cmdNew(args);
     case 'unlock': return cmdUnlock(args);
-    case 'status': return cmdStatus();
+    case 'status': return cmdStatus(args);
     case 'list': return cmdList();
     case 'sync': return cmdSync(args);
     case 'learn': return cmdLearn(args);

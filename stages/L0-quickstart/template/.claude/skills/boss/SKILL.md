@@ -80,11 +80,34 @@ On a yes, do this **in order**:
 If `gh` isn't authenticated (`gh auth status` fails), don't guess — tell the user to run `gh auth login`
 and offer to retry.
 
-## 6. Wrap up
+## 6. Cohort (optional, low-friction — v0.20.0+)
+
+Read `cohort` from `.boss/config.json`. If `null` (the default), ask ONE open question:
+
+> *"Quick optional thing — which of these sounds most like where you're starting from? It lets BOSS's
+> conscience tune its voice for you. If none fit, totally fine to skip:*
+> - *`vibe-coder-newbie` — picked up Cursor/Claude Code recently, no eng/startup background*
+> - *`eng-builder` — strong eng background, first-time founder*
+> - *`non-tech-founder` — domain expertise, no coding background, AI is the bridge*
+> - *`first-product` — absolute first product ever, learning everything as you go*
+> - *`vibe-virtuoso` — ships a lot of projects, harder time sustaining one*
+> - *`indie-hacker` — building right-sized; calm-company, not venture*
+> - *`returning-founder` — shipped before; want depth, not 101*
+> - *`domain-expert` — deep expertise in a high-stakes domain (medical/legal/financial)*
+> - *skip — leave it generic"*
+
+On answer, write the value to `.boss/config.json` (don't disturb other fields). If they skip, leave `null`.
+Either way, move on. Don't argue with their choice; they can edit the file later.
+
+**Voice note:** these are *beginner personas* (per IDEA-009). The cohort declaration sharpens BOSS for
+this founder *as evidence comes in over time* — not the other way around. If the user mishears their own
+cohort, real use will reveal it; the file is editable.
+
+## 7. Wrap up
 
 Give a tight summary: what the idea is, where it's captured (`IDEA-001`), the stack decision (or that
-it's pending), the mode, and the repo URL if created. Then the single best next step (usually: start
-building the smallest version, or `boss unlock mvp` if it's clearly a real build).
+it's pending), the mode, the cohort (if set), and the repo URL if created. Then the single best next step
+(usually: start building the smallest version, or `boss unlock mvp` if it's clearly a real build).
 
 ## Rules
 

@@ -16,7 +16,7 @@
 //
 // Always exits 0. Empty output = no signal = stay silent.
 
-import { detectSignals, composeContext } from './lib/loop-runtime.js';
+import { detectSignals, composeContext, readCohort } from './lib/loop-runtime.js';
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
@@ -26,7 +26,8 @@ try {
     process.exit(0);
   }
 
-  const additionalContext = composeContext(signals);
+  const cohort = readCohort(projectDir);
+  const additionalContext = composeContext(signals, { cohort });
   const first = signals[0];
 
   const out = {
@@ -37,6 +38,7 @@ try {
       confidence: first.confidence,
       evidence: first.evidence,
       suppress_if: first.suppress_if || [],
+      cohort,
       additionalContext,
     },
   };

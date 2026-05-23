@@ -2,6 +2,49 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.20.0 — 2026-05-23
+
+- **The three design changes from v0.19's persona-reactions pass — landed.** Closes the loop on
+  the reactions: the personas flagged it, v0.20 shipped it. Moments #3 + #4 (the other v0.20
+  candidates per the published roadmap) deferred to v0.21 — they need their own design pass
+  (moment #3's "reusable value at breakpoint" detection is harder than predicate evaluation;
+  moment #4's "premature ceremony" needs `/spec`-skill-aware detection plus a spec-loop). The
+  three things shipping in v0.20 are the *persona-driven* design changes; the moment work is a
+  separate concern.
+  - **`boss status --conscience`** — the inspect affordance (asked-for by `eng-builder`,
+    `indie-hacker`, `vibe-virtuoso` personas in the v0.19 reactions doc). Loads
+    `docs/loops/*.md`, classifies each loop (open / closed / unopenable), shows what would
+    close the open ones (concrete predicate evidence: count/threshold, file matches, what's
+    missing), reads recent override entries from `docs/devlog.md` per IDEA-008's grammar,
+    shows the project's declared cohort. New `src/conscience.js` module formats the output;
+    the loop runtime is imported from the canonical Quickstart-template path so there's one
+    source of truth.
+  - **Cohort-aware conscience** — `.boss/config.json` carries an optional `cohort` field
+    (one of: vibe-coder-newbie | eng-builder | non-tech-founder | first-product |
+    vibe-virtuoso | indie-hacker | returning-founder | domain-expert | null). The
+    `loop-runtime.js`'s `composeContext` now reads the cohort and appends a **cohort framing
+    directive** to `additionalContext` — same signal, different voice. Each cohort gets a
+    distinct framing sentence: first-product needs *teaching*; returning-founder wants a
+    *harder cohort-aware question*; vibe-virtuoso gets *friction over praise*; indie-hacker
+    gets *plain Fitzpatrick language, not jargon*. The `/boss` spin-up skill now asks
+    one optional question to set the cohort; user can always edit `.boss/config.json` later.
+  - **Voice lineage decision: Fitzpatrick consistently.** The indie-hacker persona caught
+    that the prior conscience voice mixed Fitzpatrick ("who would you ask first") with
+    Maurya ("riskiest assumption" / "riskiest bet") in one breath. v0.20 picks Fitzpatrick-
+    plain ("what they'd want to learn"; "who they'd ask first") consistently. Updates the
+    `/triage` skill's exemplar text + the `composeContext` framing in `loop-runtime.js`. The
+    canvas itself still uses "riskiest assumption" (that's the canvas's frame, established);
+    the *conscience nudge* now speaks Fitzpatrick.
+- **Test coverage:** 43/43 evals still pass (regression-clean). End-to-end test in /tmp
+  verified: fresh project → capture-loop open (no signal, structural); 3 captures + no canvas →
+  canvas-loop drifts, hook fires with cohort framing in additionalContext; override in devlog →
+  appears in `boss status --conscience` output.
+- **What's NOT in v0.20** (now queued for v0.21): conscience moments #3 (capture — reusable
+  value) and #4 (restraint — premature ceremony). Moment #3 needs a different detector design
+  (predicate evaluation doesn't fit "noticing this artifact is generalizable"). Moment #4
+  needs a spec-loop authored AND skill-aware detection in `/spec`. Both warrant their own
+  release.
+
 ## 0.19.0 — 2026-05-23
 
 - **Proto-personas layer + first reactions pass — the founder-experience eval channel.** 8

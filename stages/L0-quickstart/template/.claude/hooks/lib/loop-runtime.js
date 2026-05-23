@@ -222,24 +222,66 @@ function computeConfidence(loop, entry) {
   return 'medium';
 }
 
+// Read the optional founder-cohort declaration from .boss/config.json (v0.20.0+).
+// Returns null if no config or no cohort field — Claude composes the voice
+// generically when cohort is null.
+export function readCohort(projectDir) {
+  const f = join(projectDir, '.boss', 'config.json');
+  if (!existsSync(f)) return null;
+  try {
+    return JSON.parse(readFileSync(f, 'utf8')).cohort || null;
+  } catch { return null; }
+}
+
+// Per-cohort framing directives (v0.20.0+). Added to additionalContext so the
+// model composes the conscience voice appropriately for the founder's cohort.
+// Personas in v0.19 surfaced that one-sized voice fails first-product and
+// returning-founder differently — first-product needs teaching; returning-founder
+// wants a harder question. The signal stays the same; the *voice* varies.
+const COHORT_FRAMING = {
+  'vibe-coder-newbie':
+    'This founder is a vibe-coding newbie (no eng/startup background, ~6 months into AI tools, learns by doing). Avoid jargon. Show, don\'t lecture. Specifics over categories.',
+  'eng-builder':
+    'This founder is an experienced engineer turned first-time founder. Be terse and inspectable. They want transparency, not encouragement; respect their tooling fluency. The founder skills are new; the eng skills are not.',
+  'non-tech-founder':
+    'This founder has deep domain expertise but no coding background; AI is their bridge. Use plain language, not framework jargon. They respect mentor framing (they\'ve had real mentors); they have no patience for tech-bro phrasing.',
+  'first-product':
+    'This founder is an ABSOLUTE BEGINNER — first product ever; may not know what an MVP is. *Teach, don\'t grade.* Define terms inline. Invite, never assess. Their face when they read the nudge IS the design signal — if they\'d feel stupid, the nudge is wrong.',
+  'vibe-virtuoso':
+    'This founder ships a lot but doesn\'t sustain. Don\'t coach the discipline they\'ve already read books about and won\'t do. Ask SHARPER questions; lean into the architecture they respect (the override pattern, the structured signal). The voice they hear most is praise — give them friction instead.',
+  'indie-hacker':
+    'This founder is in the right-sized / calm-company lineage (Walling/Fried/Jarvis). Anti-VC by choice. Plain Fitzpatrick-style language lands; framework jargon does not. Use understatement; "this is fine" is high praise.',
+  'returning-founder':
+    'This founder has shipped before. *Skip the 101.* Ask the HARDER cohort-aware version: "is your conviction here at the level it needs to be for 12 months" not "what does this prove." Respect experience; don\'t teach the obvious.',
+  'domain-expert':
+    'This founder has 10+ years in a high-stakes domain (medical/legal/financial). Real stakes; real regulatory context. Caveat appropriately. Ask about who specifically could be harmed; lean into the humane lens. Avoid generic startup advice that won\'t fit the domain.',
+};
+
 // Compose `additionalContext` for hosts that consume the flat field. For one
 // signal, a single nudge; for multiple, a brief enumeration. Voice stays with
-// the model — this hands signal + ask, not canned voice.
-export function composeContext(signals) {
+// the model — this hands signal + ask + cohort frame, not canned voice.
+export function composeContext(signals, opts = {}) {
   if (!signals.length) return null;
+  const cohort = opts.cohort || null;
+  const cohortLine = cohort && COHORT_FRAMING[cohort]
+    ? `\n\nCohort framing — ${cohort}: ${COHORT_FRAMING[cohort]}`
+    : '';
   if (signals.length === 1) {
-    return signalAsContext(signals[0]);
+    return signalAsContext(signals[0]) + cohortLine;
   }
   const parts = signals.map((s, i) => `(${i + 1}) ${signalAsContext(s)}`);
-  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n');
+  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n') + cohortLine;
 }
 
 function signalAsContext(s) {
   const moment = s.moment || 'attention';
   const loopId = s.loop_id || 'loop';
   // Per-moment phrasing — gives the model a starting frame; it composes the voice.
+  // Voice lineage (v0.20.0+): leaning Fitzpatrick (talk-to-someone, plain language)
+  // consistently. Indie-hacker persona caught the prior Fitzpatrick/Maurya mix; this
+  // chooses the cohort-portable version.
   if (moment === 'caution') {
-    return `[BOSS conscience — ${loopId} stalled · ${s.confidence} confidence] The ${loopId} is open (its upstream artifact exists) but its exit artifact does not. If — and only if — it fits this moment, surface BOSS's validation nudge in your own voice: name the drift in one spare line, ask what would make it real, point at the next loop's verb, hand the decision back. Say it at most once; if you've already raised it this session or the user is clearly mid-other-work, stay silent. It's a nudge, never a gate.`;
+    return `[BOSS conscience — ${loopId} stalled · ${s.confidence} confidence] The ${loopId} is open (its upstream artifact exists) but its exit artifact does not. If — and only if — it fits this moment, surface BOSS's nudge in your own voice: name the drift in one spare line, ask *what they'd want to learn* before going further (or *who they'd ask first* — Fitzpatrick-style), and hand the decision back. Say it at most once; if you've already raised it this session or the user is clearly mid-other-work, stay silent. It's a nudge, never a gate.`;
   }
   if (moment === 'restraint') {
     return `[BOSS conscience — ${loopId} premature · ${s.confidence} confidence] The founder is reaching for ${loopId} but an upstream artifact is missing. If it fits the moment, surface BOSS's restraint nudge in your own voice: name what's missing in one line, offer to back up, hand the decision back. Never block.`;
