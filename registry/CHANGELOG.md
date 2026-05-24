@@ -2,6 +2,54 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.25.0 — 2026-05-24
+
+- **AI cost discipline — the universal-cohort feature lands.** Per IDEA-012's persona overlay,
+  AI cost was the only candidate every cohort cared about. Now it's first-class in MVP mode:
+  the founder gets nudged to declare the bill at the first LLM SDK call, not after the first
+  surprise invoice.
+  - **`/ai-cost` skill (L1-mvp)** — walks the founder through declaring `docs/ai-cost-budget.md`
+    (per-user/day + monthly cap + model rationale + review cadence + breach grammar), suggests
+    a ~30-line cost-logger wrapper (TypeScript + Python examples) writing to
+    `.boss/cost-log.jsonl`, and surfaces mentor handoffs (`mentor-architect` for cost-shape →
+    architecture; `mentor-business` for cost-per-user → pricing). **Cohort-aware defaults:**
+    `first-product` $5/user/day strict; `vibe-virtuoso` inspect-only; `eng-builder` BYO;
+    `indie-hacker` cost-as-%-of-revenue framing; `domain-expert` $20/user/day + **privacy-
+    first logging (no PII, no prompt body)** + regulatory caveats; etc. The founder edits to
+    fit the bet; the cohort sets the starting frame.
+  - **`cost-budget-loop` (L1-mvp, hook-runner)** — entry: `src/**` contains ≥1 LLM SDK call
+    site (regex covers `anthropic` / `@anthropic-ai/sdk` / `openai` / `OpenAI(` / `Anthropic(` /
+    `messages.create` / `chat.completions.create` / Vercel AI SDK `generateText` /
+    `streamText`); exit: `docs/ai-cost-budget.md` exists AND code references the logger
+    wrapper (≥1 occurrence). Threshold of 1 (not 3 like design-tokens-loop) because cost
+    discipline is **deontic at the first call** — there's no "exploratory" version of token
+    spend. The first call hits a real billing meter.
+  - **New `cost` moment in the conscience** — added to `signalAsContext` in
+    `lib/loop-runtime.js`. Voice frame: name the bill exists in one line (cohort decides the
+    framing — first-product wants a number, vibe-virtuoso wants the inspect affordance,
+    domain-expert wants the privacy posture), point at `/ai-cost`, hand the decision back.
+    Never blocks. Override via devlog per IDEA-008.
+  - **`.gitignore`** updated to exclude `.boss/cost-log.jsonl` (local ledger; ship to a real
+    datastore when you have real users — the skill's review-cadence step says so).
+  - **L1-mvp manifest** now ships 8 skills + 4 loops + same 4 agents. `claude-append.md`
+    names the new skill and loop alongside the others.
+- **Pairs (not auto-invoked) with two existing mentors.** The handoff lines in `/ai-cost`:
+  *"`mentor-architect`, the cost shape says X — what architecture decisions does that imply?"*
+  and *"`mentor-business`, our cost-per-active-user is X; what should the pricing carry?"*
+  Cost discipline is the load-bearing connector between architecture (caching, batching,
+  cheaper-fallback) and business (unit economics, willingness-to-pay).
+- **The discipline reads as Husain-applied-to-spend.** *"Almost all AI cost problems are
+  visible in the ledger, and almost no one keeps one."* Liu cited for structured-outputs-as-
+  cost-lever; Mollick for cost-as-design-input. No new mentor or practitioner added — just the
+  application of existing discipline to a different artifact.
+- **What v0.25 does NOT do:** auto-instrument the user's code (judgment call: the founder
+  knows their call sites better; the skill *suggests* the wrapper, doesn't write it). Auto-
+  detect non-mainstream SDKs (LangChain wrappers, Replicate, Cohere, Bedrock). Ship a budget-
+  enforcement layer (this is a *nudge*, never a gate — IDEA-011 discipline applies).
+- **Conscience regression-clean.** Existing 43/43 conscience evals still pass — the new loop
+  lives in L1-mvp, the eval runner only loads L0-quickstart loops, so the new moment has no
+  way to fire against the existing eval fixtures. End-to-end tested in `/tmp`.
+
 ## 0.24.0 — 2026-05-23
 
 - **Positioning pass — first non-feature release in BOSS's history.** The deliverable is *the

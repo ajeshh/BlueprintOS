@@ -312,5 +312,8 @@ function signalAsContext(s) {
   if (moment === 'restraint') {
     return `[BOSS conscience — ${loopId} premature · ${s.confidence} confidence] The founder is reaching for ${loopId} but an upstream artifact is missing. If it fits the moment, surface BOSS's restraint nudge in your own voice: name what's missing in one line, offer to back up, hand the decision back. Never block.`;
   }
+  if (moment === 'cost') {
+    return `[BOSS conscience — ${loopId} unbudgeted · ${s.confidence} confidence] The code calls an LLM but no AI cost budget has been declared (or the cost-logger isn't wired). If it fits the moment, surface BOSS's nudge in your own voice: name that the bill exists in one line (the cohort decides the framing — first-product wants a number, vibe-virtuoso wants the inspect affordance, domain-expert wants the privacy posture), point at \`/ai-cost\`, hand the decision back. Never block.`;
+  }
   return `[BOSS conscience — ${loopId} (${moment}) · ${s.confidence} confidence] signal warrants attention.`;
 }

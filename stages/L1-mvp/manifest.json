@@ -1,12 +1,12 @@
 {
   "id": "L1-mvp",
   "name": "MVP",
-  "summary": "Ready to build the first working version. Adds a spec convention (/spec + FEAT-NNN with validated-learning + evals fields), a stack-configured build gate (/smoke), evals discipline (/evals — Husain), demand-testing discipline (/pretotype — Savoia), JIT design-tokens scaffolding (/design-tokens-init — Frost / Curtis), a devlog (/log), and a session-end ritual (/close + RESUME.md). Builders: tester + program-manager. Mentors: architect + GTM. Plus 3 named loops on the v0.18 primitive — spec-loop (encodes moment #4 restraint), pretotype-loop (Savoia), design-tokens-loop (IDEA-010).",
+  "summary": "Ready to build the first working version. Adds a spec convention (/spec + FEAT-NNN with validated-learning + evals fields), a stack-configured build gate (/smoke), evals discipline (/evals — Husain), demand-testing discipline (/pretotype — Savoia), JIT design-tokens scaffolding (/design-tokens-init — Frost / Curtis), AI cost discipline (/ai-cost — cohort-aware budgets + per-call logger; v0.25), a devlog (/log), and a session-end ritual (/close + RESUME.md). Builders: tester + program-manager. Mentors: architect + GTM. Plus 4 named loops on the v0.18 primitive — spec-loop (encodes moment #4 restraint), pretotype-loop (Savoia), design-tokens-loop (IDEA-010), cost-budget-loop (Husain-applied-to-spend; v0.25).",
   "requires": "L0-quickstart",
   "agents": ["tester", "program-manager", "mentor-architect", "mentor-gtm"],
-  "skills": ["spec", "smoke", "log", "close", "evals", "pretotype", "design-tokens-init"],
+  "skills": ["spec", "smoke", "log", "close", "evals", "pretotype", "design-tokens-init", "ai-cost"],
   "hooks": [],
-  "loops": ["spec-loop", "pretotype-loop", "design-tokens-loop"],
+  "loops": ["spec-loop", "pretotype-loop", "design-tokens-loop", "cost-budget-loop"],
   "unlocksNext": "L2-v1",
   "graduationHint": "When you have real users and the app needs design rigor, a real db, and prototypes — boss unlock v1."
 }

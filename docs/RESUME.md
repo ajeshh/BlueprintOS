@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-23 (v0.24.0)
+updated: 2026-05-24 (v0.25.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,23 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.24.0)
+## State (shipped, v0.25.0)
+- **AI cost discipline — the universal-cohort feature (v0.25.0).** Per IDEA-012's persona
+  overlay, AI cost was the only candidate every cohort cared about. Now first-class in MVP
+  mode: the founder gets nudged to declare the bill at the first LLM SDK call, not after the
+  first surprise invoice. **`/ai-cost` skill (L1-mvp)** — walks the founder through declaring
+  `docs/ai-cost-budget.md` (per-user/day + monthly cap + model rationale + review cadence +
+  breach grammar), suggests a ~30-line cost-logger wrapper (TS + Python examples) writing to
+  `.boss/cost-log.jsonl`, surfaces mentor handoffs (`mentor-architect` for cost-shape →
+  architecture; `mentor-business` for cost-per-user → pricing). **Cohort-aware defaults:**
+  `first-product` $5/user/day strict; `vibe-virtuoso` inspect-only; `eng-builder` BYO;
+  `indie-hacker` cost-as-%-of-revenue; `domain-expert` $20/user/day + **privacy-first logging
+  (no PII, no prompt body)**. **`cost-budget-loop` (hook-runner)** — entry: ≥1 LLM SDK call
+  site in `src/**` (anthropic / openai / Vercel AI SDK regex); exit: budget doc + logger
+  reference at the call site. **New `cost` moment** added to the conscience's
+  `signalAsContext` voice frame. `.gitignore` updated for `.boss/cost-log.jsonl`. End-to-end
+  tested in `/tmp`: loop opens at first LLM call, closes when both artifacts exist, re-opens
+  when budget doc removed. 43/43 conscience evals regression-clean.
 - **Positioning pass landed (v0.24.0)** — first non-feature release in BOSS's history. The
   Dunford exercise (recommended v0.15 advisory pass; deferred 8 releases; finally shipped).
   Full positioning at [`docs/dossier/positioning-pass-001.md`](dossier/positioning-pass-001.md).
@@ -223,10 +239,10 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    release; the deliverable is the thinking + the README edit. The positioning that gates the
    next 3-5 feature decisions is on the record.
 
-7. **v0.25 — AI cost tracking.** Per IDEA-012's persona overlay, the only universal-cohort
-   candidate — every persona cared. `/ai-cost` skill + `cost-budget-loop` + cohort-aware
-   defaults + pairs with mentor-architect/mentor-business. Highly BOSS-distinctive; closes
-   what's likely the biggest "obvious gap" we missed.
+7. ~~v0.25 — AI cost tracking.~~ **DONE in v0.25.0.** `/ai-cost` skill + `cost-budget-loop` +
+   new `cost` moment shipped. Cohort-aware defaults landed for all 8 cohorts; mentor handoff
+   lines named (architect for cost-shape; business for unit economics). Loop verified end-to-
+   end in `/tmp`; 43/43 conscience evals regression-clean.
 
 8. **v0.26+ — Pull from IDEA-012 catalog based on positioning outcomes.** Likely candidates
    per the audit (in rough priority order, subject to positioning):
@@ -266,7 +282,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     **DONE in v0.20.0**. ~~MVP discipline upgrades + moment #4 + IDEA-010 Phase 2~~ —
     **DONE in v0.21.0**. ~~V1 mode authored + IDEA-010 Phase 3~~ — **DONE in v0.22.0**.
     ~~Conscience pause primitive (IDEA-011 Phase 1)~~ — **DONE in v0.23.0**. ~~Positioning
-    pass (Dunford exercise; IDEA-012 follow-through)~~ — **DONE in v0.24.0**.
+    pass (Dunford exercise; IDEA-012 follow-through)~~ — **DONE in v0.24.0**. ~~AI cost
+    discipline (universal-cohort feature)~~ — **DONE in v0.25.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:
@@ -277,14 +294,20 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   going forward as of v0.7.0; only matters if the public history bothers you (needs force-push).
 
 ## Prompt for the next session
-> Continue BlueprintOS (in ~/Projects/blueprintos). Read docs/RESUME.md first; cross-references
+> Continue BlueprintOS (in ~/Projects/BlueprintOS). Read docs/RESUME.md first; cross-references
 > as needed.
 >
-> We're at v0.17.0. **Roadmap published in the "Next tasks" section above — 10 releases
-> sequenced for build-on-build.** Builder team just seated (designer + voice-keeper + prompt-
-> coach in BOSS's own .claude/agents/). Next up is v0.18: promote IDEA-008 to FEAT (generic
-> Node loop runtime, 3 named loops, retire bash hook, `runner_type` field). Then v0.19 personas
-> on top of that.
+> We're at v0.25.0. **AI cost discipline just shipped** — the universal-cohort feature from
+> IDEA-012's persona overlay. `/ai-cost` skill + `cost-budget-loop` + new `cost` moment landed
+> in L1-mvp. Pairs with `mentor-architect` (cost-shape → architecture) and `mentor-business`
+> (cost-per-user → pricing). Tested end-to-end; 43/43 conscience evals regression-clean.
+>
+> Next: pick from the IDEA-012 catalog based on what v0.24's positioning calls for —
+> likely candidates: **AI-first product template** (BOSS-distinctive home turf — bakes in
+> eval discipline + structured outputs + cost tracking + cohort-aware UX from day one);
+> **brownfield adoption** (`boss adopt`, IDEA-005); **mentor consults as structured flows**
+> (`/consult` orchestrating 2-3 mentors per question); **first-time BOSS-user onboarding**
+> (`/welcome` skill — closes the first-product cohort gap from v0.19).
 >
 > Ajesh is in "build-it-out" mode — execute fast, ship multiple capability releases per session
 > where scope allows, lean on the discipline rails (evals + structured output + IDEA-008 loops

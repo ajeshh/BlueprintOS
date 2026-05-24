@@ -24,6 +24,9 @@
   - `/design-tokens-init` — scaffold the three-layer token system at the *first UI commit*
     inflection (IDEA-010 Phase 2; v0.21.0+). Cohort-aware delivery. Prevents the 47-blues /
     pattern-reinvention / billion-line-drift failure modes.
+  - `/ai-cost` — declare the AI spend contract at the *first LLM-call* inflection (v0.25.0+).
+    Cohort-aware budgets (first-product strict, vibe-virtuoso inspect-only, domain-expert
+    privacy-first), per-call cost logger, review cadence. Closes `cost-budget-loop`.
   - `/log` — devlog
   - `/close` — session-end RESUME update
 - **Builder agents:** `tester` (owns the smoke gate + acceptance checks for FEATs);
@@ -36,6 +39,8 @@
   - `pretotype-loop` — records that demand-testing happened before significant build
   - `design-tokens-loop` — JIT scaffolds the design token system when UI starts accumulating
     (conscience emits `coherence` moment when entry-met / exit-unmet)
+  - `cost-budget-loop` — opens at the first LLM SDK call in `src/` without a budget doc
+    (conscience emits `cost` moment when entry-met / exit-unmet; v0.25.0+)
 - **Conventions:** `FEAT-NNN` for features in build (already listed in `docs/IDS.md`);
   `docs/devlog.md` is append-only (override grammar lives here per IDEA-008);
   `docs/RESUME.md` is the living state pointer; `docs/loops/` lives alongside `docs/ideas/`;
