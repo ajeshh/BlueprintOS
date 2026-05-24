@@ -294,20 +294,25 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   going forward as of v0.7.0; only matters if the public history bothers you (needs force-push).
 
 ## Prompt for the next session
-> Continue BlueprintOS (in ~/Projects/BlueprintOS). Read docs/RESUME.md first; cross-references
-> as needed.
+> **Keep this evergreen.** This block is a pointer + procedure, never a status report. The
+> status lives in *State* (above) and the *Next tasks* list — both already get updated each
+> release. Restating them here just doubles the surface that can drift. If you find yourself
+> writing "We're at v0.X" or "X just shipped" below, delete it and trust the rest of the file.
+
+> Continue BlueprintOS (in `~/Projects/BlueprintOS`).
 >
-> We're at v0.25.0. **AI cost discipline just shipped** — the universal-cohort feature from
-> IDEA-012's persona overlay. `/ai-cost` skill + `cost-budget-loop` + new `cost` moment landed
-> in L1-mvp. Pairs with `mentor-architect` (cost-shape → architecture) and `mentor-business`
-> (cost-per-user → pricing). Tested end-to-end; 43/43 conscience evals regression-clean.
+> **Read first, in order:** `docs/RESUME.md` (this file — current state + next tasks + open
+> decisions), `CLAUDE.md`, `PRINCIPLES.md`. Then `VERSION` + `registry/CHANGELOG.md` for what
+> just shipped. **Cross-check freshness:** `git log -3` against what RESUME claims — if
+> they disagree, RESUME is stale and you re-read after re-establishing ground truth.
 >
-> Next: pick from the IDEA-012 catalog based on what v0.24's positioning calls for —
-> likely candidates: **AI-first product template** (BOSS-distinctive home turf — bakes in
-> eval discipline + structured outputs + cost tracking + cohort-aware UX from day one);
-> **brownfield adoption** (`boss adopt`, IDEA-005); **mentor consults as structured flows**
-> (`/consult` orchestrating 2-3 mentors per question); **first-time BOSS-user onboarding**
-> (`/welcome` skill — closes the first-product cohort gap from v0.19).
+> Then pick up the *Next tasks* in order, top down. If something at the top looks already
+> done, scan recent commits + CHANGELOG before assuming the list is current.
+>
+> **Per capability shipped:** bump `VERSION` + `package.json` (keep in sync) + add a
+> `registry/CHANGELOG.md` entry + update *State* + *Next tasks* in this RESUME. Test the CLI
+> in `/tmp`, prune `/tmp` entries from `~/.boss/registry.json`, commit with the GH noreply
+> env-var (never global config), push when asked.
 >
 > Ajesh is in "build-it-out" mode — execute fast, ship multiple capability releases per session
 > where scope allows, lean on the discipline rails (evals + structured output + IDEA-008 loops

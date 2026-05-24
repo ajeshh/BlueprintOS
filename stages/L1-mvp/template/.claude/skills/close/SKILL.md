@@ -23,7 +23,12 @@ It's the counterpart to *read `docs/RESUME.md` first thing*.
      bar()", not "improve the feature."
    - **Open decisions:** things waiting on a call (yours or someone else's). Each with a tentative
      direction so you don't re-litigate from scratch.
-   - **Prompt for the next session:** a paste-ready short brief — what to read first, where to start.
+   - **Prompt for the next session:** keep it **evergreen** — a pointer + procedure, never a
+     status report. *State* and *Next tasks* already carry the current-state surface; restating
+     them here just doubles the drift surface. Save kickoff prompts somewhere stable (a shell
+     alias, a snippets app, the `Prompt for the next session` block) so they don't bit-rot
+     against the actual RESUME. If you find yourself writing *"we're at v0.X"* or *"X just
+     shipped"* in this block, delete it — that's what *State* is for.
 
 3. **Check the working tree.** If there are uncommitted changes the user wants to keep but isn't
    committing now, mention them in RESUME's *State* so next-you isn't surprised. Don't auto-commit.
@@ -61,8 +66,12 @@ _One paragraph. The current articulation — sharpen as the project sharpens._
 - _Question — tentative lean — what would close it._
 
 ## Prompt for the next session
-> Continue {{PROJECT_NAME}}. Read docs/RESUME.md and CLAUDE.md first.
-> _<one line on where to start>_
+> _**Keep this evergreen** — a pointer + procedure, never a status report._
+>
+> Continue {{PROJECT_NAME}}. Read `docs/RESUME.md` (this file — *State* + *Next tasks* +
+> *Open decisions*), `CLAUDE.md`, then `VERSION` + `CHANGELOG`. Cross-check `git log -3`
+> against what RESUME claims — if they disagree, RESUME is stale; re-establish ground truth
+> first. Then pick up *Next tasks* top down.
 
 ## Working reminders
 - _Commands, env vars, things easy to forget._
