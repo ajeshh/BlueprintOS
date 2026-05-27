@@ -2,6 +2,55 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.27.0 — 2026-05-24
+
+- **Conscience evals — closing the discipline-on-the-discipline-tool hole.** Four moments
+  (restraint / coherence / cost / failure-mode) had shipped without eval coverage; the brake
+  the discipline named (*"43/43 pass"*) was eroding silently. v0.27 closes the three
+  hook-emitted ones; restraint is skill-side and stays out of the hook eval suite by design.
+  - **`moment-cost.yml`** — 12 cases covering: Anthropic / OpenAI / Vercel AI SDK
+    (generateText, streamText) entry detection; partial closure (budget doc alone, logger ref
+    alone); full closure; multi-moment co-firing with failure-mode at the first-LLM-call
+    inflection; should-not-fire on no-LLM and empty projects.
+  - **`moment-failure-mode.yml`** — 8 cases isolating the failure-mode signal (close the cost
+    loop to single out failure-mode); covers partial closure (doc alone, handlers alone),
+    full closure, and the no-entry case.
+  - **`moment-coherence.yml`** — 10 cases covering: className= / styled-components / inline
+    style={} entry detection; confidence scaling (3 declarations = low; 12+ = high); partial
+    closure (tokens doc alone, refs alone); full closure; under-threshold (2 declarations)
+    and no-UI cases.
+  - **Runner upgrades:**
+    - Loads both L0-quickstart AND L1-mvp loops (L1 loops live in `stages/L1-mvp/template/
+      docs/loops/`; previous runner only loaded L0, which is why three moments could ship
+      without coverage).
+    - **`src_files` / `docs_files` / `other_files` in `project_state`** — materializes
+      arbitrary file paths via the new `FIXTURES` registry (`runner.js`). The minimal YAML
+      parser doesn't support multi-line scalars, so file content lives in the runner as
+      named fixtures: `anthropic_call`, `openai_call`, `vercel_ai_call`, `vercel_ai_stream`,
+      `cost_budget_doc`, `cost_logger_ref`, `failure_states_doc`, `failure_handlers_ref`,
+      `style_decls_low/high/two`, `style_styled_components`, `style_inline_objects`,
+      `design_tokens_doc`, `token_refs`, `no_llm_code`, `empty`.
+    - **Multi-moment assertions** — `expected_detection.moments: [cost, failure-mode]`
+      asserts set inclusion across the actual signals list (not just the first signal).
+      Useful for cases where multiple loops fire simultaneously by design.
+    - **Single-moment fallback** — when `expected_detection.moment` is specified, the
+      assertion also checks the moments list (not just the first signal), since signal
+      ordering is filesystem-dependent.
+  - **README updated** — current-cut section names all five tested moments; documents the
+    multi-moment format and the FIXTURES registry pattern.
+- **Suite count: 73 passed / 0 failed / 41 skipped (114 loaded)** — up from 43/43. The 41
+  skipped are unchanged: 20 moment-2 cases that live in `/canvas` skill prompt (no hook
+  detector), 6 signal-text evals (separate runner), 15 cases gated on suppress_if / devlog
+  awareness / session-state tracking that aren't yet implemented.
+- **What v0.27 does NOT do:** sharpen the first-cut wording in any YAML (Ajesh's sharpening
+  pass remains pending — flagged in each file's frontmatter); ship a skill-eval runner for
+  `spec-loop` / `pretotype-loop` (those are skill-side; need a different runner pattern);
+  add a sixth moment for "capture" (PRINCIPLE #1 — gap #1 still on the table; needs an
+  LLM-as-judge or heuristic detector design).
+- **Why this isn't a feature release:** no skills, agents, loops, or hooks shipped. The
+  discipline tightened around what's already shipped. Same shape as v0.24 (positioning
+  pass): not the most exciting release, plausibly the highest-leverage one this stretch.
+
 ## 0.26.0 — 2026-05-24
 
 - **AI-first product template — BOSS's home turf, made first-class.** The v0.24 positioning

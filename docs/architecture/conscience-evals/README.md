@@ -113,6 +113,56 @@ case-driven iteration.
 - **Moment #2 (Done!):** see [`moment-2-done.yml`](moment-2-done.yml). First cut by Claude on
   2026-05-22. Moment #2 lives in the `/canvas` skill prompt today (no hook); the eval set
   drives expected skill behavior. Needs Ajesh-sharpening pass.
+- **Moment: cost (cost-budget-loop, L1-mvp):** see [`moment-cost.yml`](moment-cost.yml). Added
+  in v0.27.0. Hook-runner loop; the cases test entry detection across providers (Anthropic /
+  OpenAI / Vercel AI SDK), partial-closure (budget doc alone, logger alone), full closure, and
+  multi-moment co-firing with failure-mode at the first LLM-call inflection. Needs Ajesh-
+  sharpening pass.
+- **Moment: failure-mode (ai-failure-state-loop, L1-mvp):** see
+  [`moment-failure-mode.yml`](moment-failure-mode.yml). Added in v0.27.0. Hook-runner loop;
+  cases isolate failure-mode by closing cost-budget-loop. Same first-LLM-call inflection;
+  different exit (failure-states doc + handler ref). Needs Ajesh-sharpening pass.
+- **Moment: coherence (design-tokens-loop, L1-mvp):** see
+  [`moment-coherence.yml`](moment-coherence.yml). Added in v0.27.0. Hook-runner loop; cases
+  test entry across style patterns (className= / styled-components / inline style=) +
+  confidence scaling (3 = low; 12+ = high) + partial closure (doc alone, refs alone) + full
+  closure. Needs Ajesh-sharpening pass.
+
+## Multi-moment assertions (v0.27.0+)
+
+When multiple loops share an entry inflection (e.g., the first LLM SDK call opens BOTH
+`cost-budget-loop` and `ai-failure-state-loop`), an eval case can assert against the full
+signal set rather than just the first signal:
+
+```yaml
+expected_detection:
+  fires: true
+  moments: [cost, failure-mode]   # all listed moments must appear in actual signals
+```
+
+Use this when the test isn't trying to isolate one loop — the multi-moment case captures the
+natural state of a founder hitting the AI-mediated boundary without any discipline declared.
+
+## Synthetic-file fixtures (v0.27.0+)
+
+The minimal YAML parser doesn't support multi-line scalars, so file content lives in the
+`FIXTURES` registry in [`runner.js`](runner.js). Eval YAML references them by name:
+
+```yaml
+src_files:
+  - { path: src/api.ts, fixture: anthropic_call }
+docs_files:
+  - { path: docs/ai-cost-budget.md, fixture: cost_budget_doc }
+```
+
+Available fixtures (as of v0.27.0): `anthropic_call`, `openai_call`, `vercel_ai_call`,
+`vercel_ai_stream`, `no_llm_code`, `cost_budget_doc`, `cost_logger_ref`, `failure_states_doc`,
+`failure_handlers_ref`, `style_decls_low`, `style_decls_high`, `style_decls_two`,
+`style_styled_components`, `style_inline_objects`, `design_tokens_doc`, `token_refs`, `empty`.
+
+Add new fixtures to `runner.js`'s `FIXTURES` map when a new test needs file content the
+existing set doesn't cover. Keep fixtures minimal — *just enough* to fire the predicate
+under test.
 
 ## Honest scope flag (Claude's note)
 

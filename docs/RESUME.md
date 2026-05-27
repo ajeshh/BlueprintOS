@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-24 (v0.26.0)
+updated: 2026-05-24 (v0.27.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.26.0)
+## State (shipped, v0.27.0)
+- **Conscience evals coverage closed (v0.27.0)** — four moments had shipped without eval
+  coverage (restraint / coherence / cost / failure-mode); the brake the discipline named was
+  eroding silently. v0.27 closes the three hook-emitted ones. Adds `moment-cost.yml` (12
+  cases), `moment-failure-mode.yml` (8), `moment-coherence.yml` (10) — covers entry detection
+  across providers/patterns, partial closure, full closure, multi-moment co-firing. Runner
+  upgraded to load both L0+L1 loops, materialize arbitrary `src_files`/`docs_files` via a new
+  `FIXTURES` registry, and assert multi-moment expectations. Suite count: **73 passed / 0
+  failed / 41 skipped (114 loaded)** — up from 43/43. Restraint is skill-side; stays out of
+  the hook eval suite by design. Capture moment (PRINCIPLE #1) still has no detector — next
+  on deck.
 - **AI-first product template (v0.26.0)** — BOSS's home turf, made first-class. The v0.24
   positioning named BOSS as *"the thinking layer for AI-native founders;"* v0.26 ships the
   concrete artifact that earns the name. **`/ai-first-init`** is the conductor — walks the
@@ -265,8 +275,20 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    failure-states field + `/boss` AI-native nudge. The artifact that earns the v0.24
    positioning.
 
-9. **v0.27+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (in rough
-   priority order, subject to positioning):
+9. ~~v0.27 — Conscience evals coverage.~~ **DONE in v0.27.0.** Closes the discipline-on-the-
+   discipline-tool hole: 3 new moment files (cost/failure-mode/coherence) + runner upgrades
+   (L1 loops loaded, fixtures registry, multi-moment assertions). Suite now 73/0/41.
+
+10. **v0.28 — `/welcome` (first-time BOSS-user onboarding).** Closes the cohort gap from v0.19
+    personas pass: `first-product`, `vibe-coder-newbie`, `non-tech-founder` bounce off
+    without onboarding. L0-quickstart skill. ~1 session.
+
+11. **v0.29 — Moment #3: capture (PRINCIPLE #1's own discipline).** Detector pattern for
+    "reusable value at breakpoint" — predicate-based won't work; needs LLM-as-judge or
+    heuristic over recent git diffs / devlog entries / multi-file pattern emergence. Sets the
+    precedent for future non-predicate moments. ~1–2 sessions.
+
+12. **v0.30+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
@@ -305,6 +327,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     pass (Dunford exercise; IDEA-012 follow-through)~~ — **DONE in v0.24.0**. ~~AI cost
     discipline (universal-cohort feature)~~ — **DONE in v0.25.0**. ~~AI-first product
     template (the artifact that earns the v0.24 positioning)~~ — **DONE in v0.26.0**.
+    ~~Conscience evals coverage for cost / failure-mode / coherence~~ — **DONE in v0.27.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

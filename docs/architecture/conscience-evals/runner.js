@@ -22,7 +22,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '../../..');
 const HOOK_DIR = join(REPO_ROOT, 'stages/L0-quickstart/template/.claude/hooks');
 const HOOK = join(HOOK_DIR, 'conscience.js');
-const LOOPS_DIR = join(REPO_ROOT, 'stages/L0-quickstart/template/docs/loops');
+// Load loops from both Quickstart AND MVP — the eval suite covers moments
+// emitted by loops at either stage. The hook reads `docs/loops/*.md` from the
+// project; both stages' loops coexist post-`boss unlock mvp`.
+const LOOPS_DIRS = [
+  join(REPO_ROOT, 'stages/L0-quickstart/template/docs/loops'),
+  join(REPO_ROOT, 'stages/L1-mvp/template/docs/loops'),
+];
 
 // ---------------------------------------------------------------------------
 // Minimal YAML parser — covers the subset used by our eval files:
@@ -196,6 +202,74 @@ function parseYaml(text) {
 }
 
 // ---------------------------------------------------------------------------
+// Fixtures — synthetic file contents referenced by eval YAML via { fixture: <name> }.
+// The minimal YAML parser doesn't support multi-line scalars, so multi-line file
+// content lives here, keyed by name. v0.27.0+ (when cost / failure-mode / coherence
+// evals landed and needed arbitrary src/ + docs/ state).
+// ---------------------------------------------------------------------------
+
+const FIXTURES = {
+  // LLM SDK call sites — each fires the entry predicate of cost-budget-loop AND
+  // ai-failure-state-loop (they share entry — both failure modes coexist at the
+  // first call). Use *_with_logger / *_with_handler variants to isolate one of
+  // the two loops in a single test.
+  anthropic_call:
+    `import Anthropic from '@anthropic-ai/sdk';\nconst client = new Anthropic();\nexport async function ask(t) {\n  return client.messages.create({ model: 'claude-haiku-4-5', max_tokens: 64, messages: [{ role: 'user', content: t }] });\n}\n`,
+  openai_call:
+    `import OpenAI from 'openai';\nconst client = new OpenAI();\nexport async function ask(t) {\n  return client.chat.completions.create({ model: 'gpt-5-mini', messages: [{ role: 'user', content: t }] });\n}\n`,
+  vercel_ai_call:
+    `import { generateText } from 'ai';\nexport async function ask(t) {\n  return generateText({ model: 'x', prompt: t });\n}\n`,
+  vercel_ai_stream:
+    `import { streamText } from 'ai';\nexport async function ask(t) {\n  return streamText({ model: 'x', prompt: t });\n}\n`,
+  no_llm_code:
+    `export function add(a, b) { return a + b; }\nexport const SAFE = true;\n`,
+
+  // Cost-budget-loop EXIT artifacts. Pair budget_doc + cost_logger_ref to close cost.
+  cost_budget_doc:
+    `---\nid: ai-cost-budget\ntype: budget\nowner: pm\nstatus: declared\nupdated: 2026-05-24\n---\n# AI cost budget\n- Per user, per day: $5\n`,
+  cost_logger_ref:
+    `import { logCall } from './ai-cost-logger';\nexport async function wrapped(t) {\n  const r = await callModel(t);\n  logCall({ feat: 'FEAT-001', model: 'x', inputTokens: 0, outputTokens: 0 });\n  return r;\n}\n`,
+
+  // Failure-state-loop EXIT artifacts. Pair failure_states_doc + failure_handlers_ref to close failure-mode.
+  failure_states_doc:
+    `---\nid: ai-failure-states\ntype: design-decisions\nowner: pm\nstatus: declared\nupdated: 2026-05-24\n---\n# AI failure states\n## 1. Garbage output\n## 2. Refusal\n`,
+  failure_handlers_ref:
+    `export function handleGarbageResponse(raw) { return null; }\nexport function handleRefusal(t) { return null; }\nexport function handleHallucination() { return null; }\n`,
+
+  // Design-tokens-loop ENTRY — style declarations. The loop's entry threshold
+  // is min: 3 across src/**. _low has exactly 3 matches; _high has 11+ for
+  // high-confidence assertions.
+  style_decls_low:
+    `import React from 'react';\nexport const A = () => <div className="foo">a</div>;\nexport const B = () => <div className="bar">b</div>;\nexport const C = () => <div className="baz">c</div>;\n`,
+  style_decls_high:
+    `import React from 'react';\n` +
+    `export const A = () => <div className="a">a</div>;\n`.repeat(12),
+  style_decls_two:
+    `import React from 'react';\nexport const A = () => <div className="foo">a</div>;\nexport const B = () => <div className="bar">b</div>;\n`,
+  style_styled_components:
+    `import styled from 'styled-components';\nconst A = styled.div\`color: red\`;\nconst B = styled.div\`color: blue\`;\nconst C = styled.div\`color: green\`;\n`,
+  style_inline_objects:
+    `import React from 'react';\nexport const A = () => <div style={{color: 'red'}}>a</div>;\nexport const B = () => <div style={{color: 'blue'}}>b</div>;\nexport const C = () => <div style={{color: 'green'}}>c</div>;\n`,
+
+  // Design-tokens-loop EXIT artifacts.
+  design_tokens_doc:
+    `---\nid: design-tokens\ntype: design\nowner: pm\nstatus: declared\nupdated: 2026-05-24\n---\n# Design tokens\n`,
+  token_refs:
+    `import { token } from './tokens';\nexport const color = token.primary;\nexport const space = \`var(--space-2)\`;\nexport const bg = colors.background;\n`,
+
+  // Empty file (for cases that test "file exists but empty").
+  empty: '',
+};
+
+function resolveFileContent(spec) {
+  if (typeof spec.content === 'string') return spec.content;
+  if (spec.fixture && Object.prototype.hasOwnProperty.call(FIXTURES, spec.fixture)) {
+    return FIXTURES[spec.fixture];
+  }
+  return '';
+}
+
+// ---------------------------------------------------------------------------
 // Project-state builder — materialize synthetic docs/ideas/ tree in temp dir.
 // ---------------------------------------------------------------------------
 
@@ -263,12 +337,15 @@ function buildProjectDir(example) {
   mkdirSync(tempBase, { recursive: true });
 
   // Copy loop specs so the v0.18+ generic runtime can read them at hook time.
-  // The runtime expects docs/loops/*.md in the project root.
+  // The runtime expects docs/loops/*.md in the project root. v0.27.0+: load
+  // from BOTH Quickstart and MVP so cost / failure-mode / coherence evals
+  // (loops live in L1-mvp) can run alongside caution / done (loops in L0).
   const projectLoopsDir = join(tempBase, 'docs', 'loops');
   mkdirSync(projectLoopsDir, { recursive: true });
-  if (existsSync(LOOPS_DIR)) {
-    for (const f of readdirSync(LOOPS_DIR)) {
-      if (f.endsWith('.md')) cpSync(join(LOOPS_DIR, f), join(projectLoopsDir, f));
+  for (const dir of LOOPS_DIRS) {
+    if (!existsSync(dir)) continue;
+    for (const f of readdirSync(dir)) {
+      if (f.endsWith('.md')) cpSync(join(dir, f), join(projectLoopsDir, f));
     }
   }
 
@@ -290,6 +367,22 @@ function buildProjectDir(example) {
       }
     }
   }
+
+  // v0.27.0+: arbitrary file materialization for non-idea project state.
+  // src_files / docs_files / other_files: lists of { path, fixture?, content? }
+  // objects where `path` is project-relative. `fixture` references the FIXTURES
+  // registry above; `content` is a raw one-line string. Used by cost / failure-
+  // mode / coherence evals to materialize synthetic src/ + docs/ files.
+  const fileGroups = ['src_files', 'docs_files', 'other_files'];
+  for (const group of fileGroups) {
+    if (!Array.isArray(state[group])) continue;
+    for (const f of state[group]) {
+      const target = join(tempBase, f.path);
+      mkdirSync(dirname(target), { recursive: true });
+      writeFileSync(target, resolveFileContent(f));
+    }
+  }
+
   return tempBase;
 }
 
@@ -318,12 +411,16 @@ function normalizeHookOutput(raw) {
   if (!raw || raw.error) return { fires: false, error: raw?.error };
   const out = raw.hookSpecificOutput;
   if (!out) return { fires: false };
+  const signals = Array.isArray(out.signals) ? out.signals : [];
+  const moments = signals.map((s) => s.moment).filter(Boolean);
   return {
     fires: true,
     moment: out.moment || (out.additionalContext?.includes('validation drift') ? 'caution' : 'unknown'),
+    moments, // v0.27.0+: full list, used by multi-moment assertions
     confidence: out.confidence,
     evidence: out.evidence,
     suppress_if: out.suppress_if || [],
+    signals,
   };
 }
 
@@ -369,7 +466,25 @@ function assertEqual(actual, expected) {
   }
   if (expected.fires === true) {
     if (actual.fires !== true) return { ok: false, reason: 'expected fire, got no fire' };
+    // v0.27.0+: multi-moment assertion. If expected.moments is provided, every
+    // listed moment must be in the actual signals list (set inclusion, order
+    // doesn't matter). Useful for cases where multiple loops share an entry
+    // (e.g., cost-budget-loop + ai-failure-state-loop both fire at the first
+    // LLM SDK call).
+    if (Array.isArray(expected.moments) && expected.moments.length) {
+      const actualSet = new Set(actual.moments || []);
+      const missing = expected.moments.filter((m) => !actualSet.has(m));
+      if (missing.length) {
+        return { ok: false, reason: `expected moments ${expected.moments.join(',')} — missing: ${missing.join(',')}; got: ${[...actualSet].join(',')}` };
+      }
+      return { ok: true };
+    }
     if (expected.moment && actual.moment && expected.moment !== actual.moment) {
+      // For single-moment expectations, also check it appears in the signals
+      // list (the first signal isn't always deterministic when multiple fire).
+      if (Array.isArray(actual.moments) && actual.moments.includes(expected.moment)) {
+        return { ok: true };
+      }
       return { ok: false, reason: `expected moment=${expected.moment}, got moment=${actual.moment}` };
     }
     return { ok: true };
@@ -399,11 +514,17 @@ const dim = (s) => color(s, '90');
 function main() {
   const moment1 = loadMoment('moment-1-caution.yml');
   const moment2 = loadMoment('moment-2-done.yml');
-  const all = [...moment1, ...moment2];
+  const momentCost = loadMoment('moment-cost.yml');
+  const momentFailureMode = loadMoment('moment-failure-mode.yml');
+  const momentCoherence = loadMoment('moment-coherence.yml');
+  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence];
 
   console.log(`\n  conscience-evals · ${all.length} examples loaded`);
-  console.log(`    moment-1 (caution): ${moment1.length}`);
-  console.log(`    moment-2 (done):    ${moment2.length}\n`);
+  console.log(`    moment-1 (caution):       ${moment1.length}`);
+  console.log(`    moment-2 (done):          ${moment2.length}`);
+  console.log(`    moment-cost:              ${momentCost.length}`);
+  console.log(`    moment-failure-mode:      ${momentFailureMode.length}`);
+  console.log(`    moment-coherence:         ${momentCoherence.length}\n`);
 
   const results = { passed: [], failed: [], skipped: [], errors: [] };
   const byFailureMode = {}; // for the summary
