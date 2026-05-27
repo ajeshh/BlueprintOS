@@ -2,6 +2,61 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.29.0 — 2026-05-27
+
+- **Moment #3 lands — PRINCIPLE #1's own discipline, encoded (finally).** For 28 releases the
+  conscience surfaced 6 moments (caution / done / restraint / coherence / cost / failure-mode)
+  but never one for PRINCIPLE #1 itself — the *pause to extract patterns UP or DOWN* rule that
+  defines what BOSS is. *"Capture"* was deferred 5 consecutive releases as "needs LLM-as-judge
+  or heuristic design." v0.29 ships the heuristic-plus-judgment version: a hook-runner loop
+  on a simple devlog heuristic + a skill that does the real judging.
+  - **`extraction-loop` (L1-mvp, hook-runner)** — entry: `docs/devlog.md` has ≥3 dated
+    entries (regex `^## \d{4}-\d{2}-\d{2}`); exit: ≥1 `docs/extractions/EXTR-*.md` file has
+    a `- **Route:**` line. **First hook-runner loop whose entry is *time-of-work* (devlog
+    count) rather than *file-state predicate*.** Sets the precedent for future judgment-
+    required moments that can't be detected by file regex alone. Threshold of 3 mirrors
+    PRINCIPLE #1's *"the third time the same work repeats"* signal.
+  - **`/extract` skill (L1-mvp)** — the LLM-as-judge counterpart. Reads recent commits, the
+    last 3-5 devlog entries, the current FEAT, `library/`, and `src/`. Identifies 1-3
+    candidate patterns by three signals (Signal A: same work repeated; Signal B: named-and-
+    stable shape; Signal C: load-bearing decision). Routes each candidate **UP** (into BOSS's
+    `library/<cat>/` via `boss learn`) or **DOWN** (into the app's `src/` as a named refactor
+    target) or honest **NOT-YET** (the third legitimate answer; recording the *not yet* IS
+    the discipline). Writes `docs/extractions/EXTR-NNN-<slug>.md` with full routing record +
+    "what didn't make the cut" section. Cohort-aware (returning-founder gets the seasoned
+    `"what did you do twice?"` prompt; first-product gets gentler framing; domain-expert
+    leans NOT-YET-with-caveats for regulated logic).
+  - **New `capture` moment in the conscience** — added to `signalAsContext` in
+    `lib/loop-runtime.js`. Voice frame names the inflection in plain language; explicitly
+    rejects *"you've been productive!"* reward framing (PRINCIPLE #1 is the discipline, not
+    the dopamine). Cohort decides the specific framing.
+  - **`EXTR-NNN` ID type added** — `docs/IDS.md` template updates to name it under MVP-mode
+    unlocks alongside `FEAT-NNN` / `FIX-NNN` / `BUG-NNN`.
+  - **L1-mvp manifest** — now ships 11 skills + 6 loops. `claude-append.md` names `/extract`
+    and `extraction-loop` alongside the others; calls out the *"two destinations, not one"*
+    framing per PRINCIPLE #1.
+- **Eval coverage from the start (closes the v0.27 hole going forward).** `moment-capture.yml`
+  ships with 11 cases: should-fire (3, 5 entries; empty extractions/ dir doesn't close); should-
+  not-fire (≤2 entries; closed by UP route; closed by NOT-YET route; empty project; empty
+  devlog file); Quickstart-shape sanity (no devlog → no fire); multi-loop isolation (all four
+  AI-first/extraction loops closed independently). The discipline applied: **no moment ships
+  without its evals.**
+- **Runner upgrades** — new fixtures: `devlog_3_entries`, `devlog_2_entries`, `devlog_5_entries`,
+  `extraction_record_up`, `extraction_record_not_yet`. Loads `moment-capture.yml` in main().
+  **Suite count: 83 passed / 0 failed / 41 skipped (124 loaded)** — up from 73/0/41.
+- **What v0.29 does NOT do:** auto-recurring extraction-loop (closes after one extraction;
+  re-opening requires founder action or future predicate vocabulary with time-aware checks
+  like *"N devlog entries since last extraction"*); execute the actual extraction (the skill
+  proposes UP/DOWN routes; `boss learn` handles UP execution; refactors are the founder's
+  call); LLM-call-out detector (some "is this reusable?" judgments would benefit from an
+  external model call, but Claude-running-the-skill IS the LLM-as-judge — keeping it in-
+  context is simpler and cheaper).
+- **The architectural precedent.** extraction-loop is the **first time-of-work entry**
+  pattern. Future loops that need heuristics like "X has accumulated since Y" can reuse this
+  shape (count files of one type; gate by absence of files of another type). Documented in
+  the loop spec for future authors. Tightens the v0.18 runtime's vocabulary without changing
+  the runner.
+
 ## 0.28.0 — 2026-05-27
 
 - **`/welcome` — the gentle first-run orientation (closes the v0.19 cohort gap).** The v0.19

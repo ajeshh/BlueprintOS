@@ -21,6 +21,7 @@ Stable IDs make work addressable across sessions and docs. New types unlock as t
 |---|---|---|
 | `FEAT-NNN` | A scoped feature with a spec | MVP |
 | `FIX-NNN` / `BUG-NNN` | A cross-cutting fix or bug | MVP |
+| `EXTR-NNN` | A pattern extraction decision (UP into library / DOWN into app core; PRINCIPLE #1) | MVP |
 | `DEC-YYYY-MM-DD-NNN` | A logged decision | V1 |
 | `RFC-NNN` | A decision document | Scale |
 | `EXP-NNN` | A lab experiment | Scale |

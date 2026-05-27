@@ -36,6 +36,11 @@
     Garbage / refusal / hallucination / timeout / cost-spike, each with a declared response +
     stub fallback handler in code. Cohort-aware. Closes `ai-failure-state-loop`. **Domain-
     expert cohort: hallucination response defaults to human-in-the-loop, not retry.**
+  - `/extract` — PRINCIPLE #1's own discipline as a skill (v0.29.0+). Reads recent work and
+    proposes 1-3 extraction candidates, each routed **UP** (into BOSS's `library/<cat>/`
+    via `boss learn`) or **DOWN** (into the app's `src/`) — or honest **NOT-YET**. The
+    LLM-as-judge counterpart to predicate-based loops; closes `extraction-loop`. *Two
+    destinations, not one.*
   - `/log` — devlog
   - `/close` — session-end RESUME update
 - **Builder agents:** `tester` (owns the smoke gate + acceptance checks for FEATs);
@@ -54,6 +59,11 @@
     states design doc + fallback handlers (conscience emits `failure-mode` moment when
     entry-met / exit-unmet; v0.26.0+). Same entry inflection as `cost-budget-loop`; the two
     failure modes always coexist at the AI-mediated boundary.
+  - `extraction-loop` — PRINCIPLE #1's own discipline (v0.29.0+). Opens when `docs/devlog.md`
+    has ≥3 dated entries and no `EXTR-NNN` extraction record exists. Conscience emits the
+    `capture` moment; founder runs `/extract` to record the routing decision (UP / DOWN /
+    NOT-YET). First hook-runner loop whose entry is *time-of-work* (devlog count) rather than
+    *file-state predicate* — sets the precedent for future judgment-required moments.
 - **Conventions:** `FEAT-NNN` for features in build (already listed in `docs/IDS.md`);
   `docs/devlog.md` is append-only (override grammar lives here per IDEA-008);
   `docs/RESUME.md` is the living state pointer; `docs/loops/` lives alongside `docs/ideas/`;

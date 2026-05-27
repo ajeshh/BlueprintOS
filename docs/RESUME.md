@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-27 (v0.28.0)
+updated: 2026-05-27 (v0.29.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,19 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.28.0)
+## State (shipped, v0.29.0)
+- **Moment #3 lands — PRINCIPLE #1's own discipline encoded (v0.29.0).** For 28 releases the
+  conscience surfaced 6 moments but PRINCIPLE #1 itself had none. Deferred 5 consecutive
+  releases. v0.29 ships the heuristic-plus-judgment version: **`extraction-loop`** (L1-mvp,
+  hook-runner; entry = ≥3 dated devlog entries; exit = ≥1 EXTR-NNN file with a Route line —
+  the first time-of-work entry pattern) + **`/extract` skill** (LLM-as-judge; reads recent
+  work, names 1-3 candidates by three signals, routes each UP into `library/`, DOWN into
+  `src/`, or honest NOT-YET; writes `docs/extractions/EXTR-NNN-*.md`). New **`capture` moment**
+  in conscience signalAsContext (voice explicitly rejects productivity-reward framing —
+  *"PRINCIPLE #1 is the discipline, not the dopamine"*). New `EXTR-NNN` ID type. L1-mvp now
+  ships 11 skills + 6 loops. **Eval coverage from the start** — `moment-capture.yml` with 11
+  cases (suite now 83/0/41 up from 73/0/41). Discipline applied: no moment ships without
+  evals.
 - **`/welcome` skill — gentle first-run orientation (v0.28.0)** — closes the v0.19 cohort gap
   (`first-product` / `vibe-coder-newbie` / `non-tech-founder` bounce off without onboarding).
   Cohort-aware branching: beginner cohorts get the full tour (what BOSS is, what's in the
@@ -293,10 +305,10 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     aware orientation skill in L0; closes the v0.19 cohort gap. `boss new` output updated;
     CLAUDE.md template surfaces it at the top.
 
-11. **v0.29 — Moment #3: capture (PRINCIPLE #1's own discipline).** Detector pattern for
-    "reusable value at breakpoint" — predicate-based won't work; needs LLM-as-judge or
-    heuristic over recent git diffs / devlog entries / multi-file pattern emergence. Sets the
-    precedent for future non-predicate moments. ~1–2 sessions. **Currently in progress.**
+11. ~~v0.29 — Moment #3: capture (PRINCIPLE #1's own discipline).~~ **DONE in v0.29.0.**
+    `extraction-loop` (first time-of-work entry pattern) + `/extract` skill (LLM-as-judge,
+    UP/DOWN/NOT-YET routing) + new `capture` moment + EXTR-NNN ID type + 11 eval cases.
+    Sets the precedent for future judgment-required moments.
 
 12. **v0.30+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
@@ -339,6 +351,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     template (the artifact that earns the v0.24 positioning)~~ — **DONE in v0.26.0**.
     ~~Conscience evals coverage for cost / failure-mode / coherence~~ — **DONE in v0.27.0**.
     ~~`/welcome` gentle first-run orientation (closes v0.19 cohort gap)~~ — **DONE in v0.28.0**.
+    ~~Moment #3: capture — PRINCIPLE #1's own discipline encoded (extraction-loop +
+    /extract + capture moment + EXTR-NNN ID type + 11 eval cases)~~ — **DONE in v0.29.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

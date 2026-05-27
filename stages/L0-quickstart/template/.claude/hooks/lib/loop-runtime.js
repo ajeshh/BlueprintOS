@@ -318,5 +318,8 @@ function signalAsContext(s) {
   if (moment === 'failure-mode') {
     return `[BOSS conscience — ${loopId} undesigned · ${s.confidence} confidence] The code calls an LLM but no failure-states design exists (no \`docs/ai-failure-states.md\` or no fallback handlers wired). The five failure modes always exist (garbage / refusal / hallucination / timeout / cost-spike); they just aren't designed yet. If it fits the moment, surface BOSS's nudge in your own voice: name that the failures are unmet in one line (cohort decides framing — first-product wants patterns named, eng-builder wants the unhandled-path lint angle, domain-expert wants the human-in-the-loop framing for high-stakes domains), point at \`/ai-failure-states\`, hand the decision back. Never block.`;
   }
+  if (moment === 'capture') {
+    return `[BOSS conscience — ${loopId} extractable · ${s.confidence} confidence] PRINCIPLE #1's own moment: the founder has accumulated work (devlog has ≥3 dated entries) and hasn't recorded an extraction decision yet. The breakpoint is now — *pause and sort the pattern* (UP into BOSS's library, DOWN into the app's core, or honest NOT-YET). If it fits the moment, surface BOSS's nudge in your own voice: name the inflection in plain language (cohort decides framing — returning-founder wants the seasoned "what did you do twice?" prompt, first-product wants gentler "here's what the pause is for," indie-hacker wants the calm-company frame). **Don't sound like a productivity-reward.** The principle is the discipline, not the dopamine. Point at \`/extract\`, hand the decision back. Never block.`;
+  }
   return `[BOSS conscience — ${loopId} (${moment}) · ${s.confidence} confidence] signal warrants attention.`;
 }

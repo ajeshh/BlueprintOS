@@ -259,6 +259,20 @@ const FIXTURES = {
 
   // Empty file (for cases that test "file exists but empty").
   empty: '',
+
+  // Devlog fixtures (v0.29 — extraction-loop entry signal is ≥3 dated entries).
+  devlog_3_entries:
+    `---\nid: DEVLOG\ntype: devlog\nowner: pm\nstatus: active\n---\n\n# Devlog\n\n## 2026-05-22\n- Landed: scaffold the CLI shape.\n- Next: wire the first FEAT.\n\n## 2026-05-21\n- Landed: PRD captured as IDEA-001.\n- Next: pretotype the demand assumption.\n\n## 2026-05-20\n- Landed: project scaffolded.\n- Next: capture the rough idea.\n`,
+  devlog_2_entries:
+    `---\nid: DEVLOG\ntype: devlog\nowner: pm\nstatus: active\n---\n\n# Devlog\n\n## 2026-05-22\n- Landed: scaffold.\n\n## 2026-05-21\n- Landed: PRD.\n`,
+  devlog_5_entries:
+    `---\nid: DEVLOG\ntype: devlog\nowner: pm\nstatus: active\n---\n\n# Devlog\n\n## 2026-05-24\n- Landed: FEAT-002 shipped.\n\n## 2026-05-23\n- Landed: smoke gate green.\n\n## 2026-05-22\n- Landed: spec written.\n\n## 2026-05-21\n- Landed: canvas closed.\n\n## 2026-05-20\n- Landed: scaffold.\n`,
+
+  // Extraction-record fixtures.
+  extraction_record_up:
+    `---\nid: EXTR-001\ntype: extraction\nowner: pm\nstatus: recorded\ncreated: 2026-05-24\ntrigger: devlog-3-entries\n---\n\n# EXTR-001 — first extraction\n\n## Candidate 1: cohort-aware framing\n- **What it is:** the cohort branch pattern.\n- **Route:** UP\n- **Rationale:** stack-neutral; used in 4+ skills already.\n`,
+  extraction_record_not_yet:
+    `---\nid: EXTR-001\ntype: extraction\nowner: pm\nstatus: recorded\ncreated: 2026-05-24\ntrigger: devlog-3-entries\n---\n\n# EXTR-001 — pause and look\n\n## What didn't make the cut\nNothing load-bearing enough yet.\n- **Route:** NOT-YET (none of the candidates earned a route).\n`,
 };
 
 function resolveFileContent(spec) {
@@ -517,14 +531,16 @@ function main() {
   const momentCost = loadMoment('moment-cost.yml');
   const momentFailureMode = loadMoment('moment-failure-mode.yml');
   const momentCoherence = loadMoment('moment-coherence.yml');
-  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence];
+  const momentCapture = loadMoment('moment-capture.yml');
+  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence, ...momentCapture];
 
   console.log(`\n  conscience-evals · ${all.length} examples loaded`);
   console.log(`    moment-1 (caution):       ${moment1.length}`);
   console.log(`    moment-2 (done):          ${moment2.length}`);
   console.log(`    moment-cost:              ${momentCost.length}`);
   console.log(`    moment-failure-mode:      ${momentFailureMode.length}`);
-  console.log(`    moment-coherence:         ${momentCoherence.length}\n`);
+  console.log(`    moment-coherence:         ${momentCoherence.length}`);
+  console.log(`    moment-capture:           ${momentCapture.length}\n`);
 
   const results = { passed: [], failed: [], skipped: [], errors: [] };
   const byFailureMode = {}; // for the summary
