@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-24 (v0.25.0)
+updated: 2026-05-24 (v0.26.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,23 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.25.0)
+## State (shipped, v0.26.0)
+- **AI-first product template (v0.26.0)** — BOSS's home turf, made first-class. The v0.24
+  positioning named BOSS as *"the thinking layer for AI-native founders;"* v0.26 ships the
+  concrete artifact that earns the name. **`/ai-first-init`** is the conductor — walks the
+  founder through five steps from day one: (1) declare what's AI-mediated → `docs/ai-first.md`;
+  (2) seed structured outputs (Liu) → `docs/schemas/`; (3) seed eval set early (Husain) →
+  `/evals --new`; (4) declare cost budget upfront → `/ai-cost`; (5) design failure states →
+  `/ai-failure-states`. **`/ai-failure-states`** is the missing piece — five guaranteed
+  failure modes (garbage / refusal / hallucination / timeout / cost-spike), each with a
+  declared response + stub fallback handler in code. Cohort-aware (domain-expert defaults
+  to human-in-the-loop on hallucination, not retry). **`ai-failure-state-loop`** (hook-runner,
+  entry = ≥1 LLM SDK call, exit = failure-states doc + handler reference). New `failure-mode`
+  moment. **`/spec` upgraded** with a Failure-states section for AI-mediated FEATs. **`/boss`
+  nudge (L0)** — names AI-native intent during spin-up + recommends `/ai-first-init`.
+  L1-mvp manifest now ships 10 skills + 5 loops. End-to-end tested in `/tmp` (both `cost` and
+  `failure-mode` fire simultaneously at first LLM call; close independently). 43/43 conscience
+  evals regression-clean.
 - **AI cost discipline — the universal-cohort feature (v0.25.0).** Per IDEA-012's persona
   overlay, AI cost was the only candidate every cohort cared about. Now first-class in MVP
   mode: the founder gets nudged to declare the bill at the first LLM SDK call, not after the
@@ -244,9 +260,13 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    lines named (architect for cost-shape; business for unit economics). Loop verified end-to-
    end in `/tmp`; 43/43 conscience evals regression-clean.
 
-8. **v0.26+ — Pull from IDEA-012 catalog based on positioning outcomes.** Likely candidates
-   per the audit (in rough priority order, subject to positioning):
-   - **AI-first product template** (BOSS-distinctive; v0.24 positioning may make this v0.26)
+8. ~~v0.26 — AI-first product template.~~ **DONE in v0.26.0.** `/ai-first-init` conductor +
+   `/ai-failure-states` skill + `ai-failure-state-loop` + new `failure-mode` moment + `/spec`
+   failure-states field + `/boss` AI-native nudge. The artifact that earns the v0.24
+   positioning.
+
+9. **v0.27+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (in rough
+   priority order, subject to positioning):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
@@ -283,7 +303,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     **DONE in v0.21.0**. ~~V1 mode authored + IDEA-010 Phase 3~~ — **DONE in v0.22.0**.
     ~~Conscience pause primitive (IDEA-011 Phase 1)~~ — **DONE in v0.23.0**. ~~Positioning
     pass (Dunford exercise; IDEA-012 follow-through)~~ — **DONE in v0.24.0**. ~~AI cost
-    discipline (universal-cohort feature)~~ — **DONE in v0.25.0**.
+    discipline (universal-cohort feature)~~ — **DONE in v0.25.0**. ~~AI-first product
+    template (the artifact that earns the v0.24 positioning)~~ — **DONE in v0.26.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

@@ -2,6 +2,57 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.26.0 — 2026-05-24
+
+- **AI-first product template — BOSS's home turf, made first-class.** The v0.24 positioning
+  named BOSS as *"the thinking layer for AI-native founders."* v0.26 ships the concrete
+  artifact that earns the name: a conductor skill that walks the founder through the AI-first
+  discipline **from day one**, plus the missing piece (failure-states design) that completes
+  the spine. Cursor + a folder is "AI-native." BOSS + `/ai-first-init` is *"AI-first with
+  discipline from day one."*
+  - **`/ai-first-init` skill (L1-mvp)** — the **conductor**. Walks the founder through five
+    steps: (1) declare what's AI-mediated → `docs/ai-first.md`; (2) seed structured outputs
+    (Liu) → `docs/schemas/`; (3) seed eval set early (Husain) → `/evals --new`; (4) declare
+    cost budget upfront → `/ai-cost`; (5) design failure states → `/ai-failure-states`. The
+    "from day one" framing: declare the discipline *before* the first AI-mediated FEAT ships,
+    not after the first bill / hallucination / refusal.
+  - **`/ai-failure-states` skill (L1-mvp)** — the **missing piece**. Walks the founder through
+    five guaranteed failure modes (garbage / refusal / hallucination / timeout / cost-spike),
+    each with a project-specific declared response + stub fallback handler in code (so the
+    discipline is wired before the founder forgets). Writes `docs/ai-failure-states.md`.
+    Cohort-aware: `first-product` gets named patterns; `eng-builder` gets the unhandled-path
+    angle; **`domain-expert` defaults to human-in-the-loop on hallucination** (no retry-loop
+    on medical/legal/financial output).
+  - **`ai-failure-state-loop` (L1-mvp, hook-runner)** — entry: ≥1 LLM SDK call site
+    (parity with `cost-budget-loop` — the two failure modes always coexist at the
+    AI-mediated boundary). Exit: `docs/ai-failure-states.md` exists AND code references at
+    least one fallback handler (`handleGarbageResponse` / `handleRefusal` /
+    `handleHallucination` / `handleTimeout` / `handleCostSpike` or snake_case Python
+    equivalents). New `failure-mode` moment added to `signalAsContext` voice frame.
+  - **`/spec` upgrade** — for AI-mediated FEATs, the spec template now includes a **Failure
+    states** section alongside the existing evals + validated-learning fields. Names which
+    of the five failure states the FEAT must handle + which fallback handler it routes to.
+    Acceptance criteria are asked to reference at least one failure-state path.
+  - **`/boss` AI-native nudge (L0-quickstart)** — when the founder names the model as
+    load-bearing during spin-up (the product doesn't work without it), `/boss` names it
+    explicitly back and recommends *"after `boss unlock mvp`, run `/ai-first-init`."* The
+    recommendation is the artifact; `/boss` never runs it for the founder.
+- **`docs/ai-first.md` as the declaration contract.** Future FEATs read this doc; future
+  `/spec` runs reference its cross-reference fields. If the doc says "deterministic" for a
+  feature and a PR puts an LLM call in there, that's a real change worth a re-spec —
+  promotes design-by-archeology into design-by-declaration.
+- **L1-mvp manifest now ships 10 skills + 5 loops + 4 agents.** `claude-append.md` names
+  `/ai-first-init`, `/ai-failure-states`, and `ai-failure-state-loop` alongside the others.
+- **The lineage cited.** Husain (failure-mode categorization extended from evals → UX), Liu
+  (structured outputs as the contract that makes failure-detection mechanical), Karpathy
+  (the failure surface IS the design surface — designing the happy path is the easy 20%),
+  Mollick (cost-as-design-input continuing from v0.25). No new mentors added; the discipline
+  is the existing roster applied to the AI-mediated boundary.
+- **Conscience regression-clean.** The new loop lives in L1-mvp; the eval runner only loads
+  L0-quickstart loops; no eval fixtures fire `failure-mode`. End-to-end tested in `/tmp`:
+  fresh project → `boss unlock mvp` → drop LLM SDK call in `src/` → hook fires BOTH `cost`
+  AND `failure-mode` simultaneously (the two loops share entry but track different exits).
+
 ## 0.25.0 — 2026-05-24
 
 - **AI cost discipline — the universal-cohort feature lands.** Per IDEA-012's persona overlay,

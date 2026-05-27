@@ -85,6 +85,19 @@ _If this FEAT involves an LLM call in control flow, name the eval set this FEAT 
 `/evals` skill + the conscience-evals pattern. Failure modes categorized (Husain discipline)._
 - Eval set path: `docs/evals/FEAT-NNN.yml` _(or omit this section if no LLM in control flow)_
 
+## Failure states (v0.26.0+ — for AI-mediated FEATs only)
+_If this FEAT puts an LLM in the user-visible path, name which of the five failure states it
+must handle (per `docs/ai-failure-states.md`). At minimum: which fallback handler is called for
+each applicable state. See `/ai-failure-states` skill._
+- **Garbage output:** <declared response in this FEAT — e.g., schema-validate; on fail call `handleGarbageResponse()`>
+- **Refusal:** <e.g., detect refusal pattern; route to /support; never loop>
+- **Hallucination:** <e.g., verify citations against database; if low confidence, surface "double-check" UI>
+- **Timeout:** <e.g., 8s hard cap; on timeout return last-known-good with `handleTimeout()` annotation>
+- **Cost spike:** <e.g., 4k input cap / 1k output cap; on cap return labeled-truncated result>
+
+_Omit this section if no LLM in user-visible path. Acceptance criteria above should reference
+at least one failure-state path (e.g., "refusal routes to /support, not the spinner")._
+
 ## Out of scope
 _What this FEAT explicitly does NOT do. Future FEATs may; this one doesn't._
 - …

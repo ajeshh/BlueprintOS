@@ -315,5 +315,8 @@ function signalAsContext(s) {
   if (moment === 'cost') {
     return `[BOSS conscience — ${loopId} unbudgeted · ${s.confidence} confidence] The code calls an LLM but no AI cost budget has been declared (or the cost-logger isn't wired). If it fits the moment, surface BOSS's nudge in your own voice: name that the bill exists in one line (the cohort decides the framing — first-product wants a number, vibe-virtuoso wants the inspect affordance, domain-expert wants the privacy posture), point at \`/ai-cost\`, hand the decision back. Never block.`;
   }
+  if (moment === 'failure-mode') {
+    return `[BOSS conscience — ${loopId} undesigned · ${s.confidence} confidence] The code calls an LLM but no failure-states design exists (no \`docs/ai-failure-states.md\` or no fallback handlers wired). The five failure modes always exist (garbage / refusal / hallucination / timeout / cost-spike); they just aren't designed yet. If it fits the moment, surface BOSS's nudge in your own voice: name that the failures are unmet in one line (cohort decides framing — first-product wants patterns named, eng-builder wants the unhandled-path lint angle, domain-expert wants the human-in-the-loop framing for high-stakes domains), point at \`/ai-failure-states\`, hand the decision back. Never block.`;
+  }
   return `[BOSS conscience — ${loopId} (${moment}) · ${s.confidence} confidence] signal warrants attention.`;
 }

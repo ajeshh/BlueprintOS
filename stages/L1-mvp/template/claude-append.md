@@ -27,6 +27,15 @@
   - `/ai-cost` — declare the AI spend contract at the *first LLM-call* inflection (v0.25.0+).
     Cohort-aware budgets (first-product strict, vibe-virtuoso inspect-only, domain-expert
     privacy-first), per-call cost logger, review cadence. Closes `cost-budget-loop`.
+  - `/ai-first-init` — bake AI-first discipline upfront (v0.26.0+). Conductor skill that
+    walks the founder through `docs/ai-first.md` (declare what's AI-mediated) → structured
+    outputs (Liu, `docs/schemas/`) → eval set (Husain, via `/evals`) → cost budget
+    (`/ai-cost`) → failure-state design (`/ai-failure-states`). Run after `boss unlock mvp`
+    when the project is AI-native. The "from day one" sequence.
+  - `/ai-failure-states` — design the five failure modes' UX before they happen (v0.26.0+).
+    Garbage / refusal / hallucination / timeout / cost-spike, each with a declared response +
+    stub fallback handler in code. Cohort-aware. Closes `ai-failure-state-loop`. **Domain-
+    expert cohort: hallucination response defaults to human-in-the-loop, not retry.**
   - `/log` — devlog
   - `/close` — session-end RESUME update
 - **Builder agents:** `tester` (owns the smoke gate + acceptance checks for FEATs);
@@ -41,6 +50,10 @@
     (conscience emits `coherence` moment when entry-met / exit-unmet)
   - `cost-budget-loop` — opens at the first LLM SDK call in `src/` without a budget doc
     (conscience emits `cost` moment when entry-met / exit-unmet; v0.25.0+)
+  - `ai-failure-state-loop` — opens at the first LLM SDK call in `src/` without a failure-
+    states design doc + fallback handlers (conscience emits `failure-mode` moment when
+    entry-met / exit-unmet; v0.26.0+). Same entry inflection as `cost-budget-loop`; the two
+    failure modes always coexist at the AI-mediated boundary.
 - **Conventions:** `FEAT-NNN` for features in build (already listed in `docs/IDS.md`);
   `docs/devlog.md` is append-only (override grammar lives here per IDEA-008);
   `docs/RESUME.md` is the living state pointer; `docs/loops/` lives alongside `docs/ideas/`;

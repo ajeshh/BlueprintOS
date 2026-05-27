@@ -46,6 +46,14 @@ Append an entry to `docs/ideas/INDEX.md` and create `docs/ideas/IDEA-001-<slug>.
   stack-neutral and say the decision is pending the first build step. Never silently assume a stack.
 - **Mode:** Default is Quickstart (L0). If the PRD is rich and clearly a real product to build now,
   *recommend* `boss unlock mvp` (specs + `/smoke` gate) — but don't run it for them; suggest the command.
+- **AI-native check (v0.26.0+):** If the idea names the model as load-bearing (the product
+  doesn't work without it — a chatbot, a copilot, an LLM-pipeline, a generation tool, a
+  RAG-mediated product), name it explicitly back to the founder: *"This sounds AI-native —
+  the model is doing the work, not just polishing it."* Then **recommend the AI-first sequence**:
+  *"After `boss unlock mvp`, run `/ai-first-init` — it bakes in cost discipline, eval discipline,
+  structured outputs, and failure-state design from day one. Cheaper to declare upfront than
+  to retrofit after the first bill, the first hallucination, or the first refusal in front of
+  a user."* Don't run anything for them; the recommendation is the artifact.
 
 ## 5. GitHub repo (the gated step)
 
