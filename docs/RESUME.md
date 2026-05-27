@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-27 (v0.29.0)
+updated: 2026-05-27 (v0.30.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,18 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.29.0)
+## State (shipped, v0.30.0)
+- **Audit-driven hardening complete (v0.30.0).** Closes the two remaining discipline-hole
+  gaps from the post-v0.26 audit. **`/cost-review` skill (L1-mvp)** + **`cost-review-loop`**
+  (second time-of-work entry pattern; entry = budget doc exists, exit = ≥1 cost-review file
+  with a `Total spend` line) + new **`cost-stale` moment** in conscience — closes the
+  "weekly review cadence unenforced" gap; both halves of cost discipline (declare + read)
+  now have loops. **`/ai-failure-states` Eval-tested column** + **`/evals` failure-mode
+  coverage requirement** — closes the "failure-state handlers can be stubs forever"
+  loophole at both declaration and test layers. L1-mvp now ships 12 skills + 7 loops. Suite
+  count **91/0/41** (up from 83). All hook-emitted moments now have eval coverage —
+  *no moment ships without evals* is the new floor. **The audit is closed; next is feature
+  work** (brownfield / /consult / AI-first archetype template).
 - **Moment #3 lands — PRINCIPLE #1's own discipline encoded (v0.29.0).** For 28 releases the
   conscience surfaced 6 moments but PRINCIPLE #1 itself had none. Deferred 5 consecutive
   releases. v0.29 ships the heuristic-plus-judgment version: **`extraction-loop`** (L1-mvp,
@@ -310,7 +321,12 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     UP/DOWN/NOT-YET routing) + new `capture` moment + EXTR-NNN ID type + 11 eval cases.
     Sets the precedent for future judgment-required moments.
 
-12. **v0.30+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+12. ~~v0.30 — Audit-driven hardening (cost-review cadence + failure-state stub loophole).~~
+    **DONE in v0.30.0.** `/cost-review` skill + `cost-review-loop` (second time-of-work
+    entry pattern) + `cost-stale` moment + `/ai-failure-states` Eval-tested column +
+    `/evals` failure-mode coverage requirement + 9 cost-stale eval cases. Audit closed.
+
+13. **v0.31+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
@@ -353,6 +369,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     ~~`/welcome` gentle first-run orientation (closes v0.19 cohort gap)~~ — **DONE in v0.28.0**.
     ~~Moment #3: capture — PRINCIPLE #1's own discipline encoded (extraction-loop +
     /extract + capture moment + EXTR-NNN ID type + 11 eval cases)~~ — **DONE in v0.29.0**.
+    ~~Audit-driven hardening (cost-review cadence + failure-state stub loophole closed)~~ —
+    **DONE in v0.30.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

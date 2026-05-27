@@ -89,7 +89,7 @@
 
 - id: m-fm-101
   category: should-not-fire
-  scenario: "Full AI-first discipline declared — every artifact present."
+  scenario: "Full AI-first discipline declared — every artifact present (incl. cost-review per v0.30+)."
   project_state:
     src_files:
       - { path: src/api.ts, fixture: anthropic_call }
@@ -98,9 +98,10 @@
     docs_files:
       - { path: docs/ai-cost-budget.md, fixture: cost_budget_doc }
       - { path: docs/ai-failure-states.md, fixture: failure_states_doc }
+      - { path: docs/cost-reviews/REVIEW-2026-05-27.md, fixture: cost_review_record }
   expected_detection:
     fires: false
-  why: "Both AI-first loops closed; expected zero signals."
+  why: "All three AI-first loops closed (cost-budget + failure-mode + cost-review). The v0.30 cost-review-loop on this surface also needs satisfying for zero signals."
 
 - id: m-fm-102
   category: should-not-fire

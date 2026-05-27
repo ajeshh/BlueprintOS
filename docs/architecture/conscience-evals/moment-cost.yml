@@ -132,7 +132,7 @@
 
 - id: m-cost-101
   category: should-not-fire
-  scenario: "Full discipline declared — budget doc + logger ref + failure-states + handlers."
+  scenario: "Full discipline declared — budget doc + logger ref + failure-states + handlers + cost review on record (v0.30+)."
   project_state:
     src_files:
       - { path: src/api.ts, fixture: anthropic_call }
@@ -141,9 +141,10 @@
     docs_files:
       - { path: docs/ai-cost-budget.md, fixture: cost_budget_doc }
       - { path: docs/ai-failure-states.md, fixture: failure_states_doc }
+      - { path: docs/cost-reviews/REVIEW-2026-05-27.md, fixture: cost_review_record }
   expected_detection:
     fires: false
-  why: "Both loops closed — zero signals expected."
+  why: "All AI-first loops closed (cost-budget + failure-mode + cost-review). v0.30+ adds the third loop on this surface — zero signals expected only when all three are closed."
 
 - id: m-cost-102
   category: should-not-fire

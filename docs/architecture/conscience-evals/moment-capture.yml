@@ -121,17 +121,18 @@
 
 - id: m-cap-202
   category: should-not-fire
-  scenario: "Devlog has 3 entries; src/ has Anthropic SDK call (cost + failure-mode would fire too, but no AI-first artifacts — multi-moment scenario)."
+  scenario: "Devlog has 3 entries; src/ has Anthropic SDK call; full AI-first discipline closed (incl. cost-review per v0.30+)."
   project_state:
     docs_files:
       - { path: docs/devlog.md, fixture: devlog_3_entries }
       - { path: docs/extractions/EXTR-001.md, fixture: extraction_record_up }
       - { path: docs/ai-cost-budget.md, fixture: cost_budget_doc }
       - { path: docs/ai-failure-states.md, fixture: failure_states_doc }
+      - { path: docs/cost-reviews/REVIEW-2026-05-27.md, fixture: cost_review_record }
     src_files:
       - { path: src/api.ts, fixture: anthropic_call }
       - { path: src/logger.ts, fixture: cost_logger_ref }
       - { path: src/handlers.ts, fixture: failure_handlers_ref }
   expected_detection:
     fires: false
-  why: "All four MVP loops closed (extraction recorded, cost budgeted, failure-states designed). Confirms isolation: extraction-loop closes independently of the other loops."
+  why: "All five MVP loops closed (extraction recorded, cost budgeted, cost-reviewed, failure-states designed, handlers wired). Confirms isolation across all of them."

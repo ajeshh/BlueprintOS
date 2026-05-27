@@ -52,7 +52,7 @@ no eval set ever could. Categorize failures so the next iteration can target a c
 
 - id: feat-007-fail-001
   category: should-fail
-  failure_mode: hallucinates  # | over-applies | refuses-wrongly | format-violation | …
+  failure_mode: hallucination  # one of: garbage | refusal | hallucination | timeout | cost-spike | other
   scenario: <one-line>
   inputs: …
   expected:
@@ -62,6 +62,31 @@ no eval set ever could. Categorize failures so the next iteration can target a c
 
 Same shape as BOSS's own conscience-evals — copy that runner.js as a starting point if Node fits
 your stack.
+
+## Failure-state coverage requirement (v0.30.0+ — for AI-mediated FEATs)
+
+For any FEAT that puts an LLM in the user-visible path (i.e., one that declares responses in
+`docs/ai-failure-states.md`), the eval set **must include at least one `should-fail` case
+per declared failure state**, categorized by `failure_mode` matching the canonical names:
+
+- `garbage` — schema-invalid / malformed / off-topic output
+- `refusal` — safety-template / over-cautious non-answer / "I can't help with that"
+- `hallucination` — confidently-wrong content (fabricated citations, invented APIs, etc.)
+- `timeout` — call hangs / network drops / 5xx response
+- `cost-spike` — input or output token count exceeds declared per-call cap
+
+This closes the *"failure-state handlers can be stubs forever"* loophole. The handler stubs
+in `src/` satisfy the `ai-failure-state-loop` predicate; the eval cases here verify the stubs
+*actually do something* when the failure surfaces.
+
+A handler whose `Eval-tested` field in `docs/ai-failure-states.md` reads `STUB` means the
+founder has committed to writing this eval case — either now, or under a recorded override
+(IDEA-008) with a re-open condition. **STUB without an override is the failure mode this
+upgrade prevents.**
+
+Cohort-aware: `first-product` may legitimately ship STUB + override on day-one builds
+(*"haven't seen this failure yet; will write the case when FEAT-002 ships"*); `domain-expert`
+in high-stakes domains should not ship STUB without an external escalation route documented.
 
 ## Structured outputs (Liu discipline) — strongly recommended
 

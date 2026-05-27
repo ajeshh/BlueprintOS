@@ -77,7 +77,9 @@ Cohort-aware delivery:
 
 ### 3. Write `docs/ai-failure-states.md`
 
-Use this skeleton (frontmatter included so it's discoverable like every other BOSS doc):
+Use this skeleton (frontmatter included so it's discoverable like every other BOSS doc).
+The **Eval-tested** field on each state (v0.30.0+) closes the *"stub forever"* loophole —
+naming which eval case actually exercises the handler turns the declaration into a contract.
 
 ```markdown
 ---
@@ -102,40 +104,52 @@ updated: {{DATE}}
 - **Declared response:** <what the UI does, in code-level detail>
 - **Fallback handler:** <name the function/component that owns this — e.g., `handleGarbageResponse()`,
   `<ErrorBoundary kind="malformed">`>
+- **Eval-tested:** _(v0.30.0+)_ <eval case id that exercises this — e.g., `feat-007-fail-001-garbage`>
+  or **STUB** (handler exists but no eval — record an override or write the eval).
 
 ### 2. Refusal
 - **Looks like:** ...
 - **Declared response:** ...
 - **Fallback handler:** ...
+- **Eval-tested:** <eval case id> or **STUB**
 
 ### 3. Hallucination
 - **Looks like:** ...
 - **Declared response:** ...
 - **Fallback handler:** ...
+- **Eval-tested:** <eval case id> or **STUB**
 
 ### 4. Timeout / network failure
 - **Looks like:** ...
 - **Declared response:** ...
 - **Hard timeout (ms):** <per-call-site declaration>
 - **Fallback handler:** ...
+- **Eval-tested:** <eval case id> or **STUB**
 
 ### 5. Cost spike
 - **Looks like:** ...
 - **Declared response:** ...
 - **Per-call token cap (in / out):** <numbers>
 - **Fallback handler:** ...
+- **Eval-tested:** <eval case id> or **STUB**
 
 ## Verification cadence
 - Eval set covers each failure state (Husain): yes / no / partial.
-  See `docs/evals/FEAT-NNN.yml`.
+  See `docs/evals/FEAT-NNN.yml`. **v0.30.0+: the `/evals` skill requires AI-mediated FEATs
+  to include at least one `should-fail` case per declared failure state, categorized by
+  `failure_mode` matching the names above.**
 - Production telemetry: how do we know a failure happened? <log signal, alert, etc.>
 - Review cadence: <weekly during MVP / monthly during V1>
 
 ## Override grammar (per IDEA-008)
 When a failure-state response is intentionally not implemented (legitimate skip — e.g., feature
-is dev-only and not user-facing yet), record in `docs/devlog.md`:
+is dev-only and not user-facing yet) OR when **Eval-tested = STUB** is acceptable for now,
+record in `docs/devlog.md`:
 - **OVERRIDE:** skipped <failure-state-N> response on <date> — rationale: <why; expected
   re-open condition>.
+- **OVERRIDE:** kept <failure-state-N> as STUB on <date> — rationale: <e.g., handler is a
+  stub because production traffic hasn't surfaced this failure yet; will write the eval +
+  implementation when FEAT-MMM ships>.
 ```
 
 ### 4. Wire the fallback handlers in code (or stub them)
@@ -197,8 +211,12 @@ For each `docs/ideas/FEAT-NNN.md` that puts an LLM in the user-visible path:
   later.
 - **Concrete over abstract.** *"Show the structured-error card with retry"* beats *"handle
   gracefully."* If you can't name what the UI does, you haven't designed it.
-- **Stubs over nothing.** A `handleHallucination()` that throws *"TODO: implement per §3"* is
-  better than no function at all — it satisfies the loop AND prevents the silent regression.
+- **Stubs over nothing — but not stubs forever.** A `handleHallucination()` that throws
+  *"TODO: implement per §3"* is better than no function at all — it satisfies the loop AND
+  prevents the silent regression. **But:** the `Eval-tested` field is what turns a stub
+  into a contract. If you've shipped a stub, you've also committed to writing the eval case
+  that will eventually exercise it — OR to recording the override per IDEA-008 with a
+  re-open condition (v0.30.0+).
 - **Domain-expert exception.** In high-stakes domains, the declared response for hallucination
   is **almost never a retry** — it's a human-in-the-loop escalation. Don't design AI-as-final-
   answer in regulated contexts.

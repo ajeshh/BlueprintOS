@@ -321,5 +321,8 @@ function signalAsContext(s) {
   if (moment === 'capture') {
     return `[BOSS conscience — ${loopId} extractable · ${s.confidence} confidence] PRINCIPLE #1's own moment: the founder has accumulated work (devlog has ≥3 dated entries) and hasn't recorded an extraction decision yet. The breakpoint is now — *pause and sort the pattern* (UP into BOSS's library, DOWN into the app's core, or honest NOT-YET). If it fits the moment, surface BOSS's nudge in your own voice: name the inflection in plain language (cohort decides framing — returning-founder wants the seasoned "what did you do twice?" prompt, first-product wants gentler "here's what the pause is for," indie-hacker wants the calm-company frame). **Don't sound like a productivity-reward.** The principle is the discipline, not the dopamine. Point at \`/extract\`, hand the decision back. Never block.`;
   }
+  if (moment === 'cost-stale') {
+    return `[BOSS conscience — ${loopId} unread · ${s.confidence} confidence] The founder declared an AI cost budget (\`docs/ai-cost-budget.md\` exists) but hasn't recorded a cost review yet. Declaring is half the discipline; reading the ledger is the other half. If it fits the moment, surface BOSS's nudge in your own voice: name the unread-ledger gap in one line (cohort decides framing — indie-hacker wants the calm-company "%-of-revenue" frame, returning-founder wants unit-economics, eng-builder wants the inspectable numbers, domain-expert wants the privacy-first confirmation first). **Don't sound like a productivity-reward.** Point at \`/cost-review\`, hand the decision back. Never block.`;
+  }
   return `[BOSS conscience — ${loopId} (${moment}) · ${s.confidence} confidence] signal warrants attention.`;
 }

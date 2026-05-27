@@ -27,6 +27,10 @@
   - `/ai-cost` — declare the AI spend contract at the *first LLM-call* inflection (v0.25.0+).
     Cohort-aware budgets (first-product strict, vibe-virtuoso inspect-only, domain-expert
     privacy-first), per-call cost logger, review cadence. Closes `cost-budget-loop`.
+  - `/cost-review` — read the ledger (the cadence /ai-cost only declared; v0.30.0+). Reads
+    `.boss/cost-log.jsonl`, summarizes by FEAT + user + cohort, compares against budget,
+    flags surprises, writes `docs/cost-reviews/REVIEW-YYYY-MM-DD.md`. Closes
+    `cost-review-loop`. *Both halves required: declare AND read.*
   - `/ai-first-init` — bake AI-first discipline upfront (v0.26.0+). Conductor skill that
     walks the founder through `docs/ai-first.md` (declare what's AI-mediated) → structured
     outputs (Liu, `docs/schemas/`) → eval set (Husain, via `/evals`) → cost budget
@@ -64,6 +68,10 @@
     `capture` moment; founder runs `/extract` to record the routing decision (UP / DOWN /
     NOT-YET). First hook-runner loop whose entry is *time-of-work* (devlog count) rather than
     *file-state predicate* — sets the precedent for future judgment-required moments.
+  - `cost-review-loop` — the cadence half of cost discipline (v0.30.0+). Opens once
+    `docs/ai-cost-budget.md` exists and no cost-review file is on record. Conscience emits
+    the `cost-stale` moment; founder runs `/cost-review` to read the ledger. Second
+    time-of-work entry pattern (declaration → read sequence).
 - **Conventions:** `FEAT-NNN` for features in build (already listed in `docs/IDS.md`);
   `docs/devlog.md` is append-only (override grammar lives here per IDEA-008);
   `docs/RESUME.md` is the living state pointer; `docs/loops/` lives alongside `docs/ideas/`;

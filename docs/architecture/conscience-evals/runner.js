@@ -268,6 +268,10 @@ const FIXTURES = {
   devlog_5_entries:
     `---\nid: DEVLOG\ntype: devlog\nowner: pm\nstatus: active\n---\n\n# Devlog\n\n## 2026-05-24\n- Landed: FEAT-002 shipped.\n\n## 2026-05-23\n- Landed: smoke gate green.\n\n## 2026-05-22\n- Landed: spec written.\n\n## 2026-05-21\n- Landed: canvas closed.\n\n## 2026-05-20\n- Landed: scaffold.\n`,
 
+  // Cost-review record fixture (v0.30 — closes cost-review-loop).
+  cost_review_record:
+    `---\nid: REVIEW-2026-05-27\ntype: cost-review\nowner: pm\nstatus: recorded\ncreated: 2026-05-27\nwindow: last 7 days\n---\n\n# AI cost review — 2026-05-27\n\n## Headline\nOn-budget; one outlier worth investigating.\n\n## Numbers\n- **Window:** 2026-05-20 to 2026-05-27\n- **Total spend:** $12.34  (240 calls, 8 users, 3 FEATs)\n- **Per-user/day:** observed $0.22 (median) vs. declared $5.00 budget\n`,
+
   // Extraction-record fixtures.
   extraction_record_up:
     `---\nid: EXTR-001\ntype: extraction\nowner: pm\nstatus: recorded\ncreated: 2026-05-24\ntrigger: devlog-3-entries\n---\n\n# EXTR-001 — first extraction\n\n## Candidate 1: cohort-aware framing\n- **What it is:** the cohort branch pattern.\n- **Route:** UP\n- **Rationale:** stack-neutral; used in 4+ skills already.\n`,
@@ -532,7 +536,8 @@ function main() {
   const momentFailureMode = loadMoment('moment-failure-mode.yml');
   const momentCoherence = loadMoment('moment-coherence.yml');
   const momentCapture = loadMoment('moment-capture.yml');
-  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence, ...momentCapture];
+  const momentCostStale = loadMoment('moment-cost-stale.yml');
+  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence, ...momentCapture, ...momentCostStale];
 
   console.log(`\n  conscience-evals · ${all.length} examples loaded`);
   console.log(`    moment-1 (caution):       ${moment1.length}`);
@@ -540,7 +545,8 @@ function main() {
   console.log(`    moment-cost:              ${momentCost.length}`);
   console.log(`    moment-failure-mode:      ${momentFailureMode.length}`);
   console.log(`    moment-coherence:         ${momentCoherence.length}`);
-  console.log(`    moment-capture:           ${momentCapture.length}\n`);
+  console.log(`    moment-capture:           ${momentCapture.length}`);
+  console.log(`    moment-cost-stale:        ${momentCostStale.length}\n`);
 
   const results = { passed: [], failed: [], skipped: [], errors: [] };
   const byFailureMode = {}; // for the summary

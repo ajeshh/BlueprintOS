@@ -2,6 +2,62 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.30.0 — 2026-05-27
+
+- **Closing the two remaining audit gaps — cost-log read cadence + failure-state stub
+  loophole.** Same shape as v0.27: no new product axis; the discipline tightens around
+  surface already shipped. The two gaps the audit named after v0.26 — *"the weekly review
+  cadence is unenforced"* and *"failure-state handlers can be stubs forever"* — were real
+  holes. v0.30 closes both.
+  - **`/cost-review` skill (L1-mvp)** — reads `.boss/cost-log.jsonl`, aggregates by FEAT +
+    user + cohort, compares against `docs/ai-cost-budget.md`, flags surprises (cost
+    outliers > 10× median; user outliers; FEAT skew; quiet upward drift), writes
+    `docs/cost-reviews/REVIEW-YYYY-MM-DD.md` with headline / numbers / variance / surprises /
+    actions / next-review fields. Cohort-aware framing (indie-hacker gets %-of-revenue;
+    returning-founder gets unit economics; domain-expert gets privacy-first confirmation
+    before showing any review data). Surfaces mentor handoffs (architect for cost-shape;
+    business for unit-economics) when overages exceed 10% of monthly cap.
+  - **`cost-review-loop` (L1-mvp, hook-runner)** — **second time-of-work entry pattern**
+    (after extraction-loop). Entry: `docs/ai-cost-budget.md` exists (the deontic moment —
+    declaring the budget commits you to reading it). Exit: ≥1 file in `docs/cost-reviews/
+    REVIEW-*.md` with a `^- \*\*Total spend:\*\*` line. The first review closes the loop;
+    recurring re-opening waits on time-aware predicate vocabulary (same dependency as
+    extraction-loop). New **`cost-stale` moment** added to `signalAsContext` voice frame.
+  - **`/ai-failure-states` template — Eval-tested column added.** Each failure-state row
+    (garbage / refusal / hallucination / timeout / cost-spike) now carries an **Eval-tested**
+    field naming which eval case actually exercises the handler, OR marked **STUB** with an
+    override required per IDEA-008. *Closes the stub-forever loophole at the declaration
+    layer.* Voice note: stubs are still legitimate; *stubs without an override-with-re-open-
+    condition* are not.
+  - **`/evals` skill — failure-mode coverage requirement.** For AI-mediated FEATs, the eval
+    set must include at least one `should-fail` case per declared failure state, categorized
+    by `failure_mode` matching the canonical names (`garbage`/`refusal`/`hallucination`/
+    `timeout`/`cost-spike`/`other`). *Closes the stub-forever loophole at the test layer.*
+    The two layers (declaration + test) compose: handler stubs in code → declaration in
+    docs → eval cases that exercise the declarations → real coverage.
+- **Eval coverage from the start (v0.27 rule held).** `moment-cost-stale.yml` ships with 9
+  cases: should-fire (no review; empty directory; stub file without canonical line); should-
+  fire-multi (cost + cost-stale together when logger isn't wired but budget is); should-not-
+  fire (full closure with review on record; pre-budget projects; LLM calls without budget
+  declared — confirms entry is gated on budget doc, not LLM calls; Quickstart-shape projects).
+  3 existing "full discipline declared" cases (m-cost-101, m-fm-101, m-cap-202) updated to
+  also satisfy cost-review-loop's exit predicate, since they assert all-loops-closed.
+- **Suite count: 91 passed / 0 failed / 41 skipped (133 loaded)** — up from 83/0/41. Every
+  hook-emitted moment now has eval coverage. The "no moment ships without evals" discipline
+  is the new floor.
+- **What v0.30 does NOT do:** auto-enforce the failure-mode eval coverage (the `/evals`
+  skill names the requirement; nothing fails the build if the eval set lacks coverage; that
+  would be a v0.31+ tightening if founders ship handlers-without-evals systematically);
+  recurring cost-review-loop (needs time-aware predicate vocabulary); pull `.boss/cost-
+  log.jsonl` into the skill review output automatically (the parsing logic lives in the
+  skill's instructions; Claude does the reading per-call to keep zero-dep CLI).
+- **The audit is closed.** The three load-bearing gaps from the post-v0.26 audit (eval
+  coverage, /welcome onboarding, moment #3 capture) shipped in v0.27 / v0.28 / v0.29; the
+  two discipline-hole gaps in already-shipped surface (cost-review cadence, failure-state
+  stub loophole) shipped in v0.30. The right-to-defer items (brownfield, /consult, AI-first
+  archetype template, IDEA-003 finish, etc.) remain on the v0.31+ backlog. Audit-driven
+  hardening complete; the next move is feature work.
+
 ## 0.29.0 — 2026-05-27
 
 - **Moment #3 lands — PRINCIPLE #1's own discipline, encoded (finally).** For 28 releases the
