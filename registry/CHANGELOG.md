@@ -2,6 +2,49 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.28.0 — 2026-05-27
+
+- **`/welcome` — the gentle first-run orientation (closes the v0.19 cohort gap).** The v0.19
+  personas pass surfaced that `first-product`, `vibe-coder-newbie`, and `non-tech-founder`
+  cohorts bounce off BOSS because the first thing they see is *"drop your PRD."* Power-user
+  framing, beginner cohort. v0.28 adds the gentler door: a Quickstart skill that orients in
+  ~1 minute, defines terms inline, names the conscience as a *nudge never a block*, surfaces
+  override + pause as discoverable affordances, and routes to `/boss` or `/triage` based on
+  what the founder is ready for.
+- **Cohort-aware depth** — the skill branches on `.boss/config.json` cohort:
+  - `first-product` / `vibe-coder-newbie` / `non-tech-founder` / null → **full tour**: what
+    BOSS is, what's in the folder, what to do next, how the conscience works, how modes level
+    up, where to find help. Each section 2-3 sentences; terms defined inline; plain language.
+  - `eng-builder` / `vibe-virtuoso` / `indie-hacker` / `returning-founder` → **30-second
+    version**: one paragraph, pointer at `/boss`. *"You probably don't need the tour."* Then
+    stops; doesn't elaborate.
+  - `domain-expert` → **middle path**: full tour with high-stakes framing inline (privacy-
+    first defaults, human-in-the-loop on hallucination, conscience errs toward speaking).
+- **Discoverability fix for IDEA-011** — the skill explicitly surfaces `boss conscience pause`
+  + the override grammar (*"deviation conscious, recorded, never blocked, never forgotten"*).
+  Previously these were documented in CHANGELOG / docs/ideas; now they're surfaced in the
+  cohort's first 5 minutes with BOSS. Partial close on IDEA-011 Phase 2's override-
+  discoverability sub-gap.
+- **Cohort question moved upstream** — `/welcome` asks the cohort question first (when unset),
+  before any orientation; `/boss` step 6 stays as the backup path for founders who go
+  directly to `/boss`. The cohort persists in `.boss/config.json` for the conscience hook.
+- **`boss new` output updated** — the post-scaffold "Next:" block now names BOTH paths:
+  `/welcome` for the first-time door, `/boss <idea|PRD>` for the power-user door. Same
+  language as CLAUDE.md (template) top.
+- **L0-quickstart manifest** — adds `welcome` to the skills list (now 6 skills). No new
+  agents, no new loops, no new hooks. Quickstart still ships a tiny agentic footprint.
+- **L0 CLAUDE.md (template)** — adds a top-line nudge: *"First time? Run `/welcome` — gentle
+  orientation, takes a minute, defines terms inline. Already familiar with BOSS? Skip to
+  `/boss <your idea or PRD path>` to spin up."* The first thing a fresh founder reads.
+- **End-to-end tested in /tmp** — `boss new welcome-test` → 6 skills land including welcome;
+  CLAUDE.md surfaces /welcome at top; 73/73 conscience evals still pass.
+- **What v0.28 does NOT do:** auto-trigger `/welcome` on first Claude prompt (the CLAUDE.md
+  surfacing is enough; auto-trigger via hook would conflict with cohort `eng-builder` /
+  `returning-founder` who explicitly *don't* want it); ship an end-user onboarding flow (that
+  was named in IDEA-012 as a separate v0.27+ candidate; this skill is founder-onboarding,
+  not end-user-onboarding); add a `/welcome` for V1 / Scale modes (the lift is once, not per-
+  mode — re-running in MVP+ is supported but the orientation doesn't change much).
+
 ## 0.27.0 — 2026-05-24
 
 - **Conscience evals — closing the discipline-on-the-discipline-tool hole.** Four moments

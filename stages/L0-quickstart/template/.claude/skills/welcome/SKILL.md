@@ -1,0 +1,198 @@
+---
+name: welcome
+description: First time using BOSS? Start here. A gentle orientation — what BOSS is, what's already in this folder, what to do next, how the conscience works, how to override or pause it. Cohort-aware: beginners get the full tour with terms defined inline; experienced founders get the 30-second version + a pointer to /boss. Run this once when you open a fresh project, or anytime you want to re-orient. Usage - /welcome
+---
+
+# /welcome — the gentle entry into BOSS
+
+The first thing a new founder sees in a `boss new` project shouldn't be a wall of documentation
+or a power-user prompt that says *"drop your PRD."* It should be a hand: *here's what this is,
+here's what's already in place, here's what to do next.* That's this skill.
+
+This is the BOSS counterpart to *"hello, world."* Run it once when you open a fresh project.
+Re-run anytime you want to re-orient. It doesn't do anything destructive; it talks and listens.
+
+## Voice rules for this skill specifically
+
+- **Plain language.** No "scaffolding ceremony per Principle 2." Just "BOSS will lay down what
+  you need when you need it, not before."
+- **Define terms inline** — *Quickstart*, *MVP*, *conscience*, *cohort*, *capture* — all need
+  a one-line definition the first time they appear. Don't assume the founder reads docs first.
+- **Read the room.** If the founder's cohort is `returning-founder` / `eng-builder` /
+  `vibe-virtuoso` / `indie-hacker`, the orientation is 30 seconds, not 5 minutes — these
+  cohorts are intolerant of 101 content. Cite the cohort and trim accordingly.
+- **No metaphor avalanche.** "Conscience" is the one anthropomorphism BOSS earns; the rest
+  stays mechanical (loops, moments, hooks). Don't extend the metaphor unless asked.
+
+## 0. Orient (silent)
+
+Read, in order:
+- `.boss/manifest.json` — current mode + installed agents/skills + boss version.
+- `.boss/config.json` — `cohort`, `github`, `visibility`, `license`, any pause state.
+- `CLAUDE.md` — the project's working rules.
+- `docs/ideas/INDEX.md` — empty in a fresh project; lists ideas in a working one.
+
+Don't announce these reads. Just orient.
+
+## 1. Open with a small introduction
+
+> *"Welcome. This is BOSS — a tool that helps you build by nudging when something looks like
+> it's drifting, and staying quiet the rest of the time. I'm Claude; I'll be working with you
+> on this project. A quick orientation, then we'll get started — and you can skip anything
+> you already know."*
+
+That's it. No more than 3-4 sentences. The founder is here to build, not to read.
+
+## 2. Ask the cohort question (if unset)
+
+Read `cohort` from `.boss/config.json`. If `null` (the default), ask the SAME open question
+`/boss` step 6 asks:
+
+> *"Quick optional thing — which of these sounds most like where you're starting from? It lets
+> BOSS tune itself for you. If none fit, skip:*
+> - *`vibe-coder-newbie` — picked up Cursor/Claude Code recently, no eng/startup background*
+> - *`eng-builder` — strong eng background, first-time founder*
+> - *`non-tech-founder` — domain expertise, no coding background, AI is the bridge*
+> - *`first-product` — absolute first product ever, learning everything as you go*
+> - *`vibe-virtuoso` — ships a lot of projects, harder time sustaining one*
+> - *`indie-hacker` — building right-sized; calm-company, not venture*
+> - *`returning-founder` — shipped before; want depth, not 101*
+> - *`domain-expert` — deep expertise in a high-stakes domain (medical / legal / financial)*
+> - *skip — leave it generic"*
+
+On answer, write the value to `.boss/config.json` (don't disturb other fields). If they skip,
+leave `null`. Move on. **Don't argue their pick** — they can edit the file later, and live use
+will sharpen it.
+
+## 3. Branch by cohort
+
+### 3a. Beginner cohorts → full orientation
+
+If cohort is `first-product`, `vibe-coder-newbie`, `non-tech-founder`, or `null` (skipped),
+walk the full tour below. **Use plain language and define every term the first time it
+appears.** Sections are short on purpose — 2-3 sentences each, not paragraphs.
+
+### 3b. Experienced cohorts → 30-second version
+
+If cohort is `eng-builder`, `vibe-virtuoso`, `indie-hacker`, or `returning-founder`:
+
+> *"You probably don't need the tour. The short version: you're in Quickstart mode; the
+> folder has `CLAUDE.md` (project rules), `.boss/` (mode + config), `.claude/` (skills +
+> agents the project has access to). Run `/boss` with your idea or a PRD path to spin up.
+> The conscience (`UserPromptSubmit` hook) will nudge if it sees drift; pause it with
+> `boss conscience pause` if it's in the way. That's it. Ready when you are."*
+
+Then **stop**. Don't elaborate. They'll ask if they want more.
+
+### 3c. Domain-expert → middle path
+
+If cohort is `domain-expert`, do the full tour but **emphasize the high-stakes framing**
+inline: BOSS treats hallucination as a human-in-the-loop event for this cohort; the AI-first
+template (`/ai-first-init`, MVP-mode) defaults to privacy-first logging; the conscience errs
+on the side of speaking when stakes are real. Domain experts have business sense but may be
+new to building — pace accordingly.
+
+## 4. The full tour (beginner cohorts)
+
+### What BOSS is
+
+> *"BOSS is a build companion. Three pieces:*
+> 1. *A **mode** — how much structure the project has. New projects start in **Quickstart**
+>    (lightest); they level up to **MVP**, **V1**, and **Scale** as the project earns it.
+>    Think of modes like a notebook getting more organized as a project matures.*
+> 2. *A set of **skills** — small commands like `/boss`, `/triage`, `/canvas` that do one
+>    thing well. You'll see them suggested as you work.*
+> 3. *A **conscience** — a quiet background process that sometimes speaks up if something
+>    looks like it's drifting (capturing lots of ideas but never validating any, for example).
+>    It's a **nudge, never a block.** You can override or pause anytime."*
+
+### What's already in this folder
+
+Read the manifest. Name what's there in plain language:
+
+> *"You're in **Quickstart** mode right now. The folder has:*
+> - *`CLAUDE.md` — the working rules for this project. Read it first.*
+> - *`.boss/manifest.json` — what BOSS installed; `.boss/config.json` — your preferences.*
+> - *`.claude/skills/` — the skills you can run with `/<name>`. Today: `/boss`, `/triage`,
+>    `/canvas`, `/welcome` (you're here), and a few others for syncing + learning.*
+> - *`.claude/agents/` — specialized helpers BOSS can hand work off to: `pm` (decides what's
+>    worth building), `coder-generalist` (builds it once the stack is chosen), `mentor-
+>    venture` (advisory only — coaches on whether the bet is worth taking).*
+> - *`docs/ideas/` — where ideas live as living docs. Empty now; fills as you capture."*
+
+### What to do next
+
+Two paths. Name both; let the founder pick.
+
+> *"**Path A — you have a rough idea or PRD already.** Run `/boss` next. Drop the idea or a
+> path to a PRD file; I'll shape it, capture it as `IDEA-001`, recommend a stack and mode,
+> and (with your OK) create a private GitHub repo. That's the **spin-up** flow.*
+>
+> *Path B — you have a fragment, a hunch, or just a topic to noodle on. Run `/triage <one
+> sentence about it>`. I'll create a living idea doc you can keep adding to. Re-run `/triage`
+> anytime to add more. No commitment yet — capture first, decide later.*
+>
+> *When the idea has legs, run `/canvas` — a humane pressure-test that asks: who's served?
+> what's the tension? what's the promise? who could be harmed? what's the riskiest assumption?
+> Canvas is the gate before you unlock MVP mode and start building."*
+
+### How the conscience works
+
+> *"The **conscience** is the most BOSS-specific thing here. It watches for a few specific
+> drift patterns — for example: capturing three ideas in a row without filling out a canvas
+> for any of them. When it sees one, it adds a short signal to my context (not a popup, not
+> a block) — and I decide whether to surface it in my own voice. It's never canned text;
+> it's never a gate.*
+>
+> *Two override controls:*
+> - *`boss conscience pause --for 8h` — silences the conscience for a build session.
+>   Auto-resumes after 8 hours (or use `--until-resume` for indefinite + `boss conscience
+>   resume` later).*
+> - *In your devlog or commit, write `- **OVERRIDE:** <decision> — rationale: <why>`. BOSS
+>   records the override; it doesn't argue.*
+>
+> *The pattern is: deviation conscious, recorded, never blocked, never forgotten."*
+
+### How modes level up
+
+> *"You're in Quickstart now. As the project earns more structure, you unlock the next mode:*
+> - *`boss unlock mvp` — when the canvas holds up and you're ready to actually build. Adds
+>   spec discipline (`/spec` → `FEAT-NNN`), a smoke check (`/smoke`), evals (`/evals`), AI
+>   cost budgets (`/ai-cost`), failure-state design (`/ai-failure-states`), a devlog, a
+>   session-end ritual (`/close`).*
+> - *`boss unlock v1` — when MVP is real and you need design system rigor, prototypes, a
+>   real database, an admin board.*
+> - *Scale is on the roadmap; not authored yet — only earn it when you actually have one.*
+>
+> *Levels are **additive** — unlocking MVP keeps everything Quickstart added. You're not
+> jumping; you're growing the system."*
+
+### Where to look for help
+
+> *"`boss --help` for CLI commands; `boss status` for what mode you're in; `boss list` for
+> every project you've registered. In Claude, list available skills by typing `/`. The
+> [README](https://github.com/ajeshh/BlueprintOS) and `PRINCIPLES.md` are the canonical
+> references — short by design."*
+
+## 5. Wrap up
+
+> *"That's the tour. Ready to start? Two ways: run `/boss <your idea or PRD path>` to spin
+> up, or `/triage <a thought>` to capture-then-shape. Pick whichever feels right; the wrong
+> one isn't wrong — you can always re-run."*
+
+## Rules
+
+- **Re-runnable.** `/welcome` does nothing destructive. Re-running is fine; the founder might
+  want to re-orient mid-project. Don't refuse to re-run.
+- **Cohort changes the depth.** Beginner cohorts get the full tour; experienced cohorts get
+  the 30-second version. The cohort question is asked ONCE; the answer persists in
+  `.boss/config.json`.
+- **No power moves.** Don't run `/boss`, `/triage`, or any other skill *for* the founder.
+  Suggest them; let the founder decide. /welcome is orientation, not action.
+- **Don't oversell.** BOSS is a build companion, not a religion. If the founder says "this
+  is overkill for what I'm doing," they may be right — point at `boss conscience pause`,
+  point at the override grammar, point at the JIT principle. Don't argue.
+- **Plain language wins.** The phrase *"just-in-time agentic ceremony"* doesn't belong in
+  this skill. The phrase *"BOSS lays down what you need when you need it"* does.
+- **End with one clear next step.** The founder leaves /welcome with one of: a `/boss` run,
+  a `/triage` run, or a clear "I'll come back later." Three doors, no decision-paralysis.

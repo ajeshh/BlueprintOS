@@ -93,8 +93,9 @@ function cmdNew(args) {
   console.log(`    skills: ${stamp.skills.join(', ') || '—'}`);
   console.log(`\n  Next:`);
   console.log(`    cd ${name}`);
-  console.log(`    claude            # open in Claude Code`);
-  console.log(`    > /boss           # drop your PRD; the team spins up`);
+  console.log(`    claude              # open in Claude Code`);
+  console.log(`    > /welcome          # first time? gentle orientation, ~1 min`);
+  console.log(`    > /boss <idea|PRD>  # already familiar? spin up directly`);
   console.log('');
 }
 

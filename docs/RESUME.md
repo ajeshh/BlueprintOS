@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-24 (v0.27.0)
+updated: 2026-05-27 (v0.28.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.27.0)
+## State (shipped, v0.28.0)
+- **`/welcome` skill — gentle first-run orientation (v0.28.0)** — closes the v0.19 cohort gap
+  (`first-product` / `vibe-coder-newbie` / `non-tech-founder` bounce off without onboarding).
+  Cohort-aware branching: beginner cohorts get the full tour (what BOSS is, what's in the
+  folder, what to do next, conscience explained, modes explained); experienced cohorts
+  (`eng-builder` / `vibe-virtuoso` / `indie-hacker` / `returning-founder`) get the 30-second
+  version + pointer at `/boss`; `domain-expert` gets middle path with high-stakes framing.
+  Cohort question moved upstream (was in `/boss` step 6; now in `/welcome` step 2; `/boss`
+  retains it as backup path). `boss new` output names BOTH paths. CLAUDE.md (template) has
+  the top-line nudge. Discoverability fix for IDEA-011 (override grammar + `boss conscience
+  pause` surfaced in the cohort's first 5 minutes). L0 manifest now ships 6 skills.
 - **Conscience evals coverage closed (v0.27.0)** — four moments had shipped without eval
   coverage (restraint / coherence / cost / failure-mode); the brake the discipline named was
   eroding silently. v0.27 closes the three hook-emitted ones. Adds `moment-cost.yml` (12
@@ -279,14 +289,14 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
    discipline-tool hole: 3 new moment files (cost/failure-mode/coherence) + runner upgrades
    (L1 loops loaded, fixtures registry, multi-moment assertions). Suite now 73/0/41.
 
-10. **v0.28 — `/welcome` (first-time BOSS-user onboarding).** Closes the cohort gap from v0.19
-    personas pass: `first-product`, `vibe-coder-newbie`, `non-tech-founder` bounce off
-    without onboarding. L0-quickstart skill. ~1 session.
+10. ~~v0.28 — `/welcome` (first-time BOSS-user onboarding).~~ **DONE in v0.28.0.** Cohort-
+    aware orientation skill in L0; closes the v0.19 cohort gap. `boss new` output updated;
+    CLAUDE.md template surfaces it at the top.
 
 11. **v0.29 — Moment #3: capture (PRINCIPLE #1's own discipline).** Detector pattern for
     "reusable value at breakpoint" — predicate-based won't work; needs LLM-as-judge or
     heuristic over recent git diffs / devlog entries / multi-file pattern emergence. Sets the
-    precedent for future non-predicate moments. ~1–2 sessions.
+    precedent for future non-predicate moments. ~1–2 sessions. **Currently in progress.**
 
 12. **v0.30+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
@@ -328,6 +338,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     discipline (universal-cohort feature)~~ — **DONE in v0.25.0**. ~~AI-first product
     template (the artifact that earns the v0.24 positioning)~~ — **DONE in v0.26.0**.
     ~~Conscience evals coverage for cost / failure-mode / coherence~~ — **DONE in v0.27.0**.
+    ~~`/welcome` gentle first-run orientation (closes v0.19 cohort gap)~~ — **DONE in v0.28.0**.
 
 ## Open decisions
 - Sync of user-editable files: **settings.json `hooks` block now merges additively** (v0.13.0). Still open:

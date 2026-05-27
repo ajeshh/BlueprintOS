@@ -4,6 +4,9 @@
 > Behavior rules live in the first ~40 lines. Reference material is below. Keep it that way —
 > compliance drops past ~200 lines. Long tables move to companion docs.
 
+> **First time? Run `/welcome`** — gentle orientation, takes a minute, defines terms inline.
+> Already familiar with BOSS? Skip to `/boss <your idea or PRD path>` to spin up.
+
 ## Working rules (read first)
 
 1. **Capture before you build.** Every idea, bug, or ask becomes an `IDEA-NNN` via `/triage` before code. See `docs/ideas/INDEX.md`.
@@ -17,7 +20,7 @@
 ## What exists in this mode ({{MODE}})
 
 - **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen), `mentor-venture` (coaches *you*, the founder — is this worth it, what's the riskiest assumption, what's the next real step).
-- **Skills:** `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
+- **Skills:** `/welcome` (gentle first-run orientation — cohort-aware), `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
 - **Docs:** `docs/ideas/` (living idea docs + canvases), `docs/IDS.md` (the ID system, minimal here).
 - **Memory:** Claude's auto-memory is active — it records who you are, your preferences, and project context across sessions.
 
