@@ -188,6 +188,37 @@ Why now matters:
 That's the trend frame. Real (we're observably in this moment); narrow enough to be sharp;
 broad enough to apply across cohorts.
 
+### 9a. The compounding reframe — why this gets *more* true as models improve (added 2026-06-01, post v0.31–v0.34)
+
+The trend above is static ("we're in this moment"). The sharper version is **directional**, and it
+answers the single hardest objection a *thinking-layer* faces:
+
+> *"Won't the next model just do this itself? Aren't you a thin wrapper that gets eaten?"*
+
+The reframe inverts it. **AI makes a polished pseudo-app cheaper and more convincing every model
+generation.** The faster and better the model, the *wider* the gap between "I can build this" and
+"I should build this / did I validate the bet." The conscience's job — catching the founder fooling
+themselves — therefore gets *more* valuable as models improve, not less. **BOSS rides the model
+curve; it doesn't race it.** Every model release is a tailwind, not a threat.
+
+We don't have to assert this — **BOSS's own construction is the proof.** The v0.31–v0.34 arc was
+BOSS responding to a stronger model (Opus 4.8) by moving the conscience *from predicate-detection
+toward model-judgment*: `drift` (v0.31) and judge-backed `caution` (v0.33) use the stronger model
+to do the very thing the stronger model makes more necessary — see whether the work is testing the
+named bet or building around it. The tool got *more* disciplined **because** the model got
+stronger. That's the tailwind, demonstrated on ourselves, not claimed.
+
+**The honest caveat (held with the same discipline as §12):** a sufficiently capable base model
+could internalize the judgment — do the drift-check unprompted. BOSS's bet is two-fold: (a) a base
+model won't do it *unprompted, at the right moment, with override available* by default — the
+*when-to-speak* and *when-to-stay-silent* is the hard part, and it's what we instrument (v0.34's
+frequency ledger exists precisely to keep that honest); and (b) the durable moat isn't the judgment
+itself, it's the *structure around it* — modes that scale ceremony to evidence, loops, the override
+grammar, cohort-aware voice. If a model eats the judgment, BOSS becomes the thing that *invokes* it
+at the right moment. The wrapper-that-gets-eaten is the one whose only value is the model call; the
+conscience's value is the *discipline of when and whether* — which improves alongside the model it
+rides.
+
 ## 10. Decisions to act on (the output of this exercise)
 
 The positioning pass commits BOSS to specific decisions. Recording each:
@@ -215,6 +246,13 @@ The positioning pass commits BOSS to specific decisions. Recording each:
    the discipline limit."* Use in pitches when there's room for two sentences instead of
    one.
 
+5a. **The compounding/tailwind line is on the record (added 2026-06-01).** *"Every model jump
+   widens the gap between can-build and should-build — so the conscience matters more the better
+   the models get. BOSS rides the model curve; it doesn't race it."* This is the **standard answer
+   to the "won't the next model eat this?" objection** — the sharpest skeptic question for a
+   thinking-layer, and the one investors will ask first. Lead with the proof, not the claim: the
+   v0.31–v0.34 arc is BOSS getting *more* disciplined *because* Opus 4.8 got stronger. See §9a.
+
 6. **What BOSS doesn't compete on, named explicitly:** code generation (Lovable / v0 / Bolt).
    **BOSS is complementary to those.** A founder could use Lovable to scaffold the app + BOSS
    to scaffold the *thinking about what to build / when to ship / when to override discipline*.
@@ -228,6 +266,9 @@ The positioning pass commits BOSS to specific decisions. Recording each:
   pre-positioning; could now read more sharply. Consider in a future canvas v0.3.
 - **All mentor agents could cite the positioning sentence.** Specifically `mentor-pitch` (its
   domain) and `mentor-gtm` (positioning-against-alternatives is core to its lens).
+- **The compounding/tailwind beat (§9a) is `mentor-pitch` + `mentor-fundraising` territory.** It's
+  the defensibility answer ("won't models eat you?") investors probe first; both should carry it,
+  leading with the v0.31–v0.34 self-proof rather than asserting durability.
 - **The cohort-tailored variants enable cohort-aware skill copy.** A future enhancement: when
   `/boss` is run with a cohort declared, it could use that cohort's variant in its
   introduction. Small. Loop-aware.
