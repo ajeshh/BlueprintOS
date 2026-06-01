@@ -16,7 +16,7 @@
 //
 // Always exits 0. Empty output = no signal = stay silent.
 
-import { detectSignals, composeContext, readCohort, readPauseState, clearPauseState } from './lib/loop-runtime.js';
+import { detectSignals, composeContext, readCohort, readPauseState, clearPauseState, logActivity } from './lib/loop-runtime.js';
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
@@ -40,6 +40,13 @@ try {
 
   const cohort = readCohort(projectDir);
   const additionalContext = composeContext(signals, { cohort });
+
+  // Frequency ledger (v0.34) — correctness-invisible side effect; only fires
+  // reach here (past the silent early-exit). Records facts (moments, judge-bool,
+  // injected char count), never estimates. Remove this line and the conscience
+  // output below is byte-identical.
+  logActivity(projectDir, signals, additionalContext, cohort);
+
   const first = signals[0];
 
   const out = {

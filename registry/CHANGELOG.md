@@ -2,6 +2,43 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.34.0 — 2026-06-01
+
+- **Conscience frequency ledger — BOSS eats its own `/ai-cost` dogfood, honestly. The last build
+  of the 4.8 arc.** As judge-moments multiplied (v0.31 drift, v0.33 caution now do model judgment
+  in the live turn), the conscience began costing real tokens per prompt — while BOSS preaches
+  cost discipline and never measured its own. The first 4.8 pass flagged the trap: *BOSS becomes
+  the expensive-AI app it warns against.* (IDEA-013.)
+  - **The reframe is the decision (mentor-architect):** the build started as "conscience *cost*
+    instrumentation" and was reframed to **frequency — facts, not estimates.** The hook never
+    calls a model, so a char→token estimate would manufacture a billable-looking number while
+    blind to its dominant term (the induced bounded reads judge-moments trigger in the main turn).
+    That's *lying with numbers* — the exact cost-theater BOSS warns against; PRINCIPLE #2 vetoes
+    it as premature ceremony. The *real* problem under the cost framing is **over-firing** — the
+    actual way a conscience becomes costly/annoying, and a number you'd act on. So: measure
+    frequency honestly; defer the token question to where honest token data lives (host-side,
+    IDEA-006).
+  - **`.boss/conscience-log.jsonl`** (gitignored) — the hook appends one line per fire:
+    `{ts, moments[{moment,confidence}], judge(bool), injected_chars, cohort}`. Facts only — **no
+    token/dollar estimate.** A **separate BOSS-meta ledger**, never the founder's
+    `.boss/cost-log.jsonl` (BOSS's overhead ≠ the founder's app cost).
+  - **First correctness-invisible fire-path side effect.** The hook goes from pure-emit to
+    has-a-side-effect; `logActivity` runs only past the silent early-exit, append-only, single
+    write, in its own swallowing try/catch. **Verified byte-identical** hook output with and
+    without the ledger writable — delete it and the conscience behaves the same.
+  - **`boss conscience activity`** (alias `cost`, which prints the honest frequency-not-tokens
+    reframe) — fires, judge-moment share, median injected chars, per-moment counts, and the
+    **over-fire smell** (clustering: a moment firing ≥4×/hour or ≥8×/24h — flagged because no
+    per-prompt denominator exists without logging non-fires, which would break the instant
+    property). Plus a one-line activity summary in `boss status --conscience`.
+  - **Measure-only; self-throttle deferred indefinitely.** A throttle would gag the conscience
+    exactly when a drifting founder generates more prompts and needs it most — **humane before
+    viable**, and a one-way door (every "why didn't it speak?" becomes unfalsifiable). This ledger
+    is the *evidence* that would earn that conversation, not a step toward it. Token/dollar
+    estimation also deferred — host-contract territory (the only honest token count comes from the
+    host, not the hook). `JUDGE_MOMENTS` set added to the hook lib. Gate + judgment suites
+    regression-clean (105/0/41; drift + caution covered).
+
 ## 0.33.0 — 2026-06-01
 
 - **`caution` goes judge-backed — depth vs. avoidance, and the first reuse of the v0.32 judgment

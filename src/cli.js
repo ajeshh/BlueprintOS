@@ -6,7 +6,7 @@ import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
-import { statusConscience, consciencePause, conscienceResume } from './conscience.js';
+import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -255,13 +255,15 @@ function cmdConscience(args) {
   try {
     if (sub === 'pause') return consciencePause(flags);
     if (sub === 'resume') return conscienceResume();
+    if (sub === 'activity') return conscienceActivity(process.cwd());
+    if (sub === 'cost') return conscienceActivity(process.cwd(), { asCost: true });
     if (sub === 'status' || !sub) {
       const stamp = readStamp(process.cwd());
       if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
       console.log(`\n  ${stamp.name}`);
       return statusConscience(process.cwd());
     }
-    return fail(`unknown subcommand 'conscience ${sub}'. options: pause | resume | status`);
+    return fail(`unknown subcommand 'conscience ${sub}'. options: pause | resume | status | activity | cost`);
   } catch (e) {
     return fail(e.message);
   }
@@ -295,6 +297,7 @@ export function run(argv) {
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
       console.log('  boss conscience pause    silence the conscience for a bounded session [--for 8h|--until-resume]');
       console.log('  boss conscience resume   re-enable the conscience');
+      console.log('  boss conscience activity how often the conscience fires (over-fire check; alias: cost)');
       console.log('  boss version             BOSS version\n');
       console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');
   }

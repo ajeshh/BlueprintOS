@@ -33,10 +33,16 @@
 //     just-closed transitions and emit "done" signals).
 //   - Entry predicates not satisfied → loop is UNOPENABLE; no signal.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, appendFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from './yaml.js';
+
+// Moments whose voiced instruction induces a model BOUNDED READ in the live turn
+// (judgment past the predicate gate) — drift (v0.31), caution (v0.33). The rest
+// are predicate-only (they point at a skill; no induced read). Used by the
+// frequency ledger (v0.34) to flag which fires carry induced-judgment overhead.
+export const JUDGE_MOMENTS = new Set(['drift', 'caution']);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -257,6 +263,35 @@ export function clearPauseState(projectDir) {
     cfg.conscience = { mode: 'active' };
     writeFileSync(f, JSON.stringify(cfg, null, 2) + '\n');
   } catch { /* fail silent — hook must never block */ }
+}
+
+// Append one line to .boss/conscience-log.jsonl — a FREQUENCY ledger (v0.34.0).
+//
+// BOSS eating its own /ai-cost dogfood — HONESTLY. The hook never calls a model,
+// so a token/dollar estimate would be lying with numbers: the dominant cost
+// (the induced bounded reads judge-moments trigger in the main turn) is
+// invisible here. So we log FACTS, not estimates — which moments fired, whether
+// any induces a model read (judge-moment), and the injected-context CHAR count.
+// The real way a conscience becomes costly/annoying is OVER-FIRING; that's what
+// this measures. Measure-only — it never throttles (a throttle would gag the
+// conscience exactly when a drifting founder needs it most: humane before viable).
+//
+// CORRECTNESS-INVISIBLE — the hook's first fire-path side effect. Runs only when
+// something fired (after the silent early-exit), append-only, single write, in
+// its own swallowing try/catch. Delete it entirely and the conscience behaves
+// identically. Telemetry must never affect the conscience.
+export function logActivity(projectDir, signals, additionalContext, cohort) {
+  try {
+    if (!signals || signals.length === 0) return;
+    const entry = {
+      ts: new Date().toISOString(),
+      moments: signals.map((s) => ({ moment: s.moment, confidence: s.confidence })),
+      judge: signals.some((s) => JUDGE_MOMENTS.has(s.moment)),
+      injected_chars: (additionalContext || '').length,
+      cohort: cohort || null,
+    };
+    appendFileSync(join(projectDir, '.boss', 'conscience-log.jsonl'), JSON.stringify(entry) + '\n');
+  } catch { /* fail silent — the ledger is overhead, never a gate */ }
 }
 
 // Per-cohort framing directives (v0.20.0+). Added to additionalContext so the

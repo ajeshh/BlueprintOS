@@ -125,6 +125,99 @@ function exitSummary(result) {
   return JSON.stringify(e);
 }
 
+// Read the frequency ledger (v0.34) the hook appends to on every fire.
+function readActivity(projectDir) {
+  const f = join(projectDir, '.boss', 'conscience-log.jsonl');
+  if (!existsSync(f)) return [];
+  try {
+    return readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter(Boolean);
+  } catch { return []; }
+}
+
+const median = (xs) => {
+  if (!xs.length) return 0;
+  const s = [...xs].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2);
+};
+
+// Count fires per moment within the last `hours`.
+function firesWithin(rows, hours) {
+  const cutoff = Date.now() - hours * 3600e3;
+  const counts = {};
+  for (const r of rows) {
+    const t = Date.parse(r.ts);
+    if (!Number.isNaN(t) && t >= cutoff) {
+      for (const m of r.moments || []) counts[m.moment] = (counts[m.moment] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
+// `boss conscience activity` (alias: `cost`) — the frequency view.
+//
+// Deliberately NOT a token/dollar number. The conscience hook never calls a
+// model, so it cannot honestly estimate tokens (the induced bounded reads are
+// invisible to it). What it CAN measure — and what actually tells you the
+// conscience is becoming costly/annoying — is how often it fires. Over-firing,
+// not the token bill, is the failure mode. Facts, not estimates.
+export function conscienceActivity(projectDir = process.cwd(), { asCost = false } = {}) {
+  const rows = readActivity(projectDir);
+
+  if (asCost) {
+    console.log(`\n  conscience cost → measured as FREQUENCY, not tokens.`);
+    console.log(`  A hook that never calls a model can't honestly price tokens; over-firing (not the`);
+    console.log(`  bill) is how a conscience becomes costly. Facts, not estimates. (BOSS, /ai-cost, on itself.)`);
+  }
+
+  if (rows.length === 0) {
+    console.log(`\n  No conscience activity logged yet (.boss/conscience-log.jsonl absent or empty).`);
+    console.log(`  The ledger fills one line per fire. Nothing has fired in this project.\n`);
+    return;
+  }
+
+  const total = rows.length;
+  const first = rows[0].ts, last = rows[rows.length - 1].ts;
+  const perMoment = {};
+  let judgeFires = 0;
+  const chars = [];
+  for (const r of rows) {
+    for (const m of r.moments || []) perMoment[m.moment] = (perMoment[m.moment] || 0) + 1;
+    if (r.judge) judgeFires++;
+    if (typeof r.injected_chars === 'number') chars.push(r.injected_chars);
+  }
+
+  console.log(`\n  conscience activity  (.boss/conscience-log.jsonl)`);
+  console.log(`    fires:          ${total}   ${first.slice(0, 10)} → ${last.slice(0, 10)}`);
+  console.log(`    judge-moments:  ${judgeFires}/${total} fires induced a model bounded-read (drift / caution)`);
+  console.log(`    injected ctx:   ${median(chars)} chars median per fire  ${dim('(chars are a fact; tokens would be a guess)')}`);
+  console.log('');
+  console.log(`    by moment:`);
+  for (const [m, n] of Object.entries(perMoment).sort((a, b) => b[1] - a[1])) {
+    console.log(`      ${String(n).padStart(4)}  ${m}`);
+  }
+
+  // Over-fire smell — the signal that actually matters. No per-prompt denominator
+  // (the hook only logs fires, to stay instant), so we flag clustering instead.
+  const last1h = firesWithin(rows, 1);
+  const last24h = firesWithin(rows, 24);
+  const smells = [];
+  for (const [m, n] of Object.entries(last1h)) if (n >= 4) smells.push(`${m} fired ${n}× in the last hour`);
+  for (const [m, n] of Object.entries(last24h)) if (n >= 8 && !(last1h[m] >= 4)) smells.push(`${m} fired ${n}× in the last 24h`);
+  console.log('');
+  if (smells.length) {
+    console.log(`    ⚠ over-fire smell — the conscience may be talking too often:`);
+    for (const s of smells) console.log(`      • ${s}`);
+    console.log(`      ${dim('A moment firing this often erodes trust like a false alarm. Worth a look —')}`);
+    console.log(`      ${dim('tune the loop, or `boss conscience pause` if you need quiet.')}`);
+  } else {
+    console.log(`    No over-fire smell — fires are spread out.`);
+  }
+  console.log('');
+}
+
+const dim = (s) => (process.stdout.isTTY ? `\x1b[90m${s}\x1b[0m` : s);
+
 export function statusConscience(projectDir = process.cwd()) {
   const loops = loadLoops(projectDir);
   if (loops.length === 0) {
@@ -158,6 +251,18 @@ export function statusConscience(projectDir = process.cwd()) {
     console.log('');
   }
   console.log(`    cohort:  ${cohort ? cohort : '(unspecified — set via `/boss` or edit .boss/config.json)'}`);
+
+  // Frequency ledger one-liner (v0.34) — surfaces over-firing at a glance.
+  const activity = readActivity(projectDir);
+  if (activity.length) {
+    const last24h = firesWithin(activity, 24);
+    const top = Object.entries(last24h).sort((a, b) => b[1] - a[1])[0];
+    const recent = Object.values(last24h).reduce((a, b) => a + b, 0);
+    let line = `    fires:   ${activity.length} logged`;
+    if (recent) line += `; ${recent} in last 24h${top ? ` (most: ${top[0]} ×${top[1]})` : ''}`;
+    const smell = top && top[1] >= 8;
+    console.log(smell ? `${line}  ⚠ over-fire smell — see \`boss conscience activity\`` : `${line}  ${dim('(`boss conscience activity` for detail)')}`);
+  }
   console.log('');
 
   // Sort: open first (they need attention), then closed, then unopenable.

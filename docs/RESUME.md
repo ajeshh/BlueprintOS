@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.33.0)
+updated: 2026-06-01 (v0.34.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,23 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.33.0)
+## State (shipped, v0.34.0)
+- **Conscience frequency ledger — BOSS eats its own /ai-cost dogfood, honestly (v0.34.0). Closes
+  the 4.8 arc.** As judge-moments multiplied (drift, caution do model judgment in the live turn),
+  the conscience began costing tokens while BOSS never measured its own. **The reframe is the
+  decision (mentor-architect):** "cost" → **frequency, facts not estimates.** The hook never calls
+  a model, so a token estimate would be lying-with-numbers (blind to the dominant induced-read
+  cost) — PRINCIPLE #2 vetoes the cost version as ceremony. The real problem is **over-firing**
+  (how a conscience actually becomes costly/annoying) — that's what's measured. Shipped:
+  `.boss/conscience-log.jsonl` (gitignored; one line/fire: moments, judge-bool, injected_chars,
+  cohort — NO token estimate; separate from the founder's cost-log); `logActivity` + `JUDGE_MOMENTS`
+  in the hook lib (**first correctness-invisible fire-path side effect** — verified byte-identical
+  with/without the write); `boss conscience activity` (alias `cost` w/ honest reframe header) with
+  per-moment counts + judge-share + median chars + **over-fire smell** (≥4×/hr or ≥8×/24h
+  clustering); status one-liner. **Measure-only; self-throttle deferred indefinitely** (would gag
+  the conscience when drift is worst — humane-before-viable, one-way door); token estimation
+  deferred to host-contract (IDEA-006). IDEA-013 captures it. Gate+judgment suites 105/0/41. **The
+  4.8 arc (v0.31–v0.34) is complete; only the non-build positioning reframe remains.**
 - **`caution` goes judge-backed — depth vs. avoidance (v0.33.0).** Moment #1 (the conscience's
   flagship) fires on ≥3 captures with no filled risk, but the predicate counts *total* captures —
   it can't tell **depth** (one idea sharpening, converging toward a canvas) from **avoidance**
@@ -407,7 +423,16 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     judge-moments multiply), then **(non-build) fold the "tailwind" reframe into positioning**
     (mentor-pitch). After that the 4.8 pass is spent — return to the IDEA-012 catalog below.
 
-16. **v0.34+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+16. ~~v0.34 — conscience cost instrumentation (eat the /ai-cost dogfood).~~ **DONE in v0.34.0,
+    reframed.** mentor-architect turned "cost" → **frequency** (a hook that never calls a model
+    can't honestly price tokens; over-firing is the real failure mode). `.boss/conscience-log.jsonl`
+    + `boss conscience activity`/`cost` + over-fire smell + status one-liner; measure-only,
+    self-throttle deferred (humane-before-viable). IDEA-013. **The 4.8 arc (v0.31 drift → v0.32
+    judgment evals → v0.33 caution judge-backed → v0.34 frequency ledger) is COMPLETE.** Only
+    non-build remainder: **fold the "every model jump is a tailwind" reframe into positioning**
+    (mentor-pitch / `docs/dossier/positioning-pass-001.md`) — do when next touching positioning.
+
+17. **v0.35+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
