@@ -490,7 +490,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     transcripts. Then the deferred 4.8 leverage is safe: **deep-context drift pass** (1M-context
     whole-project check) and **more judge-moments** (restraint/coherence/cost) — both now gradeable.
 
-18. **v0.36+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+18. ~~v0.36 — `boss board` (IDEA-015 Phase 1).~~ **DONE in v0.36.0** (parallel session). Live
+    terminal read of what's in flight; build the *view*, refuse the *app*.
+
+19. ~~v0.37 — `/drift-deep` (deep-context drift pass).~~ **DONE in v0.37.0.** The 1M-context
+    whole-project "am I fooling myself across everything" audit — deliberate skill (not a hook
+    moment; cost discipline). The 4.8 leverage arc's last deferred item. **Still open, cheap +
+    high-value, NEEDS A KEY:** `ANTHROPIC_API_KEY=… npm run regrade` to make drift + caution
+    actually model-verified, then commit the transcripts. After that, **more judge-moments**
+    (restraint / coherence / cost — now gradeable) is the next conscience pull.
+
+20. **v0.38+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
