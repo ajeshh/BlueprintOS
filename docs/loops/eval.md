@@ -24,8 +24,13 @@ exit:
   - contains:
       path: stages/L0-quickstart/template/.claude/hooks/conscience.sh
       pattern: '"confidence"'
+  # Judgment moments (v0.32.0+) carry a second surface: a labeled judgment set +
+  # the zero-dep replay runner. A model-judgment moment cannot ship its detection
+  # with only a gate-eval — the gate stops at the door; the judgment is past it.
+  - exists: docs/architecture/conscience-evals/judgment/drift.judgment.yml
+  - exists: docs/architecture/conscience-evals/judgment/replay.js
 drift:
-  skipped_if: "a new conscience moment is being designed/built without this loop having closed for it"
+  skipped_if: "a new conscience moment is being designed/built without this loop having closed for it — AND, for a model-JUDGMENT moment, without a judgment set + replay coverage under judgment/"
   stalled_if: "open for >N sub-actions without progress on exit artifacts"
 ---
 
@@ -67,14 +72,25 @@ When this loop is closed, all of these exist:
 4. **Hook refactored** to ship structured JSON: `{moment, confidence, evidence, suppress_if}`
    rather than free-form `additionalContext`. The model still composes the voice; the hook ships
    a schema (Liu's discipline).
+5. **(v0.32.0+) For any model-JUDGMENT moment** — a moment whose detection is a model call, not a
+   predicate (`drift` is the first) — a second surface under
+   [`docs/architecture/conscience-evals/judgment/`](../architecture/conscience-evals/judgment/):
+   a labeled judgment set (`<moment>.judgment.yml`, should-fire/should-not-fire/ambiguous with a
+   rubric) + the zero-dep `replay.js` (well-formedness + voice-hash tripwire + coverage). The
+   gate-eval proves the door opens; the judgment surface proves the model's call past the door is
+   right. The paid LLM-as-judge re-grade (`regrade.js`) is out-of-band, built when the tripwire
+   first fires. See `judgment/README.md`.
 
 ## Drift signal
 
 The conscience watches for:
 
-- **Skipped:** a new conscience moment (#3 capture or #4 restraint) is being designed/built
-  without this eval-loop closing for it. (You'd be shipping detection logic with no way to know
-  if it's right — vibes-based AI in BOSS, the thing it's supposed to prevent in others.)
+- **Skipped:** a new conscience moment is being designed/built without this eval-loop closing for
+  it. (You'd be shipping detection logic with no way to know if it's right — vibes-based AI in
+  BOSS, the thing it's supposed to prevent in others.) **For a model-judgment moment** (`drift`
+  and successors), "closing" means *both* surfaces: the gate-eval AND a judgment set + replay
+  coverage. A gate-eval alone tests that the door opens, not that the model's call past it is
+  right — shipping the judgment with only the gate covered is the exact hole this clause closes.
 - **Stalled:** loop is "open" but the example set hasn't grown in N sub-actions. Time-agnostic;
   counts work, not days.
 

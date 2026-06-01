@@ -14,9 +14,14 @@
 # opens at the right structural moments and stays shut otherwise. The actual
 # *judgment* — "is the recent work testing the named risk, or building around
 # it?" — is the model's, performed in the live turn from the bounded read the
-# signal instructs (same split as extraction-loop / `/extract`, whose judgment
-# is likewise not hook-eval'd). Judgment-quality (does the model correctly call
-# drift vs. on-aim) is a model-in-the-loop eval, not this runner's surface.
+# signal instructs (same split as extraction-loop / `/extract`).
+#
+# THE COMPLEMENT (v0.32.0): judgment-quality — does the model correctly call
+# drift vs. on-aim — now has its own surface at
+# `docs/architecture/conscience-evals/judgment/` (labeled set + zero-dep
+# replay.js voice-hash tripwire + out-of-band regrade.js). This gate file proves
+# the door opens; judgment/ proves the call past the door. Two surfaces, two
+# cadences — see judgment/README.md.
 #
 # Cases isolate `drift` by closing extraction-loop (an EXTR record) wherever
 # devlog ≥3 would otherwise co-fire `capture`, and by using 0 capture-log

@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.31.0)
+updated: 2026-06-01 (v0.32.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,27 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.31.0)
+## State (shipped, v0.32.0)
+- **Judgment-quality eval channel — closing the hole drift-loop opened (v0.32.0).** drift (v0.31)
+  was the first moment whose *detection is a model judgment*; the gate-eval only tests that the
+  hook fires on the right structural state (it stops at the door). Whether the model correctly
+  calls drift-vs-on-aim *past* the gate was unevaluated — a named crack in "no moment ships
+  without evals." **Method (mentor-architect):** two surfaces, two cadences. Gate-eval
+  (`runner.js`, every commit, $0) stays. New **judgment surface**
+  (`docs/architecture/conscience-evals/judgment/`) = **golden transcripts gated by a voice-hash
+  tripwire** (not pure LLM-judge — breaks free/deterministic/CI; not pure golden — rots silently).
+  Shipped: **`replay.js`** (zero-dep, every commit — well-formedness + voice-hash tripwire +
+  coverage floors + GRADED/STALE/NEVER_GRADED/REGRESSION status; all four states proven);
+  **`drift.judgment.yml`** (10 labeled cases — 4 fire-and-name-gap, 5 on-aim/silent [the trust-
+  critical class], 1 ambiguous; rubric per case; content-rich paired devlog fixtures because the
+  judgment is semantic); **`regrade.js`** (paid LLM-as-judge calibrator — **DEFERRED by design**,
+  runnable spec-stub; built the week the first STALE tripwire fires — architect's staged cut).
+  Zero-dep line pinned: `npm pack` ships **0** judgment files; no `src/` ref. Dogfooded in
+  `eval.md` (a model-judgment moment can't ship detection with only a gate-eval). Shared YAML
+  parser extracted to `conscience-evals/lib/yaml-eval.js`; gate suite regression-clean **105/0/41**.
+  npm scripts `eval:gate` / `eval:judgment` / `eval`. **Honest scope:** the labeled set + staleness
+  machinery + coverage ship now; the judgment is **not yet model-verified** (replay prints
+  NEVER_GRADED loudly). First STALE = the trigger to build `regrade.js`.
 - **`drift-loop` — the closest loop to why BOSS exists (v0.31.0).** Occasioned by a "what does
   Opus 4.8 change about BOSS" pass; load-bearing finding was *the hook=detection / model=voice
   boundary has moved* — a stronger model can do the semantic judgment regex can't. For 30
@@ -354,7 +374,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     mentor-architect (predicate-gated bounded-read voicing instruction, no new host primitive /
     state / vocabulary). Suite 105/0/41.
 
-14. **v0.32+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+14. ~~v0.32 — Judgment-quality eval channel (the hole drift-loop opened).~~ **DONE in v0.32.0.**
+    Two-surface design (gate-eval stays; judgment surface added) = golden transcripts + voice-hash
+    tripwire. `judgment/{replay.js, drift.judgment.yml, regrade.js, fixtures-devlog.js, README.md}`
+    + `lib/yaml-eval.js` + `eval.md` dogfood requirement. `regrade.js` (paid LLM-judge) DEFERRED by
+    design — **build it the week `replay.js` first prints STALE.** Judgment not yet model-verified
+    (loud NEVER_GRADED). The 4.8 arc continues: next is **v0.33 — upgrade `caution` to judge-backed**
+    (resolves the `m1-snf-021` single-idea-deepening question; only safe now that judgment evals
+    exist), then **v0.34 — conscience cost instrumentation** (eat the `/ai-cost` dogfood as
+    judge-moments multiply), then **(non-build) fold the 4.8 "tailwind" reframe into positioning**.
+
+15. **v0.33+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question

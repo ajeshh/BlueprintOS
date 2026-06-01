@@ -2,6 +2,55 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.32.0 — 2026-06-01
+
+- **Judgment-quality eval channel — closing the hole `drift-loop` (v0.31) opened.** drift was the
+  first moment whose *detection is a model judgment*, not a predicate. The existing eval runner
+  tests only the **gate** (does the hook fire on the right structural state); it stops at the
+  door. Whether the model correctly calls drift-vs-on-aim *past* the open gate was unevaluated —
+  a named crack in the "no moment ships without evals" floor, in exactly the spot 4.8 made
+  load-bearing (`eval.md`: shipping detection logic with no way to know if it's right = "vibes-
+  based AI in BOSS"). v0.32 builds the complement.
+  - **The method (mentor-architect pass):** two surfaces, two cadences, on purpose. The gate-eval
+    (`runner.js`, every commit, $0) stays. The **judgment surface** (`conscience-evals/judgment/`)
+    is **golden transcripts gated by a voice-hash tripwire** — *not* pure LLM-as-judge (breaks the
+    free/deterministic/CI property) and *not* pure golden transcripts (rot silently when the voice
+    frame changes). Golden transcripts are the committed dataset; the tripwire makes their
+    staleness *loud*; LLM-as-judge regenerates them out-of-band.
+  - **`judgment/replay.js` — zero-dep, every commit.** (1) well-formedness — every case is a
+    genuine open-gate state (filled risk, devlog ≥3 entries, no experiment line) with a coherent
+    label; (2) **voice-hash tripwire** — fingerprints the exact `drift` instruction the model runs
+    (`composeContext` for a drift signal); a transcript recorded against a different hash is
+    `STALE` and replay says so loudly (golden transcripts that can't detect their own staleness
+    are an eval that lies); (3) coverage floors (no silent caps; the on-aim/should-not-fire class
+    is trust-critical and meant to *grow* toward ≥10); (4) grading status `GRADED/STALE/
+    NEVER_GRADED/REGRESSION`. Exit 1 on malformed/coverage/regression; exit 0 + loud warnings on
+    never-graded/stale. **All four states proven** (GRADED/STALE/REGRESSION/NEVER_GRADED tested).
+  - **`judgment/drift.judgment.yml` — the labeled ground truth (Husain: build the set first).**
+    10 cases: 4 should-fire-and-name-gap (incl. the sharpest — building the integration the risk
+    explicitly *defers*), 5 should-not-fire-on-aim (the trust-critical class, incl. the hard
+    "on-aim but informal — no experiment line, but the work IS the test" case), 1 ambiguous
+    (`acceptable: [fires, silent]` so the grader doesn't punish a defensible call). Content-rich
+    paired devlog fixtures (`fixtures-devlog.js`) — the *prose* matters because the judgment is
+    semantic. `must_reference`/`must_not` rubric per case for the future LLM-judge.
+  - **`judgment/regrade.js` — paid, out-of-band, DEFERRED by design.** The calibrator (decision
+    call → judge call → write transcript stamped with the current voice-hash). Per the architect's
+    staged cut: ship the labeled set + replay + tripwire first; build the API half *the week the
+    first STALE tripwire fires*. Runnable spec-stub documents the full algorithm + env-checks. When
+    built: zero-dep (Node `fetch`, no SDK), env-gated on `ANTHROPIC_API_KEY`, never on the commit
+    path, never imported by `src/`, never in the `files` allowlist (lives under `docs/`).
+  - **The zero-dep line, pinned:** the rule is *shipped surface (`src/`, `files`) stays
+    dependency-free* — not "dev tooling can't call a model." Confirmed: `npm pack --dry-run` ships
+    **0** judgment files; no `src/`/`bin/` reference to the eval dirs.
+  - **Dogfooded in `eval.md`:** a model-judgment moment cannot ship its detection with only a
+    gate-eval — the drift signal + exit predicates now require a judgment set + replay coverage for
+    `drift` and every successor. Shared YAML parser extracted to `conscience-evals/lib/yaml-eval.js`
+    (gate runner + replay use one copy; gate suite regression-clean at 105/0/41). New npm scripts:
+    `eval:gate`, `eval:judgment`, `eval`.
+  - **Honest scope:** v0.32 ships the labeled set + the staleness machinery + coverage discipline.
+    The judgment is **not yet model-verified** — replay prints `NEVER_GRADED` loudly so a green run
+    is never mistaken for a graded judgment. The first `STALE` is the trigger to build `regrade.js`.
+
 ## 0.31.0 — 2026-06-01
 
 - **`drift-loop` — the closest loop to why BOSS exists, and the first moment that fronts a
