@@ -2,11 +2,16 @@
 id: IDEA-014
 type: idea
 owner: pm
-status: exploring
+status: building
 created: 2026-06-01
 ---
 
 # IDEA-014 — Model recalibration as a standing discipline (ride the model curve on purpose)
+
+> **Phase 1 shipped v0.35.0:** the recalibration *engine* (`regrade.js`, live model grading of the
+> judgment sets, zero-dep, env-gated) + the *checklist*
+> ([MODEL-RECALIBRATION.md](../architecture/MODEL-RECALIBRATION.md)). The capability-profile +
+> `/recalibrate` skill stay deferred until a second model/host earns them (PRINCIPLE #2).
 
 ## Current shape
 

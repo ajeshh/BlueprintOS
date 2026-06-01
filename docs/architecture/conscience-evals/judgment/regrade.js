@@ -1,73 +1,223 @@
 #!/usr/bin/env node
-// Conscience JUDGMENT eval — re-grade half (v0.32.0). PAID, OUT-OF-BAND.
+// Conscience JUDGMENT eval — re-grade half (v0.35.0). PAID, OUT-OF-BAND. ZERO-DEP.
 //
-// STATUS: DEFERRED BY DESIGN (the spec is here; the model calls are not built).
-// Per the v0.32 architecture decision (mentor-architect): ship the labeled set
-// + replay.js + the voice-hash tripwire FIRST; build this paid half the week the
-// first STALE tripwire fires and labels actually need regenerating. Building an
-// API harness that nothing yet triggers, for a one-user tool, is the over-build
-// BOSS warns against. The case schema is identical either way, so deferring
-// costs nothing — see judgment/README.md.
+// The calibrator. For each judgment case it runs the LIVE model twice —
+//   1. DECISION: give the model the exact voice frame the hook injects + the
+//      bounded read the instruction names + a neutral "founder keeps building"
+//      turn. Capture: fire a nudge, or stay silent?
+//   2. JUDGE: a second call grades that nudge against the case's rubric
+//      (must_reference / must_not), returning a small structured verdict.
+// — then writes transcripts/<moment>/<id>.json STAMPED with the current
+// voice-hash (shared with replay.js via moments.js, so they can't disagree).
+// replay.js then grades the recorded decision against the human label on every
+// commit (free) and trips STALE when the frame or the model changes.
 //
-// This file is runnable: it env-checks and prints what it WILL do, so the cadence
-// is discoverable, not folklore. It never runs on the every-commit path.
+// This is also the RECALIBRATION ENGINE (IDEA-014): re-run it on a new model and
+// the transcripts refresh; replay shows what changed. Riding the model curve =
+// running this when the curve moves.
 //
-// ── THE ALGORITHM (build this when the tripwire first fires) ──────────────────
-// For each judgment moment in replay.js's MOMENTS registry (drift, caution, …),
-// for each case in its <moment>.judgment.yml:
-//   1. Construct the BOUNDED READ the drift instruction names — the canvas
-//      riskiest-assumption line + the ~5 most recent devlog entries (from the
-//      DEVLOG_FIXTURES content_ref) + (none here; no open FEAT in fixtures).
-//      This is exactly what the live hook hands the model, no more.
-//   2. DECISION CALL — give the model the drift voice-frame (composeContext for a
-//      drift signal — the same string replay.js hashes) as the conscience
-//      instruction, plus the bounded read, plus a neutral "founder is continuing
-//      to build" turn. Capture: did it surface a drift nudge? (fires true/false)
-//      and, if so, the nudge text.
-//   3. JUDGE CALL — a second model call grades the nudge against the case's
-//      rubric (expected_judgment.must_reference / must_not), returning a small
-//      structured verdict {names_specific_gap, references_risk, references_drift,
-//      score: pass|fail}. (Liu: structured output, not graded prose.)
-//   4. WRITE TRANSCRIPT — transcripts/drift/<id>.json:
-//        { recorded_against_voice_hash, model, recorded_at,
-//          decision: "fires"|"silent", named_gap, judge_score }
-//      recorded_against_voice_hash = the CURRENT hash, so replay.js can detect
-//      when a later voice-frame edit makes this transcript stale.
-//   5. replay.js then grades the recorded decision against the human label every
-//      commit (free), and trips STALE when the frame changes.
+// ZERO-DEP: Node built-in `fetch` POSTs to the Anthropic API directly (no SDK).
+// Never on the commit path; never imported by src/; never in the npm `files`
+// allowlist (lives under docs/, which doesn't ship).
 //
-// Dependencies: NONE beyond Node built-ins — use global `fetch` to POST to the
-// Anthropic API directly (no SDK). Keeps even the paid half zero-dep. The only
-// requirement is ANTHROPIC_API_KEY in the environment. This file must never be
-// imported by src/ and never enters the npm `files` allowlist (it lives under
-// docs/, which doesn't ship).
-//
-// ── WHEN replay.js PRINTS STALE: come here, run `node regrade.js`, commit the
-//    refreshed transcripts (or stamp STALE-ACCEPTED with a rationale if the
-//    decision genuinely shouldn't change). That is the cadence trigger. ────────
+// Usage:
+//   ANTHROPIC_API_KEY=… node regrade.js            # grade all moments, write transcripts
+//   ANTHROPIC_API_KEY=… node regrade.js drift      # grade one moment
+//   node regrade.js --dry-run                       # verify the pipeline, no API, no spend
+//   BOSS_REGRADE_MODEL=claude-… node regrade.js     # override the model (default: opus 4.8)
 
-const hasKey = !!process.env.ANTHROPIC_API_KEY;
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parseYaml } from '../lib/yaml-eval.js';
+import { voiceFrame, voiceHash } from './moments.js';
+import { DEVLOG_FIXTURES } from './fixtures-devlog.js';
+import { CAPTURELOG_FIXTURES } from './fixtures-capturelog.js';
 
-console.log(`
-  conscience JUDGMENT re-grade (drift) — PAID, OUT-OF-BAND
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const argv = process.argv.slice(2);
+const DRY = argv.includes('--dry-run');
+const MOMENT_FILTER = argv.find((a) => !a.startsWith('--')) || null;
+const MODEL = process.env.BOSS_REGRADE_MODEL || 'claude-opus-4-8';
+const API_KEY = process.env.ANTHROPIC_API_KEY || null;
 
-  This is the calibrator half. It is DEFERRED BY DESIGN: the labeled set,
-  replay.js, and the voice-hash tripwire ship first; this gets built the week
-  replay.js first prints STALE and the labels actually need regenerating.
+// Keep the last ~5 dated entries from a fixture (the bounded read the drift /
+// caution instructions name — never the whole project).
+function lastEntries(text, headerRe, n = 5) {
+  const lines = String(text || '').split('\n');
+  const starts = [];
+  lines.forEach((l, i) => { if (headerRe.test(l)) starts.push(i); });
+  if (!starts.length) return String(text || '').trim();
+  const keep = starts.slice(0, n); // fixtures are newest-first
+  const lastKeep = keep[keep.length - 1];
+  // include through the line before the (n+1)th header, or EOF
+  const end = starts[n] !== undefined ? starts[n] : lines.length;
+  return lines.slice(starts[0], end).join('\n').trim();
+}
 
-  The full algorithm is documented at the top of this file and in
-  judgment/README.md. It calls the model twice per case (decide → judge),
-  writes transcripts/drift/<id>.json stamped with the current voice-hash, and is
-  the thing replay.js grades against on every commit.
+// Per-moment: assemble the bounded read the model is told to look at.
+const MOMENTS = {
+  drift: {
+    casesFile: 'drift.judgment.yml',
+    boundedRead(c) {
+      const idea = c.project_state.ideas[0];
+      const risk = idea.canvas.riskiest_assumption_text;
+      const ref = c.project_state.docs_files.find((f) => f.path === 'docs/devlog.md').content_ref;
+      const dev = lastEntries(DEVLOG_FIXTURES[ref], /^## \d{4}-\d{2}-\d{2}/);
+      return `The canvas names this riskiest assumption:\n  "${risk}"\n\nThe ~5 most recent devlog entries:\n${dev}\n\n(No "Experiment this week" validation plan is recorded yet.)`;
+    },
+  },
+  caution: {
+    casesFile: 'caution.judgment.yml',
+    boundedRead(c) {
+      const idea = c.project_state.ideas[0];
+      const cap = CAPTURELOG_FIXTURES[idea.capture_log_ref];
+      return `The active idea's capture log (no riskiest assumption named yet):\n${String(cap).trim()}`;
+    },
+  },
+};
 
-  ANTHROPIC_API_KEY: ${hasKey ? 'present' : 'NOT set'}
-  ${hasKey
-    ? 'Ready to implement the two model calls above when a STALE tripwire calls for it.'
-    : 'Set ANTHROPIC_API_KEY to run the paid re-grade once it is implemented.'}
+// ---- the two model calls ---------------------------------------------------
 
-  Until then: replay.js holds the line (well-formedness + coverage + tripwire),
-  and prints NEVER_GRADED loudly so a green replay is never mistaken for a
-  graded judgment.
-`);
+async function callClaude(system, user, maxTokens) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': API_KEY,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages: [{ role: 'user', content: user }] }),
+  });
+  if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  const data = await res.json();
+  return (data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('').trim();
+}
 
-process.exit(0);
+function decisionPrompts(moment, c) {
+  const system = `You are BOSS's conscience, operating as a UserPromptSubmit hook signal. Follow this instruction exactly:\n\n${voiceFrame(moment)}\n\nThe founder has just submitted a neutral "let's keep building" prompt. Per the instruction above, decide whether to surface a nudge. Output ONLY the nudge text you would surface, OR — if you would stay silent — output ONLY the single token: SILENT`;
+  return { system, user: MOMENTS[moment].boundedRead(c) };
+}
+
+function judgePrompts(c, fires, nudge) {
+  const ej = c.expected_judgment || {};
+  const expected = Array.isArray(ej.acceptable)
+    ? `Either firing or silence is acceptable here.`
+    : `The correct decision is to ${ej.fires ? 'FIRE a nudge' : 'stay SILENT'}.`;
+  const ref = (ej.must_reference || []).map((x) => `- ${x}`).join('\n') || '(none)';
+  const not = (ej.must_not || []).map((x) => `- ${x}`).join('\n') || '(none)';
+  const system = `You grade a conscience nudge against a rubric. Output ONLY minified JSON, no prose: {"names_specific_gap":boolean,"references_required":boolean,"violates_must_not":boolean,"verdict":"pass"|"fail"}`;
+  const user = `${expected}\nThe conscience ${fires ? 'FIRED this nudge' : 'stayed SILENT'}.\nNudge text: ${fires ? JSON.stringify(nudge) : '(silent)'}\n\nMust reference (if it fired):\n${ref}\n\nMust NOT do:\n${not}\n\nGrade: verdict "pass" iff the decision matches the correct one AND (if fired) it references the required points and violates none of the must-nots. If silence was correct and it stayed silent, pass.`;
+  return { system, user };
+}
+
+function parseJudge(text) {
+  try {
+    const m = String(text).match(/\{[\s\S]*\}/);
+    if (!m) return { verdict: 'fail', parse_error: true };
+    const j = JSON.parse(m[0]);
+    if (j.verdict !== 'pass' && j.verdict !== 'fail') j.verdict = 'fail';
+    return j;
+  } catch { return { verdict: 'fail', parse_error: true }; }
+}
+
+// ---- run -------------------------------------------------------------------
+
+function loadCases(moment) {
+  return parseYaml(readFileSync(join(__dirname, MOMENTS[moment].casesFile), 'utf8'));
+}
+
+async function regradeMoment(moment) {
+  const cases = loadCases(moment);
+  const hash = voiceHash(moment);
+  const outDir = join(__dirname, 'transcripts', moment);
+  if (!DRY) mkdirSync(outDir, { recursive: true });
+  console.log(`\n  ── ${moment} ── ${cases.length} cases · model ${MODEL} · hash ${hash.slice(0, 12)}…`);
+
+  let written = 0, mismatches = 0;
+  for (const c of cases) {
+    const dp = decisionPrompts(moment, c);
+    const jpPreview = c; // assembled below after decision
+    if (DRY) {
+      // Verify assembly only — touch every fixture/ref so a broken case throws here, not in prod.
+      MOMENTS[moment].boundedRead(c);
+      judgePrompts(c, true, 'sample nudge');
+      continue;
+    }
+    try {
+      const decision = await callClaude(dp.system, dp.user, 600);
+      const fires = !/^\s*SILENT\s*$/i.test(decision);
+      const nudge = fires ? decision : '';
+      const jp = judgePrompts(c, fires, nudge);
+      const judge = parseJudge(await callClaude(jp.system, jp.user, 200));
+
+      const ej = c.expected_judgment || {};
+      const labelMatch = Array.isArray(ej.acceptable)
+        ? ej.acceptable.includes(fires ? 'fires' : 'silent')
+        : fires === ej.fires;
+      if (!labelMatch) mismatches++;
+
+      writeFileSync(join(outDir, `${c.id}.json`), JSON.stringify({
+        recorded_against_voice_hash: hash,
+        model: MODEL,
+        recorded_at: new Date().toISOString(),
+        decision: fires ? 'fires' : 'silent',
+        named_gap: !!judge.names_specific_gap,
+        judge_verdict: judge.verdict,
+        label_match: labelMatch,
+        nudge_excerpt: nudge.slice(0, 200),
+      }, null, 2) + '\n');
+      written++;
+      console.log(`    ${labelMatch ? '✓' : '✗'} ${c.id}  decided=${fires ? 'fire' : 'silent'}  judge=${judge.verdict}`);
+    } catch (e) {
+      console.log(`    ! ${c.id}  ${e.message}`);
+    }
+  }
+  return { written, mismatches, total: cases.length };
+}
+
+async function main() {
+  const moments = Object.keys(MOMENTS).filter((m) => !MOMENT_FILTER || m === MOMENT_FILTER);
+
+  if (DRY) {
+    console.log(`\n  conscience JUDGMENT re-grade — DRY RUN (no API, no spend)`);
+    let n = 0;
+    for (const m of moments) {
+      const cases = loadCases(m);
+      for (const c of cases) { MOMENTS[m].boundedRead(c); judgePrompts(c, true, 'x'); decisionPrompts(m, c); n++; }
+      console.log(`    ✓ ${m}: ${cases.length} cases assemble (bounded read + decision + judge prompts) cleanly`);
+    }
+    // Parser check against a canned model response — verifies the risky parse path.
+    const probe = parseJudge('thinking... {"names_specific_gap":true,"references_required":true,"violates_must_not":false,"verdict":"pass"}');
+    console.log(`    ✓ judge parser: verdict=${probe.verdict} names_gap=${probe.names_specific_gap}`);
+    // Show one full prompt pair so the assembly is eyeballable.
+    const sample = decisionPrompts(moments[0], loadCases(moments[0])[0]);
+    console.log(`\n  sample DECISION prompt (${moments[0]}, first case):`);
+    console.log(`  ─ system (head) ─ ${sample.system.slice(0, 140).replace(/\n/g, ' ')}…`);
+    console.log(`  ─ user ─\n${sample.user.split('\n').map((l) => '    ' + l).join('\n')}`);
+    console.log(`\n  ${n} cases verified. Set ANTHROPIC_API_KEY and drop --dry-run to grade for real.\n`);
+    return;
+  }
+
+  if (!API_KEY) {
+    console.log(`\n  conscience JUDGMENT re-grade — PAID, OUT-OF-BAND`);
+    console.log(`  ANTHROPIC_API_KEY not set. Either:`);
+    console.log(`    • node regrade.js --dry-run     verify the pipeline (no spend), or`);
+    console.log(`    • ANTHROPIC_API_KEY=… node regrade.js   grade for real.`);
+    console.log(`  replay.js holds the line meanwhile (well-formedness + coverage + tripwire).\n`);
+    process.exit(0);
+  }
+
+  console.log(`\n  conscience JUDGMENT re-grade — LIVE · model ${MODEL}`);
+  let totW = 0, totM = 0, tot = 0;
+  for (const m of moments) {
+    const r = await regradeMoment(m);
+    totW += r.written; totM += r.mismatches; tot += r.total;
+  }
+  console.log(`\n  ── summary ──`);
+  console.log(`    transcripts written: ${totW}/${tot}`);
+  console.log(`    label mismatches:    ${totM}  ${totM ? '(the model disagreed with a human label — investigate: model drift, or the label is wrong)' : '(model agrees with every label)'}`);
+  console.log(`\n  Commit the transcripts; replay.js now grades against them every commit.\n`);
+}
+
+main().catch((e) => { console.error(`regrade failed: ${e.message}`); process.exit(1); });

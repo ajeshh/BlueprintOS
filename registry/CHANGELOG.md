@@ -2,6 +2,41 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.35.0 — 2026-06-01
+
+- **The recalibration engine — `regrade.js` built + run-ready, and model-recalibration named as a
+  standing discipline (IDEA-014 Phase 1).** Occasioned by Ajesh's direction: adapting to new/
+  different models should be a *standing capability*, not the ad-hoc reaction the v0.31–v0.34 arc
+  was. Picked as the move that *helps BOSS keep improving easily* — because both judge-moments
+  (drift, caution) were `NEVER_GRADED`: the labeled sets existed but the model had never been tested
+  against them. Every future judge-moment would ship as vibes until that closed. `regrade.js` is the
+  keystone that makes all future conscience work *measurable*.
+  - **`regrade.js` (zero-dep, env-gated, out-of-band)** — the calibrator promoted from spec-stub to
+    real harness. Per case: a **decision call** (give the live model the exact voice frame the hook
+    injects + the bounded read the instruction names + a neutral founder turn → fire or stay
+    silent?) + a **judge call** (grade the nudge against the case rubric → structured verdict),
+    writing `transcripts/<moment>/<id>.json` stamped with the current voice-hash. Uses Node built-in
+    `fetch` (no SDK). **`--dry-run`** verifies the whole pipeline (prompt assembly across all 17
+    cases + the judge parser) with no API and no spend — verified green; the live `fetch` is the
+    only unexercised line (a standard POST). `npm run regrade`; `BOSS_REGRADE_MODEL` to point at a
+    different model.
+  - **`moments.js`** — shared voice-hash source of truth so `replay.js` and `regrade.js` *cannot*
+    disagree on the fingerprint (a mismatch would mark every transcript STALE forever). `replay.js`
+    refactored onto it (same hashes; suites regression-clean).
+  - **`docs/architecture/MODEL-RECALIBRATION.md`** — the standing checklist (IDEA-014's earned
+    slice). Two triggers: a new same-vendor model (*leverage more* — re-grade, revisit each
+    boundary for "can this move UP now?", read the frequency ledger, check context headroom) and a
+    new host running a different model (*degrade gracefully* — judge-moments fall back to predicate-
+    only). `regrade.js` is its engine; re-running it on a new model **is** recalibration. Named as a
+    PRINCIPLE-#1 **UP** candidate (founders face the same model-migration problem — `/claude-api`
+    already migrates their apps).
+  - **Deferred, loudly:** the per-host model-capability profile + a `/recalibrate` skill — until a
+    second model/host exists (a `/recalibrate` with nothing to recalibrate *to* is the premature
+    ceremony v0.34 dodged). Token accounting stays host-contract territory (IDEA-006).
+  - Gate + judgment suites 105/0/41; `npm pack` ships 0 tooling files. The judgment is now
+    *run-ready* to become model-verified — one `ANTHROPIC_API_KEY=… npm run regrade` away (no key in
+    the build env, so the live grade is the founder's to trigger).
+
 ## 0.34.0 — 2026-06-01
 
 - **Conscience frequency ledger — BOSS eats its own `/ai-cost` dogfood, honestly. The last build

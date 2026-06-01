@@ -22,9 +22,8 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createHash } from 'node:crypto';
 import { parseYaml } from '../lib/yaml-eval.js';
-import { composeContext } from '../../../../stages/L0-quickstart/template/.claude/hooks/lib/loop-runtime.js';
+import { voiceHash } from './moments.js';
 import { DEVLOG_FIXTURES } from './fixtures-devlog.js';
 import { CAPTURELOG_FIXTURES } from './fixtures-capturelog.js';
 
@@ -94,7 +93,6 @@ const MOMENTS = [
   {
     moment: 'drift',
     casesFile: 'drift.judgment.yml',
-    signal: { moment: 'drift', loop_id: 'drift-loop', confidence: 'low', evidence: {} },
     floors: { 'should-fire-and-name-gap': 4, 'should-not-fire-on-aim': 5, ambiguous: 1 },
     grow: { category: 'should-not-fire-on-aim', target: 10 },
     check: checkDriftCase,
@@ -102,17 +100,11 @@ const MOMENTS = [
   {
     moment: 'caution',
     casesFile: 'caution.judgment.yml',
-    signal: { moment: 'caution', loop_id: 'canvas-loop', confidence: 'low', evidence: {} },
     floors: { 'should-fire-avoidance': 3, 'should-not-fire-depth': 3, ambiguous: 1 },
     grow: { category: 'should-not-fire-depth', target: 8 },
     check: checkCautionCase,
   },
 ];
-
-function voiceHash(signal) {
-  const frame = composeContext([signal], {});
-  return createHash('sha256').update(frame || '').digest('hex');
-}
 
 function transcriptFor(moment, id) {
   const p = join(__dirname, 'transcripts', moment, `${id}.json`);
@@ -131,7 +123,7 @@ function gradeAgainstLabel(c, decisionFires) {
 // Run one moment's surface; return { blocking, neverGraded, stale }.
 function runMoment(m) {
   const cases = parseYaml(readFileSync(join(__dirname, m.casesFile), 'utf8'));
-  const hash = voiceHash(m.signal);
+  const hash = voiceHash(m.moment);
 
   console.log(`\n  ── moment: ${m.moment} ── ${cases.length} cases ${dim(`· voice-hash ${hash.slice(0, 12)}…`)}`);
 

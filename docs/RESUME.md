@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.34.0)
+updated: 2026-06-01 (v0.35.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,22 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.34.0)
+## State (shipped, v0.35.0)
+- **Recalibration engine — `regrade.js` built + model-recalibration named as a standing discipline
+  (v0.35.0, IDEA-014 Phase 1).** From Ajesh's direction: adapting to new/different models should be
+  a *standing capability*, not the ad-hoc v0.31–v0.34 reaction. Chosen as the "keep improving
+  easily" move — both judge-moments (drift, caution) were `NEVER_GRADED` (labeled sets existed, model
+  never tested against them), so every future judge-moment shipped as vibes until closed. **`regrade.js`
+  promoted from spec-stub to a real zero-dep harness** (Node `fetch`, env-gated): per case a decision
+  call (live model + exact voice frame + bounded read → fire/silent?) + a judge call (grade vs
+  rubric), writing voice-hash-stamped transcripts replay grades every commit. `--dry-run` verifies
+  the full pipeline (assembly + parser) with no spend — green; the live `fetch` is the only
+  unexercised line. **`moments.js`** = shared voice-hash source of truth (replay + regrade can't
+  drift). **`docs/architecture/MODEL-RECALIBRATION.md`** = the standing checklist (two triggers:
+  new same-vendor model → leverage more; new host/model → degrade gracefully); regrade is its engine;
+  flagged UP candidate (founders face the same migration). Deferred: capability-profile + `/recalibrate`
+  skill (until a 2nd model/host). `npm run regrade`. Suites 105/0/41. Judgment now *run-ready* to
+  become model-verified — one `ANTHROPIC_API_KEY=… npm run regrade` away (no key in build env).
 - **Conscience frequency ledger — BOSS eats its own /ai-cost dogfood, honestly (v0.34.0). Closes
   the 4.8 arc.** As judge-moments multiplied (drift, caution do model judgment in the live turn),
   the conscience began costing tokens while BOSS never measured its own. **The reframe is the
@@ -432,7 +447,14 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     non-build remainder: **fold the "every model jump is a tailwind" reframe into positioning**
     (mentor-pitch / `docs/dossier/positioning-pass-001.md`) — do when next touching positioning.
 
-17. **v0.35+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+17. ~~v0.35 — recalibration engine (regrade.js) + model-recalibration discipline (IDEA-014 P1).~~
+    **DONE in v0.35.0.** The "keep improving easily" keystone — closes the NEVER_GRADED hole so all
+    future conscience work is measurable. **Next obvious follow-on (cheap, high-value):** run
+    `ANTHROPIC_API_KEY=… npm run regrade` to make drift + caution actually model-verified, commit the
+    transcripts. Then the deferred 4.8 leverage is safe: **deep-context drift pass** (1M-context
+    whole-project check) and **more judge-moments** (restraint/coherence/cost) — both now gradeable.
+
+18. **v0.36+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question

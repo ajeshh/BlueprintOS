@@ -66,14 +66,24 @@ loud**; and LLM-as-judge is how transcripts get (re)generated, not how every com
    `regrade.js` runs, all are `NEVER_GRADED`, printed loudly. **Exit 1** on malformed / coverage
    / regression; **exit 0** (loud warnings) on never-graded / stale.
 
-### `regrade.js` — paid, out-of-band, DEFERRED by design
-The calibrator: per case, a decision call (does the model fire the nudge on the bounded read?) +
-a judge call (does the nudge meet the rubric?), writing a transcript stamped with the current
-voice-hash. **Built the week the first `STALE` tripwire fires** — not before; an API harness
-nothing yet triggers, for a one-user tool, is the over-build. The full algorithm is documented at
-the top of `regrade.js`. Zero-dep when built (Node `fetch`, no SDK); env-gated on
-`ANTHROPIC_API_KEY`; never on the commit path; never imported by `src/`; never in the npm `files`
-allowlist (lives under `docs/`, which doesn't ship).
+### `regrade.js` — paid, out-of-band, BUILT (v0.35) — the recalibration engine
+The calibrator: per case, a **decision call** (does the model fire the nudge on the bounded read?)
++ a **judge call** (does the nudge meet the rubric?), writing `transcripts/<moment>/<id>.json`
+stamped with the current voice-hash (shared with replay via `moments.js`, so they can't disagree).
+Zero-dep (Node `fetch`, no SDK); env-gated on `ANTHROPIC_API_KEY`; never on the commit path; never
+imported by `src/`; never in the npm `files` allowlist (lives under `docs/`, doesn't ship).
+
+```
+node regrade.js --dry-run            # verify the pipeline (no API, no spend) — assembly + parser
+ANTHROPIC_API_KEY=… npm run regrade  # grade for real; writes transcripts replay then grades
+ANTHROPIC_API_KEY=… node …/regrade.js drift   # one moment
+BOSS_REGRADE_MODEL=… npm run regrade           # point at a different model (recalibration)
+```
+
+This is also the **recalibration engine** ([MODEL-RECALIBRATION.md](../../MODEL-RECALIBRATION.md)):
+re-running it against a new model is how BOSS rides the model curve — the transcripts refresh, and
+`replay.js` shows what changed. The pipeline is verified in `--dry-run`; the live grading is run
+out-of-band with a key.
 
 ## The zero-dep line
 
