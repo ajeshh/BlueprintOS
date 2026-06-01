@@ -2,6 +2,39 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.33.0 — 2026-06-01
+
+- **`caution` goes judge-backed — depth vs. avoidance, and the first reuse of the v0.32 judgment
+  machinery on an *existing* moment.** Moment #1 (the conscience's flagship "what does this
+  prove?") fires when ≥3 captures exist with no filled riskiest assumption. But the predicate
+  counts *total* captures — it can't tell **depth** (one idea getting sharper, converging toward a
+  canvas) from **avoidance** (capturing-lots / validating-nothing). That ambiguity is `m1-snf-021`,
+  which the gate runner has *skipped since v0.16* because no predicate can make the call. v0.33
+  makes caution judge-backed and resolves it.
+  - **Voice-frame upgrade** (`signalAsContext`, `caution` branch): the gate still opens, but the
+    model now silently reads the active idea's capture log and judges before voicing — *one idea
+    sharpening (narrowing the user, finding the real pain, wrestling the same question) = stay
+    silent; idea-hopping / feature-piling / market-notes-without-a-bet = fire and name the specific
+    pattern.* This is **strictly more restraint** — caution can now only fire *less*, never more.
+  - **First reuse of the judgment surface (v0.32) on an existing moment** — proves the machinery
+    isn't drift-specific. `replay.js` is now **multi-moment**: a `MOMENTS` registry (drift +
+    caution) drives one shared engine (per-moment voice-hash tripwire + well-formedness + coverage
+    + grading status). Adding a judgment moment = one registry row + a `<moment>.judgment.yml`.
+  - **`caution.judgment.yml`** — 7 labeled cases: 3 should-fire-avoidance (idea-hopping,
+    feature-piling, market-notes), 3 should-not-fire-depth (the m1-snf-021 case made concrete —
+    narrowing, wrestling, converging), 1 ambiguous (depth-with-a-detour, `acceptable:
+    [fires, silent]`). Content-rich capture-log fixtures (`fixtures-capturelog.js`) — the prose
+    matters because the judgment is semantic.
+  - **m1-snf-021 closed at the right layer:** the gate runner keeps skipping it (correctly — no
+    predicate can make the call), now annotated "RESOLVED in v0.33; covered by the judgment
+    surface," not "unimplemented." The case the gate *couldn't* test is exactly what the judgment
+    channel was built for — the clearest proof v0.32 earned its keep.
+  - Gate suite regression-clean **105/0/41**; both judgment moments well-formed + covered; caution
+    voice-hash updated (tripwire reads the live frame). End-to-end tested via `boss new`: caution
+    fires on scattered captures and ships the new depth-vs-avoidance instruction. The judgment
+    remains **not yet model-verified** (replay prints NEVER_GRADED loudly) — first STALE builds
+    `regrade.js`.
+
 ## 0.32.0 — 2026-06-01
 
 - **Judgment-quality eval channel — closing the hole `drift-loop` (v0.31) opened.** drift was the

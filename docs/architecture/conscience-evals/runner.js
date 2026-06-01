@@ -297,6 +297,9 @@ const SKIP_FEATURES = new Set([
   'acknowledged_in_devlog',
   'canvas_actively_being_edited',
   'single_session_brainstorm',
+  // single_idea_deepening (m1-snf-021): no predicate can make the depth-vs-avoidance
+  // call, so the GATE skips it. RESOLVED in v0.33 — covered by the judgment surface
+  // (judgment/caution.judgment.yml). Stays skipped here by design, not by omission.
   'single_idea_deepening',
 ]);
 

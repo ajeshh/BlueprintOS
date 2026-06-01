@@ -13,7 +13,8 @@
 // is discoverable, not folklore. It never runs on the every-commit path.
 //
 // ── THE ALGORITHM (build this when the tripwire first fires) ──────────────────
-// For each case in drift.judgment.yml:
+// For each judgment moment in replay.js's MOMENTS registry (drift, caution, …),
+// for each case in its <moment>.judgment.yml:
 //   1. Construct the BOUNDED READ the drift instruction names — the canvas
 //      riskiest-assumption line + the ~5 most recent devlog entries (from the
 //      DEVLOG_FIXTURES content_ref) + (none here; no open FEAT in fixtures).

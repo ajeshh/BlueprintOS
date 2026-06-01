@@ -15,7 +15,16 @@ gate confirms "risk named + work piling up + no validation plan," but whether th
 *testing* the named risk or *building around it* is a semantic judgment regex can't make. The
 gate-eval can't test that judgment — it stops at the door.
 
-This directory tests what's past the door.
+This directory tests what's past the door. It is **multi-moment** (v0.33): `drift` and `caution`
+both have judgment sets here, driven by one shared engine. Adding a judgment moment = one row in
+the `MOMENTS` registry in `replay.js` + a `<moment>.judgment.yml` + (if its read is a new surface)
+a fixtures file.
+
+`caution` (moment #1) went judge-backed in v0.33: its gate still opens on ≥3 captures with no
+filled risk, but the model now reads the capture log and judges **depth vs. avoidance** before
+voicing — the `m1-snf-021` question the gate runner has *skipped* since v0.16 (one idea getting
+sharper = silence; idea-hopping / feature-piling / market-notes = fire). The gate still can't make
+that call (no predicate can); `caution.judgment.yml` is where it's tested.
 
 ## Two surfaces, two cadences — and why they must not merge
 

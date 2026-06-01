@@ -698,7 +698,7 @@
     moment: caution
     suppress_if: ["single_idea_deepening"]
     confidence: low
-  why: "Current hook treats this same as breadth-drift (it counts total captures). Arguably going deep on ONE idea is the opposite of drift. Surface with low confidence + suppress hint; let model judge. Fix-target for refined detector."
+  why: "The gate (predicate) counts total captures, so it CANNOT tell depth from breadth-drift — it surfaces with low confidence + a suppress hint and lets the model judge. RESOLVED in v0.33: caution is now judge-backed (reads the capture log; stays silent on depth). This exact ambiguity is now covered by the judgment surface — see docs/architecture/conscience-evals/judgment/caution.judgment.yml (j-caut-101/102/103 = depth/silent). The gate keeps skipping it because no predicate can make this call; the judgment eval is where it's tested."
 
 # =============================================================================
 # Notes for the next pass
@@ -709,6 +709,8 @@
 # - The current hook does not distinguish status (active vs dropped) — see m1-sf-020, m1-snf-014.
 # - The suppress_if cases (mid-other-work, recently_fired, acknowledged) all require
 #   structured-output support — the hook needs to ship `{moment, confidence, evidence, suppress_if}`.
-# - Single-idea-deepening (m1-snf-021) is a real ambiguity worth Ajesh's read.
+# - Single-idea-deepening (m1-snf-021): RESOLVED in v0.33 — caution is now judge-backed and the
+#   depth-vs-avoidance call is covered in judgment/caution.judgment.yml (the gate still skips it
+#   because no predicate can make the call; the judgment surface is where it lives).
 # - Shame-tone failures aren't testable from the trigger alone — they test the signal *text*.
 #   Add a separate signal-language eval pass once the trigger evals stabilize.

@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.32.0)
+updated: 2026-06-01 (v0.33.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,21 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.32.0)
+## State (shipped, v0.33.0)
+- **`caution` goes judge-backed — depth vs. avoidance (v0.33.0).** Moment #1 (the conscience's
+  flagship) fires on ≥3 captures with no filled risk, but the predicate counts *total* captures —
+  it can't tell **depth** (one idea sharpening, converging toward a canvas) from **avoidance**
+  (capturing-lots/validating-nothing). That's `m1-snf-021`, which the gate runner has *skipped
+  since v0.16* because no predicate can make the call. v0.33 makes caution judge-backed: the gate
+  still opens, but the model reads the capture log and judges before voicing (**strictly more
+  restraint** — caution can now only fire *less*). **First reuse of the v0.32 judgment machinery on
+  an existing moment** — proves it's not drift-specific. `replay.js` is now **multi-moment** (a
+  `MOMENTS` registry drives one engine). Shipped: `caution.judgment.yml` (7 cases: 3
+  avoidance/fire, 3 depth/silent [m1-snf-021 made concrete], 1 ambiguous) + `fixtures-capturelog.js`
+  (depth-vs-scatter prose). m1-snf-021 closed at the right layer — the gate keeps skipping it
+  (correctly), now annotated "RESOLVED; covered by judgment surface." Gate suite **105/0/41**; both
+  judgment moments covered; end-to-end tested via `boss new`. Judgment still not model-verified
+  (loud NEVER_GRADED); first STALE builds `regrade.js`.
 - **Judgment-quality eval channel — closing the hole drift-loop opened (v0.32.0).** drift (v0.31)
   was the first moment whose *detection is a model judgment*; the gate-eval only tests that the
   hook fires on the right structural state (it stops at the door). Whether the model correctly
@@ -384,7 +398,16 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     exist), then **v0.34 — conscience cost instrumentation** (eat the `/ai-cost` dogfood as
     judge-moments multiply), then **(non-build) fold the 4.8 "tailwind" reframe into positioning**.
 
-15. **v0.33+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+15. ~~v0.33 — upgrade `caution` to judge-backed (resolve m1-snf-021).~~ **DONE in v0.33.0.**
+    Depth-vs-avoidance judgment in the caution voice frame (strictly more restraint); multi-moment
+    `replay.js` (MOMENTS registry); `caution.judgment.yml` (7 cases) + `fixtures-capturelog.js`;
+    m1-snf-021 resolved at the judgment layer. First reuse of the v0.32 machinery on an existing
+    moment — proves it generalizes. **4.8 arc remaining:** **v0.34 — conscience cost
+    instrumentation** (eat the `/ai-cost` dogfood — measure what a prompt-submit costs as
+    judge-moments multiply), then **(non-build) fold the "tailwind" reframe into positioning**
+    (mentor-pitch). After that the 4.8 pass is spent — return to the IDEA-012 catalog below.
+
+16. **v0.34+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
