@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-05-27 (v0.30.0)
+updated: 2026-06-01 (v0.31.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,28 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.30.0)
+## State (shipped, v0.31.0)
+- **`drift-loop` — the closest loop to why BOSS exists (v0.31.0).** Occasioned by a "what does
+  Opus 4.8 change about BOSS" pass; load-bearing finding was *the hook=detection / model=voice
+  boundary has moved* — a stronger model can do the semantic judgment regex can't. For 30
+  releases the conscience caught *structural* gaps but never the one PRINCIPLES.md names first:
+  **you named the bet that could sink this, then built something else.** New **`drift` moment**
+  (L1-mvp `drift-loop`, hook-runner): fires when a canvas has a real **Riskiest assumption** +
+  ≥3 devlog entries + no real **Experiment this week** plan — the gap *between* `caution` (no
+  risk named) and `done` (graduation). Confidence scales on devlog overshoot (3→low, 4–5→medium,
+  6+→high). **Architecture pinned via mentor-architect:** *not a new detector* — a predicate-
+  gated, **bounded-read** voicing instruction on the existing `UserPromptSubmit`→
+  `additionalContext` channel. Cheap predicate = the gate (and the cost control); model does the
+  stated-vs-actual comparison in the live turn over a bounded read (risk line + ~5 recent devlog
+  + open FEAT). **No model call in the hook, no new host primitive (IDEA-006 untouched), no new
+  state, no new predicate vocabulary.** Same shape as `/extract` but **hook-fired not skill-
+  invoked** (the drifted founder won't think to *ask*). Stays silent when on-aim. Cohort-aware.
+  `moment-drift.yml` (14 cases incl. placeholder-experiment edge, drift/capture co-fire, and the
+  documented `any_file_matches` masking limitation); runner's `buildCanvasFile` now writes the
+  experiment line. Suite **105/0/41** (up from 91). End-to-end tested in `/tmp`: fires low→high
+  as devlog grows, silent when the plan is recorded. L1-mvp now ships 12 skills + **8 loops**.
+  Honest scope: hook evals test the *gate*; judgment-quality is the model's layer (like
+  `/extract`), not this runner.
 - **Audit-driven hardening complete (v0.30.0).** Closes the two remaining discipline-hole
   gaps from the post-v0.26 audit. **`/cost-review` skill (L1-mvp)** + **`cost-review-loop`**
   (second time-of-work entry pattern; entry = budget doc exists, exit = ≥1 cost-review file
@@ -326,7 +347,14 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     entry pattern) + `cost-stale` moment + `/ai-failure-states` Eval-tested column +
     `/evals` failure-mode coverage requirement + 9 cost-stale eval cases. Audit closed.
 
-13. **v0.31+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+13. ~~v0.31 — `drift-loop` (work-vs-named-risk; the closest loop to why BOSS exists).~~
+    **DONE in v0.31.0.** New `drift` moment + `drift-loop` (L1-mvp, hook-runner) + `drift` voice
+    frame + `moment-drift.yml` (14 cases) + runner `buildCanvasFile` experiment-line support.
+    First moment fronting a model judgment the predicate can't make; architecture pinned via
+    mentor-architect (predicate-gated bounded-read voicing instruction, no new host primitive /
+    state / vocabulary). Suite 105/0/41.
+
+14. **v0.32+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question

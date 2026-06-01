@@ -2,6 +2,49 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.31.0 — 2026-06-01
+
+- **`drift-loop` — the closest loop to why BOSS exists, and the first moment that fronts a
+  *model judgment* the predicate can't make.** PRINCIPLES.md opens with *"build faster without
+  fooling themselves… continuously checking the work against real pain, real buyers."* For 30
+  releases the conscience caught *structural* gaps (no canvas, no budget, no failure-states)
+  but never the gap it names first: **you named the bet that could sink this, then spent your
+  sessions building something else.** v0.31 closes it — occasioned by a "what does Opus 4.8
+  change about BOSS" pass whose load-bearing finding was *the hook=detection / model=voice
+  boundary has moved*: a stronger model can do the semantic judgment regex can't, so the
+  conscience's first real "are you fooling yourself" check becomes buildable.
+  - **`drift-loop` (L1-mvp, hook-runner)** — fires the new `drift` moment when (a) a canvas has
+    a real **Riskiest assumption** (same predicate `canvas-loop` / `spec-loop` use) AND (b)
+    `docs/devlog.md` has ≥3 dated entries (work accumulating, same threshold as
+    `extraction-loop`) AND (c) no real **Experiment this week** validation plan exists yet.
+    Sits in the gap *between* `caution` (no risk named) and the `done` graduation (risk has a
+    plan). Confidence scales on devlog overshoot: 3 → low, 4–5 → medium, 6+ → high.
+  - **The architecture, pinned (mentor-architect pass):** this is **not a new detector** — it's
+    a *predicate-gated, bounded-read voicing instruction on the existing `UserPromptSubmit` →
+    `additionalContext` channel*. The cheap Node predicate is the gate (and the cost control);
+    the model does the stated-vs-actual comparison *in the live turn*, reading a **bounded** set
+    (riskiest-assumption line + ~5 recent devlog entries + the open FEAT — never the whole
+    project). No model call in the hook, **no new host primitive** (IDEA-006 contract untouched),
+    **no new state**, no new predicate vocabulary. Same shape as `extraction-loop`/`/extract`,
+    but **hook-fired not skill-invoked** — because a founder who has drifted from their own
+    stated bet is exactly the founder who won't think to *ask* whether they've drifted.
+  - **New `drift` voice frame** in `signalAsContext` (loop-runtime.js): instructs silent bounded
+    read → judge → name the *specific* gap ("you said X is the bet; the last sessions built Y, Z;
+    neither tests X") → point at `/canvas` or `/pretotype`. **Stay silent when on-aim** (silence
+    is the correct output). Not a "you've been productive!" reward, not a generic "you should
+    validate" line — the value is the specific comparison. Cohort-aware (returning-founder gets
+    the harder conviction cut; first-product gets "test your riskiest bet" taught plainly;
+    domain-expert gets the who-could-be-harmed lens on the named risk).
+  - **Eval coverage from the start** — `moment-drift.yml` (14 cases: 4 should-fire incl. the
+    placeholder-experiment edge + the drift/capture co-fire; 10 should-not incl. plan-recorded,
+    under-threshold, unnamed-risk, dropped-idea, pre-MVP, and the documented `any_file_matches`
+    masking limitation). Runner extended: `buildCanvasFile` now writes the experiment line.
+    Suite **105/0/41** (up from 91). *No moment ships without evals* — held. End-to-end tested
+    in `/tmp`: fires low→high as devlog grows, goes silent when the validation plan is recorded.
+  - L1-mvp now ships 12 skills + **8 loops**. Honest scope note: hook evals test the *gate*;
+    judgment-quality (does the model correctly call drift vs. on-aim) is the model's layer,
+    tested the way `/extract`'s judgment is — not this runner.
+
 ## 0.30.0 — 2026-05-27
 
 - **Closing the two remaining audit gaps — cost-log read cadence + failure-state stub

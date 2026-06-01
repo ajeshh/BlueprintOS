@@ -72,6 +72,15 @@
     `docs/ai-cost-budget.md` exists and no cost-review file is on record. Conscience emits
     the `cost-stale` moment; founder runs `/cost-review` to read the ledger. Second
     time-of-work entry pattern (declaration → read sequence).
+  - `drift-loop` — the work vs. the named risk (v0.31.0+). Opens when a canvas has a real
+    **Riskiest assumption** + `docs/devlog.md` has ≥3 dated entries + no real **Experiment
+    this week** validation plan. Conscience emits the `drift` moment — the gap *between*
+    `caution` (no risk named) and `done` (graduation). The first moment fronting a *model
+    judgment the predicate can't make*: the gate is cheap (risk named + work piling up + no
+    plan), but the model reads a bounded set (risk line + ~5 recent devlog + open FEAT) and
+    judges whether the work is *testing* the risk or building *around* it — naming the specific
+    gap, staying silent when on-aim. Closes when the validation plan is recorded (`/canvas`)
+    or run (`/pretotype`).
 - **Conventions:** `FEAT-NNN` for features in build (already listed in `docs/IDS.md`);
   `docs/devlog.md` is append-only (override grammar lives here per IDEA-008);
   `docs/RESUME.md` is the living state pointer; `docs/loops/` lives alongside `docs/ideas/`;

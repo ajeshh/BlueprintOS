@@ -346,6 +346,15 @@ function buildCanvasFile(ideaFile, canvas) {
       body.push(`- **Riskiest assumption:** ${raText}`);
     }
   }
+  // Experiment / validation-plan line (v0.31 — drift-loop's exit artifact).
+  // Default: absent (legacy cases test the riskiest-assumption gate only). With
+  // `experiment_text` it's a real plan (satisfies drift-loop's exit); with
+  // `experiment_placeholder: true` it's the `_(...)_` stub (does NOT satisfy exit).
+  if (canvas.experiment_text !== undefined && canvas.experiment_text !== '') {
+    body.push(`- **Experiment this week:** ${canvas.experiment_text}`);
+  } else if (canvas.experiment_placeholder) {
+    body.push(`- **Experiment this week:** _(the smallest test to prove/disprove it)_`);
+  }
   body.push('');
   return { file: canvasFile, body: body.join('\n') };
 }
@@ -537,7 +546,8 @@ function main() {
   const momentCoherence = loadMoment('moment-coherence.yml');
   const momentCapture = loadMoment('moment-capture.yml');
   const momentCostStale = loadMoment('moment-cost-stale.yml');
-  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence, ...momentCapture, ...momentCostStale];
+  const momentDrift = loadMoment('moment-drift.yml');
+  const all = [...moment1, ...moment2, ...momentCost, ...momentFailureMode, ...momentCoherence, ...momentCapture, ...momentCostStale, ...momentDrift];
 
   console.log(`\n  conscience-evals · ${all.length} examples loaded`);
   console.log(`    moment-1 (caution):       ${moment1.length}`);
@@ -546,7 +556,8 @@ function main() {
   console.log(`    moment-failure-mode:      ${momentFailureMode.length}`);
   console.log(`    moment-coherence:         ${momentCoherence.length}`);
   console.log(`    moment-capture:           ${momentCapture.length}`);
-  console.log(`    moment-cost-stale:        ${momentCostStale.length}\n`);
+  console.log(`    moment-cost-stale:        ${momentCostStale.length}`);
+  console.log(`    moment-drift:             ${momentDrift.length}\n`);
 
   const results = { passed: [], failed: [], skipped: [], errors: [] };
   const byFailureMode = {}; // for the summary
