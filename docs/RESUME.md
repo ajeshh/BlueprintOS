@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.35.0)
+updated: 2026-06-01 (v0.36.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,29 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.35.0)
+## State (shipped, v0.36.0)
+- **`boss board` — a live read of what's in flight (v0.36.0, IDEA-015 Phase 1).** Occasioned by
+  Ajesh's "internal kanban / fire an html site / Obsidian / almost a Trello board" idea. Convened six
+  advisors (venture, architect, humane, designer + vibe-virtuoso & indie-hacker personas) — unanimous,
+  and it collapsed to **one fork: build the *view*, refuse the *app*.** A board BOSS *renders* from
+  state it already holds externalizes the arc for a tired brain; a board BOSS *becomes* (log in, drag
+  cards, sync) is the photo-negative of BOSS + Canvas R&H #1 in a UI. **The founder never touches the
+  board — they change the work (`/triage`/`/canvas`/`/spec`) and it re-renders.** Shipped: `boss board`
+  CLI subcommand ([src/board.js](../src/board.js)) deriving four columns (Captured → Taking shape →
+  Building → Shipped). **Frontmatter is truth — reads IDEA-*/FEAT-* `status`, never INDEX.md** (a
+  maintained table that drifts; proved it on first run — read IDEA-003/IDEA-014 as `building` from
+  frontmatter while INDEX still said `exploring`). **Pure projection, no `.boss/board.json`** → Ajesh's
+  "picks something out of order / randomly adds a task" worry is answered by *statelessness*, not merge
+  logic (a derived render has nothing to corrupt). Promoted ideas show as their FEAT card (no
+  double-count); blocked FEATs flag `· blocked`. **Humane override honored:** riskiest-assumption status
+  sits *above* the columns (capture-but-nothing-tested → plain evidence line → `/canvas`); empty columns
+  shown not hidden; no gamification. **CLI verb, not a skill** (deterministic projection, no model in
+  loop — the v0.34 anti-pattern); ships with the binary, no manifest change; lands in IDEA-006 Layer 1
+  (zero host contract). **`--html` + Obsidian deferred behind an earn-it gate** (run it unprompted each
+  session → build the render; else the gate saved the work — the discipline BOSS preaches, on itself).
+  End-to-end tested in `/tmp` (empty / caution banner / canvas→Taking-shape / FEAT supersession /
+  blocked / shipped / placeholder-canvas negative). **Note:** INDEX.md has stale statuses for IDEA-003
+  and IDEA-014 (the board surfaced it) — separate cleanup, not done here.
 - **Recalibration engine — `regrade.js` built + model-recalibration named as a standing discipline
   (v0.35.0, IDEA-014 Phase 1).** From Ajesh's direction: adapting to new/different models should be
   a *standing capability*, not the ad-hoc v0.31–v0.34 reaction. Chosen as the "keep improving

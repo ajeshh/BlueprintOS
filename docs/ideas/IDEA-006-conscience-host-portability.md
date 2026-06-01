@@ -15,7 +15,9 @@ created: 2026-05-21
 - **The three layers (the real model):**
   1. **CLI + state** ([src/](../../src/), `.boss/`, `~/.boss/registry.json`) — zero-dep Node + JSON,
      stack-neutral. **Already agent-agnostic.** Any tool can run `boss new/adopt`, read `.boss/`,
-     render the canvas. No Claude required for the scaffolding mechanics.
+     render the canvas. No Claude required for the scaffolding mechanics. *(Data point, v0.36.0:
+     `boss board` ([[IDEA-015]]) landed here by design — a deterministic render over file frontmatter,
+     zero host contract. Layer 1 keeps earning its keep: real founder value with no Claude dependency.)*
   2. **Conscience surface** — the skills/agents/hooks and the CLAUDE.md voice. **Claude Code-bound
      today.** This is the layer that makes BOSS *behave* like a conscience rather than a CLI you call.
   3. **The arc** — memory, RESUME, canvas, `.boss` state. The story-holder substrate the

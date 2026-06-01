@@ -2,6 +2,41 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.36.0 — 2026-06-01
+
+- **`boss board` — a live read of what's in flight (IDEA-015, Phase 1).** Occasioned by Ajesh's
+  "internal kanban / fire a html site / Obsidian / almost a Trello board" idea. Convened six advisors
+  (venture, architect, humane, designer + vibe-virtuoso & indie-hacker persona reactions); the result
+  was **unanimous and collapses to one fork: build the *view*, refuse the *app*.** A board BOSS
+  *renders* from state it already holds externalizes the arc for a tired brain; a board BOSS *becomes*
+  (log in, drag cards, keep in sync) is the photo-negative of BOSS and Canvas R&H #1 wearing a UI.
+  **The founder never touches the board — they change the work and it re-renders.**
+  - **`boss board` (new CLI subcommand, [src/board.js](../src/board.js))** — derives four columns
+    (Captured → Taking shape → Building → Shipped) from files that already exist. **Frontmatter is
+    truth — reads each IDEA-*/FEAT-* file's `status`, never `docs/ideas/INDEX.md`** (a hand-maintained
+    table that drifts; a board that trusts a drifting source lies). Pure projection: no
+    `.boss/board.json`, no second source of truth, nothing to sync — so concurrent / out-of-order /
+    agent edits can't corrupt a render (the answer to Ajesh's "picks something out of order" worry is
+    *statelessness*, not merge logic). A promoted idea is represented by its FEAT card (no
+    double-count); blocked FEATs flag `· blocked`.
+  - **Humane constraint honored (mentor-humane override):** the riskiest-assumption status sits
+    *above* the columns — when there's capture but nothing pressure-tested, the evidence line says so
+    plainly and points at `/canvas`. Empty columns are shown, not hidden (the empty cell is the
+    diagnostic). Plain factual copy — no completion-celebration, no gamification, no notifications.
+  - **Deterministic projection, no model in the loop** → it's a CLI verb, not a skill (spending model
+    tokens on `readFile` + string-template would be the anti-pattern the v0.34 frequency-ledger work
+    fought). Ships with the binary → available in every project automatically; **no manifest change**.
+    Lands in IDEA-006's already-portable Layer 1 (zero host contract).
+  - **Earned its keep on first run:** reading BOSS's own repo, it surfaced real INDEX-vs-files drift
+    (IDEA-003 / IDEA-014 are `building` in their frontmatter while INDEX still said `exploring`) — the
+    exact failure mode that justified reading frontmatter over the table.
+  - **Deferred by design (the discipline BOSS preaches, applied to itself):** `--html` (read-only,
+    generate-on-demand, same data model) is gated behind *earn it first* — if `boss board` gets run
+    unprompted each session, build the render; if not, the gate saved the work. Obsidian is mostly
+    documentation (`docs/` is already a vault), not a build. Both captured in IDEA-015 with the
+    write-back caveats. End-to-end tested in `/tmp` (empty / captured-only caution banner / canvas →
+    Taking shape / FEAT supersession / blocked / shipped / placeholder-canvas negative test).
+
 ## 0.35.0 — 2026-06-01
 
 - **The recalibration engine — `regrade.js` built + run-ready, and model-recalibration named as a

@@ -7,6 +7,7 @@ import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
 import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
+import { board } from './board.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -154,6 +155,12 @@ function cmdStatus(args) {
   console.log('');
 }
 
+function cmdBoard() {
+  const stamp = readStamp(process.cwd());
+  if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+  board(process.cwd(), stamp.name);
+}
+
 function cmdList() {
   const projects = listProjects();
   if (!projects.length) {
@@ -280,6 +287,7 @@ export function run(argv) {
     case 'new': return cmdNew(args);
     case 'unlock': return cmdUnlock(args);
     case 'status': return cmdStatus(args);
+    case 'board': return cmdBoard();
     case 'list': return cmdList();
     case 'sync': return cmdSync(args);
     case 'learn': return cmdLearn(args);
@@ -292,6 +300,7 @@ export function run(argv) {
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
       console.log('  boss status              this project: mode, pinned version, drift');
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
+      console.log('  boss board               a live read of what\'s in flight (captured → shipped)');
       console.log('  boss list                all connected projects');
       console.log('  boss sync [--apply]      pull current BOSS skills/agents/hooks into this project (DOWN)');
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
