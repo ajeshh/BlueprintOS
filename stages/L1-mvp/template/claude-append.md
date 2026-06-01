@@ -45,6 +45,13 @@
     via `boss learn`) or **DOWN** (into the app's `src/`) — or honest **NOT-YET**. The
     LLM-as-judge counterpart to predicate-based loops; closes `extraction-loop`. *Two
     destinations, not one.*
+  - `/drift-deep` — the deep, whole-project drift audit (v0.37.0+). The 1M-context *"am I
+    fooling myself across EVERYTHING I've built?"* counterpart to the cheap, bounded `drift`
+    hook moment. Reads the canvas + ALL devlog + every FEAT spec + the actual `src/` code and
+    judges whether the body of work validates the named riskiest assumption or builds around
+    it. Verdict (on-aim / drifting / mixed) → `docs/drift-audits/DRIFT-YYYY-MM-DD.md`.
+    Deliberate + founder-invoked (the cost discipline: a whole-project read can't be
+    per-prompt) — no loop, no nudge, you run it when you want the truth.
   - `/log` — devlog
   - `/close` — session-end RESUME update
 - **Builder agents:** `tester` (owns the smoke gate + acceptance checks for FEATs);

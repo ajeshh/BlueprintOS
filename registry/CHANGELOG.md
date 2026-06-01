@@ -2,6 +2,37 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.37.0 — 2026-06-01
+
+- **`/drift-deep` — the deep, whole-project drift audit. The biggest unused 4.8 lever, now built.**
+  The hook `drift` moment (v0.31) is a cheap always-on tripwire: it reads ~5 recent entries and
+  asks "you named a risk, you're piling work, nothing tests it — is the recent work on-aim?" This
+  is the **deliberate, founder-invoked counterpart** that a bounded read can't do: *read EVERYTHING
+  I've built and tell me, across the whole body of work, whether I'm validating my riskiest bet or
+  building around it.* The 1M-context "am I fooling myself across everything" check — the original
+  finding from the very first 4.8 pass.
+  - **Why a skill, not a hook moment:** a whole-project read can't fire per-prompt — that's the
+    expensive-AI-app trap the v0.34 cost discipline guards against. So the cheap moment stays the
+    everyday tripwire; this is the audit you *invoke* when you want the truth, not a glance. The
+    restraint (no loop, no nudge to "run your audit") is the design — making it a recurring
+    obligation would be the premature ceremony BOSS avoids.
+  - **Broader than the gate** in two ways: it runs even when a validation plan exists (did you
+    *execute* the experiment, or write the plan-line and drift from running it?), and it reads the
+    **actual `src/` code** (what you built is the truest record of what you bet on), not just the
+    devlog tail.
+  - **`/drift-deep` (L1-mvp skill)** — reads the canvas (bet + plan + cells) + ALL devlog + every
+    FEAT spec + `src/` structurally + the ideas; judges each body of work against the bet ("does
+    this *test* the risk or build *around* it?"); reaches a verdict (on-aim / drifting / mixed) with
+    confidence + named gaps + the smallest re-aim; writes `docs/drift-audits/DRIFT-YYYY-MM-DD.md`.
+    Cohort-aware (vibe-virtuoso served most — ships a lot, validates little; domain-expert gets the
+    who-could-be-harmed humane lens on an un-validated risk). Routes back to `/canvas` / `/pretotype`.
+  - **Integration:** the cheap `drift` hook moment now points at `/drift-deep` for the full audit
+    (one terse clause — the cheap nudge stays cheap). Follows the `/extract` precedent — a deliberate
+    skill judgment, tested in use, not by the hook-judgment-eval surface (noted in the skill).
+  - L1-mvp now ships 14 skills. Gate + judgment suites 105/0/41 (the drift voice-hash shifted from
+    the pointer — the tripwire working as designed; no transcripts, so no STALE). The 4.8 leverage
+    arc's last deferred item, landed.
+
 ## 0.36.0 — 2026-06-01
 
 - **`boss board` — a live read of what's in flight (IDEA-015, Phase 1).** Occasioned by Ajesh's

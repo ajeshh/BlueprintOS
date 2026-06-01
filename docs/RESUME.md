@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.36.0)
+updated: 2026-06-01 (v0.37.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,21 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.36.0)
+## State (shipped, v0.37.0)
+- **`/drift-deep` — the deep, whole-project drift audit (v0.37.0). The biggest unused 4.8 lever,
+  built.** The hook `drift` moment is a cheap always-on tripwire (~5-entry bounded read); this is the
+  **deliberate, founder-invoked** counterpart — *read EVERYTHING I've built and tell me whether I'm
+  validating my riskiest bet or building around it.* The 1M-context "am I fooling myself across
+  everything" check (the original finding from the first 4.8 pass). **Skill, not a hook moment** — a
+  whole-project read can't fire per-prompt (the v0.34 cost trap); restraint (no loop, no nudge) is the
+  design. Broader than the gate: runs even with a validation plan on record (did you *execute* it or
+  drift from running it?) and reads the **actual `src/` code**, not just the devlog tail. `/drift-deep`
+  (L1-mvp) reads canvas + ALL devlog + every FEAT spec + `src/` + ideas → verdict (on-aim/drifting/
+  mixed) + gaps + smallest re-aim → `docs/drift-audits/DRIFT-YYYY-MM-DD.md`. Cohort-aware
+  (vibe-virtuoso served most; domain-expert gets the who-could-be-harmed lens). The cheap `drift`
+  moment now points at it. Follows the `/extract` precedent (deliberate skill judgment, not the
+  hook-judgment-eval surface). L1-mvp now ships 14 skills; suites 105/0/41 (drift voice-hash shifted
+  from the pointer — tripwire working as designed). **The 4.8 leverage arc's last deferred item.**
 - **`boss board` — a live read of what's in flight (v0.36.0, IDEA-015 Phase 1).** Occasioned by
   Ajesh's "internal kanban / fire an html site / Obsidian / almost a Trello board" idea. Convened six
   advisors (venture, architect, humane, designer + vibe-virtuoso & indie-hacker personas) — unanimous,
