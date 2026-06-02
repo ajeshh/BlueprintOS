@@ -2,6 +2,28 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.44.0 — 2026-06-02
+
+- **`secrets-guard` PreToolUse hook — the high-stakes ceiling, shipped opt-in (closes the RVW-005
+  follow-on, the principled way).** The v0.42 deny-list is the universal zero-cost floor; this hook is
+  the broader-coverage ceiling — and the v0.42.1 reconsideration said it must NOT be a universal
+  default (a `PreToolUse` hook spawns a process on *every* tool call). So it ships **dormant**:
+  `library/hooks/secrets-guard.js` (canonical) + `.claude/hooks/secrets-guard.js` in the L0 template,
+  **not registered by default.** Registration is the on-switch (an unregistered hook costs nothing),
+  recommended for the `domain-expert` / regulated cohort.
+  - **Behavior:** Read/Edit/NotebookEdit of a secrets file (`.env`/`.env.*`/`secrets/**`) → **deny**
+    (reading secret contents into context is the leak); Bash or MCP referencing a secrets path →
+    **ask** (don't hard-block legit `.env` *creation* — surface it to the human); else allow.
+    **Fail-open** (any parse/runtime surprise → allow; a guard that breaks the session is worse than
+    one that occasionally misses, and the deny-list floor still hard-blocks the common vectors).
+  - **Tested** (10 cases, piped PreToolUse events): denies Read/Edit of `.env`/`.env.local`/
+    `secrets/`; allows `src/app.js`, `npm test`, and `.environment.ts` (no false positive); asks on
+    `cat .env` + MCP-with-secrets; fail-open on malformed input. Zero-dep Node, output per the Claude
+    Code PreToolUse contract (JSON `permissionDecision`, exit 0).
+  - **Cohort auto-registration deferred** (a clean follow-on): wiring `domain-expert` cohort setup to
+    register it automatically. Today it's documented opt-in (snippet in the file header + the
+    `context-discipline` practice).
+
 ## 0.43.0 — 2026-06-02
 
 - **Wayfinding, Pass 1 (IDEA-018) — `boss map` + a doc generator that can't rot.** Occasioned by a

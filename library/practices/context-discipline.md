@@ -86,6 +86,11 @@ Claude Code glob syntax (`./` = relative to cwd; `**` = any depth):
   regulated/PHI work or make it opt-in, don't impose per-call overhead on every project by default.
   A real secret manager is beyond both. (Cost discipline: don't add always-on machinery for marginal
   coverage — the framework BOSS warns founders against becoming.)
+  - **BOSS ships this hook dormant** as `.claude/hooks/secrets-guard.js` (canonical in
+    `library/hooks/secrets-guard.js`): Read/Edit of a secrets file → **deny**, Bash/MCP referencing
+    one → **ask**, else allow; fail-open. It is **not registered by default** (an unregistered hook
+    costs nothing — registration is the on-switch). Turn it on by adding the `PreToolUse` block in the
+    file header. **Recommended for the `domain-expert` / regulated cohort.**
 
 ### 4. Filter noisy tool output before it enters context
 A **PostToolUse hook** can compress a 10k-line build/test log to a short error summary before it

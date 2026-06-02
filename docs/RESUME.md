@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.43.0)
+updated: 2026-06-02 (v0.44.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,15 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.43.0)
+## State (shipped, v0.44.0)
+- **`secrets-guard` PreToolUse hook — opt-in high-stakes ceiling (v0.44.0, closes RVW-005 follow-on).**
+  The deny-list (v0.42) is the universal zero-cost floor; this hook is broader coverage, shipped
+  **dormant** (`library/hooks/secrets-guard.js` + L0 template), **not registered by default** — a
+  `PreToolUse` hook spawns per tool call, so registration is the opt-in on-switch (recommended for
+  `domain-expert`/regulated). Read/Edit of `.env`/`secrets/**` → deny; Bash/MCP touching them → ask;
+  else allow; fail-open. Tested 10 cases (incl. `.environment.ts` no-false-positive + malformed
+  fail-open). **Deferred:** auto-register for domain-expert cohort. (Built on "try again" after the
+  v0.42.1 reconsideration — done the principled cost-gated way, not universal.)
 - **Wayfinding Pass 1 — `boss map` + a doc generator that can't rot (v0.43.0, IDEA-018).** A
   docs-health pass found the README **19 releases stale** and, worse, **no "how to use BOSS" guide at
   all**. The fix is shaped like BOSS: wayfinding, not a manual. Decisions locked with Ajesh — **mode
