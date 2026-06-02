@@ -25,7 +25,11 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   first**. Shipped: **`boss map`** (CLI, ships) — the *live* cheatsheet, a pure `boss board`-style
   render of state the project already holds (`.boss` stamp + installed `SKILL.md`): *you are here ·
   available now (grouped by the rung that unlocked each skill) · one unlock away (next rung's skills,
-  real project name substituted) · standing controls.* The de-rot mechanism: **`src/modes.js`** is the
+  real project name substituted) · standing controls.* **Pass 2 (`docs/GUIDE.md`) + Pass D (README↔GUIDE wiring)
+  also shipped same-day** — the read-once walkthrough: situational pace-group router (per IDEA-019,
+  *situation not person*), 1-paragraph mental model, per-rung walk, mentor-routing table; repo-level,
+  points at `/welcome`+`boss map` not duplicating them. **Wayfinding arc complete.** The de-rot
+  mechanism: **`src/modes.js`** is the
   single source both `boss map` and **`scripts/gen-docs.js`** (`npm run gen:docs`) read, so the live
   map and the generated **`docs/CHEATSHEET.md`** + **`docs/SKILLS.md`** can't disagree — the per-mode
   lists are now a build artifact, not a memory test (the actual fix for what bit the README). Also

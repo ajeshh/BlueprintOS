@@ -130,7 +130,8 @@ boss conscience resume          # bring it back
 ```
 
 `boss map` is the live cheatsheet — run it any time to see what's available in your current mode and
-what the next unlock adds. The whole ladder at a glance lives in [`docs/CHEATSHEET.md`](docs/CHEATSHEET.md).
+what the next unlock adds. For the read-once walkthrough, see [`docs/GUIDE.md`](docs/GUIDE.md); the
+whole ladder at a glance lives in [`docs/CHEATSHEET.md`](docs/CHEATSHEET.md).
 
 ## The principle
 

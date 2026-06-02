@@ -71,9 +71,15 @@ created: 2026-06-02
 - **Pass 1 = A + B — SHIPPED v0.43.0.** `boss map` (CLI, ships to founders), `src/modes.js` (shared
   source), `scripts/gen-docs.js` (`npm run gen:docs`), `docs/CHEATSHEET.md` + `docs/SKILLS.md`
   (generated). Tested end-to-end in `/tmp`; eval suite clean; zero-dep held.
-- **Pass 2 = C — NEXT.** Hand-write `docs/GUIDE.md` against the generated surfaces (the persona
-  router + one-paragraph mental model + per-rung walkthrough). Then **D** (README ↔ GUIDE ↔ /welcome
-  cross-links).
+- **Pass 2 = C — SHIPPED 2026-06-02.** `docs/GUIDE.md` written against the generated surfaces:
+  situational pace-group router (per [[IDEA-019]] — *situation not person*; 4 groups), one-paragraph
+  mental model (consolidated from PRINCIPLES' pseudo-app-vs-real-business spine), per-rung walk (what
+  it's for · few skills you actually use · climb signal · who to ask), mentor-routing table, two
+  "remember" beats. Repo-level (not templated to founders, per the split-audience decision); points
+  *at* `/welcome` + `boss map` rather than duplicating them.
+- **Pass D — DONE 2026-06-02.** README → GUIDE pointer added; generated CHEATSHEET already links
+  GUIDE. `/welcome` deliberately NOT linked to GUIDE (founders don't have the repo-level file; their
+  in-project surfaces are `/welcome` + `boss map`). Wayfinding arc complete.
 
 ## Open questions (carried forward)
 - **Freshness enforcement:** is a generated-doc staleness check worth a moment/loop (the way
