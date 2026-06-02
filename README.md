@@ -69,13 +69,16 @@ work around.
 
 `boss new` (Quickstart mode):
 - 3 agents — `pm`, `coder-generalist`, `mentor-venture`
-- 5 skills — `/boss`, `/triage`, `/canvas`, `/boss-sync`, `/boss-learn`
+- 6 skills — `/welcome`, `/boss`, `/triage`, `/canvas`, `/boss-sync`, `/boss-learn`
 - The conscience hook + 2 loops (`capture-loop`, `canvas-loop`)
 
 `boss unlock mvp` (additive):
 - 4 more agents — `tester`, `program-manager`, `mentor-architect`, `mentor-gtm`
-- 7 more skills — `/spec`, `/smoke`, `/evals`, `/pretotype`, `/design-tokens-init`, `/log`, `/close`
-- 3 more loops — `spec-loop`, `pretotype-loop`, `design-tokens-loop`
+- 13 more skills — `/spec`, `/smoke`, `/evals`, `/pretotype`, `/design-tokens-init`, `/log`,
+  `/close`, `/extract`, `/drift-deep`, `/ai-first-init`, `/ai-cost`, `/ai-failure-states`,
+  `/cost-review`
+- 8 more loops — `spec-loop`, `pretotype-loop`, `design-tokens-loop`, `extraction-loop`,
+  `drift-loop`, `cost-budget-loop`, `cost-review-loop`, `ai-failure-state-loop`
 
 `boss unlock v1` (additive):
 - 7 more agents — `ui-designer`, `ux-designer`, `db-architect` + 4 template mentors (business,
@@ -141,13 +144,15 @@ authority).
 
 ## Where this is
 
-v0.23.0. Quickstart + MVP + V1 modes authored. 23 capability releases. Self-hosted (BOSS
-itself runs in MVP mode, using BOSS). All discipline patterns demonstrated by BOSS-on-BOSS
-before they ship anywhere else.
+v0.42.1. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
+Self-hosted (BOSS itself runs in MVP mode, using BOSS). All discipline patterns demonstrated
+by BOSS-on-BOSS before they ship anywhere else.
 
-**This is alpha.** The conscience eval set has 84 cases; the conscience has been pressure-
-tested only against synthetic personas. Real-founder validation hasn't happened yet
-(deliberate override — see [`docs/dossier/boss-advisory-pass-001.md`](docs/dossier/boss-advisory-pass-001.md)).
+**This is alpha.** The conscience runs a gate-eval suite (105 passing) plus a model-verified
+judgment surface — its drift / caution / capture calls are graded against labeled sets, not
+just vibes. But it's been pressure-tested mostly against synthetic personas; real-founder
+validation hasn't happened yet (deliberate override — see
+[`docs/dossier/boss-advisory-pass-001.md`](docs/dossier/boss-advisory-pass-001.md)).
 If you try BOSS and it falls down, *that's the most useful thing you can tell me.*
 
 ## License + shape
