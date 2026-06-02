@@ -79,8 +79,13 @@ Claude Code glob syntax (`./` = relative to cwd; `**` = any depth):
 - **There is no `.claudeignore` file** in Claude Code (a common myth). `permissions.deny` is the
   mechanism; `.gitignore` is separate and only stops commits, not reads.
 - For coverage that also catches MCP tools and skills added later, a **PreToolUse hook** can reject
-  any tool call touching a secret path (exit code `2`, or JSON `permissionDecision: "deny"`). The
-  deny-list is the floor; a secrets-guard hook is the ceiling; a real secret manager is beyond both.
+  any tool call touching a secret path (exit code `2`, or JSON `permissionDecision: "deny"`). **But
+  weigh the cost:** a `PreToolUse` hook fires on *every tool call* (a process spawn per call — real
+  latency), where the deny-list is a zero-cost native check. So: the **deny-list is the universal
+  floor** (always ship it); a **secrets-guard hook is a high-stakes ceiling** — reserve it for
+  regulated/PHI work or make it opt-in, don't impose per-call overhead on every project by default.
+  A real secret manager is beyond both. (Cost discipline: don't add always-on machinery for marginal
+  coverage — the framework BOSS warns founders against becoming.)
 
 ### 4. Filter noisy tool output before it enters context
 A **PostToolUse hook** can compress a 10k-line build/test log to a short error summary before it

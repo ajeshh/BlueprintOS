@@ -2,6 +2,27 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.42.1 — 2026-06-02
+
+- **BOSS eats its own context-discipline dogfood + sharpens the practice (the learning loop in real
+  time).** Minutes after shipping `context-discipline` (v0.42.0), applied it to BOSS itself and
+  refined it with what doing so taught.
+  - **Dogfood (DOWN):** the recency-window rule (RVW-002) applied to BOSS's own `docs/RESUME.md` — the
+    "State" section was a 25-entry append log read at every session start. Trimmed to the **5 most
+    recent** entries; older versions point to `registry/CHANGELOG.md` (which carries all 43 versions —
+    confirmed before cutting, so it's non-destructive). RESUME dropped **727 → 346 lines.** BOSS now
+    practices the leanness it prescribes.
+  - **Practice sharpening (the part that matters):** reconsidered the deferred PreToolUse secrets-guard
+    hook and recorded *why* it's deferred, not just *that* it is. A `PreToolUse` hook fires a process
+    on **every tool call** (real latency), where `permissions.deny` is a zero-cost native check. So the
+    practice now states: the **deny-list is the universal floor** (always ship); a **secrets-guard hook
+    is a high-stakes/opt-in ceiling** (regulated/PHI cohorts), **not** a universal default — adding
+    always-on per-call machinery for marginal coverage is the framework-bloat BOSS warns founders
+    against (R&H #1 / IDEA-013 cost discipline). This is `/vet`'s skepticism turned inward: even an
+    ADOPT's "ceiling" gets cost-weighed before it ships to everyone.
+  - No template/CLI behavior change beyond the doc + RESUME; the v0.42.0 deny-default still stands as
+    the shipped safe-default.
+
 ## 0.42.0 — 2026-06-02
 
 - **`/boss-learn` routes the sweep's first ADOPT — a "context discipline" practice, UP + a DOWN
