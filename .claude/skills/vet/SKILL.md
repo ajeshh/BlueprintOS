@@ -45,8 +45,11 @@ for every post you skim is exactly the ceremony BOSS refuses (PRINCIPLE #2).
 
 The claim arrives one of three ways — handle whichever you're given:
 - **A file in the drop zone** — `docs/research/inbox/*` (a `.md` note, a paste, a saved article, a
-  one-line file holding a URL). If `/vet` is run with no argument, read the inbox and take the
-  oldest un-vetted item first (one per run — see Rules).
+  one-line file holding a URL). If `/vet` is run with **no argument**, list the un-vetted inbox items
+  (those with no `resolved:` line and no matching verdict) oldest-first, then vet the oldest — or, if
+  there are several, ask whether to **sweep them all** (see *Batch sweep* below).
+- **A sweep** — `/vet --all` vets *every* un-vetted inbox item, each as its own full skeptical pass
+  with its own `RVW-NNN` verdict, then prints one summary table. Drop a pile, sweep once.
 - **A path or URL passed inline** — `/vet docs/research/inbox/onboarding.md` or `/vet <url>`. If it's
   a URL, fetch it (WebFetch) and read the actual content, not the headline.
 - **Pasted text** — vet it directly.
@@ -159,6 +162,28 @@ promotion. After you confirm the verdict:
 Once vetted, move (or note) the inbox item as resolved — the verdict file is now the record. Don't
 delete the source if the verdict was NOT-YET (you'll want it when the re-open condition hits).
 
+## Batch sweep (`/vet --all`)
+
+The intended rhythm: **accumulate, then sweep.** Drop claims into `docs/research/inbox/` as you find
+them — no need to vet each on arrival — then run `/vet --all` to triage the whole pile at once.
+
+The sweep is **many full passes in sequence, not one pass over many.** Each un-vetted item gets the
+complete treatment — its own orient → rubric → verdict → `RVW-NNN` file. The skill does not get
+shallower because the queue is longer; if the pile is large, say so and work through it, don't skim.
+
+After the sweep, print one summary table so the pile is legible at a glance:
+
+```
+| RVW | Claim | Verdict | One-line why |
+|-----|-------|---------|--------------|
+| 001 | four-rule CLAUDE.md | REJECT | already encoded as principles + cohort-aware conscience |
+| 002 | lean/modular CLAUDE.md | ADAPT | apply the recency-window to RESUME.md State |
+| …   | …     | …       | … |
+```
+
+Then list the ADOPT/ADAPT items that want a `/boss-learn` hand-off, so the actionable ones don't get
+lost in the triage. Skip already-vetted items (those with a `resolved:` line or an existing verdict).
+
 ## What this skill is NOT
 
 - **Not `/boss-learn`.** That routes proven patterns; this judges unproven claims. ADOPT *hands to*
@@ -180,7 +205,10 @@ delete the source if the verdict was NOT-YET (you'll want it when the re-open co
   it's a debate you'll have again.
 - **The humane lens vetoes.** Principle #6 / `mentor-humane` can sink a claim on harm alone, even one
   that's otherwise sound and well-evidenced.
-- **One claim per run.** If a source makes several, vet the load-bearing one; let the rest surface as
-  their own runs. More than one means you're inventorying, not judging.
+- **One claim per verdict.** Each claim gets its *own* full pass and its *own* `RVW-NNN` file — never
+  collapse several claims into one shallow verdict. A single source making several claims → vet the
+  load-bearing one, surface the rest as their own inbox items. Batch sweep (`/vet --all`) is fine and
+  encouraged: it's many full passes in sequence, and depth-per-claim is exactly what this rule
+  protects.
 - **Whether, not where.** `/vet` decides if a claim earns a place; `/boss-learn` decides UP vs DOWN.
   Don't collapse the two — the separation is the check.

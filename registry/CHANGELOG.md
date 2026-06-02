@@ -2,6 +2,25 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.40.1 — 2026-06-02
+
+- **`/vet` gains batch sweep — drop a pile, vet once.** From dogfooding `/vet` on real drops (RVW-001,
+  RVW-002): the natural rhythm is *accumulate, then sweep*, not vet-on-arrival. `/vet --all` now vets
+  every un-vetted inbox item — **each as its own full skeptical pass with its own `RVW-NNN` verdict**
+  — then prints one summary table + the ADOPT/ADAPT hand-off list. No-arg `/vet` lists un-vetted items
+  oldest-first and offers the sweep. Already-vetted items (a `resolved:` line or an existing verdict)
+  are skipped. Clarified the old "one claim per run" rule → **"one claim per verdict"**: it always
+  protected *depth-per-claim* (never collapse several claims into one shallow verdict), never forbade
+  vetting many in sequence — the sweep is many full passes, not one pass over many.
+- **First two verdicts on the record (dogfood):** `RVW-001` — the four-rule "Karpathy" CLAUDE.md →
+  **REJECT** (BOSS already encodes all four as principles + the cohort-aware conscience; a static file
+  would regress toward the frozen-rules brittleness the thread's own top critique names — which is
+  IDEA-014's thesis). `RVW-002` — slaorta's lean/modular CLAUDE.md → **ADAPT** (apply the
+  recency-window to `RESUME.md`'s State section, which duplicates `registry/CHANGELOG.md` and grows
+  unbounded; generalizable shape is a `library/practices/` UP candidate). The REJECT/ADAPT split is
+  the evidence `/vet` routes on merits, not reflex. RVW-001 also surfaced **external confirmation of
+  IDEA-014** (a stranger reasoning to the recalibration thesis) — now cited in that idea.
+
 ## 0.40.0 — 2026-06-02
 
 - **`/vet` — the skeptical inbox. The inverse of `/boss-learn`.** From Ajesh's seed: *"if i have new

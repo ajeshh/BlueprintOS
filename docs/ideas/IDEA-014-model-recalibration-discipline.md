@@ -84,6 +84,15 @@ So the near-term earned slice is probably "leverage the current model more, syst
 *lightweight* recalibration checklist (a practice doc), with the capability-profile + skill deferred
 until a second model/host actually exists.
 
+> **External signal (added 2026-06-02, via [RVW-001](../research/verdicts/RVW-001-karpathy-four-rule-claude-md.md)):**
+> a ~220k-star Reddit thread on the four-rule CLAUDE.md drew a top skeptical comment (StokeJar) that
+> independently arrived at *exactly this thesis* — hardcoded model-behavior overrides are brittle
+> *because the model/harness curve moves* ("Opus 4.6 didn't ask enough; 4.8 asks too many"), and the
+> right move is to recalibrate per model, not freeze rules. A stranger with no knowledge of BOSS
+> reasoning his way to the recalibration argument is real outside evidence that this riskiest
+> assumption resolves toward *yes, it's valuable* — strengthening the case for the lightweight
+> checklist now.
+
 ## Near-term: 4.8 leverage we haven't used yet
 
 Concrete headroom, independent of the standing discipline:

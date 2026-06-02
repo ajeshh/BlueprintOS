@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.40.0)
+updated: 2026-06-02 (v0.40.1)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,17 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.40.0)
+## State (shipped, v0.40.1)
+- **`/vet` batch sweep + first two verdicts (v0.40.1).** Dogfooding `/vet` showed the rhythm is
+  *accumulate-then-sweep*: `/vet --all` now vets every un-vetted inbox item (each a full pass + own
+  `RVW-NNN`) → summary table + hand-off list; "one claim per run" reworded to "one claim per verdict"
+  (protects depth, not sequence). First verdicts: **RVW-001** four-rule CLAUDE.md → REJECT (BOSS
+  already encodes it as principles + cohort-aware conscience; static rules regress toward the
+  brittleness the thread's own critique names = IDEA-014's thesis); **RVW-002** lean/modular CLAUDE.md
+  → ADAPT (recency-window for RESUME.md State, which duplicates CHANGELOG; UP candidate for
+  `library/practices/`). RVW-001 surfaced external confirmation of IDEA-014 (now cited there). **Two
+  open follow-ups for Ajesh:** (a) act on RVW-002 — trim RESUME State to a recency window pointing at
+  CHANGELOG (confirm window size); (b) optionally `/boss-learn` the RVW-002 generalizable practice UP.
 - **`/vet` — the skeptical inbox; the inverse of `/boss-learn` (v0.40.0, IDEA-016 Phase 1).** From
   Ajesh: *"if i have new research or best practices, we should have a way where i can just drop it in,
   and then our mentors review and see what we should integrate. reddit is full of best practices, but
