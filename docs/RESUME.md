@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.40.1)
+updated: 2026-06-02 (v0.41.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,24 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.40.1)
+## State (shipped, v0.41.0)
+- **First `/vet --all` sweep — 10 verdicts, RVW-003…012 (v0.41.0).** Ajesh dropped a 10-item pile
+  (Reddit + Lenny's-newsletter AI/Claude-Code "best practices") and swept it. Distribution proves the
+  skill routes on merits: **2 ADOPT / 2 ADAPT / 3 NOT-YET / 3 REJECT.** **The two ADOPTs collapse into
+  ONE queued action** — a *"BOSS context discipline"* practice (RVW-005 deny secrets + RVW-010 lean
+  docs/path-scoped rules/deny bloat/hook-filter + RVW-002 RESUME recency-window; RVW-009 is its
+  rationale, RVW-012 its enforce-in-harness backing). ADAPTs (RVW-007 couch-to-5k *philosophy* minus
+  the streak-mechanic; RVW-008 categorize-agents as a mentor-architect frame) are founder-facing +
+  scope-gated. Caught a real bias: **6/10 drops were one author** → applied an author-concentration
+  discount. **Nothing built yet** — ADOPT/ADAPT hand-offs await Ajesh (the skill decides *whether*,
+  `/boss-learn` decides *where*). **Open follow-ups (Ajesh's call):**
+  1. **`/boss-learn` the context-discipline practice UP** (library/practices/ + library/hooks/
+     secrets-guard) + DOWN (trim BOSS's own CLAUDE.md/RESUME; template deny-default + path-scoped
+     rules) — **verify current Claude Code specifics first** (deny syntax, `.claude/rules/` `paths:`,
+     `ENABLE_TOOL_SEARCH` — IDEA-014 territory).
+  2. **RVW-002 RESUME trim** still pending a window-size choice (3? 5?).
+  3. Optional: cite RVW-012 in IDEA-006; log RVW-003 (plumbing-awareness) + RVW-007/008 framings as
+     founder-facing candidates (IDEA-012 catalog).
 - **`/vet` batch sweep + first two verdicts (v0.40.1).** Dogfooding `/vet` showed the rhythm is
   *accumulate-then-sweep*: `/vet --all` now vets every un-vetted inbox item (each a full pass + own
   `RVW-NNN`) → summary table + hand-off list; "one claim per run" reworded to "one claim per verdict"

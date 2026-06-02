@@ -2,6 +2,43 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.41.0 — 2026-06-02
+
+- **First `/vet --all` sweep — 10 verdicts (RVW-003…012), and the skill earned its keep.** Ajesh
+  dropped a 10-item pile of AI/Claude-Code "best practices" (Reddit threads + Lenny's-newsletter posts)
+  and swept them in one pass. The distribution is the proof the skill routes on merits, not reflex:
+  **2 ADOPT · 2 ADAPT · 3 NOT-YET · 3 REJECT.** Only 2 clean adopts out of 10 — a skeptic, not a
+  bookmark folder.
+  - **The two ADOPTs collapse into ONE action — a "BOSS context discipline" practice** (the value of
+    synthesizing a sweep instead of N independent verdicts). RVW-005 (hard-deny `.env`/secrets, don't
+    trust prompting), RVW-010 (lean CLAUDE.md <500 tok, path-scoped `.claude/rules/`, `permissions.deny`
+    for bloat, hook noise-filtering), and the earlier RVW-002 (RESUME recency-window) are facets of one
+    practice; RVW-009 (context-engineering failure modes) is its research rationale and RVW-012 (Agent
+    = Model + Harness, "safety lives in the harness not the model") its backing principle. Queued for
+    `/boss-learn` (UP `library/practices/` + `library/hooks/` secrets-guard + DOWN BOSS's own doc trim
+    + template defaults), **gated on verifying version-bound Claude Code specifics first** (IDEA-014
+    recalibration territory).
+  - **Two ADAPTs, both founder-facing + scope-gated:** RVW-007 (Couch-to-5K — adopt the
+    smallest-next-step *philosophy* for `/welcome` + beginner-cohort nudges; **reject the daily-streak
+    mechanic** as the gamification/pressure trap the canvas already refuses — a guardrail recorded so a
+    future session isn't tempted); RVW-008 (categorize-agents / start-simplest — a modest
+    `mentor-architect` framing, strip the enterprise + stack taxonomy per PRINCIPLE #4).
+  - **Three NOT-YET:** RVW-003 (plumbing-awareness — strong founder-facing candidate, re-open when the
+    founder-facing build lands), RVW-009 + RVW-012 (reference pieces — re-open at conscience
+    context-injection review / IDEA-006 host-contract work respectively).
+  - **Three REJECT, recorded with reasons:** RVW-004 (`/remote-control` — out of scope/low-evidence,
+    but kept a humane stance on always-on agent work), RVW-006 (21-hacks listicle — wrong altitude),
+    RVW-011 (n8n tutorial — PRINCIPLE #4, folded into RVW-008 as an example).
+  - **A real skeptical catch:** 6 of the 10 drops were by the **same author** (one newsletter
+    corpus). The sweep applied an **author-concentration discount** — cross-confirmation *within* one
+    voice isn't independent evidence; the "respected practitioner" rubric rung counts once, and the
+    real evidence is the *distinct* sources (the deny-secrets PSA, slaorta, StokeJar, and the
+    DeepMind/Microsoft/Salesforce research cited *inside* the pieces).
+  - Records: `docs/research/verdicts/RVW-003…012`; all 10 inbox items marked `resolved:`. Zero-dep held
+    (`npm pack` ships 0 — all under `docs/`). No code/skill change → gate + judgment suites unaffected.
+    **Nothing is built yet** — ADOPT/ADAPT hand-offs await Ajesh's go (the skill decides *whether*;
+    `/boss-learn` decides *where*).
+
 ## 0.40.1 — 2026-06-02
 
 - **`/vet` gains batch sweep — drop a pile, vet once.** From dogfooding `/vet` on real drops (RVW-001,
