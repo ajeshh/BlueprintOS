@@ -15,6 +15,7 @@ import { composeContext } from '../../../../stages/L0-quickstart/template/.claud
 export const MOMENT_SIGNALS = {
   drift: { moment: 'drift', loop_id: 'drift-loop', confidence: 'low', evidence: {} },
   caution: { moment: 'caution', loop_id: 'canvas-loop', confidence: 'low', evidence: {} },
+  capture: { moment: 'capture', loop_id: 'extraction-loop', confidence: 'low', evidence: {} },
 };
 
 // The exact instruction the model executes for this moment — what we fingerprint.

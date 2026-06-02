@@ -2,6 +2,41 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.39.0 — 2026-06-02
+
+- **`capture` goes judge-backed — the third model-judgment moment, and it ships GRADED from day one.**
+  capture (moment #3, PRINCIPLE #1's own) fired structurally on `≥3 devlog entries + no extraction
+  record` — but a count can't tell a real extraction candidate from three entries of normal in-progress
+  work. That's the exact crude-predicate problem drift (v0.31) and caution (v0.33) already solved with a
+  bounded-read model judgment. v0.39 gives capture the same upgrade.
+  - **The judgment (strictly more restraint — capture can now only fire LESS):** the gate still opens,
+    but before voicing, the model silently reads the ~5 most recent devlog entries and fires ONLY if
+    there's a real candidate — a pattern built **twice** (reusable practice → UP into `library/`), a
+    fix/guard hand-applied in **several places** (hardening → DOWN into core), or a manual **ritual
+    repeated** enough to deserve a skill/loop. If the recent work is one-off distinct features, deep
+    focus on a single still-in-progress thing, or early throwaway spikes — nothing has generalized;
+    **stay silent.** The silent class is trust-critical: nudging `/extract` with nothing to extract
+    earns a NOT-YET every time and trains the founder to tune the conscience out — the premature
+    ceremony PRINCIPLE #2 warns against. Same shape as drift/caution: no model call in the hook, no new
+    state, no predicate change — a bounded-read voicing instruction the model executes in the live turn.
+  - **Shipped:** upgraded `capture` voice frame in the hook lib; `capture` added to `JUDGE_MOMENTS` (so
+    the conscience-frequency ledger logs it as a judge-moment) and to `MOMENT_SIGNALS` (voice-hash
+    source of truth); **`capture.judgment.yml`** (7 labeled cases — 3 should-fire-extractable
+    [practice-twice / guard-in-3-places / repeated-ritual], 3 should-not-fire-nothing-yet
+    [one-off / single-in-progress / spikes], 1 ambiguous [written-twice-maybe]);
+    **`fixtures-devlog-extract.js`** (extractability-focused devlog corpus, distinct from drift's
+    risk-focused one); `replay.js` + `regrade.js` extended with a `capture` row (the MOMENTS registry
+    proves it generalizes — third moment, same engine).
+  - **Graded the free way (per v0.38):** all 7 cases run through isolated reasoning-required Opus 4.8
+    sub-agents; **all 7 agree with the human labels.** `replay.js` reads **GRADED 7/7** for capture
+    (24/24 across drift+caution+capture). Transcripts stamped `generated_via:
+    in-session-subagent-reasoned` + `harness_note`; a real `npm run regrade capture` overwrites them.
+  - Zero-dep held: `npm pack` ships **0** judgment/transcript/extract-fixture files; no `src/` ref.
+    Gate suite **105/0/41** (the predicate is unchanged — `moment-capture.yml` still covers detection).
+    The judgment channel now covers **3 of the conscience's moments**; the remaining structural moments
+    (cost / failure-mode / cost-stale) are binary facts and correctly stay non-judge (a model judge
+    there would be the v0.34 cost trap).
+
 ## 0.38.0 — 2026-06-02
 
 - **The conscience's judgment is now MODEL-VERIFIED — `drift` + `caution` read `GRADED 17/17`, not

@@ -33,6 +33,7 @@ import { parseYaml } from '../lib/yaml-eval.js';
 import { voiceFrame, voiceHash } from './moments.js';
 import { DEVLOG_FIXTURES } from './fixtures-devlog.js';
 import { CAPTURELOG_FIXTURES } from './fixtures-capturelog.js';
+import { EXTRACT_DEVLOG_FIXTURES } from './fixtures-devlog-extract.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -73,6 +74,13 @@ export const MOMENTS = {
       const idea = c.project_state.ideas[0];
       const cap = CAPTURELOG_FIXTURES[idea.capture_log_ref];
       return `The active idea's capture log (no riskiest assumption named yet):\n${String(cap).trim()}`;
+    },
+  },
+  capture: {
+    casesFile: 'capture.judgment.yml',
+    boundedRead(c) {
+      const dev = lastEntries(EXTRACT_DEVLOG_FIXTURES[c.project_state.devlog_ref], /^## \d{4}-\d{2}-\d{2}/);
+      return `The ~5 most recent devlog entries (no extraction decision recorded yet):\n${dev}`;
     },
   },
 };

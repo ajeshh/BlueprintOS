@@ -26,6 +26,7 @@ import { parseYaml } from '../lib/yaml-eval.js';
 import { voiceHash } from './moments.js';
 import { DEVLOG_FIXTURES } from './fixtures-devlog.js';
 import { CAPTURELOG_FIXTURES } from './fixtures-capturelog.js';
+import { EXTRACT_DEVLOG_FIXTURES } from './fixtures-devlog-extract.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -85,6 +86,18 @@ function checkCautionCase(c) {
   return errs;
 }
 
+// capture: devlog ≥3 dated entries + NO recorded extraction decision.
+function checkCaptureCase(c) {
+  const errs = [];
+  const ref = c.project_state?.devlog_ref;
+  if (!ref) errs.push('no devlog_ref on the case');
+  else if (!(ref in EXTRACT_DEVLOG_FIXTURES)) errs.push(`devlog_ref not in EXTRACT_DEVLOG_FIXTURES: ${ref}`);
+  else if (countMatches(EXTRACT_DEVLOG_FIXTURES[ref], /^## \d{4}-\d{2}-\d{2}/gm) < 3) errs.push(`devlog ${ref} has <3 dated entries (gate would not open)`);
+  if (c.project_state?.extraction_record) errs.push('case records an extraction decision — gate would be CLOSED (capture requires it absent)');
+  checkLabel(c, errs);
+  return errs;
+}
+
 // ---------------------------------------------------------------------------
 // The moment registry — add a row to cover a new judgment moment.
 // ---------------------------------------------------------------------------
@@ -103,6 +116,13 @@ const MOMENTS = [
     floors: { 'should-fire-avoidance': 3, 'should-not-fire-depth': 3, ambiguous: 1 },
     grow: { category: 'should-not-fire-depth', target: 8 },
     check: checkCautionCase,
+  },
+  {
+    moment: 'capture',
+    casesFile: 'capture.judgment.yml',
+    floors: { 'should-fire-extractable': 3, 'should-not-fire-nothing-yet': 3, ambiguous: 1 },
+    grow: { category: 'should-not-fire-nothing-yet', target: 8 },
+    check: checkCaptureCase,
   },
 ];
 

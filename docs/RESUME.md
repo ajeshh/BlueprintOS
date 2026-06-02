@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.38.0)
+updated: 2026-06-02 (v0.39.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,27 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.38.0)
+## State (shipped, v0.39.0)
+- **`capture` goes judge-backed — the third model-judgment moment, GRADED from day one (v0.39.0).**
+  capture (moment #3, PRINCIPLE #1's own) fired structurally on `≥3 devlog entries + no extraction
+  record` — but a count can't tell a real extraction candidate from three entries of normal in-progress
+  work. Same crude-predicate problem drift (v0.31) and caution (v0.33) solved; v0.39 gives capture the
+  same bounded-read judgment. **Strictly more restraint:** the gate still opens, but the model reads the
+  ~5 most recent devlog entries and fires ONLY on a real candidate — a pattern built **twice** (→ UP), a
+  fix/guard hand-applied in **several places** (→ DOWN), or a manual **ritual repeated** enough to want
+  a skill/loop. One-off features / single still-in-progress thing / throwaway spikes → **silent**
+  (nudging `/extract` with nothing to extract earns a NOT-YET and trains the founder to tune the
+  conscience out — the PRINCIPLE #2 ceremony trap). No model call in the hook, no new state, no
+  predicate change. Shipped: upgraded `capture` voice frame; `capture` added to `JUDGE_MOMENTS` +
+  `MOMENT_SIGNALS`; `capture.judgment.yml` (7 cases: 3 extractable / 3 nothing-yet / 1 ambiguous);
+  `fixtures-devlog-extract.js` (extractability corpus, distinct from drift's risk corpus); `replay.js`
+  + `regrade.js` extended (third row on the same engine — proves it generalizes). **Graded free
+  in-session** (reasoning-required Opus 4.8 sub-agents): all 7 agree with labels; `replay.js` reads
+  **GRADED 7/7** (24/24 across the three moments). Zero-dep held (`npm pack` ships 0
+  judgment/transcript/extract-fixture files; no `src/` ref). Gate **105/0/41** (predicate unchanged;
+  `moment-capture.yml` still covers detection). **The judgment channel now covers 3 of the conscience's
+  moments;** cost / failure-mode / cost-stale are binary facts and correctly stay non-judge (a model
+  judge there is the v0.34 cost trap).
 - **The conscience's judgment is now MODEL-VERIFIED — `drift` + `caution` read `GRADED 17/17`
   (v0.38.0). The `NEVER_GRADED` hole `regrade.js` was built to close (v0.35) is closed — with no
   API key, no paid spend.** The judgment surface (`replay.js`, since v0.32) shipped a labeled set +
@@ -529,12 +549,15 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     run is the only thing still deferred** — and now purely a provenance upgrade, not a correctness
     gap (it would re-confirm what the in-session grading already showed).
 
-21. **NEXT — more judge-moments, now that the channel is GRADED.** restraint / coherence / cost are
-    the candidates (each currently structural-only). With the judgment surface model-verified, a new
-    judge-moment can ship with both a gate-eval AND a graded judgment set from day one — the floor
-    `drift`/`caution` now meet. Pick one and author it the way v0.33 reused the machinery.
+21. ~~more judge-moments, now that the channel is GRADED.~~ **capture DONE in v0.39.0** — third
+    judge-moment, GRADED 7/7 from day one (reused the v0.33 machinery; third row on the same engine).
+    **Remaining judge-moment candidates: `restraint` and `coherence`** (genuinely semantic — premature-
+    vs-justified, design-vs-code drift). **Explicitly NOT `cost` / `failure-mode` / `cost-stale`** —
+    those are binary facts (artifact exists or it doesn't); a model judge there would be the v0.34 cost
+    trap. So the judge-moment well may be nearly dry: restraint is the one with real upside; coherence is
+    V1-only (narrow cohort). After those, the conscience's judgment surface is as deep as it should go.
 
-22. **Then v0.39+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+22. **Then v0.40+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
