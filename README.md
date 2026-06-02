@@ -121,12 +121,16 @@ claude                          # open in Claude Code
 After that:
 
 ```bash
+boss map                        # where you are + what each command does + what's one unlock away
 boss status                     # mode + pinned BOSS version + drift
 boss status --conscience        # loops state + recent overrides + cohort
 boss unlock mvp                 # earn the next layer when ready
 boss conscience pause --for 8h  # silence everything for a bounded sprint
 boss conscience resume          # bring it back
 ```
+
+`boss map` is the live cheatsheet — run it any time to see what's available in your current mode and
+what the next unlock adds. The whole ladder at a glance lives in [`docs/CHEATSHEET.md`](docs/CHEATSHEET.md).
 
 ## The principle
 
@@ -144,7 +148,7 @@ authority).
 
 ## Where this is
 
-v0.42.1. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
+v0.43.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
 Self-hosted (BOSS itself runs in MVP mode, using BOSS). All discipline patterns demonstrated
 by BOSS-on-BOSS before they ship anywhere else.
 

@@ -2,6 +2,31 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.43.0 — 2026-06-02
+
+- **Wayfinding, Pass 1 (IDEA-018) — `boss map` + a doc generator that can't rot.** Occasioned by a
+  docs-health pass that found the README **19 releases stale** and, worse, that there was **no "how to
+  use BOSS" guide at all**. The fix is shaped like BOSS itself: wayfinding, not a manual. Decisions
+  locked with Ajesh — **mode ladder is the spine** (persona = entry filter, aspect = which mentor to
+  ask, never chapters); **split audience** (a command ships to founders, the prose stays in the BOSS
+  repo); **durable core first**.
+  - **`boss map`** (CLI, ships to every project) — the *live* cheatsheet. A pure render of state the
+    project already holds (the `.boss` stamp + installed `SKILL.md` files), in the `boss board`
+    spirit: *You are here · available now (grouped by the rung that unlocked each skill) · one unlock
+    away (the next rung's skills, read from the package, with the real project name substituted in) ·
+    standing controls.* Nothing to maintain, nothing to drift.
+  - **The de-rot mechanism** — `src/modes.js` is the single source both `boss map` and the generator
+    read (manifests + `SKILL.md` frontmatter), so the live map and the static docs can never disagree.
+    **`scripts/gen-docs.js`** (`npm run gen:docs`) emits **`docs/CHEATSHEET.md`** (the whole ladder,
+    the wall-poster) and **`docs/SKILLS.md`** (one line per skill, grouped by mode) — both carry a
+    GENERATED banner and are derived, never hand-typed. This is the actual fix for what bit the README:
+    the per-mode lists become a build artifact, not a memory test.
+  - Zero-dep held — `src/map.js` + `src/modes.js` ship; `scripts/` and the generated `docs/` stay
+    dev-only (verified via `npm pack`). Eval suite regression-clean (no blocking failures, GRADED 7).
+    End-to-end tested in `/tmp` (map at Quickstart → unlock mvp → map regroups + previews V1; placeholder
+    substitution + width-capping confirmed). **Pass 2 (the hand-authored `docs/GUIDE.md` walkthrough)
+    is the next session** — written against these generated surfaces, per the agreed sequence.
+
 ## 0.42.1 — 2026-06-02
 
 - **BOSS eats its own context-discipline dogfood + sharpens the practice (the learning loop in real

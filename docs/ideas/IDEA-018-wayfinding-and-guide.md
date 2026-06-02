@@ -68,7 +68,12 @@ created: 2026-06-02
 ## Build sequence
 - **A.** `boss map` + the generator → **B.** generate cheatsheet + skill-ref → **C.** write
   `GUIDE.md` against them → **D.** wire README ↔ GUIDE ↔ `/welcome` cross-links.
-- Pass 1 = A + B (this is what "durable core first" green-lit).
+- **Pass 1 = A + B — SHIPPED v0.43.0.** `boss map` (CLI, ships to founders), `src/modes.js` (shared
+  source), `scripts/gen-docs.js` (`npm run gen:docs`), `docs/CHEATSHEET.md` + `docs/SKILLS.md`
+  (generated). Tested end-to-end in `/tmp`; eval suite clean; zero-dep held.
+- **Pass 2 = C — NEXT.** Hand-write `docs/GUIDE.md` against the generated surfaces (the persona
+  router + one-paragraph mental model + per-rung walkthrough). Then **D** (README ↔ GUIDE ↔ /welcome
+  cross-links).
 
 ## Open questions (carried forward)
 - **Freshness enforcement:** is a generated-doc staleness check worth a moment/loop (the way

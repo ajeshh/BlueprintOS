@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.42.1)
+updated: 2026-06-02 (v0.43.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,24 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.42.1)
+## State (shipped, v0.43.0)
+- **Wayfinding Pass 1 — `boss map` + a doc generator that can't rot (v0.43.0, IDEA-018).** A
+  docs-health pass found the README **19 releases stale** and, worse, **no "how to use BOSS" guide at
+  all**. The fix is shaped like BOSS: wayfinding, not a manual. Decisions locked with Ajesh — **mode
+  ladder = the spine** (persona = entry filter; aspect = which mentor to ask, never a chapter); **split
+  audience** (a *command* ships to founders, the *prose* stays in the BOSS repo); **durable core
+  first**. Shipped: **`boss map`** (CLI, ships) — the *live* cheatsheet, a pure `boss board`-style
+  render of state the project already holds (`.boss` stamp + installed `SKILL.md`): *you are here ·
+  available now (grouped by the rung that unlocked each skill) · one unlock away (next rung's skills,
+  real project name substituted) · standing controls.* The de-rot mechanism: **`src/modes.js`** is the
+  single source both `boss map` and **`scripts/gen-docs.js`** (`npm run gen:docs`) read, so the live
+  map and the generated **`docs/CHEATSHEET.md`** + **`docs/SKILLS.md`** can't disagree — the per-mode
+  lists are now a build artifact, not a memory test (the actual fix for what bit the README). Also
+  re-synced the README to v0.42.1 (counts/version/alpha-claim) in the prior commit. Zero-dep held
+  (`map.js`+`modes.js` ship; `scripts/`+generated `docs/` dev-only — `npm pack` verified); eval suite
+  clean; tested end-to-end in `/tmp`. **Pass 2 = the hand-authored `docs/GUIDE.md` walkthrough**
+  (persona router + 1-paragraph mental model + per-rung walk), then README↔GUIDE↔`/welcome`
+  cross-links — written *against* these generated surfaces. See [`IDEA-018`](ideas/IDEA-018-wayfinding-and-guide.md).
 - **BOSS ate its own context-discipline dogfood + sharpened the practice (v0.42.1).** Applied the
   recency-window rule (RVW-002) to *this file* — State trimmed **727→346 lines**, history → CHANGELOG
   (all 43 versions are there; non-destructive). And sharpened `library/practices/context-discipline.md`
@@ -88,30 +105,10 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   careful 30-second read? If first real drops produce verdicts Ajesh would've reached anyway, it stays
   a folder + a habit; if it catches a principle-contradiction or harm-to-a-cohort a skim misses, it
   earns the founder-facing build.
-- **`capture` goes judge-backed — the third model-judgment moment, GRADED from day one (v0.39.0).**
-  capture (moment #3, PRINCIPLE #1's own) fired structurally on `≥3 devlog entries + no extraction
-  record` — but a count can't tell a real extraction candidate from three entries of normal in-progress
-  work. Same crude-predicate problem drift (v0.31) and caution (v0.33) solved; v0.39 gives capture the
-  same bounded-read judgment. **Strictly more restraint:** the gate still opens, but the model reads the
-  ~5 most recent devlog entries and fires ONLY on a real candidate — a pattern built **twice** (→ UP), a
-  fix/guard hand-applied in **several places** (→ DOWN), or a manual **ritual repeated** enough to want
-  a skill/loop. One-off features / single still-in-progress thing / throwaway spikes → **silent**
-  (nudging `/extract` with nothing to extract earns a NOT-YET and trains the founder to tune the
-  conscience out — the PRINCIPLE #2 ceremony trap). No model call in the hook, no new state, no
-  predicate change. Shipped: upgraded `capture` voice frame; `capture` added to `JUDGE_MOMENTS` +
-  `MOMENT_SIGNALS`; `capture.judgment.yml` (7 cases: 3 extractable / 3 nothing-yet / 1 ambiguous);
-  `fixtures-devlog-extract.js` (extractability corpus, distinct from drift's risk corpus); `replay.js`
-  + `regrade.js` extended (third row on the same engine — proves it generalizes). **Graded free
-  in-session** (reasoning-required Opus 4.8 sub-agents): all 7 agree with labels; `replay.js` reads
-  **GRADED 7/7** (24/24 across the three moments). Zero-dep held (`npm pack` ships 0
-  judgment/transcript/extract-fixture files; no `src/` ref). Gate **105/0/41** (predicate unchanged;
-  `moment-capture.yml` still covers detection). **The judgment channel now covers 3 of the conscience's
-  moments;** cost / failure-mode / cost-stale are binary facts and correctly stay non-judge (a model
-  judge there is the v0.34 cost trap).
-- **Older State (≤ v0.38.0) → [`registry/CHANGELOG.md`](../registry/CHANGELOG.md)** carries the full
-  per-version detail (all 43 versions, 0.1.0→now). Trimmed v0.42.1 per the **context-discipline**
-  practice (RVW-002): the always-loaded session doc keeps a recency window; history lives in the
-  changelog it already maintains. BOSS eating its own dogfood — State dropped ~390 lines.
+- **Older State (≤ v0.40.0) → [`registry/CHANGELOG.md`](../registry/CHANGELOG.md)** carries the full
+  per-version detail (all 44 versions, 0.1.0→now). Kept to a ~5-entry recency window per the
+  **context-discipline** practice (RVW-002): the always-loaded session doc keeps recent state; history
+  lives in the changelog it already maintains. BOSS eating its own dogfood.
 
 ## Next tasks (in order — the published roadmap)
 
