@@ -2,6 +2,40 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.38.0 — 2026-06-02
+
+- **The conscience's judgment is now MODEL-VERIFIED — `drift` + `caution` read `GRADED 17/17`, not
+  `NEVER_GRADED`. The hole `regrade.js` was built to close (v0.35) is closed — without an API key.**
+  Since v0.32 the judgment surface (`replay.js`) shipped a labeled set + voice-hash tripwire + coverage
+  floors but printed `NEVER_GRADED` loudly: the model had never actually been tested against the labels,
+  so every judge-moment was structurally-checked vibes. Closing it normally needs a paid out-of-band
+  `regrade.js` run (Node `fetch` → Anthropic API). We closed it the free way: `regrade.js` runs two
+  model calls per case *because it executes with no model present* — but a live session **is** Opus 4.8,
+  the same model it would call. Each of the 17 cases (10 drift + 7 caution) was run through an **isolated
+  sub-agent** seeing only the exact voice frame + bounded read the hook injects, and the decisions
+  written as transcripts in `regrade.js`'s own format.
+  - **Result: all 17 decisions agree with the human labels.** The frame and the labels are
+    well-calibrated; the model nails the trust-critical silent class (the on-aim cases where firing
+    would be the false positive that erodes the conscience) — e.g. it reads a missing canvas
+    "Experiment this week" line as a *bookkeeping* gap, not a *validation* gap, when the devlog shows
+    the experiment is already running.
+  - **A real methodology finding, recorded honestly:** a first, terse "output only SILENT or the nudge"
+    harness mislabelled **3 of 17** — one spurious fire (on-aim drift) and two spurious silences
+    (textbook feature-piling / competitor-watching caution cases). Requiring the model to do the
+    "silently read… then judge" reasoning the voice frame *explicitly demands* flipped all three to
+    agree with the label. The lesson: the frame's reasoning instruction is load-bearing, and how you
+    elicit a judgment changes it — exactly the kind of thing the recalibration discipline exists to catch.
+  - **`regrade.js` made importable** — `main()` now runs only on direct invocation; `decisionPrompts`,
+    `MOMENTS`, `loadCases` are exported (so the prompt assembly is reusable/testable and can't drift
+    from the paid path). `--dry-run` still green; importing the module no longer spends.
+  - **Honest provenance, not a masquerade:** every transcript carries `generated_via:
+    in-session-subagent-reasoned` + a `harness_note` stating it was NOT the clean `fetch` harness and
+    that `ANTHROPIC_API_KEY=… npm run regrade` overwrites it as the canonical instrument. The interim
+    grading is real (same model, same frame, same isolation) without overclaiming the provenance.
+  - Zero-dep line held: `npm pack` ships **0** judgment/transcript files; no `src/` reference. Gate
+    suite **105/0/41**; judgment **GRADED 17/17** (was NEVER_GRADED 17). The loud "not yet
+    model-verified" banner is gone.
+
 ## 0.37.0 — 2026-06-01
 
 - **`/drift-deep` — the deep, whole-project drift audit. The biggest unused 4.8 lever, now built.**

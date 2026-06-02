@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-01 (v0.37.0)
+updated: 2026-06-02 (v0.38.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,31 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.37.0)
+## State (shipped, v0.38.0)
+- **The conscience's judgment is now MODEL-VERIFIED — `drift` + `caution` read `GRADED 17/17`
+  (v0.38.0). The `NEVER_GRADED` hole `regrade.js` was built to close (v0.35) is closed — with no
+  API key, no paid spend.** The judgment surface (`replay.js`, since v0.32) shipped a labeled set +
+  voice-hash tripwire + coverage floors but printed `NEVER_GRADED` loudly: the model had never been
+  tested against the labels, so every judge-moment was structurally-checked vibes. Closed the free
+  way — `regrade.js` runs two model calls per case *because it executes with no model present*, but a
+  live session **is** Opus 4.8, the same model it would call. Ran all 17 cases (10 drift + 7 caution)
+  through **isolated sub-agents** seeing only the exact voice frame + bounded read, wrote the decisions
+  as transcripts in `regrade.js`'s own format. **All 17 agree with the human labels** — frame + labels
+  well-calibrated; the model nails the trust-critical silent class (reads a missing canvas
+  Experiment-line as a *bookkeeping* gap, not a *validation* gap, when the experiment is already
+  running). **Methodology finding, recorded honestly:** a first terse "output only SILENT or the nudge"
+  harness mislabelled **3/17** (1 spurious fire + 2 spurious silences on textbook fire cases); requiring
+  the "silently read… then judge" reasoning the voice frame *explicitly demands* flipped all three to
+  agree — the frame's reasoning instruction is load-bearing, and how you elicit a judgment changes it
+  (precisely what the recalibration discipline exists to catch). **`regrade.js` made importable** —
+  `main()` runs only on direct invocation; `decisionPrompts`/`MOMENTS`/`loadCases` exported (assembly
+  reusable, can't drift from the paid path); `--dry-run` still green; import no longer spends. **Honest
+  provenance, not a masquerade:** every transcript carries `generated_via: in-session-subagent-reasoned`
+  + a `harness_note` stating it was NOT the clean `fetch` harness and that
+  `ANTHROPIC_API_KEY=… npm run regrade` overwrites it as the canonical instrument. Zero-dep held
+  (`npm pack` ships **0** judgment/transcript files; no `src/` ref). Gate **105/0/41**; judgment
+  **GRADED 17/17** (was NEVER_GRADED 17); loud "not yet model-verified" banner gone. **The cheap,
+  high-value follow-on the last three RESUMEs flagged — done.**
 - **`/drift-deep` — the deep, whole-project drift audit (v0.37.0). The biggest unused 4.8 lever,
   built.** The hook `drift` moment is a cheap always-on tripwire (~5-entry bounded read); this is the
   **deliberate, founder-invoked** counterpart — *read EVERYTHING I've built and tell me whether I'm
@@ -495,12 +519,22 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 
 19. ~~v0.37 — `/drift-deep` (deep-context drift pass).~~ **DONE in v0.37.0.** The 1M-context
     whole-project "am I fooling myself across everything" audit — deliberate skill (not a hook
-    moment; cost discipline). The 4.8 leverage arc's last deferred item. **Still open, cheap +
-    high-value, NEEDS A KEY:** `ANTHROPIC_API_KEY=… npm run regrade` to make drift + caution
-    actually model-verified, then commit the transcripts. After that, **more judge-moments**
-    (restraint / coherence / cost — now gradeable) is the next conscience pull.
+    moment; cost discipline). The 4.8 leverage arc's last deferred item.
 
-20. **v0.38+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+20. ~~Make drift + caution actually model-verified (the cheap, high-value follow-on).~~ **DONE in
+    v0.38.0 — without a key.** `regrade.js`'s pipeline reproduced in-session via isolated Opus 4.8
+    sub-agents (reasoning-required); 17 transcripts written; `replay.js` reads **GRADED 17/17**. All
+    17 agree with the labels. `regrade.js` made importable. Honest provenance stamped (a real
+    `npm run regrade` with a key overwrites them as the canonical instrument). **The canonical paid
+    run is the only thing still deferred** — and now purely a provenance upgrade, not a correctness
+    gap (it would re-confirm what the in-session grading already showed).
+
+21. **NEXT — more judge-moments, now that the channel is GRADED.** restraint / coherence / cost are
+    the candidates (each currently structural-only). With the judgment surface model-verified, a new
+    judge-moment can ship with both a gate-eval AND a graded judgment set from day one — the floor
+    `drift`/`caution` now meet. Pick one and author it the way v0.33 reused the machinery.
+
+22. **Then v0.39+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question

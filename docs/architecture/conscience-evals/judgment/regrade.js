@@ -26,7 +26,7 @@
 //   node regrade.js --dry-run                       # verify the pipeline, no API, no spend
 //   BOSS_REGRADE_MODEL=claude-… node regrade.js     # override the model (default: opus 4.8)
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, realpathSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseYaml } from '../lib/yaml-eval.js';
@@ -56,7 +56,7 @@ function lastEntries(text, headerRe, n = 5) {
 }
 
 // Per-moment: assemble the bounded read the model is told to look at.
-const MOMENTS = {
+export const MOMENTS = {
   drift: {
     casesFile: 'drift.judgment.yml',
     boundedRead(c) {
@@ -94,7 +94,7 @@ async function callClaude(system, user, maxTokens) {
   return (data.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('').trim();
 }
 
-function decisionPrompts(moment, c) {
+export function decisionPrompts(moment, c) {
   const system = `You are BOSS's conscience, operating as a UserPromptSubmit hook signal. Follow this instruction exactly:\n\n${voiceFrame(moment)}\n\nThe founder has just submitted a neutral "let's keep building" prompt. Per the instruction above, decide whether to surface a nudge. Output ONLY the nudge text you would surface, OR — if you would stay silent — output ONLY the single token: SILENT`;
   return { system, user: MOMENTS[moment].boundedRead(c) };
 }
@@ -123,7 +123,7 @@ function parseJudge(text) {
 
 // ---- run -------------------------------------------------------------------
 
-function loadCases(moment) {
+export function loadCases(moment) {
   return parseYaml(readFileSync(join(__dirname, MOMENTS[moment].casesFile), 'utf8'));
 }
 
@@ -220,4 +220,9 @@ async function main() {
   console.log(`\n  Commit the transcripts; replay.js now grades against them every commit.\n`);
 }
 
-main().catch((e) => { console.error(`regrade failed: ${e.message}`); process.exit(1); });
+// Only auto-run when invoked directly (`node regrade.js` / `npm run regrade`).
+// Importing this module (e.g. to reuse decisionPrompts/MOMENTS) must NOT spend.
+const invokedDirectly = process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+if (invokedDirectly) {
+  main().catch((e) => { console.error(`regrade failed: ${e.message}`); process.exit(1); });
+}
