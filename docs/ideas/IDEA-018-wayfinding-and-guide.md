@@ -85,6 +85,10 @@ created: 2026-06-02
   --html`) or is a generated markdown table enough for v1? Start markdown; earn the visual.
 - **Persona router depth:** 8 cohorts collapse to ~3–4 pace-groups (fast-skip / standard / mentor-
   heavy / high-stakes). Confirm the grouping when writing GUIDE.md so it doesn't bloat to 8 paths.
+  **Decided 2026-06-02 (see [[IDEA-019]]):** the GUIDE persona-router uses **situation-based**
+  pace-groups, never character-portraits — *describe the situation, never the person* (turnstile, not
+  tattoo; zero BOSS jargon). The richer "founder-facing personas" idea got reframed into a separate,
+  deferred recruiting surface (IDEA-019); the GUIDE only needs the lightweight situational router.
 
 ## Canvas
 _Covered by BOSS's overall canvas ([CANVAS.md](CANVAS.md))._
