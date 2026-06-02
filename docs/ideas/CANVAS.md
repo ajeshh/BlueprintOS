@@ -3,8 +3,8 @@ id: BOSS-canvas
 type: canvas
 owner: pm
 status: drafting
-version: 0.2
-updated: 2026-05-23
+version: 0.3
+updated: 2026-06-02
 ---
 
 # Humane Product Canvas — BlueprintOS
@@ -12,60 +12,81 @@ updated: 2026-05-23
 > A snapshot, not a blueprint. BOSS running its own `/canvas` on itself. Revisit as insight grows.
 > Framework: Humane Product Canvas by Ajesh Shah.
 >
-> **v0.2 (2026-05-23):** Updated after v0.5 → v0.19 shipped. The big shifts: (a) the mentor + builder
-> + persona teams are seated (26 agents); (b) the conscience is real (eval-tested, structured
-> output, loop-primitive-based); (c) right-sized shape converged across mentor-business +
-> mentor-fundraising + mentor-talent; (d) the persona-reactions work surfaced that the original
-> riskiest assumption has SPLIT into cohort-specific questions.
+> **v0.2 (2026-05-23):** Updated after v0.5 → v0.19 shipped. Mentor + builder + persona teams seated;
+> the conscience real (eval-tested, structured output, loop-primitive); right-sized shape converged;
+> riskiest assumption split into cohort-specific questions.
+>
+> **v0.3 (2026-06-02):** Re-aim after v0.20 → v0.41 (22 releases). **The uncomfortable finding,
+> stated plainly: the two riskiest assumptions from v0.2 were neither resolved nor abandoned —
+> they were *built around*.** (a) The v0.2 experiment ("re-run all 8 personas after v0.20's
+> cohort-aware conscience; did the cohort-bouncing close?") was **never executed** — the work moved
+> on. (b) The deeper one ("does any non-Ajesh founder want this?") is **still 'not yet'**, 22 releases
+> later. What those releases *did* deliver: the conscience matured from eval-tested → **model-verified
+> judgment across 3 moments** (drift/caution/capture, GRADED 24/24), **frequency-instrumented**,
+> **pausable** (v0.23), plus the **`/vet` skeptical inbox** (v0.40–41) and **positioning** (v0.24:
+> *"the just-in-time conscience for AI-native founders. Pause it any time."*). **So: the conscience's
+> *internal quality* risk has been retired — arguably over-served. The conscience's *external demand*
+> risk is now 100% of the remaining risk and 0% addressed.** That collapse is the whole v0.3 re-aim.
 
 ## 1 · Human Foundation
 
 | Cell | Answer |
 |---|---|
-| **People** | Founders building AI-native products in 2026 — the cohort where AI made building suddenly possible and the founder skills haven't caught up. Sharpest fit (from persona reactions): *the founder who's already used Claude Code or Cursor for 3+ months, has 2+ unfinished projects in their git, and is starting to suspect they need a bit more structure but doesn't want a heavyweight framework.* That's `vibe-virtuoso`, `eng-builder`, `indie-hacker`, `returning-founder` shapes. **Less well-served today** (persona reactions caught this): `first-product` cohort bounces off any conscience-heavy tool without cohort-aware tailoring; `non-tech-founder` needs domain-aware features that aren't built yet; `domain-expert` cohort (regulated domains) has unique safety needs. *The cohort-aware conscience direction (v0.20) is the bet that addresses this.* |
-| **Problem** | If AI lets you build *anything*, what should you build, and how do you know it's worth finishing? Most tools attack the building part (better IDEs, better models, better scaffolds). The harder, more under-served part is the *founder* part — *which bet to pick, when to validate, when to ship, when to drop*. Today's choices for that part are bad: enterprise scaffolds bury you in ceremony, blank repos give no guidance, founder-coaching content is mostly long-form reading divorced from what you're actually doing. Hard-won practices stay trapped in one repo, one mind, one career. Emotional tension: *"I can build this — but I don't really know how to start a company, and I'm not sure who to ask."* |
-| **Promises** | A conscience-while-you-build that scales ceremony to evidence — never buried in process you haven't earned, never missing the support you now need. A knowledgeable team-in-a-box (mentors who advise, builders who implement, personas who react) shows up *just in time* and grows with you. Override is always available; deviation is recorded, never blocked. Momentum + confidence + honest discipline — without becoming the thing it warns against. |
+| **People** | Founders building AI-native products in 2026 — AI made building suddenly possible and the founder skills haven't caught up. Sharpest fit (persona reactions + v0.24 positioning): *a founder who's used Claude Code or Cursor for 3+ months, has 2+ unfinished projects in their git, suspects they need a bit more structure but won't tolerate a heavyweight framework.* That's `vibe-virtuoso` / `eng-builder` / `indie-hacker` / `returning-founder`. **Less well-served:** `first-product` bounces off conscience-heavy tooling without tailoring; `non-tech-founder` needs domain features + a non-terminal surface; `domain-expert` (regulated) has unique safety needs. **v0.3 honesty: every word of this cell is still hypothesis — n=0 real founders.** It's derived from 8 proto-personas (which the persona files themselves label "cheap pre-filter, not validation") and from Ajesh. The sharp-fit cohort has never been observed using BOSS. |
+| **Problem** | If AI lets you build *anything*, what should you build, and how do you know it's worth finishing? Most tools attack the *building* part (IDEs, models, scaffolds — Lovable/v0/Bolt own code-gen). The under-served part is the *founder* part — *which bet, when to validate, when to ship, when to drop.* Today's options are bad: enterprise scaffolds bury you in ceremony; blank repos give no guidance; founder-coaching is long-form reading divorced from the work in front of you. Hard-won practice stays trapped in one repo, one mind, one career. Emotional tension: *"I can build this — but I don't really know how to start a company, and I'm not sure who to ask."* BOSS is explicitly **complementary to code-gen, not competing** (v0.24): the thinking layer between the code-generator and the founder. |
+| **Promises** | **The just-in-time conscience for AI-native founders — pause it any time** (v0.24 lead). Ceremony scales to evidence: never buried in process you haven't earned, never missing the support you now need. A team-in-a-box (mentors advise, builders make, personas react) arrives JIT and grows with you. **Override is real, not aspirational** — the pause primitive (v0.23) makes "deviation recorded, never blocked" a shipped capability, not a value statement. Momentum + confidence + honest discipline — without becoming the thing it warns against. |
 
 ## 2 · Product Expression
 
 | Cell | Answer |
 |---|---|
-| **Story** | `boss new <project>`, open Claude Code, `/boss`. A calm staged guide appears. Capture ideas with `/triage`, pressure-test them with `/canvas`, build them with `/spec` + `/smoke` + `/log` + `/close`. The conscience speaks once when discipline is drifting (not naggy; structured signal; cohort-aware in v0.20). The mentor board is on call: ask `mentor-venture` whether the bet is real, `mentor-architect` about the AI architecture, `mentor-gtm` about the first 100 users. As the project earns it, modes unlock (Quickstart → MVP → V1 → Scale) and the next agents arrive. The whole thing runs locally, transparently inspectable, with zero-dep CLI + plain markdown for state. |
-| **Modes of Engagement** | Zero-dep Node CLI (scaffold/registry/sync/learn — all reversible) + Claude Code skills (the verbs: `/boss`, `/triage`, `/canvas`, `/spec`, `/smoke`, `/log`, `/close`, `/boss-sync`, `/boss-learn`) + builder agents (the roles that *make* things: pm, coder-generalist, tester, program-manager, designer, voice-keeper, prompt-coach) + mentor agents (the roles that *advise* the founder: venture, architect, gtm, business, fundraising, pitch, talent, humane) + persona agents (the cohorts that *react* to test the founder-experience: 8 today). Everything **declarative** (plain markdown, YAML frontmatter, predicate-based loops); everything **inspectable** (`boss status`, `boss sync --dry-run`, structured hook output); everything **overridable** (record deviation in devlog; conscience respects). Humane: time/attention/autonomy/dignity all load-bearing in the design. |
-| **Business Model** | **Default shape: calm-company / OSS / patronage** (converged from mentor-business + mentor-fundraising + mentor-talent in advisory pass 001). Any other shape requires a deliberate decision. *Hard constraint on the record:* never monetize lock-in or ceremony. Candidate revenue shapes if/when needed: hosted founder dossier (your project's evolving mentor sessions, persistent), sponsored / patronage (companies underwrite because BOSS improves the ecosystem), education/cohort (BOSS-the-tool free, BOSS-the-program charges). Pricing decisions deferred until there's WTP signal from a real cohort. |
+| **Story** | `boss new <project>`, open Claude Code, `/welcome` then `/boss`. A calm staged guide appears. Capture with `/triage`, pressure-test with `/canvas`, build with `/spec` + `/smoke` + `/log` + `/close`. The conscience speaks once when discipline drifts — **model-verified, cohort-aware, pausable, frequency-instrumented so it can't quietly over-fire**. Deeper checks on demand: `/drift-deep` (whole-project "am I fooling myself?"), `/extract` (route reusable patterns UP/DOWN), `/vet` (judge an outside best-practice before adopting). The mentor board is on call; `boss board` renders what's in flight. Modes unlock as earned (Quickstart → MVP → V1 → Scale). Runs locally, transparently inspectable, zero-dep CLI + plain-markdown state. **v0.3 caution: this cell keeps getting longer every release. That is itself a Risk-#1 reading — see Stewardship.** |
+| **Modes of Engagement** | Zero-dep Node CLI (scaffold/registry/sync/learn/board — all reversible) + Claude Code skills (now ~14 in MVP: the verbs above + `/welcome` `/ai-first-init` `/ai-cost` `/ai-failure-states` `/cost-review` `/evals` `/pretotype` `/extract` `/drift-deep` …) + builder agents (pm, coder, tester, program-manager, designer, voice-keeper, prompt-coach, ui/ux/db) + mentor agents (venture, architect, gtm, business, fundraising, pitch, talent, humane) + 8 persona agents. Everything **declarative** (markdown, YAML frontmatter, predicate loops), **inspectable** (`boss status`, `--dry-run`, structured hook output, conscience activity ledger), **overridable** (pause + recorded deviation). Humane: time/attention/autonomy/dignity load-bearing. **v0.3: the surface has roughly doubled since v0.2. Growth is the moat-deepening BOSS chose over founder contact — name it, don't celebrate it.** |
+| **Business Model** | **Default shape: calm-company / OSS / patronage** (converged across mentor-business + fundraising + talent, advisory pass 001). Any other shape requires a deliberate decision. *Hard constraint:* never monetize lock-in or ceremony. Candidate shapes if/when needed: hosted founder dossier; sponsored/patronage; education/cohort (tool free, program charges). **Unchanged in v0.3 — and unchangeable until there's WTP signal from a real cohort, which requires the demand validation this canvas now centers on.** No pricing decision is honest before then. |
 
 ## 3 · Stewardship
 
 | Cell | Answer |
 |---|---|
-| **Metrics** | *Outcome-shaped* (per Ries/Cagan), not output-shaped. **Activation:** first idea captured + first canvas filled with a real riskiest assumption. **Cohort serving:** persona-reactions pass shows no cohort bouncing off a feature. **Loop health:** loops closing at evidence (not ceremony), overrides recorded with substantive rationale. **Founder progress:** project-mode level-ups happen because earned, not pushed. **Practice promotion:** patterns flow UP into BOSS via `/boss-learn` (the meta-feedback loop). *Anti-metrics (vanity):* total commits, total scaffolded projects, agent invocations. Don't optimize for these. |
-| **Risks & Harms** | (1) **BOSS bloats into a heavy framework** — most ironic, still the most-likely failure. The very ceremony BOSS exists to prevent in projects, BOSS could become. *Mitigation:* every release weighed against Principle 2. (2) **The conscience IS the moat AND the most under-validated thing** — surfaced by advisory pass. *Mitigation:* eval-set discipline (84 examples); persona-reactions discipline (v0.19); cohort-aware design (v0.20); real-founder validation when override lifts. (3) **Imposing ceremony prematurely** — fights Principle 2. *Mitigation:* override pattern (deviation conscious + recorded). (4) **False confidence / bad startup or legal advice** — mentors must caveat and point to real experts. *Mitigation:* hard line on every mentor agent file; mentor-humane has explicit override authority. (5) **Cumulative pressure on real founders not yet implemented** — surfaced by advisory pass mentor-humane. *Mitigation:* design in v0.20. (6) **Proto-personas mis-used as validation** — surfaced by v0.19. *Mitigation:* every persona file + reactions doc explicitly names "cheap pre-filter, not validation." (7) **Excluding cohorts who can't run terminal** (`non-tech-founder` per persona reactions). *Mitigation:* hosted/web surface eventually; today's CLI-first shape is constraint, not principle. |
-| **Principles** | [`PRINCIPLES.md`](../../PRINCIPLES.md) — the six. Humane before viable (Principle 6) is the override against any of the above. |
+| **Metrics** | *Outcome-shaped* (Ries/Cagan), not output-shaped. **Activation:** first idea captured + first canvas with a real riskiest assumption. **Cohort serving:** persona pass shows no cohort bouncing. **Loop health:** loops close at evidence not ceremony; overrides recorded with substantive rationale. **Founder progress:** mode level-ups happen because earned. **Practice promotion:** patterns flow UP via `/boss-learn`. *Anti-metrics (vanity):* total commits, scaffolded projects, agent invocations, **release count**. **v0.3 honesty: all six metrics are defined; none are instrumented against reality** — they have only ever been measured on Ajesh + synthetic personas. A defined metric with no real-world reading is a plan, not evidence. |
+| **Risks & Harms** | (1) **BOSS bloats into a heavy framework** — *no longer hypothetical; materializing.* 41 releases; the Story/Modes cells above visibly swell each pass; the surface has ~doubled since v0.2. The very ceremony BOSS exists to prevent, BOSS is accreting. *Mitigation:* weigh every release against Principle 2 — **and weigh the next release against founder contact, not against the backlog.** (2) **The conscience: moat AND most under-validated** — *now split in two.* Its *internal* quality is well-validated (evals + model-grading, GRADED 24/24). Its *external* value — does it change a real founder's decision for the better — is **zero-validated**; the "real-founder validation when override lifts" mitigation never triggered because the override never lifted. (3) **Premature ceremony** — fights Principle 2; mitigated by the override/pause pattern (now shipped). (4) **Bad startup/legal advice** — mentors caveat + point to real experts; mentor-humane has override authority. (5) **Cumulative pressure on real founders** — surfaced by mentor-humane; can't be validated without real founders. (6) **Proto-personas mis-used as validation** — *the live risk this re-aim caught:* 22 releases of design leaned on persona signal as if it were demand signal. Personas are a pre-filter; they cannot answer "does anyone want this." (7) **Excluding non-terminal cohorts** — CLI-first is constraint, not principle; hosted/web surface eventually. |
+| **Principles** | [`PRINCIPLES.md`](../../PRINCIPLES.md) — the six. Humane before viable (Principle 6) overrides any of the above. |
 
-## 🎯 Incubation heartbeat (v0.2 — re-articulated)
+## 🎯 Incubation heartbeat (v0.3 — re-articulated)
 
-The original riskiest assumption was *"JIT staging + mentors actually reduce overwhelm, rather than becoming yet another system to learn."* It split into cohort-specific questions after v0.19's persona-reactions pass:
+The v0.2 heartbeat carried two riskiest assumptions. v0.3 resolves their *status* (not their answer):
 
-- For `eng-builder` / `indie-hacker` / `returning-founder` / `vibe-virtuoso`: the structure + override pattern lands well; the architecture is the lean-in. *Likely-supported by persona signal.*
-- For `first-product` / `non-tech-founder` / `domain-expert`: the structure could feel like school / could exclude them / could not handle domain stakes. *At-risk per persona signal; cohort-aware design is the bet.*
+- **v0.2 #1 — "Can the cohort-aware conscience land per-cohort without becoming N separate products?"**
+  *Architecturally answered, experientially untested.* BOSS did build one cohort-aware system (config-declared cohort + framing in the hook), not N products — so the *N-products* failure mode was avoided by construction. But "does it actually *land differently* for a real `first-product` vs a real `eng-builder`" was the experiment, and **the experiment was never run.** Retire this as a build question; it folds entirely into #2 — you cannot test cross-cohort landing without cross-cohort founders.
+- **v0.2 #2 — "Does any non-Ajesh founder actually want this?"** *Unchanged. Still not yet.* This is now the **whole** riskiest assumption.
 
-**The current riskiest assumption (v0.2):** *Can the cohort-aware conscience (v0.20 work) actually land differently for different cohorts without becoming N separate products?* If yes, BOSS can serve the full cohort range with one tool. If no, BOSS becomes ambient ceremony optimized for one cohort and excluded by others.
+**The current riskiest assumption (v0.3):**
+*Will one non-Ajesh founder — the sharp-fit cohort — keep using BOSS past the first session, and will the conscience visibly change at least one decision they'd otherwise have made worse?*
+If yes, the moat is real and the deepening was justified. If no, BOSS is a beautifully engineered conscience that only its author wants — and the last 22 releases optimized the wrong axis.
 
-**Deeper riskiest (still un-tested):** *Does any non-Ajesh founder actually want this?* The advisory-pass override on real-founder Mom Test calls is explicit. The override's re-open conditions name the threshold: *persona reactions surface a coherent product story* (v0.19 — partial: surfaced 3 design changes); *a non-Ajesh user starts using BOSS in earnest* (not yet); *the eval set catches something only real-founder feedback could surface* (not yet).
+**Why this is now the only bet that matters:** the internal-quality risk is retired (evals + model-grading did their job). Every remaining risk in the Stewardship cell either *is* the demand question or *can't be answered without* the demand question. There is no internal build that reduces the riskiest assumption further. **Building more is now, definitionally, building around the risk.**
 
-**Experiment this 2-4 weeks:**
-- Run the persona-reactions loop on every v0.20–v0.21 feature *before* shipping. Treat cohort divergence in reactions as a design-must-fix, not a nice-to-have.
-- After v0.20 (cohort-aware conscience), re-run all 8 personas against the new conscience experience. Compare reactions to the v0.19 baseline. Look for: did the cohort-bouncing categories close?
+**Experiment this 2–4 weeks (the real one this time):**
+- Get BOSS in front of **1–3 real founders** in the sharp-fit cohort (3+ months on Claude Code/Cursor, 2+ unfinished projects, won't tolerate heavyweight ceremony). The v0.2 override's own re-open condition — *"a non-Ajesh user starts using BOSS in earnest"* — **is** this experiment.
+- **Watch one real session, Mom-Test discipline** (observe behavior, don't pitch): do they `boss new` → `/welcome` → capture → canvas without bouncing? Does a drift/caution moment fire — and do they *act on it or tune it out*? Tuning-out is the failure signal that no eval can produce.
+- Instrument **one** real metric from the Metrics cell against that session (Activation is the cheapest: did they reach first-canvas-with-a-real-riskiest-assumption?).
+- Success = one founder returns for a second session unprompted **and** can point to a decision the conscience changed. That single data point outweighs any release on the backlog.
 
 **What would change the plan:**
-- *If the cohort-aware conscience doesn't materially change first-product / non-tech-founder reactions:* the conscience is the wrong instrument for cross-cohort serving — split into per-cohort onboarding flows instead.
-- *If the persona-reactions show convergence (all 8 mostly happy) but a real-founder still bounces (when override lifts):* the personas are over-fitting to Ajesh's model; the personas need real-evidence integration (IDEA-009 territory).
-- *If multiple cohorts ALL ask for the same thing the roadmap doesn't have:* re-order the roadmap. The personas are calibrated enough now to act as light demand-signal.
+- *Can't find even one sharp-fit founder to try it:* the distribution/positioning problem precedes the product problem — `mentor-gtm` leads, not more features.
+- *Founders use it but ignore the conscience:* the moat isn't the moat. Re-aim toward whatever they *did* use (maybe it's the scaffolding + mentors, not the conscience).
+- *Founders bounce at the terminal:* the CLI-first constraint is the wall (Risk #7) — the non-terminal surface jumps the queue.
+- *Personas said "happy" but a real founder bounces on something all 8 missed:* personas are over-fit to Ajesh's model (IDEA-009 territory) — they need real-evidence integration before they're trusted again.
 
 ## Status & next instance
 
 This canvas re-opens when:
-- v0.20 ships and personas re-react. *Expected timing: within ~2 capability releases.*
-- A real-founder Mom Test call happens (override lifts) and contradicts a persona reaction.
-- The right-sized shape decision is challenged by a piece of evidence.
-- BOSS's own state diverges materially from what these cells describe.
+- The first real-founder session happens — **then re-write every cell against what was observed, not predicted.**
+- A sharp-fit founder can't be found within the experiment window (distribution-before-product pivot).
+- BOSS's own state diverges materially from these cells again.
+
+> **Side-finding from this re-aim (capture candidate, not built):** BOSS's own `drift` moment did NOT
+> fire on this 22-release-stale canvas, because drift detects a *missing* experiment plan, not a
+> *stale/completed* one — BOSS's canvas had a v0.20 plan, it was just long-dead. The conscience has a
+> blind spot for "experiment present but stale." Worth capturing as a drift-moment sharpening (or a
+> `/drift-deep` check) — the re-aim surfaced a real product gap in the thing being re-aimed.

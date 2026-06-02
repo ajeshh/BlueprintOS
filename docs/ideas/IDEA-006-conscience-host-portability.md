@@ -32,10 +32,60 @@ created: 2026-05-21
   points so moments can fire unprompted, the ability to register skills/commands). Then a feasibility
   note on which agents meet it. No port yet — just make the boundary legible.
 
+## MCP mapping (added 2026-06-02)
+The question "how does BOSS work if someone uses MCP / a non-Claude-Code setup?" resolves cleanly
+onto the three layers. **Key reframe: Claude Code is not "Claude" — it's a *host*.** BOSS is bound to
+the host's *capabilities* (hooks, slash-commands, subagents, `settings.json`), not to the model brand
+— you can run Claude via the raw API and get zero conscience. So "scale across setups" = "which host
+capabilities does each setup expose?"
+
+| Setup | Layer 1 (CLI + state) | Layer 2 (skills/agents/**hooks**) | Verdict |
+|---|---|---|---|
+| **Claude Code** (CLI / VS Code / JetBrains) | ✅ full | ✅ full — home | Full BOSS |
+| **Claude Desktop / claude.ai** | ✅ (shell) | MCP yes; **no hooks, no subagents** | BOSS-the-tool, no conscience |
+| **Claude API / Agent SDK** | ✅ | embed BOSS as MCP tools / shell out | Whatever they wire |
+| **Cursor / Aider / Codex / other agent CLIs** | ✅ | MCP varies; **none have Claude Code's hooks** | BOSS-the-tool, maybe |
+| **Cron / CI / headless** | ✅ | hooks fire only if Claude Code is the runner | Layer 1 only |
+
+**Pattern: Layer 1 travels everywhere; Layer 2's hook (the unprompted firing) travels nowhere.**
+
+**Where MCP fits** — MCP (an open standard, not Claude-specific: a "USB-C for AI tools" where one
+server exposes capabilities to any MCP host) is the natural portability mechanism for the
+*deterministic* parts of BOSS:
+- CLI verbs (`boss board`, `boss status`, capture, `/spec` promotion) → MCP **tools**
+- canvas / RESUME / devlog / `.boss` state → MCP **resources**
+- template-shaped skills (`/canvas`, `/welcome`) → MCP **prompts**
+
+**Where MCP can't reach — the sharp point:** MCP is request-response (the model *pulls* a tool when
+it decides to). There is no MCP primitive for "inject guidance into every turn whether the model
+asked or not." That is a host-level **hook** capability, not a protocol capability. So **the
+conscience's unprompted firing does not port via MCP.** Off Claude Code, BOSS degrades to
+*conscience-only-when-you-invoke-it* — which is exactly the "is that still BOSS, or just the CLI?"
+question already open below.
+
+**Strategic note (not just technical):** BOSS's differentiator — the unprompted conscience — is the
+*least* portable part. "Scale across hosts" naively trades away the moat to gain reach. No non-Claude
+founder is asking yet (Principle 2), so **don't port now.** The three moves, in order:
+1. **Now (earned, cheap):** write the host contract as a real doc (enumerate each conscience
+   primitive, mark required vs nice-to-have, grade the hosts above against it). Decision-legibility,
+   not a port — this idea's "smallest version."
+2. **When a non-Claude-Code founder earns it:** the first port is **BOSS-as-MCP-server** (deterministic
+   verbs + canvas/RESUME as tools/resources/prompts). Graceful degradation made concrete; conscience
+   stays Claude-Code-only.
+3. **Watch for the trigger, don't pre-build:** another host shipping a real interrupt/hook primitive.
+   *That* is the day the conscience becomes portable and the MCP-vs-hooks tradeoff dissolves.
+
+> Note: the *inverse* axis — a founder building an app that itself has MCP aspects — is **not** this
+> idea. That's [[IDEA-017]] (founder-facing domain best-practices). This idea is BOSS-as-guest;
+> IDEA-017 is the founder's-app-as-domain. Keep them apart.
+
 ## Capture log
 - 2026-05-21 — captured from a positioning conversation ("does it work with Codex? do I need
   Claude?"). Reframed from a yes/no into the three-layer model: CLI is already portable; the
   conscience needs a host with arc-memory + hooks; the model brand is not the dependency.
+- 2026-06-02 — added the MCP mapping (above) after a conversation on MCP + non-Claude-Code setups.
+  Confirmed the three-layer model holds; named the host-vs-model reframe, the three moves, and the
+  split from [[IDEA-017]].
 
 ## Open questions (carried forward)
 - **What exactly is the host contract?** Enumerate the primitives the conscience uses in Claude Code
