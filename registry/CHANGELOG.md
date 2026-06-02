@@ -2,6 +2,47 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.40.0 — 2026-06-02
+
+- **`/vet` — the skeptical inbox. The inverse of `/boss-learn`.** From Ajesh's seed: *"if i have new
+  research or best practices, we should have a way where i can just drop it in, and then our mentors
+  and such review and see what we should integrate. reddit is full of best practices, but that doesnt
+  mean all are good ideas."* The last sentence is the whole design.
+  - **Why it's the inverse, not a fork.** `/boss-learn` routes a pattern *you already proved* (built
+    it, it worked, it repeated) UP into `library/` or DOWN into the app — its input has earned trust.
+    `/vet` takes a claim *from a stranger* (a Reddit thread, an HN comment, a blog post, a paper, a
+    "you must do X" tweet) that has earned **nothing**. Its job is the part `/boss-learn` never has to
+    do: decide whether an unproven outside claim deserves to become practice **at all**. ADOPT *hands
+    to* `/boss-learn` (whether → where); it never reimplements it.
+  - **The filter is the product.** A drop folder with no judgment is a bookmark pile. The value is the
+    skeptical read. The skill is **biased toward NO** — most internet best practices don't apply to
+    BOSS, at its stage, for its thesis — and makes a claim *earn* an ADOPT.
+  - **The NO-biased rubric (any one question can sink the claim):** (1) does it contradict a PRINCIPLE?
+    (#6 / `mentor-humane` can veto outright); (2) evidence grade — n=1 vibe vs. pattern-with-data vs.
+    respected practitioner (most claims die here); (3) duplicate or genuinely sharpen?; (4) who does it
+    serve **and harm** (great for `eng-builder`, toxic for `first-product` → ADAPT-with-scoping at
+    best); (5) cost/ceremony (does it make BOSS heavier — R&H #1).
+  - **Four honest verdicts**, mirroring `/extract`'s UP/DOWN/NOT-YET: **ADOPT** (→ `/boss-learn`),
+    **ADAPT** (modified, reasoned), **REJECT — with reason, recorded** (the quietly important one — so
+    the same thread isn't re-litigated next month; the verdict log is BOSS's memory of what it
+    *deliberately didn't* adopt), **NOT-YET** (with a re-open condition). Before vetting, `/vet` reads
+    prior verdicts and won't re-litigate.
+  - **Restraint by design (PRINCIPLE #2):** deliberate-invoke, like `/extract` and `/drift-deep` —
+    **no `vet-loop`, no hook moment, no nudge to "review your inbox."** An automatic research-review
+    obligation would be the ceremony BOSS exists to refuse. It also doesn't *find* research (that's
+    `/deep-research`) — it judges what you bring it.
+  - **Scope: internal-curation first.** `/vet` is a **BOSS-local meta-skill** (lives with `/boss-learn`
+    + `/boss-sync` in `.claude/skills/`, **not** in the founder template) — it vets against
+    `PRINCIPLES.md` + BOSS's own `library/` and routes ADOPT into the BOSS source. The founder-facing
+    version (founder drops a thread → BOSS reads it against *their* canvas/stage/cohort) is the named
+    **UP candidate** (IDEA-016), deferred until the internal version earns it.
+  - Shipped: `.claude/skills/vet/SKILL.md`; drop zone `docs/research/inbox/` + verdict log
+    `docs/research/verdicts/` (each with a README); new **`RVW-NNN`** ID type in `docs/IDS.md`;
+    IDEA-016 captured + the two design forks decided (internal-first; single skeptical pass — the
+    mentor+persona panel is the upgrade if the single pass proves too shallow). Zero-dep held (`npm
+    pack` ships **0** of these — BOSS-local + `docs/`, neither in the `files` allowlist). Gate +
+    judgment suites unchanged (no hook moment, no predicate change).
+
 ## 0.39.0 — 2026-06-02
 
 - **`capture` goes judge-backed — the third model-judgment moment, and it ships GRADED from day one.**

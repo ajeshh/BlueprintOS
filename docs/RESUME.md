@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.39.0)
+updated: 2026-06-02 (v0.40.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,33 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.39.0)
+## State (shipped, v0.40.0)
+- **`/vet` — the skeptical inbox; the inverse of `/boss-learn` (v0.40.0, IDEA-016 Phase 1).** From
+  Ajesh: *"if i have new research or best practices, we should have a way where i can just drop it in,
+  and then our mentors review and see what we should integrate. reddit is full of best practices, but
+  that doesnt mean all are good ideas."* The last sentence is the design. **`/boss-learn` routes a
+  pattern you already proved (earned trust); `/vet` judges a claim from a stranger that has earned
+  nothing** — its job is the part `/boss-learn` never does: decide whether an unproven outside claim
+  deserves to become practice **at all**. ADOPT *hands to* `/boss-learn` (whether → where). **The
+  filter is the product** (a drop folder w/o judgment is a bookmark pile) — the skill is **biased
+  toward NO** and makes a claim earn an ADOPT. NO-biased rubric: (1) contradicts a PRINCIPLE? (#6 /
+  `mentor-humane` vetoes); (2) evidence grade (n=1 vibe / data / respected practitioner — most die
+  here); (3) duplicate or sharpen?; (4) who serves **& harms** (toxic-for-`first-product` → ADAPT-
+  with-scoping); (5) cost/ceremony (R&H #1). Four verdicts (mirrors `/extract`): **ADOPT** (→
+  `/boss-learn`), **ADAPT** (modified, reasoned), **REJECT — recorded with why** (the quietly
+  important one — verdict log = memory of what BOSS *deliberately didn't* adopt; no re-litigation),
+  **NOT-YET** (+ re-open condition). **Restraint (PRINCIPLE #2):** deliberate-invoke like `/extract` /
+  `/drift-deep` — **no loop, no hook moment, no nudge**; doesn't *find* research (that's
+  `/deep-research`), judges what you bring it. **Scope: internal-curation first** — BOSS-local
+  meta-skill (`.claude/skills/vet/`, with `/boss-learn` + `/boss-sync`, **not** the founder template);
+  founder-facing version + mentor+persona panel are deferred UP candidates. Shipped:
+  `.claude/skills/vet/SKILL.md`; `docs/research/inbox/` + `docs/research/verdicts/` (each w/ README);
+  new **`RVW-NNN`** ID type; IDEA-016 captured w/ both design forks decided. Zero-dep held (`npm pack`
+  ships **0** — BOSS-local + `docs/` neither in `files` allowlist). Gate+judgment suites unchanged (no
+  hook moment, no predicate change). **Riskiest assumption, tested in use now:** does `/vet` beat a
+  careful 30-second read? If first real drops produce verdicts Ajesh would've reached anyway, it stays
+  a folder + a habit; if it catches a principle-contradiction or harm-to-a-cohort a skim misses, it
+  earns the founder-facing build.
 - **`capture` goes judge-backed — the third model-judgment moment, GRADED from day one (v0.39.0).**
   capture (moment #3, PRINCIPLE #1's own) fired structurally on `≥3 devlog entries + no extraction
   record` — but a count can't tell a real extraction candidate from three entries of normal in-progress
@@ -557,7 +583,16 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
     trap. So the judge-moment well may be nearly dry: restraint is the one with real upside; coherence is
     V1-only (narrow cohort). After those, the conscience's judgment surface is as deep as it should go.
 
-22. **Then v0.40+ — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
+22. ~~v0.40 — `/vet` (IDEA-016 Phase 1, the skeptical inbox; inverse of `/boss-learn`).~~ **DONE in
+    v0.40.0.** Occasioned by Ajesh's "drop in research/best-practices → mentors review what to
+    integrate; reddit is full of best practices but not all good." BOSS-local meta-skill + drop zone +
+    verdict log + `RVW-NNN` ID; NO-biased 5-question rubric; ADOPT/ADAPT/REJECT-recorded/NOT-YET;
+    deliberate-invoke (no loop/hook). Internal-curation first; founder-facing version + mentor+persona
+    panel deferred as UP candidates. **Deferred follow-ons, earn-it-gated:** (a) the founder-facing
+    template version — build when the internal `/vet` proves it beats a careful read; (b) the full
+    mentor+persona panel — build if the single skeptical pass proves too shallow on real drops.
+
+23. **Then — Pull from IDEA-012 catalog.** Likely candidates per the audit (rough priority):
    - **Brownfield adoption** — IDEA-005, `boss adopt` — high BOSS-distinctive value
    - **Mentor consults as structured flows** — `/consult` skill orchestrating multiple
      mentors per question
