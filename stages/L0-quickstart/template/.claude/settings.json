@@ -10,6 +10,13 @@
       "Bash",
       "Agent",
       "TodoWrite"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Bash(cat ./.env*)",
+      "Bash(cat ./secrets/*)"
     ]
   },
   "hooks": {

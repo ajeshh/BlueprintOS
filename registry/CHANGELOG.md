@@ -2,6 +2,33 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.42.0 — 2026-06-02
+
+- **`/boss-learn` routes the sweep's first ADOPT — a "context discipline" practice, UP + a DOWN
+  safe-default.** Acting on the v0.41 `/vet` sweep: the two ADOPTs (RVW-005 deny-secrets, RVW-010
+  token-optimization) plus RVW-002 (lean session docs) collapsed into **one** pattern, routed two ways
+  per PRINCIPLE #1.
+  - **Verify-before-encode (the gate both verdicts set).** Before promoting, the version-bound Claude
+    Code claims were checked against current behavior. One was **FALSE — `.claudeignore` does not
+    exist** (the source post conflated it with `permissions.deny`); it was struck from the practice
+    rather than shipped to every project. Confirmed: `permissions.deny` glob syntax (and that a
+    `Read(...)` deny does **not** cover Bash — needs a separate `Bash(...)` rule), PreToolUse hard-block,
+    `.claude/rules/` `paths:` frontmatter, CLAUDE.md load behavior. The `/vet` thesis applied to BOSS
+    itself: popularity ≠ correctness, even when *BOSS* is the one adopting.
+  - **UP** → `library/practices/context-discipline.md`: lean always-loaded docs (CLAUDE.md +
+    RESUME recency-window), path-scoped `.claude/rules/`, `permissions.deny` for secrets *and* bloat,
+    PreToolUse/PostToolUse hooks as the enforcement ceiling. Host-tagged `claude-code` with an explicit
+    "re-verify syntax on host change" note (IDEA-014 recalibration). Provenance cites the RVWs — vetted,
+    not adopted on stars.
+  - **DOWN (product safe-default)** → the L0 Quickstart template now ships a `permissions.deny` block
+    for `.env`/`.env.*`/`secrets/**` (Read + Bash) in `.claude/settings.json`, and `.gitignore` covers
+    `.env.*` + `secrets/`. Every new `boss new` project is secrets-safe by default — the
+    enforce-in-harness principle (RVW-012) made concrete, not left as advice.
+  - **Deferred follow-ons (named, not crammed in — PRINCIPLE #2 / small steps):** a `library/hooks/`
+    PreToolUse secrets-guard (catches Bash + MCP + future skills — code+test, its own step);
+    mode/cohort-scoped `.claude/rules/` in the template; BOSS's own root CLAUDE.md/RESUME trim
+    (RVW-002 — awaiting Ajesh's recency-window size). ADAPTs RVW-007/008 remain founder-facing/scope-gated.
+
 ## 0.41.0 — 2026-06-02
 
 - **First `/vet --all` sweep — 10 verdicts (RVW-003…012), and the skill earned its keep.** Ajesh

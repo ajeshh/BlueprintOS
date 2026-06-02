@@ -3,7 +3,7 @@ id: RESUME
 type: resume
 owner: pm
 status: active
-updated: 2026-06-02 (v0.41.0)
+updated: 2026-06-02 (v0.42.0)
 ---
 
 # RESUME — BlueprintOS
@@ -16,7 +16,21 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.41.0)
+## State (shipped, v0.42.0)
+- **`/boss-learn` routed the sweep's first ADOPT — "context discipline" practice, UP + a DOWN
+  safe-default (v0.42.0).** The two ADOPTs (RVW-005 deny-secrets, RVW-010 token-opt) + RVW-002 (lean
+  docs) collapsed into ONE pattern. **Verified the version-bound Claude Code claims before encoding** —
+  caught that `.claudeignore` is **FALSE** (doesn't exist; struck it) and confirmed `permissions.deny`
+  glob syntax (+ that a `Read()` deny doesn't cover Bash), `.claude/rules/` `paths:`, PreToolUse
+  hard-block, CLAUDE.md loading. **UP:** `library/practices/context-discipline.md` (host-tagged
+  claude-code, "re-verify on host change" per IDEA-014, provenance cites the RVWs). **DOWN:** L0
+  template now ships a `permissions.deny` block (`.env`/`.env.*`/`secrets/**`, Read+Bash) +
+  broadened `.gitignore` — **every `boss new` project is secrets-safe by default** (verified
+  end-to-end in /tmp). **Deferred follow-ons (named):** `library/hooks/` PreToolUse secrets-guard
+  (Bash+MCP coverage, own step); mode/cohort-scoped `.claude/rules/` in template; **BOSS's own root
+  CLAUDE.md/RESUME trim — RVW-002, still awaiting Ajesh's recency-window size (3? 5?)**; ADAPTs
+  RVW-007 (couch-to-5k philosophy minus streak) + RVW-008 (categorize-agents mentor-architect frame)
+  founder-facing/scope-gated.
 - **First `/vet --all` sweep — 10 verdicts, RVW-003…012 (v0.41.0).** Ajesh dropped a 10-item pile
   (Reddit + Lenny's-newsletter AI/Claude-Code "best practices") and swept it. Distribution proves the
   skill routes on merits: **2 ADOPT / 2 ADAPT / 3 NOT-YET / 3 REJECT.** **The two ADOPTs collapse into
@@ -27,10 +41,7 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   scope-gated. Caught a real bias: **6/10 drops were one author** → applied an author-concentration
   discount. **Nothing built yet** — ADOPT/ADAPT hand-offs await Ajesh (the skill decides *whether*,
   `/boss-learn` decides *where*). **Open follow-ups (Ajesh's call):**
-  1. **`/boss-learn` the context-discipline practice UP** (library/practices/ + library/hooks/
-     secrets-guard) + DOWN (trim BOSS's own CLAUDE.md/RESUME; template deny-default + path-scoped
-     rules) — **verify current Claude Code specifics first** (deny syntax, `.claude/rules/` `paths:`,
-     `ENABLE_TOOL_SEARCH` — IDEA-014 territory).
+  1. ~~`/boss-learn` the context-discipline practice~~ — **DONE in v0.42.0** (see entry above).
   2. **RVW-002 RESUME trim** still pending a window-size choice (3? 5?).
   3. Optional: cite RVW-012 in IDEA-006; log RVW-003 (plumbing-awareness) + RVW-007/008 framings as
      founder-facing candidates (IDEA-012 catalog).
