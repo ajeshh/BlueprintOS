@@ -149,7 +149,7 @@ authority).
 
 ## Where this is
 
-v0.43.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
+v0.44.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
 Self-hosted (BOSS itself runs in MVP mode, using BOSS). All discipline patterns demonstrated
 by BOSS-on-BOSS before they ship anywhere else.
 
