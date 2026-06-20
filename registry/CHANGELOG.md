@@ -2,6 +2,25 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.56.0 — 2026-06-20
+
+- **`boss adopt` — bring BOSS into an already-started repo, non-destructively (IDEA-005; Track 1 of
+  IDEA-022).** The largest realistic adoption path — most founders have a repo *before* they hear about
+  BOSS — and the one people kept asking for. `boss adopt [--mode <m>]` in an existing dir: copies only
+  what doesn't collide (a new `cpSafe`/`applyStageSafe` — **never `cpSync`'s clobber**), merges the
+  conscience-hook registration into an existing `settings.json` *additively* (the founder's permissions
+  + their own hooks preserved), appends a small marked block to an existing `CLAUDE.md` (or copies the
+  template's if there is none), stamps `.boss/` as **not-self-hosted + adopted**, and registers it.
+  **"Lite BOSS" is the design, not a fallback (Principle 2):** defaults to the lightest register
+  (Quickstart); `--mode mvp` adopts the *full chain* (lays down Quickstart's foundation too, exactly as
+  `boss new` + `boss unlock mvp` would) for a brownfield app that's already earned it. Idempotent
+  (refuses re-adopt → points at `boss sync` / `boss unlock`). Once adopted it's a normal registered
+  project on the usual sync loop — no special-casing. Verified end-to-end in `/tmp`: a real repo's
+  `CLAUDE.md`, `settings.json` (custom permission + `Stop` hook), `README`, and `src/` all preserved;
+  conscience loops + hook land so it can fire; `boss map` works; `--mode mvp` lays L0+L1. eval 105/0.
+  Wired into `boss --help`. **This is also IDEA-022 Track 1** — the living conscience needs a venture
+  to read, and adopt is how an existing one gets a venture brain.
+
 ## 0.55.0 — 2026-06-20
 
 - **`/persona` — your app's target-user as a consultable agent voice (IDEA-031).** Occasioned by

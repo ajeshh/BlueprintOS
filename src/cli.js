@@ -2,9 +2,9 @@ import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { execSync, spawn } from 'node:child_process';
 import { bossVersion, STAGE_ORDER, resolveStageId } from './paths.js';
-import { applyStage, readStageManifest } from './scaffold.js';
+import { applyStage, applyStageSafe, appendClaudeBlock, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
-import { planSync, applySync } from './sync.js';
+import { planSync, applySync, computeSettingsMerge } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
 import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
 import { board, boardHtml } from './board.js';
@@ -106,6 +106,103 @@ function cmdNew(args) {
   console.log(`    claude              # open Claude Code (works in the terminal or the editor panel)`);
   console.log(`    > /boss <your idea>     # spin up — a sentence, a doc, a deck, or a link`);
   console.log(`                            #   (first time? /welcome · already written it down? /import <file|url>)`);
+  console.log('');
+}
+
+// boss adopt — bring BOSS into an ALREADY-STARTED repo, non-destructively.
+// "Lite BOSS" is the design, not a fallback (Principle 2): adopt at the lightest
+// register that matches where the app already is, then `boss unlock` upward on
+// evidence. ≈ a safe scaffold (copy-if-absent) + settings merge + stamp + register.
+function cmdAdopt(args) {
+  const flags = parseArgs(args);
+  const targetDir = process.cwd();
+  if (existsSync(join(targetDir, STAMP))) {
+    return fail('already a BOSS project (.boss/manifest.json here). Use `boss sync` to update or `boss unlock <mode>` to add a mode.');
+  }
+  // Default to the lightest register (Quickstart); `--mode mvp` etc. adopts higher
+  // when the app has already earned it (real users, a real build).
+  const stageId = flags.mode ? resolveStageId(flags.mode) : STAGE_ORDER[0];
+  if (!stageId) return fail(`unknown mode '${flags.mode}'.`);
+  let manifest;
+  try { manifest = readStageManifest(stageId); }
+  catch { return fail(`mode '${flags.mode}' isn't authored yet.`); }
+
+  const name = basename(targetDir);
+
+  // 1. Non-destructive scaffold of the FULL chain up to the target mode — adopting
+  //    at MVP must also lay down Quickstart's foundation (welcome/boss/triage/...),
+  //    exactly as `boss new` + `boss unlock mvp` would. Copy-if-absent throughout.
+  const chain = STAGE_ORDER
+    .slice(0, STAGE_ORDER.indexOf(stageId) + 1)
+    .filter((s) => { try { readStageManifest(s); return true; } catch { return false; } });
+  const claudePreexisted = existsSync(join(targetDir, 'CLAUDE.md'));
+  const copied = [];
+  const skipped = [];
+  for (const s of chain) {
+    const m = readStageManifest(s);
+    const r = applyStageSafe(s, targetDir, stageVars(name, s, m.name));
+    copied.push(...r.copied);
+    skipped.push(...r.skipped);
+  }
+
+  // 2. If the repo already had a CLAUDE.md, we skipped the template's — leave the
+  //    founder's rules intact and append a small marked BOSS block pointing in.
+  if (claudePreexisted) {
+    appendClaudeBlock('adopt', targetDir,
+      `## BlueprintOS (BOSS) — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
+      `This repo was adopted into BOSS at **${manifest.name}** mode (non-destructively — your files were untouched).\n` +
+      `New: \`.claude/skills/\` + \`.claude/agents/\` for this mode, a conscience hook, and \`docs/\` capture surfaces.\n` +
+      `Run **\`/welcome\`** to orient, **\`/boss\`** to spin up an idea, or **\`boss map\`** to see what's available.\n` +
+      `Grow ceremony as the project earns it: \`boss unlock <mode>\`.`);
+  }
+
+  // 3. Stamp .boss/ (mode + not-self-hosted) so it's a real BOSS project. Agents /
+  //    skills / hooks / loops are the UNION across the installed chain.
+  const u = { agents: new Set(), skills: new Set(), hooks: new Set(), loops: new Set() };
+  for (const s of chain) {
+    const m = readStageManifest(s);
+    (m.agents || []).forEach((x) => u.agents.add(x));
+    (m.skills || []).forEach((x) => u.skills.add(x));
+    (m.hooks || []).forEach((x) => u.hooks.add(x));
+    (m.loops || []).forEach((x) => u.loops.add(x));
+  }
+  const stamp = {
+    name, bossVersion: bossVersion(), stage: stageId, mode: manifest.name,
+    installedLayers: chain, agents: [...u.agents], skills: [...u.skills],
+    hooks: [...u.hooks], loops: [...u.loops],
+    createdAt: new Date().toISOString(), adopted: true,
+  };
+  writeStamp(targetDir, stamp);
+  // config.json only if absent — never clobber a founder's prefs.
+  const cfgPath = join(targetDir, '.boss', 'config.json');
+  if (!existsSync(cfgPath)) {
+    writeFileSync(cfgPath, JSON.stringify({
+      github: 'ask', visibility: 'private', license: 'proprietary', cohort: null, shareUp: false,
+    }, null, 2) + '\n');
+  }
+
+  // 4. Merge the conscience hook registration into settings.json (additive —
+  //    preserves the founder's permissions + any hooks they already wired).
+  const settings = computeSettingsMerge(targetDir, chain);
+  if (settings && settings.changed) {
+    const dest = join(targetDir, settings.rel);
+    mkdirSync(join(targetDir, '.claude'), { recursive: true });
+    writeFileSync(dest, JSON.stringify(settings.merged, null, 2) + '\n');
+  }
+
+  // 5. Register as a normal (not self-hosted) project — rides the usual sync loop.
+  registerProject({
+    name, path: targetDir, stage: stageId, mode: manifest.name,
+    bossVersion: bossVersion(), createdAt: stamp.createdAt,
+  });
+
+  console.log(`\n  ✦ Adopted ${name} into BOSS — ${manifest.name} mode (${stageId}, BOSS ${bossVersion()})`);
+  console.log(`    ${copied.length} file(s) added · ${skipped.length} of yours left untouched${claudePreexisted ? ' · CLAUDE.md preserved (BOSS block appended)' : ''}`);
+  console.log(`    skills: ${stamp.skills.join(', ') || '—'}`);
+  console.log(`\n  Next:`);
+  console.log(`    claude              # open Claude Code here`);
+  console.log(`    > /welcome              # what BOSS added + how the conscience works`);
+  console.log(`    boss map                # what's available · boss unlock <mode> to grow`);
   console.log('');
 }
 
@@ -325,6 +422,7 @@ export function run(argv) {
   const [cmd, ...args] = argv;
   switch (cmd) {
     case 'new': return cmdNew(args);
+    case 'adopt': return cmdAdopt(args);
     case 'unlock': return cmdUnlock(args);
     case 'status': return cmdStatus(args);
     case 'board': return cmdBoard(args);
@@ -340,6 +438,7 @@ export function run(argv) {
     default:
       console.log(`BlueprintOS (BOSS) ${bossVersion()}\n`);
       console.log('  boss new <name>          scaffold a new project in Quickstart mode + register it');
+      console.log('  boss adopt [--mode <m>]  bring BOSS into an already-started repo here, non-destructively');
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
       console.log('  boss status              this project: mode, pinned version, drift');
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');

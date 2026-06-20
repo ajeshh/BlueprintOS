@@ -1,5 +1,5 @@
 import {
-  cpSync, readdirSync, statSync, readFileSync, writeFileSync, existsSync, rmSync,
+  cpSync, readdirSync, statSync, readFileSync, writeFileSync, existsSync, rmSync, mkdirSync,
 } from 'node:fs';
 import { join } from 'node:path';
 import { STAGES_DIR } from './paths.js';
@@ -47,7 +47,7 @@ function substituteInTree(dir, vars) {
 // Append a stage's claude-append.md block to the project's CLAUDE.md, once.
 // Idempotent: keyed by a per-stage marker, so re-applying a stage is a no-op.
 // If CLAUDE.md doesn't exist yet, it's created from the block.
-function appendClaudeBlock(stageId, targetDir, body) {
+export function appendClaudeBlock(stageId, targetDir, body) {
   const claudePath = join(targetDir, 'CLAUDE.md');
   const startMark = `<!-- boss:${stageId} start -->`;
   const endMark = `<!-- boss:${stageId} end -->`;
@@ -59,6 +59,57 @@ function appendClaudeBlock(stageId, targetDir, body) {
     : '';
   writeFileSync(claudePath, existing + sep + block);
   return true;
+}
+
+// Recursive copy-if-absent: copy every template file that doesn't already exist
+// in the target, skipping (never clobbering) any the founder already has. The
+// non-destructive half of `boss adopt`. Records copied + skipped paths.
+function cpSafeTree(srcDir, destDir, copied, skipped) {
+  mkdirSync(destDir, { recursive: true });
+  for (const name of readdirSync(srcDir)) {
+    const s = join(srcDir, name);
+    const d = join(destDir, name);
+    if (statSync(s).isDirectory()) {
+      cpSafeTree(s, d, copied, skipped);
+    } else if (existsSync(d)) {
+      skipped.push(d);
+    } else {
+      cpSync(s, d);
+      copied.push(d);
+    }
+  }
+}
+
+// Adopt a stage into an EXISTING repo non-destructively: copy only files that
+// don't collide, substitute placeholders in just those (never touch the
+// founder's own files), and fold any claude-append.md block into CLAUDE.md.
+// Returns { copied, skipped, claudePreexisted, appendedClaude } for reporting.
+export function applyStageSafe(stageId, targetDir, vars) {
+  const templateDir = join(STAGES_DIR, stageId, 'template');
+  if (!existsSync(templateDir)) {
+    throw new Error(`Stage ${stageId} has no template/ dir (not authored yet).`);
+  }
+  const claudePreexisted = existsSync(join(targetDir, 'CLAUDE.md'));
+  const copied = [];
+  const skipped = [];
+  cpSafeTree(templateDir, targetDir, copied, skipped);
+
+  // Substitute placeholders only in the files we actually wrote.
+  for (const f of copied) {
+    if (!isTextFile(f.slice(f.lastIndexOf('/') + 1))) continue;
+    let body = readFileSync(f, 'utf8');
+    for (const [k, v] of Object.entries(vars)) body = body.replaceAll(`{{${k}}}`, v);
+    writeFileSync(f, body);
+  }
+
+  // Fold a stray claude-append.md (L1/L2 carry one) into CLAUDE.md, then remove it.
+  let appendedClaude = false;
+  const stray = join(targetDir, CLAUDE_APPEND);
+  if (existsSync(stray)) {
+    appendedClaude = appendClaudeBlock(stageId, targetDir, readFileSync(stray, 'utf8'));
+    rmSync(stray);
+  }
+  return { copied, skipped, claudePreexisted, appendedClaude };
 }
 
 // Copy a stage's template/ tree into targetDir and fill placeholders.
