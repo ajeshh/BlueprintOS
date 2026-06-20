@@ -84,7 +84,9 @@ export function renderMap(projectDir, stamp) {
 
   // Standing controls — always available, mode-independent (the git-cheatsheet core).
   lines.push('  Anytime');
-  lines.push('    boss board                       what\'s in flight (captured → shipped)');
+  lines.push('    boss board [--html]              what\'s in flight (captured → shipped); --html = visual kanban');
+  lines.push('    boss brain                       the conscience\'s read on this venture');
+  lines.push('    boss insights                    how far your ventures have gotten (local)');
   lines.push('    boss status --conscience         loop states + cohort + recent overrides');
   lines.push('    boss conscience pause --for 8h   silence the conscience for a sprint');
   lines.push('    /boss-sync                       pull the latest BOSS practices into this project');

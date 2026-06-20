@@ -1,13 +1,13 @@
 import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
-import { execSync } from 'node:child_process';
+import { execSync, spawn } from 'node:child_process';
 import { bossVersion, STAGE_ORDER, resolveStageId } from './paths.js';
 import { applyStage, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
 import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
-import { board } from './board.js';
+import { board, boardHtml } from './board.js';
 import { map } from './map.js';
 import { brain } from './brain.js';
 import { insights } from './insights.js';
@@ -104,9 +104,8 @@ function cmdNew(args) {
   console.log(`    cd ${name}`);
   console.log(`    code ${name}        # or open the folder in your editor (Cursor, etc.)`);
   console.log(`    claude              # open Claude Code (works in the terminal or the editor panel)`);
-  console.log(`    > /welcome              # first time? gentle orientation, ~1 min`);
-  console.log(`    > /boss <idea|PRD|file|url>  # spin up — point at an idea, a doc, a deck, or a link`);
-  console.log(`    > /import <file|url>         # already have it written somewhere? pull it in`);
+  console.log(`    > /boss <your idea>     # spin up — a sentence, a doc, a deck, or a link`);
+  console.log(`                            #   (first time? /welcome · already written it down? /import <file|url>)`);
   console.log('');
 }
 
@@ -165,9 +164,18 @@ function cmdStatus(args) {
   console.log('');
 }
 
-function cmdBoard() {
+function cmdBoard(args = []) {
   const stamp = readStamp(process.cwd());
   if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+  if (args.includes('--html')) {
+    const out = boardHtml(process.cwd(), stamp.name);
+    console.log(`\n  ✦ Visual board → ${out}`);
+    console.log('    A read of your files. Re-run `boss board --html` to refresh.\n');
+    // Best-effort open in the default browser; printing the path is the contract.
+    const opener = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+    try { spawn(opener, [out], { stdio: 'ignore', detached: true, shell: process.platform === 'win32' }).unref(); } catch { /* path already printed */ }
+    return;
+  }
   board(process.cwd(), stamp.name);
 }
 
@@ -319,7 +327,7 @@ export function run(argv) {
     case 'new': return cmdNew(args);
     case 'unlock': return cmdUnlock(args);
     case 'status': return cmdStatus(args);
-    case 'board': return cmdBoard();
+    case 'board': return cmdBoard(args);
     case 'map': return cmdMap();
     case 'brain': return cmdBrain(args);
     case 'insights': return cmdInsights();
@@ -336,7 +344,7 @@ export function run(argv) {
       console.log('  boss status              this project: mode, pinned version, drift');
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
       console.log('  boss map                 live cheatsheet: where you are + what\'s one unlock away');
-      console.log('  boss board               a live read of what\'s in flight (captured → shipped)');
+      console.log('  boss board [--html]      a live read of what\'s in flight (captured → shipped); --html opens a visual kanban');
       console.log('  boss brain               the conscience\'s read on this venture (its POV over time)');
       console.log('  boss insights            read your own projects\' trace: where each loop stands (local · nothing sent)');
       console.log('  boss list                all connected projects');

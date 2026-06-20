@@ -111,7 +111,7 @@ and offer to retry.
 Read `cohort` from `.boss/config.json`. If `null` (the default), ask ONE open question:
 
 > *"Quick optional thing — which of these sounds most like where you're starting from? It lets BOSS's
-> conscience tune its voice for you. If none fit, totally fine to skip:*
+> conscience tune its voice for you. If none fit, skip:*
 > - *`vibe-coder-newbie` — picked up Cursor/Claude Code recently, no eng/startup background*
 > - *`eng-builder` — strong eng background, first-time founder*
 > - *`non-tech-founder` — domain expertise, no coding background, AI is the bridge*

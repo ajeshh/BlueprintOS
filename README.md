@@ -43,7 +43,7 @@ A CLI plus a set of skills, agents, and loops that run inside Claude Code:
   Cohort-aware (set yours during spin-up; it adjusts the voice). Always overridable; never
   blocking. Silence it for a sprint: `boss conscience pause --for 8h`.
 - **A mentor board.** Eight advisors (venture, architect, GTM, business, fundraising, pitch,
-  talent, humane) coach the founder. Plus a builder team (designer, voice-keeper, prompt-
+  talent, humane) for the parts code can't teach. Plus a builder team (designer, voice-keeper, prompt-
   coach) for the craft. Plus eight proto-personas (vibe-coder-newbie, eng-builder,
   indie-hacker, returning-founder, domain-expert, …) you can show features to before showing
   them to real founders.

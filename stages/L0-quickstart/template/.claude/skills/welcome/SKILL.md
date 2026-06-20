@@ -103,7 +103,7 @@ new to building — pace accordingly.
 
 ### What BOSS is
 
-> *"BOSS is a build companion. Three pieces:*
+> *"BOSS is a build tool. Three pieces:*
 > 1. *A **mode** — how much structure the project has. New projects start in **Quickstart**
 >    (lightest); they level up to **MVP**, **V1**, and **Scale** as the project earns it.
 >    Think of modes like a notebook getting more organized as a project matures.*
@@ -221,7 +221,7 @@ parenthetical, not equal billing. The founder should be able to act without re-r
   `.boss/config.json`.
 - **No power moves.** Don't run `/boss`, `/triage`, or any other skill *for* the founder.
   Suggest them; let the founder decide. /welcome is orientation, not action.
-- **Don't oversell.** BOSS is a build companion, not a religion. If the founder says "this
+- **Don't oversell.** BOSS is a build tool, not a religion. If the founder says "this
   is overkill for what I'm doing," they may be right — point at `boss conscience pause`,
   point at the override grammar, point at the JIT principle. Don't argue.
 - **Plain language wins.** The phrase *"just-in-time agentic ceremony"* doesn't belong in

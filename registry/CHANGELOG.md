@@ -2,6 +2,36 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.51.0 — 2026-06-20
+
+- **Visual kanban (`boss board --html`) + a voice-tightening pass.** Two founder-experience asks.
+  - **`boss board --html` — the board, as a visual kanban.** Ajesh: *"having a visual kanban state
+    that can be updated when the board is is super helpful."* Promotes the HTML view IDEA-015 deferred
+    behind an earn-it gate. Same **pure projection** as the terminal board (`collectBoard`) rendered to
+    a self-contained `.boss/board.html` — zero deps, no server, no JS framework; four columns
+    (Captured / Taking shape / Building / Shipped), cards with id + title, `↻ review due` + `blocked`
+    flags, the evidence line + riskiest-assumption framing on top, light/dark, responsive. Opens in
+    the default browser (best-effort; the printed path is the contract). "Updated when the board is" =
+    re-run it — it's a read of the files, never a maintained doc (the IDEA-015 discipline holds). Wired
+    into `boss --help` + `boss map`.
+  - **Voice pass (voice-keeper full audit — verdict: "in remarkably good shape").** Applied the
+    high-leverage fixes: dropped the `🎯` emoji that shipped into the founder's own canvas template;
+    unified the cohort question wording so `/welcome` and `/boss` are *actually* identical (they
+    claimed to be); settled the self-description on **"build tool"** (not "build companion" — the
+    ethos is conscience/tool, not coach); collapsed the most-read `boss new` first-run lines to one
+    bold path + demoted fallbacks (matching `/welcome`'s own discipline); collapsed the `boss insights`
+    triple-stated telemetry footer; dropped an inside-baseball `/ai-cost` wink in `boss conscience
+    cost`; de-"coach"-ed the README mentor line against the settled ethos; added `boss brain` +
+    `boss insights` to the `boss map` standing-controls so the live cheatsheet agrees with `--help`.
+    (Kept the maintainer-only `Learned … UP` vocabulary deliberately — UP/DOWN is load-bearing
+    Principle-1 language and the reader there is always the maintainer.)
+  - **Captured (not built): [IDEA-030 "drop an idea and hit go"](../docs/ideas/IDEA-030-drop-an-idea-hit-go.md)** —
+    a fast path to a runnable prototype. Philosophically loaded (the pseudo-app trap is *why BOSS
+    exists*), so captured with a concrete `/prototype` proposal + the resolution (see-it-not-sell-it,
+    conscience-attached, the graduate ladder as the honesty mechanism) and four shape questions for
+    Ajesh — a decision to take together before building.
+  - Eval gate 105/0; judgment GRADED; HTML render + voice fixes verified end-to-end in `/tmp`.
+
 ## 0.50.0 — 2026-06-20
 
 - **Close the trends-pass loose ends (IDEA-027 #4 + IDEA-026 Part B wiring).** Ajesh's audit prompt —

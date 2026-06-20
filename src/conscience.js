@@ -167,7 +167,7 @@ export function conscienceActivity(projectDir = process.cwd(), { asCost = false 
   if (asCost) {
     console.log(`\n  conscience cost → measured as FREQUENCY, not tokens.`);
     console.log(`  A hook that never calls a model can't honestly price tokens; over-firing (not the`);
-    console.log(`  bill) is how a conscience becomes costly. Facts, not estimates. (BOSS, /ai-cost, on itself.)`);
+    console.log(`  bill) is how a conscience becomes costly. Facts, not estimates.`);
   }
 
   if (rows.length === 0) {

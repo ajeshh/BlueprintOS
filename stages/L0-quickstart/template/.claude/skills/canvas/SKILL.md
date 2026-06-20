@@ -71,7 +71,7 @@ _Impact, risks, and the values that guide decisions._
 | **Risks & Harms** | What could unintentionally go wrong? Who might be harmed or excluded? | Rank the assumptions that could kill the idea. Be honest about harm at scale. |
 | **Principles** | What values will guide your decisions? | The non-negotiables you'll hold even when it's costly. |
 
-## 🎯 Incubation heartbeat
+## Incubation heartbeat
 - **Riskiest assumption:** _(the one most likely to be fatal and least proven)_
 - **Experiment this week:** _(the smallest test to prove/disprove it)_
 - **What result would change the plan?** _(decide before you run it)_

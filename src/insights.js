@@ -109,7 +109,6 @@ export function insights(cwd) {
     if (r.note) console.log(`      ${''.padEnd(22)}${r.note}`);
   }
 
-  console.log(`\n  Measures graduation + loop-closure (idea→canvas→build→ship), not activity.`);
-  console.log(`  Read from the trace your work already leaves — this machine only, nothing phoned home.`);
-  console.log(`  Cross-user learning stays opt-in (shareUp). To send something deliberately: /feedback.\n`);
+  console.log(`\n  Measures graduation, not activity (idea→canvas→build→ship).`);
+  console.log(`  Local-only. Cross-user learning is opt-in (shareUp); send something deliberately with /feedback.\n`);
 }
