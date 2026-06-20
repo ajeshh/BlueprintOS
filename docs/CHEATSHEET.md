@@ -3,7 +3,7 @@
 # BOSS Cheatsheet
 
 > The whole ladder at a glance — every mode and what it adds. Generated from the stage
-> manifests, current as of **v0.44.0**. Inside a project, run `boss map` for the live,
+> manifests, current as of **v0.50.0**. Inside a project, run `boss map` for the live,
 > personalized version (where you are + what’s one unlock away).
 
 ## The ladder
@@ -31,8 +31,10 @@ removed, and a project that stays in Quickstart forever is a legitimate project.
 
 - `/welcome` — First time using BOSS? Start here
 - `/boss` — Spin up a freshly-scaffolded project from a rough idea or PRD
+- `/import` — Bring existing material into this project — point at a file, a folder, or a URL (Word doc, Google Doc, Obsidian note, PDF, slide deck, online reference) and BOSS pulls a durable copy into docs/source/ and folds it into your idea
 - `/triage` — Capture an idea — and keep adding to it
 - `/canvas` — Pressure-test an idea as a humane business — Ajesh Shah's Humane Product Canvas as the spine, with Lean/Lenny-style commercial prompts folded into each cell
+- `/feedback` — Send feedback about BOSS itself back to the people who build it — a bug, a confusion, a wish, a "this got in my way." User-initiated and transparent: it shows you exactly what it will send (and the small bit of context attached) before anything leaves your machine, then files it as a GitHub issue upstream (or gives you a prefilled link to paste)
 - `/boss-sync` — Pull current BOSS practices into this project — bring the installed modes' skills/agents up to the latest version as a reviewed, narrated diff, then bump the project's BOSS pin
 - `/boss-learn` — Route a proven pattern two ways — UP into the BOSS library as a reusable superset practice, or DOWN into this app as hardened core functionality
 
@@ -49,7 +51,7 @@ removed, and a project that stays in Quickstart forever is a legitimate project.
 - `/spec` — Promote an idea into a buildable spec — IDEA-NNN becomes FEAT-NNN with a goal, acceptance criteria, and a smoke check
 - `/smoke` — Run the project's smoke check — "is the app even working right now?" Stack-configured
 - `/log` — Append a dated entry to docs/devlog.md — what landed this session, what's next, what surprised you
-- `/close` — Session-end ritual — update docs/RESUME.md (state + next tasks + open decisions) and append a /log entry
+- `/close` — Session-end ritual — update docs/RESUME.md (state + next tasks + open decisions), append a /log entry, and let the conscience update its read on the venture (.boss/brain/)
 - `/evals` — Build and run the eval set for an AI-mediated FEAT — "is it correct?" paired with /smoke's "is it alive?" Husain's discipline applied to LLM-mediated control-flow in your app — look at your data, build the eval set FIRST, categorize failures by mode, vibes-based eval is only a starting point
 - `/pretotype` — Test demand BEFORE you build
 - `/design-tokens-init` — Scaffold the minimal three-layer design token system at the first UI commit
@@ -59,6 +61,7 @@ removed, and a project that stays in Quickstart forever is a legitimate project.
 - `/ai-failure-states` — Design what your app does when the AI fails — the five failure states (garbage / refusal / hallucination / timeout / cost-spike) and the declared response for each
 - `/extract` — Pause and sort patterns — PRINCIPLE #1's discipline as a skill
 - `/drift-deep` — The deep, whole-project version of the conscience's drift check — "am I fooling myself across EVERYTHING I've built?" Reads the entire project (canvas, all devlog, all FEAT specs, the actual code, the ideas) and judges, honestly, whether the body of work is validating the named riskiest assumption or building around it
+- `/revalidate` — The 3-line gate before paused work re-enters the build — checks a deferred idea/feature against a world that moved (still relevant? still aligned? anything changed?) and routes it to revive / rescope / kill / re-pause, so you never build a zombie feature
 
 **Agents:** tester, program-manager, mentor-architect, mentor-gtm  
 **Loops:** spec-loop, pretotype-loop, design-tokens-loop, cost-budget-loop, ai-failure-state-loop, extraction-loop, cost-review-loop, drift-loop  

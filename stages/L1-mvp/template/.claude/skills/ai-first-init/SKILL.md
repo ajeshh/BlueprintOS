@@ -141,6 +141,25 @@ sees a failure.
 
 This step closes `ai-failure-state-loop` and finalizes the AI-first declaration.
 
+### Step 5.5 — Name the security surface (the lethal trifecta)
+
+The moment an AI feature reads untrusted input (a web page, a user's pasted text, an email, a
+dependency), takes consequential action, *and* can reach private data, you've assembled the
+attacker's ideal surface. Security here is **architectural, not a prompt** — you can't ask a model
+to never be tricked, only constrain what a tricked model can *do*. Name it once now:
+
+- **Lethal trifecta** — danger needs all three together: *untrusted input* + *access to private
+  data* + *ability to act/exfiltrate*. Remove any one for a given step and the attack can't complete.
+- **Rule of Two** — prefer that any single step has at most two of the three. Reading untrusted web
+  content? Don't also hand that step secrets and an open network.
+- **Enforce in the harness, not the prose** — the `permissions.deny` floor ships with every BOSS
+  project; high-stakes/regulated cohorts add the `secrets-guard` hook (a *deterministic* guard;
+  never trust a non-deterministic safety classifier alone). Sandbox untrusted-input steps; pin deps;
+  put a real stop on the irreversible (push / deploy / delete / send).
+
+Full practice: `library/practices/agent-security.md` (Willison 2026). For a day-one Quickstart this
+is one sentence; it earns more ceremony as the app reads untrusted input or handles regulated data.
+
 ### Step 6 — Update `docs/ai-first.md` cross-reference fields
 
 After the sub-skills run, return to `docs/ai-first.md` and flip the cross-reference fields:

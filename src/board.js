@@ -96,11 +96,23 @@ export function collectBoard(projectDir) {
     const title = cardTitle(firstHeading(text), id);
     if (/^FEAT/i.test(id)) {
       if (fm.source) featSources.add(fm.source);
-      feats.push({ id, title, status: fm.status });
+      feats.push({ id, title, status: fm.status, nextReview: fm.next_review });
     } else {
-      ideas.push({ id, title, status: fm.status });
+      ideas.push({ id, title, status: fm.status, nextReview: fm.next_review });
     }
   }
+
+  // "Review due" is frontmatter-true, never guessed: an item carries an explicit
+  // `next_review:` date (set when it was paused / by /revalidate) that has passed.
+  // We deliberately do NOT infer staleness from age — a guessed signal would add
+  // noise the founder learns to ignore. No date → not due. (IDEA-027.)
+  const today = new Date().toISOString().slice(0, 10);
+  const reviewDue = (nextReview, status) => {
+    const s = (status || '').toLowerCase();
+    if (s === 'shipped' || s === 'done' || s === 'killed') return false;
+    const d = (nextReview || '').trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) && d <= today; // YYYY-MM-DD lexical compare
+  };
 
   const cards = [];
   for (const ft of feats) {
@@ -109,6 +121,7 @@ export function collectBoard(projectDir) {
       title: ft.title,
       column: featColumn(ft.status),
       blocked: (ft.status || '').toLowerCase() === 'blocked',
+      reviewDue: reviewDue(ft.nextReview, ft.status),
     });
   }
   for (const id of ideas) {
@@ -116,7 +129,13 @@ export function collectBoard(projectDir) {
     if (featSources.has(id.id)) continue;
     const hasRisk = files.includes(`${id.id}-canvas.md`)
       && riskiestNamed(readFileSync(join(ideasDir, `${id.id}-canvas.md`), 'utf8'));
-    cards.push({ id: id.id, title: id.title, column: ideaColumn(id.status, hasRisk), blocked: false });
+    cards.push({
+      id: id.id,
+      title: id.title,
+      column: ideaColumn(id.status, hasRisk),
+      blocked: false,
+      reviewDue: reviewDue(id.nextReview, id.status),
+    });
   }
 
   // Stable, readable order: by id within each column (handled at render time).
@@ -163,10 +182,18 @@ export function renderBoardText(projectName, { cards, hasIdeasDir }) {
       lines.push('    —');
     } else {
       for (const c of inCol) {
-        const flag = c.blocked ? '  · blocked' : '';
+        const flag = c.blocked ? '  · blocked' : c.reviewDue ? '  · ↻ review due' : '';
         lines.push(`    ${c.id.padEnd(10)} ${c.title}${flag}`);
       }
     }
+    lines.push('');
+  }
+
+  // The trigger half of /revalidate: a paused item whose next_review date has
+  // passed is surfaced here so the gate has something to fire on (IDEA-027).
+  const due = cards.filter((c) => c.reviewDue).sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
+  if (due.length) {
+    lines.push(`  ↻ ${due.length} past review — run \`/revalidate ${due[0].id}\` (still relevant? still aligned? anything changed?)`);
     lines.push('');
   }
 

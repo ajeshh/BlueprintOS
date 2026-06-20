@@ -2,6 +2,105 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.50.0 — 2026-06-20
+
+- **Close the trends-pass loose ends (IDEA-027 #4 + IDEA-026 Part B wiring).** Ajesh's audit prompt —
+  *"did we miss anything else to implement? you did a lot of lookup."* Two genuine loose ends from the
+  research, both now closed:
+  - **`boss board` surfaces "review due" — the trigger half of `/revalidate`.** v0.48 shipped the
+    revalidation *gate* but nothing *surfaced what to revalidate* — a half-feature. The board now reads
+    each item's `next_review:` frontmatter and flags any whose date has passed (`· ↻ review due`) plus
+    a footer line `↻ N past review — run /revalidate <id>`. **Frontmatter-true, never guessed:** no
+    `next_review` date → not flagged (an age-inferred "stale" signal would be noise the founder learns
+    to ignore). Completes the dhun-ported revalidation lifecycle; `boss board` stays a pure projection
+    (no new state).
+  - **Agent security wired JIT into `/ai-first-init` (Step 5.5).** v0.49 shipped `agent-security.md` as
+    an UP practice, but founders don't read `library/` — so the lethal-trifecta / Rule-of-Two framing
+    now surfaces *in the AI-native day-one sequence* (one sentence on a Quickstart; more ceremony as
+    the app reads untrusted input / handles regulated data). Names the surface, points at the
+    `permissions.deny` floor + `secrets-guard` ceiling + the deterministic-guard rule.
+  - Eval gate 105/0; judgment GRADED + no blocking failures; board staleness verified end-to-end in
+    `/tmp` (past-review flagged, future-review not). **Honest remaining map (deliberately staged, not
+    missed):** IDEA-025 P2/P3 (`/judge-traces` + trace-fed learn loop — need accumulated traces),
+    IDEA-026 Part A (upstream conscience — needs the IDEA-028 host-mount), IDEA-028 host-subtraction
+    audit (a decision to take *with* Ajesh, not autonomously), AGENT_DOC_MAP (until two agents
+    collide), the SDD-vocabulary + "agentic-engineering" positioning reframes (mentor-pitch territory),
+    and publishing the library on the open Skills standard (IDEA-006 distribution).
+
+## 0.49.0 — 2026-06-20
+
+- **Embed the 2026 best-practices — design, evals, security feel current across the board (IDEA-029 +
+  IDEA-026 + the trends pass).** Ajesh's follow-on to v0.48: *"on all research you surfaced (not just
+  design), let's ID all critical to add to our current work, and just go and embed it… make BOSS feel
+  very up to date with best practices."* Where v0.48 shipped the dhun *machinery*, this embeds the
+  *thinking* into the surfaces founders actually touch. Provenance:
+  [SESSION-2026-06-20-ui-design-scan](../docs/research/sessions/SESSION-2026-06-20-ui-design-scan.md).
+  - **`/design-tokens-init` — the 5-token distinctiveness pass + DTCG/semantic naming (the design
+    win).** Three layers already prevented *drift*; the new section prevents *sameness* — the
+    "shadcn trap" (slate/Inter/8px/indigo = generic-AI-app look) broken by five deliberate overrides
+    (warm neutral · intentional radius · type pairing · one owned accent · **one "signature token"**),
+    cohort-aware. Plus: name semantic tokens by **purpose not hue**, emit **W3C DTCG** where the stack
+    allows (portability, no lock-in), and **inline a semantic→primitive map into CLAUDE.md** so the
+    agent inherits the brand on every turn. (freedesignmd · Vercel · Curtis · W3C DTCG.)
+  - **`/evals` — the 2026 Hamel/Shankar sharpening.** Error analysis on **real traces** first (and a
+    pointer to v0.48's `.boss/trace.jsonl` as that raw material); **binary pass/fail, not 1–5 scores**;
+    **one expert, not a committee**; **don't let the model grade its own homework** (separate verifier
+    + trajectory-not-just-endpoint); a **60/30/10** deterministic/judge/human cost hierarchy.
+  - **New UP practice `library/practices/ai-ux-patterns.md`** — the interaction layer (where
+    `design-system.md` owns the look): "why this" rationale grounded in the user's own inputs ·
+    confidence-as-register · **Notify/Question/Review** interrupt registers · **edit-before-execute +
+    risk-tiered gates** (four decision verbs; gate by loss type) · **trust-repair after a miss**
+    (asymmetric recovery) · progressive disclosure · **discernment — knowing when not to speak — as a
+    first-class fundamental** · pinned canonical refs (Shape of AI / HAX / IBM Carbon; community
+    catalogs via `/vet`). Captured as [IDEA-029](../docs/ideas/IDEA-029-ai-native-interface-patterns.md),
+    extends IDEA-010.
+  - **`docs/mentor-practitioners.md`** AI-UX heuristics block updated with the 2026 additions +
+    pointer to the new practice.
+  - Library-layer + skill-content changes (no new template skill, no CLI change); eval gate 105/0,
+    judgment GRADED + no blocking failures; `boss new` + `unlock mvp` verified the upgraded skills
+    ship. **Staged from the design scan:** planning-as-collaboration / mid-run steering (Appleton —
+    twin of IDEA-026 Part A), RESUME-as-agent-inbox, wrapper-vs-flatten-per-cohort.
+
+## 0.48.0 — 2026-06-20
+
+- **The 2026-trends + dhun-scan pass — first builds (IDEA-025/027/026).** Occasioned by Ajesh:
+  *"with all the latest trends since we built BOSS… as well as potential new methods inside dhun, let's
+  assess what BOSS can better improve upon."* Three research passes (external 2026 trends; a 2026-only
+  scan of the named practitioners in `docs/mentor-practitioners.md`; a full catalog of the sibling
+  **dhun** project's working-method machinery) → captured as
+  [IDEA-025](../docs/ideas/IDEA-025-trace-native-conscience-and-evals.md)…028 with full provenance in
+  [SESSION-2026-06-20](../docs/research/sessions/SESSION-2026-06-20-trends-and-dhun-scan.md). This
+  release ships the concrete, proven, low-risk slice; the conceptual reframes (upstream conscience,
+  host-subtraction) stay specced-and-staged. **Three new dormant/UP capabilities — no behavior change
+  until opted in:**
+  - **`auto-log` trace substrate — the keystone, shipped dormant (IDEA-025 Phase 1).** A zero-dep Node
+    SubagentStop hook (`library/hooks/auto-log.js` + L1 template) that appends one honest line to
+    `.boss/trace.jsonl` per writer-subagent — session, agent, files actually changed (reads
+    `git status --porcelain`, so it catches *new* files too, not just tracked diffs), with last-line
+    dedup and read-only-agent skip. **The within-session complement to v0.47's `boss insights`**
+    (cross-project registry): both honest-trace, local-only, append-only, measure-don't-instrument
+    (inherits the IDEA-021/013 contract). It's the raw material a future trace-native judge
+    (`/judge-traces`) + sleep-time learn loop read — Hamel ("error analysis on real traces") + Chase
+    ("traces, not code, are the source of truth"). **Dormant** (a SubagentStop hook costs per-subagent
+    latency — registration is the opt-in, same as `secrets-guard`).
+  - **`memory-cue` hook — feedback→memory nudge, shipped dormant (IDEA-027 #1).** Ported UP from the
+    dhun dogfood, Node-ported for the zero-dep rule (`library/hooks/memory-cue.js` + L0 template). A
+    UserPromptSubmit hook that regex-detects a feedback signal (directive / corrective / confirmation)
+    and *nudges* the model to save it to memory — never auto-writes (wording needs reasoning), silent
+    on no-match (zero token cost). Serves the `library/memory-seed/` ambition.
+  - **`/revalidate` — the 3-line gate against zombie features (IDEA-027 #2).** A new L1 skill (+
+    `library/practices/revalidation.md`) ported UP from dhun's REVALIDATION lifecycle: before paused
+    work re-enters the build, answer *still relevant? still aligned? anything changed?* → revive /
+    rescope / kill / re-pause. BOSS eats it first — `docs/RESUME.md` carries a long deferred list.
+  - **Two new UP practices** distilled from the same scan: `library/practices/quality-ratchet.md`
+    (dhun's `.ratchet` one-way-baseline pattern, stack-neutral) and `library/practices/agent-security.md`
+    (Simon Willison's 2026 lethal-trifecta / "Agents Rule of Two" / "deterministic guard around a
+    non-deterministic model" — IDEA-026 Part B, the next ring after `secrets-guard`).
+  - Zero-dep held (Node built-ins only; `npm pack` verified — all new files ship). Hooks dormant
+    (settings.json unchanged; only `conscience.js` registered). `boss map` shows `/revalidate`;
+    eval gate clean (no blocking failures); judgment GRADED 7/7; tested end-to-end in `/tmp`
+    (`boss new` + `boss unlock mvp`, both hooks present + dormant, skill present).
+
 ## 0.47.0 — 2026-06-19
 
 - **Humane two-way learning channel — built the moment BOSS went public, the humane way (IDEA-024).**

@@ -88,6 +88,29 @@ Cohort-aware: `first-product` may legitimately ship STUB + override on day-one b
 (*"haven't seen this failure yet; will write the case when FEAT-002 ships"*); `domain-expert`
 in high-stakes domains should not ship STUB without an external escalation route documented.
 
+## Sharpening (2026 — Hamel Husain / Shreya Shankar)
+
+The 2026 update to the eval discipline, from the people who teach it. Fold these in:
+
+- **Error analysis comes first — on *real* traces, not invented cases.** Read your actual
+  session/agent traces, sort the failures into a taxonomy, *then* build evaluators for the modes you
+  actually see. Inventing eval cases before you've looked at real failures is "eval-driven
+  development" done backwards. (If the project runs BOSS's `auto-log` trace substrate, `.boss/trace.jsonl`
+  is exactly this raw material — IDEA-025.) Error analysis is 60–80% of the work.
+- **Binary pass/fail, not 1–5 scores.** A Likert score hides the decision. Force each case to a
+  yes/no — "did it do the thing or not" — and let the *categorized* failures carry the nuance. Scores
+  feel rigorous and measure nothing.
+- **One expert, not a committee.** Pick a single "benevolent dictator" who owns what pass means for
+  this FEAT. Averaging three people's vibes produces mush. (For high-stakes domains, that expert is a
+  domain expert — see the rule below.)
+- **Don't let the model grade its own homework.** If you use LLM-as-judge, the judge must be a
+  *separate* pass from the call that produced the output, with its own examples of the judge being
+  wrong. A right answer reached through a bad/dangerous tool path is still a failure — evaluate the
+  *trajectory*, not just the endpoint.
+- **Cost hierarchy.** Cheap deterministic assertions first; reserve LLM-as-judge for the persistent,
+  genuinely-semantic failures. A useful mix to aim for: ~60% deterministic / ~30% LLM-as-judge /
+  ~10% human-in-the-loop.
+
 ## Structured outputs (Liu discipline) — strongly recommended
 
 If the LLM call's output drives subsequent code (control flow, data routing, decisions), **schema

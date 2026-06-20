@@ -109,6 +109,33 @@ Read `docs/ideas/CANVAS.md` Promises cell. The brand voice declared there should
 declared brand. If the canvas's Promises cell is `_(not yet)_`, flag it — design tokens without
 a brand anchor will drift back to internet-defaults.
 
+### The 5-token distinctiveness pass (2026 — the "shadcn trap" fix)
+
+The fastest tell of a generic AI app: shadcn defaults straight out of the box — slate neutrals,
+Inter, 8px radius, indigo accent. AI codegen reaches for these because they're the internet
+average. Five deliberate overrides break the sameness without a redesign — do this *as part of
+picking primitives*, anchored to the canvas Promises cell:
+
+1. **Warm (or cool) the neutral scale** — pick a neutral with a temperature, not pure slate gray.
+2. **Choose a radius on purpose** — sharp (0–2px) or soft (12px+), not the default 8.
+3. **Intentional type pairing** — one characterful display/heading face + a clean body face; not
+   Inter-on-Inter.
+4. **One saturated accent** the brand owns — a single confident color, not indigo-by-default.
+5. **One "signature token" the defaults omit** — a texture, a shadow language, a custom easing
+   curve. This is the brandable one; it's what makes the UI *yours*.
+
+Cohort-aware: `vibe-coder-newbie` / `first-product` → just *do* the 5 overrides and show the
+before/after. `eng-builder` / `vibe-virtuoso` → *offer* them as a checklist, override-friendly.
+`domain-expert` → keep it sober; distinctiveness ≠ playful when the stakes are clinical.
+
+### Name by purpose, build on the standard (DTCG)
+
+Name semantic tokens by **purpose, not appearance** — `color.text.error`, never `color.red.500`
+at the semantic layer — so the AI can *reason* about intent rather than guess from a hue (Nathan
+Curtis). Where the stack allows, emit tokens in the **W3C DTCG** format (it reached a first stable
+version) so the system is portable and you're not locked into one vendor's token dialect — which
+also honors the canvas's "don't monetize lock-in" line.
+
 ## After scaffolding
 
 1. Update the project's CLAUDE.md (or claude-append.md) to declare the token discipline:
@@ -124,7 +151,19 @@ a brand anchor will drift back to internet-defaults.
    2. Reference tokens by semantic name (`color.action.primary`), never raw hex.
    3. Specify all 5 states (default / hover / active / disabled / empty) explicitly.
    4. Reject "make it pretty" prompts; anchor to the canvas Promises cell.
+
+   Semantic → primitive map (the AI reads this without opening another file):
+   | semantic                 | primitive        |
+   |--------------------------|------------------|
+   | color.action.primary     | <your accent>    |
+   | color.surface.background  | <your neutral>   |
+   | color.text.body           | <your ink>       |
+   | radius.default            | <your radius>    |
+   | font.display / font.body  | <your pairing>   |
+   | <signature token>         | <the one that's yours> |
    ```
+   Inlining the map in CLAUDE.md (not just `DESIGN_TOKENS.md`) means the agent inherits the
+   brand for free on every turn — the single most useful artifact for a Claude-Code-native scaffold.
 
 2. The `design-tokens-loop` exit predicate now passes — loop closes.
 
@@ -143,5 +182,11 @@ a brand anchor will drift back to internet-defaults.
   loop's entry predicate is the trigger; don't pre-empt it.
 - **Override is recorded, not blocked.** A founder skipping this skill is legitimate; record
   in devlog with substantive rationale.
-- **Cite the field.** Brad Frost (Atomic Design), Nathan Curtis (layer-cake), W3C Design Tokens
-  Community Group. Not BOSS's inventions — applied with build-integration.
+- **Run the 5-token distinctiveness pass.** Three layers prevent drift; the 5 overrides prevent
+  *sameness* (the generic-AI-app look). Both, not one. The "signature token" is the brandable one.
+- **Name by purpose; emit DTCG where the stack allows.** Semantic tokens reason about intent
+  (`color.text.error`), not hue (`color.red.500`); DTCG keeps it portable (no lock-in).
+- **Cite the field.** Brad Frost (Atomic Design), Nathan Curtis (layer-cake + purpose-naming), W3C
+  Design Tokens Community Group (DTCG stable). 2026 distinctiveness tactic per the AI-UX scan. Not
+  BOSS's inventions — applied with build-integration. Interaction-layer companion:
+  [`library/practices/ai-ux-patterns.md`](../../../../../library/practices/ai-ux-patterns.md).
