@@ -3,7 +3,7 @@
 # BOSS Skill Reference
 
 > One line per skill, grouped by the mode that introduces it. Generated from each
-> skill's `SKILL.md` frontmatter, current as of **v0.51.0**.
+> skill's `SKILL.md` frontmatter, current as of **v0.52.0**.
 
 ## Quickstart
 
@@ -11,6 +11,7 @@
 - **`/boss`** — Spin up a freshly-scaffolded project from a rough idea or PRD  _(/boss [path-to-PRD | rough idea text])_
 - **`/import`** — Bring existing material into this project — point at a file, a folder, or a URL (Word doc, Google Doc, Obsidian note, PDF, slide deck, online reference) and BOSS pulls a durable copy into docs/source/ and folds it into your idea  _(/import <path-or-url> [more paths/urls] [IDEA-NNN])_
 - **`/triage`** — Capture an idea — and keep adding to it  _(/triage <thought>  (run again anytime to add more))_
+- **`/prototype`** — Get the idea out of your head and onto the screen — fast  _(/prototype [IDEA-NNN | rough idea text])_
 - **`/canvas`** — Pressure-test an idea as a humane business — Ajesh Shah's Humane Product Canvas as the spine, with Lean/Lenny-style commercial prompts folded into each cell  _(/canvas [IDEA-NNN])_
 - **`/feedback`** — Send feedback about BOSS itself back to the people who build it — a bug, a confusion, a wish, a "this got in my way." User-initiated and transparent: it shows you exactly what it will send (and the small bit of context attached) before anything leaves your machine, then files it as a GitHub issue upstream (or gives you a prefilled link to paste)  _(/feedback [what's on your mind])_
 - **`/boss-sync`** — Pull current BOSS practices into this project — bring the installed modes' skills/agents up to the latest version as a reviewed, narrated diff, then bump the project's BOSS pin  _(/boss-sync)_

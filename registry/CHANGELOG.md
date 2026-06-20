@@ -2,6 +2,23 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.52.0 — 2026-06-20
+
+- **`/prototype` — drop an idea, hit go, see something tangible (IDEA-030).** Ajesh's framing settled
+  the design: *"not just vibe coding, but not gatekeeping until so much thought… building first in a
+  lean cycle is a place to start, not waiting until the other two are clear. People can fill in the
+  missing pieces after they get the gist out of their head and see something tangible."* A new **L0
+  skill** that builds the smallest runnable, clickable version of an idea — the ONE core interaction,
+  in whatever stack gets to "click it" fastest, mock data freely, the 5-token distinctiveness pass so
+  it doesn't look generic — then runs it. **The load-bearing call:** the conscience fires **AFTER** the
+  thing runs ("there it is — does seeing it change the idea? when you're ready: `/canvas`"), **never a
+  gate before** — building first *is* a legitimate first move in the loop, not a skip of it. Cohort-
+  aware (first-product gets the magic moment; eng-builder gets stack control; domain-expert gets the
+  "this is a sketch, not a regulated tool" guardrail up front). Honest framing held: it's a *sketch to
+  think with, named once, not your MVP* — and the graduate ladder (`unlock mvp` → `/spec` → `/evals`)
+  is what keeps a fast prototype from becoming a pseudo-app (PRINCIPLES). Registered in the L0
+  manifest; `boss map` + cheatsheet updated; eval 105/0.
+
 ## 0.51.0 — 2026-06-20
 
 - **Visual kanban (`boss board --html`) + a voice-tightening pass.** Two founder-experience asks.

@@ -1,10 +1,10 @@
 {
   "id": "L0-quickstart",
   "name": "Quickstart",
-  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony. /welcome runs first for new founders (v0.28).",
+  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony. /welcome runs first for new founders (v0.28). /prototype turns a rough idea into a runnable, clickable sketch fast — build-first as a legitimate lean-cycle start; the conscience helps fill the gaps after you see it, not before (v0.52, IDEA-030).",
   "requires": null,
   "agents": ["pm", "coder-generalist", "mentor-venture"],
-  "skills": ["welcome", "boss", "import", "triage", "canvas", "feedback", "boss-sync", "boss-learn"],
+  "skills": ["welcome", "boss", "import", "triage", "prototype", "canvas", "feedback", "boss-sync", "boss-learn"],
   "hooks": ["conscience"],
   "loops": ["capture-loop", "canvas-loop"],
   "unlocksNext": "L1-mvp",
