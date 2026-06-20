@@ -2,7 +2,7 @@ import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { execSync, spawn } from 'node:child_process';
 import { bossVersion, STAGE_ORDER, resolveStageId } from './paths.js';
-import { applyStage, applyStageSafe, appendClaudeBlock, readStageManifest } from './scaffold.js';
+import { applyStage, applyStageSafe, appendClaudeBlock, appendMarkedBlock, readStageManifest } from './scaffold.js';
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync, computeSettingsMerge } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
@@ -136,6 +136,7 @@ function cmdAdopt(args) {
     .slice(0, STAGE_ORDER.indexOf(stageId) + 1)
     .filter((s) => { try { readStageManifest(s); return true; } catch { return false; } });
   const claudePreexisted = existsSync(join(targetDir, 'CLAUDE.md'));
+  const agentsPreexisted = existsSync(join(targetDir, 'AGENTS.md'));
   const copied = [];
   const skipped = [];
   for (const s of chain) {
@@ -145,13 +146,27 @@ function cmdAdopt(args) {
     skipped.push(...r.skipped);
   }
 
-  // 2. If the repo already had a CLAUDE.md, we skipped the template's — leave the
-  //    founder's rules intact and append a small marked BOSS block pointing in.
+  // 2a. If the repo already had an AGENTS.md, we skipped the template's — leave
+  //     the founder's host-neutral rules intact and append BOSS's as a marked block
+  //     (so BOSS's working discipline lands alongside theirs).
+  if (agentsPreexisted) {
+    appendMarkedBlock(join(targetDir, 'AGENTS.md'), 'adopt',
+      `## BlueprintOS (BOSS) working rules — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
+      `1. **Capture before you build** (every idea → \`IDEA-NNN\`; see \`docs/ideas/INDEX.md\`).\n` +
+      `2. **Stack-neutral until decided.** 3. **Docs are source of truth, not chat.**\n` +
+      `4. **Small, reversible steps.** 5. **Ask before irreversible actions.** 6. **Don't over-build.**\n` +
+      `7. **Grow through modes** (Quickstart → MVP → V1 → Scale): \`boss unlock <mode>\`.`);
+  }
+
+  // 2b. If the repo already had a CLAUDE.md, we skipped the template's — leave the
+  //     founder's rules intact, import the (now-present) AGENTS.md so the rules
+  //     reach Claude, and append a small marked BOSS orientation block.
   if (claudePreexisted) {
     appendClaudeBlock('adopt', targetDir,
+      `@AGENTS.md\n\n` +
       `## BlueprintOS (BOSS) — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
       `This repo was adopted into BOSS at **${manifest.name}** mode (non-destructively — your files were untouched).\n` +
-      `New: \`.claude/skills/\` + \`.claude/agents/\` for this mode, a conscience hook, and \`docs/\` capture surfaces.\n` +
+      `Host-neutral working rules are imported from \`@AGENTS.md\` above. New: \`.claude/skills/\` + \`.claude/agents/\` for this mode, a conscience hook, and \`docs/\` capture surfaces.\n` +
       `Run **\`/welcome\`** to orient, **\`/boss\`** to spin up an idea, or **\`boss map\`** to see what's available.\n` +
       `Grow ceremony as the project earns it: \`boss unlock <mode>\`.`);
   }

@@ -2,6 +2,22 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.58.0 — 2026-06-20
+
+- **Scaffold `AGENTS.md` — host-neutral, fixes a self-contradiction (IDEA-032).** The clearest cheapest
+  miss from the 2026 gaps research: BOSS scaffolded **Claude-only `CLAUDE.md`**, locking every venture
+  to one host — against its own [IDEA-006](../docs/ideas/IDEA-006-conscience-host-portability.md)
+  host-portability principle + Principle #5 (optionality). Fixed the way **Anthropic's own docs
+  recommend** (verified via `code.claude.com/docs/en/memory`): `AGENTS.md` carries the host-neutral
+  working rules + conventions (read directly by Codex/Cursor/Copilot/Devin/…); `CLAUDE.md` is a thin
+  Claude-specific layer that **imports it via `@AGENTS.md`** (loads into context at launch — no
+  duplication, no drift) and adds the skills/conscience/mode-ladder below. `boss new` emits both;
+  **`boss adopt` handles every case non-destructively** — bare repo → both copied; existing CLAUDE.md
+  → preserved + an adopt block that `@AGENTS.md`-imports the (now-present) rules; existing AGENTS.md →
+  preserved + BOSS's working rules appended as a marked block. New reusable `appendMarkedBlock` helper.
+  Verified all four cases in `/tmp`; eval 105/0; `npm pack` ships `AGENTS.md`. **A concrete
+  down-payment on IDEA-006 + an Anthropic-appeal signal (portability is the property they evangelize).**
+
 ## 0.57.0 — 2026-06-20
 
 - **`/consult` — convene the mentor board on a cross-cutting question (IDEA-022 Track 2).** Some

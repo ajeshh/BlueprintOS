@@ -44,21 +44,25 @@ function substituteInTree(dir, vars) {
   }
 }
 
-// Append a stage's claude-append.md block to the project's CLAUDE.md, once.
-// Idempotent: keyed by a per-stage marker, so re-applying a stage is a no-op.
-// If CLAUDE.md doesn't exist yet, it's created from the block.
-export function appendClaudeBlock(stageId, targetDir, body) {
-  const claudePath = join(targetDir, 'CLAUDE.md');
-  const startMark = `<!-- boss:${stageId} start -->`;
-  const endMark = `<!-- boss:${stageId} end -->`;
-  const existing = existsSync(claudePath) ? readFileSync(claudePath, 'utf8') : '';
+// Append a marked block to a file, once. Idempotent: keyed by a marker id, so
+// re-applying is a no-op. Creates the file from the block if absent. The marker
+// is an HTML comment (stripped from Claude's context, kept in the file).
+export function appendMarkedBlock(filePath, markerId, body) {
+  const startMark = `<!-- boss:${markerId} start -->`;
+  const endMark = `<!-- boss:${markerId} end -->`;
+  const existing = existsSync(filePath) ? readFileSync(filePath, 'utf8') : '';
   if (existing.includes(startMark)) return false; // already applied
   const block = `${startMark}\n${body.trim()}\n${endMark}\n`;
   const sep = existing && !existing.endsWith('\n\n')
     ? (existing.endsWith('\n') ? '\n' : '\n\n')
     : '';
-  writeFileSync(claudePath, existing + sep + block);
+  writeFileSync(filePath, existing + sep + block);
   return true;
+}
+
+// Append a stage's claude-append.md block to the project's CLAUDE.md, once.
+export function appendClaudeBlock(stageId, targetDir, body) {
+  return appendMarkedBlock(join(targetDir, 'CLAUDE.md'), stageId, body);
 }
 
 // Recursive copy-if-absent: copy every template file that doesn't already exist

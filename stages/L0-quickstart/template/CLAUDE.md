@@ -1,27 +1,20 @@
 # CLAUDE.md — {{PROJECT_NAME}}
 
+@AGENTS.md
+
 > Scaffolded by BlueprintOS (BOSS) {{BOSS_VERSION}} in **{{MODE}}** mode ({{STAGE}}) on {{DATE}}.
-> Behavior rules live in the first ~40 lines. Reference material is below. Keep it that way —
-> compliance drops past ~200 lines. Long tables move to companion docs.
+> The host-neutral **working rules + conventions live in `@AGENTS.md`** (imported above — read it
+> first). This file adds only what's Claude-specific: the skills, the conscience, and the mode ladder.
+> Keep it short — compliance drops past ~200 lines.
 
 > **First time? Run `/welcome`** — gentle orientation, takes a minute, defines terms inline.
 > Already familiar with BOSS? Skip to `/boss <idea, file, Google Doc / Obsidian / PDF, or URL>` to
 > spin up — it pulls your material in. Already have it written somewhere? `/import <file|url>`.
 
-## Working rules (read first)
-
-1. **Capture before you build.** Every idea, bug, or ask becomes an `IDEA-NNN` via `/triage` before code. See `docs/ideas/INDEX.md`.
-2. **Stack-neutral until decided.** This project has no assumed stack. The first real build decision picks one; record it in an idea/spec, not in your head.
-3. **Source of truth is the docs, not the chat.** Decisions go in `docs/`. If code and a doc disagree, surface it before changing either.
-4. **Small, reversible steps.** One concern at a time. Prefer editing existing files to adding new ones.
-5. **Ask before risky/irreversible actions** (deletes, force-push, anything affecting shared state). Local reversible edits don't need a check.
-6. **Don't over-build.** No speculative abstractions, no error handling for impossible states, no comments that restate the code.
-7. **Grow the system deliberately.** When this project outgrows Quickstart, run `boss unlock mvp` — don't hand-roll ceremony BOSS already knows how to lay down.
-
 ## What exists in this mode ({{MODE}})
 
 - **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen), `mentor-venture` (coaches *you*, the founder — is this worth it, what's the riskiest assumption, what's the next real step).
-- **Skills:** `/welcome` (gentle first-run orientation — cohort-aware), `/boss` (spin up an idea — point it at a sentence, file, doc, or URL), `/import` (bring existing material in — Word/Google Doc/Obsidian/PDF/deck/link → `docs/source/`), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/feedback` (tell BOSS's makers what's working / broken — user-initiated, never background telemetry), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
+- **Skills:** `/welcome` (gentle first-run orientation — cohort-aware), `/boss` (spin up an idea — point it at a sentence, file, doc, or URL), `/import` (bring existing material in — Word/Google Doc/Obsidian/PDF/deck/link → `docs/source/`), `/triage` (capture an idea & keep adding to it — a living doc), `/prototype` (drop an idea, hit go — build the smallest clickable version fast), `/canvas` (pressure-test it as a humane business when it has legs), `/persona` (your app's target user as a consultable voice), `/feedback` (tell BOSS's makers what's working / broken — user-initiated, never background telemetry), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
 - **Docs:** `docs/ideas/` (living idea docs + canvases), `docs/IDS.md` (the ID system, minimal here).
 - **Memory:** two kinds, kept apart so context stays lean. *Durable facts* (who you are, settled decisions) → Claude's auto-memory, active across sessions. *Working state* (notes that only matter while you're in one area of the code) → `.claude/rules/your-app-code.md`, which loads **only when** Claude opens a file it's scoped to — not every session.
 
@@ -44,7 +37,7 @@ This project is in **{{MODE}}** mode. Modes level up as the project earns it:
 
 | Mode | Adds | When |
 |---|---|---|
-| **Quickstart** _(here)_ | idea capture, `/boss` spin-up, `/triage`, pm + coder | you have an idea to capture |
+| **Quickstart** _(here)_ | idea capture, `/boss` spin-up, `/triage`, `/prototype`, pm + coder | you have an idea to capture |
 | **MVP** | `/spec` + `FEAT-NNN`, `/smoke` build gate, devlog, `/close` + RESUME.md, tester | you're ready to build the first working version |
 | **V1** | design system, prototypes, `/board`, doc-placement contract, db-architect | ready for a real, shippable v1 |
 | **Scale** | PM org, refactor automation, code-health, product council | a fully blown-out, complex app |
@@ -55,14 +48,6 @@ Run `boss status` to see your mode and whether newer BOSS practices are availabl
 
 ## Reference
 
-### Project overview
-
-<!-- Replace this with what {{PROJECT_NAME}} is. Already have it written somewhere — a doc, a deck,
-     an Obsidian note, a Google Doc, a PDF, a link? Run `/boss` (or `/import`) and point at it; BOSS
-     pulls a copy into docs/source/, shapes the idea, captures it, and offers a private repo. -->
-
-_TBD — describe the project here, or point `/boss` at your source material._
-
 ### Agent roster (Quickstart)
 
 | Agent | Use for |
@@ -70,9 +55,3 @@ _TBD — describe the project here, or point `/boss` at your source material._
 | `pm` | What's worth building, scope, priority. Not a coder. |
 | `coder-generalist` | Implementation in the chosen stack. Configured when the stack is decided. |
 | `mentor-venture` | Coaches the founder: is this worth it, riskiest assumption, next step. Advisory only — no code. More mentors unlock per mode (see `docs/MENTORS.md`). |
-
-### Conventions
-
-- **IDs:** `IDEA-NNN` for raw ideas (see `docs/IDS.md`). More ID types unlock with later stages.
-- **Frontmatter:** every new doc carries `id`, `type`, `owner`, `status`.
-- **Git:** small commits, present-tense messages, never force-push shared branches without asking.
