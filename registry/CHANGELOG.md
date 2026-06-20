@@ -2,6 +2,21 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.57.0 — 2026-06-20
+
+- **`/consult` — convene the mentor board on a cross-cutting question (IDEA-022 Track 2).** Some
+  decisions don't belong to one mentor (raise-vs-bootstrap touches fundraising + business + GTM +
+  humane at once). A new **L1 skill** that orchestrates the individual `mentor-*` agents: route the
+  question to **only the mentors with a stake** (read the installed board from `.boss/manifest.json` —
+  it grows by mode), get each take **in its own lens** (grounded in the canvas/RESUME/FEAT, pushback
+  included), then **synthesize with the disagreement kept visible** — *where seasoned advisors disagree
+  is where the real decision lives; never average them into mush.* `mentor-humane` keeps its standing
+  **override authority**; the synthesis ties back to the canvas's riskiest assumption and **hands the
+  call back to the founder** (advisory, never a gate; record which lens you followed + why). Reads/
+  writes the venture brain (`.boss/brain/`) when present (IDEA-022). Registered in L1; `boss map` +
+  cheatsheet updated; eval 105/0. **IDEA-022 progress:** Track 1 (`boss adopt`, v0.56) + Track 2
+  (`/consult`, v0.57) now shipped; Tracks 3-4 (AI-native scaffolder, venture-brain voicing) remain.
+
 ## 0.56.0 — 2026-06-20
 
 - **`boss adopt` — bring BOSS into an already-started repo, non-destructively (IDEA-005; Track 1 of

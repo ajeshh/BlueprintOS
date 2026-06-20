@@ -3,7 +3,7 @@
 # BOSS Skill Reference
 
 > One line per skill, grouped by the mode that introduces it. Generated from each
-> skill's `SKILL.md` frontmatter, current as of **v0.56.0**.
+> skill's `SKILL.md` frontmatter, current as of **v0.57.0**.
 
 ## Quickstart
 
@@ -35,6 +35,7 @@
 - **`/drift-deep`** — The deep, whole-project version of the conscience's drift check — "am I fooling myself across EVERYTHING I've built?" Reads the entire project (canvas, all devlog, all FEAT specs, the actual code, the ideas) and judges, honestly, whether the body of work is validating the named riskiest assumption or building around it  _(/drift-deep)_
 - **`/revalidate`** — The 3-line gate before paused work re-enters the build — checks a deferred idea/feature against a world that moved (still relevant? still aligned? anything changed?) and routes it to revive / rescope / kill / re-pause, so you never build a zombie feature  _(/revalidate [ID or paused item])_
 - **`/judge-traces`** — Error analysis on your real session traces — the Hamel/Shankar discipline applied to your own work  _(/judge-traces [last N | all])_
+- **`/consult`** — Convene the mentor board on a cross-cutting question — route it to the mentors who actually have a stake, get each one's take in their own lens, and synthesize the answer with the disagreements kept visible (not averaged away)  _(/consult <question>)_
 
 ## V1
 
