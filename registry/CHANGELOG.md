@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.59.0 — 2026-06-20
+
+- **Venture-brain living memory — the write/evict side (IDEA-022 Track 0; the research's #1 capability
+  gap).** The brain spine (`boss brain` + `record`, model-owned `read.md` + CLI-owned `index.json`)
+  had the *read* side; this adds the **write/evict** side the 2026 gaps research named as the biggest
+  upgrade (Anthropic's memory tool + context editing: +39% / 84% fewer tokens) — and which `brain.js`
+  itself named as next. **Living memory ≠ infinite memory:**
+  - **`boss brain --diff`** — the read's *evolution* (date + headline per session, from the index):
+    continuity made visible without dumping the whole prose.
+  - **`boss brain forget --before <date>`** (or `--id <bN>`) — the **evict** side: drops dated reads
+    older than the date from `read.md` + prunes matching index entries, **keeping the standing summary
+    (preamble) + recent reads**. Founder-invoked, *never automatic* — it's an opinion about a person,
+    so only the human prunes it (on-principle).
+  - **Recency-window gate** (8 sessions) — `boss brain` nudges toward compression/eviction when the
+    read gets long, so the always-loaded surface stays lean (the bloat the conscience itself warns
+    against).
+  - **`/close` pairs the model side:** when the read spans many sessions, fold the oldest reads'
+    lasting conclusions into the standing summary at the top, drop the verbatim old blocks. The
+    standing summary survives; dated blocks are working history that ages out.
+  Additive to the parallel-session spine (no existing behavior changed); zero-dep, format-based block
+  handling (CLI owns boundaries, model owns content); verified in `/tmp` (diff, evict-preserving-
+  preamble, gate); eval 105/0. **IDEA-022: Tracks 1+2 + the Track-0 spine's living-memory increment now
+  shipped; Track 4 (fuller voicing) + Track 3 (AI-native scaffolder) remain.**
+
 ## 0.58.0 — 2026-06-20
 
 - **Scaffold `AGENTS.md` — host-neutral, fixes a self-contradiction (IDEA-032).** The clearest cheapest

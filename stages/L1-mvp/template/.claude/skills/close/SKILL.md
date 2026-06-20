@@ -39,6 +39,13 @@ It's the counterpart to *read `docs/RESUME.md` first thing*.
 
    - **Append, don't rewrite.** Add a dated `## YYYY-MM-DD` section to `.boss/brain/read.md` (create
      the file if absent). The brain is append-mostly — history is the point.
+   - **Living memory, not infinite memory — compress when the read gets long.** If `boss brain` flags
+     that the read spans many sessions (the recency-window nudge), fold the *oldest* dated reads' lasting
+     conclusions into the standing summary at the **top** of `read.md` (the preamble, above the first
+     dated header), then drop those verbatim old blocks. Keep the recent ~8 dated reads as-is. Compression
+     is the model's job (you can summarize meaning); the founder can also evict directly with
+     `boss brain forget --before <date>`. The standing summary is what survives; the dated blocks are the
+     working history that ages out.
    - **First-person, from the conscience.** "I'm noticing…", "Three sessions in, the pattern is…".
      It's a read, not a log.
    - **Interpretation across time, never facts or claims.** Facts live in the canvas/RESUME/devlog. The
