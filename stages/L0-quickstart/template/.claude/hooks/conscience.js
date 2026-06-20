@@ -16,7 +16,7 @@
 //
 // Always exits 0. Empty output = no signal = stay silent.
 
-import { detectSignals, composeContext, readCohort, readPauseState, clearPauseState, logActivity } from './lib/loop-runtime.js';
+import { detectSignals, composeContext, readCohort, readBrainContext, readPauseState, clearPauseState, logActivity } from './lib/loop-runtime.js';
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
@@ -39,7 +39,10 @@ try {
   }
 
   const cohort = readCohort(projectDir);
-  const additionalContext = composeContext(signals, { cohort });
+  // Continuity (IDEA-022 Track 4): only read when a moment is already firing (past
+  // the silent early-exit) — bounded + cost-disciplined. null when no brain yet.
+  const brain = readBrainContext(projectDir);
+  const additionalContext = composeContext(signals, { cohort, brain });
 
   // Frequency ledger (v0.34) — correctness-invisible side effect; only fires
   // reach here (past the silent early-exit). Records facts (moments, judge-bool,

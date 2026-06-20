@@ -2,6 +2,24 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.63.0 — 2026-06-20
+
+- **The conscience now voices *with* the venture brain (IDEA-022 Track 4 — "the brain, voiced").** The
+  spine (Track 0) gave the brain a read; this makes the conscience **speak with it**. When a moment
+  fires, the hook reads a **bounded** slice of `.boss/brain/read.md` (the standing summary + the single
+  most recent dated read — continuity, not the whole history) and hands it to the model as a
+  *Continuity* frame, so the nudge is **specific to what the conscience already understands** — the
+  "how did it know that" that earns trust ("you've rebuilt onboarding three times and still haven't
+  talked to a user") instead of a generic line. The instruction is explicit: voice *with* the read,
+  don't read it back as fact, and **trust what you see now over the brain** (the founder can correct
+  it). **Cost + safety held:** the brain is read **only when a moment is already firing** (past the
+  silent early-exit — never every prompt), bounded to ~1400 chars, and **byte-identical output when no
+  brain exists** — so the **105 gate evals + 24 GRADED judgment evals stay green** (verified; the
+  judgment fixtures have no brain, so they're unaffected). The proactive "presence moment" (the
+  conscience surfacing its read unprompted) is deliberately **not** built — a new always-on trigger is
+  the over-fire risk the conscience itself guards against; the voicing *is* the presence. **IDEA-022:
+  Tracks 0, 1, 2, 4 now shipped; Track 3 (AI-native scaffolder, flag-guarded) is the last.**
+
 ## 0.62.0 — 2026-06-20
 
 - **`/red-team` — turn BOSS's defenses into evidence (IDEA-033 #3; the "defense → measured" Anthropic

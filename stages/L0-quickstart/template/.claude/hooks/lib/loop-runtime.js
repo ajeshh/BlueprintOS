@@ -239,6 +239,41 @@ export function readCohort(projectDir) {
   } catch { return null; }
 }
 
+// Read a BOUNDED slice of the venture brain (.boss/brain/read.md) so the
+// conscience can voice WITH continuity (IDEA-022 Track 4): the standing summary
+// (preamble) + the single most recent dated read. Bounded on purpose — continuity,
+// not the whole history (structured-output discipline on the input side, same as
+// drift-loop's bounded read). Returns null when there's no brain yet, so the
+// conscience speaks generically and the output is byte-identical to before.
+export function readBrainContext(projectDir) {
+  try {
+    const f = join(projectDir, '.boss', 'brain', 'read.md');
+    if (!existsSync(f)) return null;
+    const text = readFileSync(f, 'utf8');
+    if (!text.trim()) return null;
+    // Line-based split (robust): preamble = everything before the first dated
+    // `## YYYY-MM-DD` header; keep only the LAST dated block.
+    const dateRe = /^##\s+\d{4}-\d{2}-\d{2}\b/;
+    const preambleLines = [];
+    const blocks = [];
+    let cur = null;
+    for (const l of text.split('\n')) {
+      if (dateRe.test(l)) { if (cur) blocks.push(cur); cur = [l]; }
+      else if (cur) cur.push(l);
+      else preambleLines.push(l);
+    }
+    if (cur) blocks.push(cur);
+    const preamble = preambleLines.join('\n').trim();
+    const lastBlock = blocks.length ? blocks[blocks.length - 1].join('\n').trim() : '';
+    let out = [preamble, lastBlock].filter(Boolean).join('\n\n');
+    const CAP = 1400; // bounded; the brain is continuity, not the whole file
+    if (out.length > CAP) out = out.slice(0, CAP).trimEnd() + ' …';
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
 // Read the conscience pause state from .boss/config.json (v0.23.0+, IDEA-011).
 // Returns { mode, since, expires, reason } or null. Mode is 'paused' or 'active'
 // (or null when never set). When paused, the hook exits silent if not expired.
@@ -327,11 +362,18 @@ export function composeContext(signals, opts = {}) {
   const cohortLine = cohort && COHORT_FRAMING[cohort]
     ? `\n\nCohort framing — ${cohort}: ${COHORT_FRAMING[cohort]}`
     : '';
+  // Continuity (IDEA-022 Track 4): when a venture brain exists, hand the model its
+  // standing read so the nudge is voiced WITH what the conscience already understands
+  // — the "how did it know that" specificity that earns trust. Added only when a brain
+  // is present, so output is byte-identical when there's none.
+  const brainLine = opts.brain
+    ? `\n\nContinuity — your standing read on this venture (the conscience's own POV over time, from .boss/brain/). Voice the nudge *with* this: make it specific to what you already understand instead of generic, and ground it in the read. Don't read it back as fact or restate it — let it sharpen the one line you say. If it conflicts with what you see now, trust what you see (the founder can correct the brain):\n${opts.brain}`
+    : '';
   if (signals.length === 1) {
-    return signalAsContext(signals[0]) + cohortLine;
+    return signalAsContext(signals[0]) + cohortLine + brainLine;
   }
   const parts = signals.map((s, i) => `(${i + 1}) ${signalAsContext(s)}`);
-  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n') + cohortLine;
+  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n') + cohortLine + brainLine;
 }
 
 function signalAsContext(s) {
