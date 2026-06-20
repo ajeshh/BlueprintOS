@@ -189,3 +189,8 @@ skill.
 the conscience hook reads predicates, how the registry tracks projects, how sync works —
 read [`PRINCIPLES.md`](PRINCIPLES.md) and the source under [`src/`](src/). Not necessary for
 first-use.]*
+
+*[Building agent tooling yourself? [`docs/PATTERNS.md`](docs/PATTERNS.md) names the engineering
+patterns BOSS is built on — the doer/judge split, two eval surfaces with real numbers,
+progressive-disclosure skills, dormant-by-default hooks, AGENTS.md portability — with the honest
+limits included.]*

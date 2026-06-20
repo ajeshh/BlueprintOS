@@ -2,6 +2,25 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.60.0 — 2026-06-20
+
+- **`docs/PATTERNS.md` — the patterns writeup (the packaging "cool" move, documented).** A public-facing,
+  builder-audience doc that names the engineering patterns BOSS is built on, **framed in Anthropic's own
+  2026 vocabulary with real numbers** — the highest-resonance, lowest-effort move from the Anthropic-appeal
+  research (it's *packaging* what BOSS already has, not new engineering):
+  - **The conscience separates the doer from the judge** (their #1 2026 motif) — a deterministic
+    `UserPromptSubmit` hook (438 lines, **zero model calls of its own**) that gates, then hands the model
+    a *bounded* read in a *fresh* context. Unprompted + isolated.
+  - **Two eval surfaces, with numbers:** 105 deterministic gate cases / 0 failures + **24 GRADED**
+    LLM-judge cases (separate pass, transcripts read).
+  - **Progressive-disclosure skills:** 29 skills, **~1.7k tokens avg** (< Anthropic's 5k guidance),
+    loading JIT (~100-token description until invoked).
+  - Dormant-by-default hooks + frequency-not-tokens cost ledger; security lineage (deny floor →
+    secrets-guard ceiling → Rule-of-Two) stated honestly; AGENTS.md portability; persona-as-both.
+  - **The honest limits are not buried:** zero real founders (its own canvas's 100%-risk), the conscience
+    is Claude-bound, a synthetic judge is still synthetic. (Anthropic rewards honest framing over theater.)
+  Linked from the README ("building agent tooling yourself?"). Ships (tracked doc). No behavior change.
+
 ## 0.59.0 — 2026-06-20
 
 - **Venture-brain living memory — the write/evict side (IDEA-022 Track 0; the research's #1 capability
