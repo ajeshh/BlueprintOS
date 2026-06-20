@@ -3,7 +3,7 @@
 # BOSS Cheatsheet
 
 > The whole ladder at a glance — every mode and what it adds. Generated from the stage
-> manifests, current as of **v0.60.0**. Inside a project, run `boss map` for the live,
+> manifests, current as of **v0.62.0**. Inside a project, run `boss map` for the live,
 > personalized version (where you are + what’s one unlock away).
 
 ## The ladder
@@ -66,6 +66,7 @@ removed, and a project that stays in Quickstart forever is a legitimate project.
 - `/revalidate` — The 3-line gate before paused work re-enters the build — checks a deferred idea/feature against a world that moved (still relevant? still aligned? anything changed?) and routes it to revive / rescope / kill / re-pause, so you never build a zombie feature
 - `/judge-traces` — Error analysis on your real session traces — the Hamel/Shankar discipline applied to your own work
 - `/consult` — Convene the mentor board on a cross-cutting question — route it to the mentors who actually have a stake, get each one's take in their own lens, and synthesize the answer with the disagreements kept visible (not averaged away)
+- `/red-team` — Adversarially test an AI-mediated FEAT (or BOSS's own conscience hook) against the OWASP 2025 LLM Top 10 — prompt injection, sensitive-info disclosure, excessive agency, unbounded consumption, system-prompt leakage, and the rest
 
 **Agents:** tester, program-manager, mentor-architect, mentor-gtm  
 **Loops:** spec-loop, pretotype-loop, design-tokens-loop, cost-budget-loop, ai-failure-state-loop, extraction-loop, cost-review-loop, drift-loop  

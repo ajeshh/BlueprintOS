@@ -58,6 +58,52 @@ The intervention *shape* varies per cohort (per `.boss/config.json` cohort decla
 - `non-tech-founder` / `domain-expert` — **PLAIN-LANGUAGE COACH**: describe the failure
   that's coming if you don't do this; offer the fix.
 
+## Aesthetic ambition — past the slop default (added v0.61.0)
+
+> Adapted from Anthropic's own `frontend-design` skill via [RVW-014](../../docs/research/verdicts/RVW-014-frontend-design-aesthetic-ambition.md).
+> The failure-mode catalog above is the *discipline* axis — don't drift. This is the *taste* axis —
+> don't be generic. They are different failures: "the 47 blues" is drift; "AI slop" is genericness.
+> A codebase can be perfectly token-disciplined and still look like every other AI-built app.
+
+AI defaults to the mean of its training data, so unprompted it ships the same interface everyone
+else gets: Inter or Roboto, a purple gradient, a centered card on a gray background, motion that
+isn't there. It reads as *fine* on one screen and as *forgettable* by the third. Naming the slop is
+half the cure — the founder has to *ask* for character, because the model won't volunteer it.
+
+**The load-bearing line:** *intentionality, not intensity.* Both bold maximalism and refined
+minimalism work — what fails is the absence of a decision. For a first-time founder, **minimalism
+done precisely is the safer bet than maximalism done loosely** — restraint hides fewer mistakes.
+
+**A design-thinking pre-pass, before the first UI prompt** (one paragraph, not a document): who is
+this for, what should it feel like, and what's the one thing that should make it memorable? Feed
+that — not "make it look good" — into the prompt. (It's the same brand-anchor move the failure-mode
+catalog prescribes for "rudimentary first design," pointed at taste instead of tokens.)
+
+Five dimensions worth a deliberate choice (each is a prompt instruction, not a vibe):
+
+| Dimension | The generic default to escape | The intentional move |
+|---|---|---|
+| **Typography** | Inter / Roboto / Arial, one weight | A distinctive pairing chosen for the product's tone; weight + scale as hierarchy |
+| **Color & theme** | Purple gradient; timid mid-grays | One committed palette in CSS variables; a dominant color with sharp accents |
+| **Motion** | None, or easing on everything | A few high-impact moments — staggered load reveal, scroll-triggered — not motion-everywhere |
+| **Spatial composition** | Centered card, even grid | Asymmetry, overlap, diagonal flow, deliberate grid-breaks |
+| **Visual detail** | Flat fills | Gradients, texture, atmosphere — *matched to* the aesthetic, not sprinkled on |
+
+**The restraint that bounds the ambition (non-negotiable, even maximalist):** the failure-mode
+catalog and the five-state requirement still hold. Accessibility (contrast, focus, reduced-motion),
+the five states, and performance are floors, not trade-offs — a striking interface that fails
+contrast or drops loading states is still broken. Ambition rides *on top of* the discipline; it
+never substitutes for it. (This bound is the BOSS-specific adaptation; the source skill leans
+maximalist, which is unsafe advice for a green founder.)
+
+**Cohort-aware, same as the discipline axis:** `first-product`/`vibe-coder-newbie` can't yet *see*
+the slop — SHOW them one before/after so the eye gets trained. `eng-builder`/`vibe-virtuoso` have
+the eye but skip the pre-pass — OFFER the design-thinking prompt, skip the lecture.
+`non-tech-founder`/`domain-expert` — translate "memorable" into their domain's language.
+
+Lands at **V1**, with the rest of the design layer — the moment a UI is worth keeping is the moment
+genericness starts to cost.
+
 ## The principle (PRINCIPLES.md #3)
 
 Style is reusable structure, so it must not get buried in implementation. Extract it into a

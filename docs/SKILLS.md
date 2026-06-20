@@ -3,7 +3,7 @@
 # BOSS Skill Reference
 
 > One line per skill, grouped by the mode that introduces it. Generated from each
-> skill's `SKILL.md` frontmatter, current as of **v0.60.0**.
+> skill's `SKILL.md` frontmatter, current as of **v0.62.0**.
 
 ## Quickstart
 
@@ -36,6 +36,7 @@
 - **`/revalidate`** — The 3-line gate before paused work re-enters the build — checks a deferred idea/feature against a world that moved (still relevant? still aligned? anything changed?) and routes it to revive / rescope / kill / re-pause, so you never build a zombie feature  _(/revalidate [ID or paused item])_
 - **`/judge-traces`** — Error analysis on your real session traces — the Hamel/Shankar discipline applied to your own work  _(/judge-traces [last N | all])_
 - **`/consult`** — Convene the mentor board on a cross-cutting question — route it to the mentors who actually have a stake, get each one's take in their own lens, and synthesize the answer with the disagreements kept visible (not averaged away)  _(/consult <question>)_
+- **`/red-team`** — Adversarially test an AI-mediated FEAT (or BOSS's own conscience hook) against the OWASP 2025 LLM Top 10 — prompt injection, sensitive-info disclosure, excessive agency, unbounded consumption, system-prompt leakage, and the rest  _(/red-team [FEAT-NNN | --self])_
 
 ## V1
 

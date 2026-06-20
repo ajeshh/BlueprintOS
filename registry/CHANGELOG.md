@@ -2,6 +2,45 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.62.0 — 2026-06-20
+
+- **`/red-team` — turn BOSS's defenses into evidence (IDEA-033 #3; the "defense → measured" Anthropic
+  move).** `agent-security` is *prevention* (the deny-list floor, secrets-guard ceiling, Rule of Two);
+  `/red-team` is *proof*. A new **L1 skill** that adversarially tests an AI-mediated FEAT (or BOSS's own
+  conscience hook, `--self`) against the **OWASP 2025 LLM Top 10** — prompt injection (direct +
+  indirect), sensitive-info disclosure, improper output handling, excessive agency, system-prompt
+  leakage, vector weaknesses, misinformation, unbounded consumption, supply chain, data poisoning. Each
+  category gets a **binary pass/fail + the attack that proved it**; **failures become `/evals` cases**
+  (defense → test → regression-proof), pairing with `/evals` (correctness) and the agent-security
+  practice (prevention). Cohort-aware (domain-expert gets the full battery + escalation route;
+  first-product gets the high-value subset in plain language). Honest scope line every run: red-teaming
+  lowers risk, it doesn't certify safety; the deterministic deny-list floor stays the load-bearing
+  prevention. Registered in L1; `boss map` + cheatsheet updated; eval 105/0.
+
+## 0.61.0 — 2026-06-20
+
+- **Scouted skillsmp.com; routed two Anthropic skills through `/vet` → `/boss-learn` (dogfood).** Five
+  marketplace skills reviewed against BOSS's own machinery; the on-principle move was to *vet, not
+  hand-absorb*. Two earned an ADAPT, three did not. **What landed:**
+  - **`library/practices/skill-authoring.md`** (new) — from Anthropic's `skill-creator` ([RVW-013](../docs/research/verdicts/RVW-013-skill-creator-authoring-discipline.md),
+    ADAPT). Fills a real void: BOSS authors skills as its core motion but had *no* written authoring
+    discipline. Captures the three transferable principles — explanatory-over-prescriptive (the
+    IDEA-014 / Principle #2 stance applied to *how we write skills*), progressive disclosure, and
+    descriptions that earn their triggers — plus a ship-time self-check. The heavy with/without
+    **eval-harness is deliberately left out** (duplicates `/vet` + `conscience-evals/`); deferred to IDEA-033.
+  - **`design-system.md` → "Aesthetic ambition — past the slop default"** — from Anthropic's
+    `frontend-design` ([RVW-014](../docs/research/verdicts/RVW-014-frontend-design-aesthetic-ambition.md),
+    ADAPT). The practice owned the *discipline* axis (tokens, the 47 blues, missing states) but was
+    silent on the *taste* axis. Adds the anti-AI-slop stance, the five aesthetic dimensions, and a
+    one-paragraph design-thinking pre-pass — **bounded by BOSS's restraint** (a11y + five states + perf
+    are floors; minimalism is the safer default for a green founder, against the source's maximalist lean).
+  - **Three rejected, recorded:** `ui-ux-pro-max` (checklist mined into IDEA-033; CLI+DB machinery
+    rejected — zero-dep ethos), obra/superpowers `brainstorming` (its "every project, no exceptions"
+    is the literal anti-thesis of BOSS's JIT bet; two micro-techniques harvested to IDEA-033),
+    `code-reviewer` (already dominated by Claude Code's own `/code-review`).
+  - IDEA-033 backlog extended (items 6–8: skill-eval harness, UI/UX pre-delivery checklist, `/spec`+`/consult`
+    question-discipline audit) — each earn-it-gated, not green-lit.
+
 ## 0.60.0 — 2026-06-20
 
 - **`docs/PATTERNS.md` — the patterns writeup (the packaging "cool" move, documented).** A public-facing,
