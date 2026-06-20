@@ -1,6 +1,0 @@
-{
-  "github": "always",
-  "visibility": "public",
-  "license": "MIT",
-  "note": "BOSS is already public on GitHub under MIT (package.json). These reflect reality; new projects default to ask/private/proprietary."
-}

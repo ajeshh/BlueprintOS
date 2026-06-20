@@ -23,7 +23,8 @@ docs/mentor-practitioners.md
 
 # BOSS's own dev workspace — root-anchored (leading slash) so the SHIPPED product
 # templates under stages/*/template/.claude/ and their CLAUDE.md stay public.
-/CLAUDE.md                  # BOSS's own working rules (the founder's dev process)
-/.claude/                   # BOSS's own dev agents (mentors, personas), skills, settings
-/.boss/                     # BOSS's own machine state (manifest, config)
-/BlueprintOS.code-workspace # personal editor config
+# NOTE: gitignore has no inline comments — keep each pattern on its own line.
+/CLAUDE.md
+/.claude/
+/.boss/
+/BlueprintOS.code-workspace
