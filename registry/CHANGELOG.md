@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.53.0 — 2026-06-20
+
+- **`/judge-traces` — the deliberate reader for the trace substrate (IDEA-025 Phase 2).** v0.48 shipped
+  `auto-log` (collects `.boss/trace.jsonl`); this is the skill that *reads* it — completing a
+  shipped-but-inert capability (a substrate nothing reads has no purpose). A new **L1 skill** applying
+  Hamel/Shankar's 2026 discipline to the founder's *own* sessions: read real traces → factual shape
+  first (cheap, deterministic) → sort failures into a **binary** pass/fail taxonomy (`wrong-files`,
+  `thrash`, `silent-scope-creep`, `no-trace-of-the-point`, or your own) → route *recurring* modes to
+  `/boss-learn`. **One expert not a committee; don't grade its own homework (judge the trajectory);
+  counts are the signal.** Graceful degrade: no trace → honest "nothing to judge yet, turn on
+  `auto-log`," never a fabricated taxonomy. **Collection ≠ judgment** stays load-bearing: `auto-log`
+  collects passively, `/judge-traces` judges deliberately — never fused into an always-on auto-grader.
+  Registered in L1; `boss map` + cheatsheet updated; eval 105/0.
+- **Host-subtraction audit drafted (IDEA-028) + an IDEA-026 Part A finding (workspace docs).** The
+  `mentor-architect` pass concluded **retire nothing**: BOSS's conscience fires *unprompted/event-driven*,
+  and native `/goal`/`/loop` are *user-invoked* — they can't replace a conscience that speaks when you
+  wouldn't have asked, so the host did *not* absorb the loop runtime (the moat). Sit-on the host for
+  future orchestration (dynamic Workflows) + the secrets ceiling (auto-mode hard-deny); keep the
+  `permissions.deny` floor (more portable). **Bonus finding:** `spec-loop` already implements most of
+  the "upstream conscience" (IDEA-026 Part A) — it fires restraint when the founder reaches for `/spec`
+  without the canvas closed — so Part A is a *voice sharpening of spec-loop*, not a new `worth-building-loop`
+  (which would redundantly overlap spec-loop + caution + drift). Left for Ajesh's eye on the exact
+  voice (it touches conscience tone). No code retired; decision-input only.
+
 ## 0.52.0 — 2026-06-20
 
 - **`/prototype` — drop an idea, hit go, see something tangible (IDEA-030).** Ajesh's framing settled
