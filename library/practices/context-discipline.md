@@ -61,6 +61,15 @@ paths:
 Rules **without** `paths:` load at launch (a second always-loaded `CLAUDE.md`) — use that only for
 genuinely global rules. This is just-in-time support (Principle 2) applied to the context window.
 
+**Shipped instance (BOSS FEAT-020 Phase 1, v0.45.0):** the L0 and L1 templates now ship a
+`.claude/rules/` example so every `boss new` project is JIT-by-construction, not just
+deny-by-construction — L0 `your-app-code.md` (the basic path-scoped pattern), L1 `feature-context.md`
+(the live feature's working notes, which `/close` will later compress — FEAT-020 Phases 2-3). The
+durable-vs-working-state cut that decides what belongs here vs. always-loaded memory lives in
+`library/memory-seed/README.md`. Re-verified against the official Claude Code docs 2026-06-05: `paths:`
+is the correct key (not Cursor's `globs:`); path-scoped rules load when Claude reads a matching file,
+not at session start.
+
 ### 3. Enforce no-read boundaries in the harness, not the prompt
 Secrets and noise get a **hard block** via `permissions.deny` in `.claude/settings.json` — verified
 Claude Code glob syntax (`./` = relative to cwd; `**` = any depth):

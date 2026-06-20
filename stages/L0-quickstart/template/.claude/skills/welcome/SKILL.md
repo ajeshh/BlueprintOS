@@ -23,6 +23,11 @@ Re-run anytime you want to re-orient. It doesn't do anything destructive; it tal
   cohorts are intolerant of 101 content. Cite the cohort and trim accordingly.
 - **No metaphor avalanche.** "Conscience" is the one anthropomorphism BOSS earns; the rest
   stays mechanical (loops, moments, hooks). Don't extend the metaphor unless asked.
+- **Close on the action — long content must tie back to the next step.** The failure mode this
+  skill was *built* to avoid: the founder reads a wall, gets the gist, and forgets what to *do*.
+  So never end a long passage on a recap. End it on the single next step, restated. If you've
+  just explained a lot, the last line is an action — *"So: your next step is `/boss <your idea>`."*
+  When in doubt, give the shape + the action, then **offer** the rest rather than printing it.
 
 ## 0. Orient (silent)
 
@@ -78,7 +83,9 @@ If cohort is `eng-builder`, `vibe-virtuoso`, `indie-hacker`, or `returning-found
 
 > *"You probably don't need the tour. The short version: you're in Quickstart mode; the
 > folder has `CLAUDE.md` (project rules), `.boss/` (mode + config), `.claude/` (skills +
-> agents the project has access to). Run `/boss` with your idea or a PRD path to spin up.
+> agents the project has access to). Run `/boss` to spin up — point it at your idea however it
+> exists (a sentence, a file, a Google Doc / Obsidian / PDF / deck, a URL, or several); it pulls
+> a copy into `docs/source/` and shapes it. `/import` adds more material to an idea later.
 > The conscience (`UserPromptSubmit` hook) will nudge if it sees drift; pause it with
 > `boss conscience pause` if it's in the way. That's it. Ready when you are."*
 
@@ -124,9 +131,11 @@ Read the manifest. Name what's there in plain language:
 
 Two paths. Name both; let the founder pick.
 
-> *"**Path A — you have a rough idea or PRD already.** Run `/boss` next. Drop the idea or a
-> path to a PRD file; I'll shape it, capture it as `IDEA-001`, recommend a stack and mode,
-> and (with your OK) create a private GitHub repo. That's the **spin-up** flow.*
+> *"**Path A — you have a rough idea or PRD already.** Run `/boss` next. Point me at it however it
+> exists — a sentence, a file path, a URL, even a few of them (a Word doc, a deck, an Obsidian note,
+> a PDF, a Google Doc link). I'll pull a copy into the project, shape it, capture it as `IDEA-001`,
+> recommend a stack and mode, and (with your OK) create a private GitHub repo. That's the **spin-up**
+> flow. (Already captured the idea and want to add more material later? That's `/import`.)*
 >
 > *Path B — you have a fragment, a hunch, or just a topic to noodle on. Run `/triage <one
 > sentence about it>`. I'll create a living idea doc you can keep adding to. Re-run `/triage`
@@ -136,7 +145,19 @@ Two paths. Name both; let the founder pick.
 > what's the tension? what's the promise? who could be harmed? what's the riskiest assumption?
 > Canvas is the gate before you unlock MVP mode and start building."*
 
-### How the conscience works
+> **Pivot here — offer the rest, don't dump it.** The founder now has the shape and the next
+> step. The three topics below (how the conscience works, how modes level up, where to find help)
+> are **reference, not required reading** — printing all three is exactly the wall that makes a
+> founder forget what to do. Name them in one breath and offer:
+>
+> > *"That's enough to start. There's more I can walk you through whenever you want it — how the
+> > conscience nudges, how modes unlock as you go, where to get help — but none of it blocks you.
+> > Want any of it now, or shall we get going with `/boss` or `/triage`?"*
+>
+> Expand a topic **only if they ask.** The sections below are the material you draw on then — not
+> a script to read top-to-bottom. Either way, end on the action (section 5).
+
+### How the conscience works _(reference — expand only if asked)_
 
 > *"The **conscience** is the most BOSS-specific thing here. It watches for a few specific
 > drift patterns — for example: capturing three ideas in a row without filling out a canvas
@@ -153,7 +174,7 @@ Two paths. Name both; let the founder pick.
 >
 > *The pattern is: deviation conscious, recorded, never blocked, never forgotten."*
 
-### How modes level up
+### How modes level up _(reference — expand only if asked)_
 
 > *"You're in Quickstart now. As the project earns more structure, you unlock the next mode:*
 > - *`boss unlock mvp` — when the canvas holds up and you're ready to actually build. Adds
@@ -167,7 +188,7 @@ Two paths. Name both; let the founder pick.
 > *Levels are **additive** — unlocking MVP keeps everything Quickstart added. You're not
 > jumping; you're growing the system."*
 
-### Where to look for help
+### Where to look for help _(reference — expand only if asked)_
 
 > *"`boss --help` for CLI commands; `boss status` for what mode you're in; `boss list` for
 > every project you've registered. In Claude, list available skills by typing `/`. The

@@ -4,7 +4,7 @@
   "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony. /welcome runs first for new founders (v0.28).",
   "requires": null,
   "agents": ["pm", "coder-generalist", "mentor-venture"],
-  "skills": ["welcome", "boss", "triage", "canvas", "boss-sync", "boss-learn"],
+  "skills": ["welcome", "boss", "import", "triage", "canvas", "feedback", "boss-sync", "boss-learn"],
   "hooks": ["conscience"],
   "loops": ["capture-loop", "canvas-loop"],
   "unlocksNext": "L1-mvp",

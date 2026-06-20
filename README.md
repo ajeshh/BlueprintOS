@@ -106,16 +106,21 @@ A project that stays in Quickstart forever is a legitimate project.
 
 ## Install + first 5 minutes
 
+**Prerequisites:** [Node.js](https://nodejs.org) 18+ and [Claude Code](https://claude.com/claude-code)
+(BOSS runs *inside* Claude Code — the CLI scaffolds, the skills run in Claude).
+
 ```bash
 # alpha install — clone the repo, link the CLI globally
-git clone <this-repo> BlueprintOS
+git clone https://github.com/ajeshh/BlueprintOS.git
 cd BlueprintOS
-npm install -g .
+npm install -g .                # puts `boss` on your PATH (zero runtime deps)
 
-boss new my-app                 # 5 seconds
+boss new my-app                 # 5 seconds — scaffolds + git-inits + registers
 cd my-app
-claude                          # open in Claude Code
-> /boss                         # describe your idea; the team spins up
+code .                          # open the folder in your editor (or `claude` in the terminal)
+claude                          # open Claude Code (terminal or editor panel)
+> /welcome                      # first time? ~1 min orientation
+> /boss <idea | file | url>     # spin up — point at a sentence, a doc, or a link; BOSS pulls it in
 ```
 
 After that:

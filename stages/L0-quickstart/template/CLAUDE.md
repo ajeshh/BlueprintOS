@@ -5,7 +5,8 @@
 > compliance drops past ~200 lines. Long tables move to companion docs.
 
 > **First time? Run `/welcome`** — gentle orientation, takes a minute, defines terms inline.
-> Already familiar with BOSS? Skip to `/boss <your idea or PRD path>` to spin up.
+> Already familiar with BOSS? Skip to `/boss <idea, file, Google Doc / Obsidian / PDF, or URL>` to
+> spin up — it pulls your material in. Already have it written somewhere? `/import <file|url>`.
 
 ## Working rules (read first)
 
@@ -20,9 +21,9 @@
 ## What exists in this mode ({{MODE}})
 
 - **Agents:** `pm` (decides what's worth building), `coder-generalist` (builds it, in whatever stack gets chosen), `mentor-venture` (coaches *you*, the founder — is this worth it, what's the riskiest assumption, what's the next real step).
-- **Skills:** `/welcome` (gentle first-run orientation — cohort-aware), `/boss` (spin up an idea), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
+- **Skills:** `/welcome` (gentle first-run orientation — cohort-aware), `/boss` (spin up an idea — point it at a sentence, file, doc, or URL), `/import` (bring existing material in — Word/Google Doc/Obsidian/PDF/deck/link → `docs/source/`), `/triage` (capture an idea & keep adding to it — a living doc), `/canvas` (pressure-test it as a humane business when it has legs), `/feedback` (tell BOSS's makers what's working / broken — user-initiated, never background telemetry), `/boss-sync` + `/boss-learn` (pull BOSS updates in / promote a pattern UP).
 - **Docs:** `docs/ideas/` (living idea docs + canvases), `docs/IDS.md` (the ID system, minimal here).
-- **Memory:** Claude's auto-memory is active — it records who you are, your preferences, and project context across sessions.
+- **Memory:** two kinds, kept apart so context stays lean. *Durable facts* (who you are, settled decisions) → Claude's auto-memory, active across sessions. *Working state* (notes that only matter while you're in one area of the code) → `.claude/rules/your-app-code.md`, which loads **only when** Claude opens a file it's scoped to — not every session.
 
 ### The Quickstart arc
 
@@ -56,10 +57,11 @@ Run `boss status` to see your mode and whether newer BOSS practices are availabl
 
 ### Project overview
 
-<!-- Replace this with what {{PROJECT_NAME}} is. Drop your PRD or rough idea and run `/boss`
-     (or `/boss path/to/prd.md`) — it shapes the idea, captures it, and offers a private repo. -->
+<!-- Replace this with what {{PROJECT_NAME}} is. Already have it written somewhere — a doc, a deck,
+     an Obsidian note, a Google Doc, a PDF, a link? Run `/boss` (or `/import`) and point at it; BOSS
+     pulls a copy into docs/source/, shapes the idea, captures it, and offers a private repo. -->
 
-_TBD — describe the project here, or point at the PRD._
+_TBD — describe the project here, or point `/boss` at your source material._
 
 ### Agent roster (Quickstart)
 

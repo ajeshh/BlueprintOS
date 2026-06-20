@@ -9,6 +9,8 @@ import { learn, LIBRARY_CATEGORIES } from './learn.js';
 import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
 import { board } from './board.js';
 import { map } from './map.js';
+import { brain } from './brain.js';
+import { insights } from './insights.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -74,6 +76,11 @@ function cmdNew(args) {
       // | first-product | vibe-virtuoso | indie-hacker | returning-founder |
       // domain-expert | null. /boss skill asks during spin-up; user can edit later.
       cohort: null,
+      // Opt-in share-up (IDEA-021/024). Default OFF — BOSS never sends usage anywhere on its own.
+      // `boss insights` reads your trace locally; `/feedback` sends only what you explicitly approve.
+      // If a future version offers to share anonymized loop-closure signals UP to improve BOSS, it
+      // is gated on this flag being true AND a per-send confirmation. Telemetry is never a default.
+      shareUp: false,
     }, null, 2) + '\n',
   );
 
@@ -95,9 +102,11 @@ function cmdNew(args) {
   console.log(`    skills: ${stamp.skills.join(', ') || '—'}`);
   console.log(`\n  Next:`);
   console.log(`    cd ${name}`);
-  console.log(`    claude              # open in Claude Code`);
-  console.log(`    > /welcome          # first time? gentle orientation, ~1 min`);
-  console.log(`    > /boss <idea|PRD>  # already familiar? spin up directly`);
+  console.log(`    code ${name}        # or open the folder in your editor (Cursor, etc.)`);
+  console.log(`    claude              # open Claude Code (works in the terminal or the editor panel)`);
+  console.log(`    > /welcome              # first time? gentle orientation, ~1 min`);
+  console.log(`    > /boss <idea|PRD|file|url>  # spin up — point at an idea, a doc, a deck, or a link`);
+  console.log(`    > /import <file|url>         # already have it written somewhere? pull it in`);
   console.log('');
 }
 
@@ -166,6 +175,22 @@ function cmdMap() {
   const stamp = readStamp(process.cwd());
   if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
   map(process.cwd(), stamp);
+}
+
+function cmdBrain(args) {
+  const stamp = readStamp(process.cwd());
+  if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+  try {
+    brain(process.cwd(), stamp, args);
+  } catch (e) {
+    return fail(e.message);
+  }
+}
+
+function cmdInsights() {
+  // Read-your-own-trace lens (IDEA-021): works across all registered projects on this machine,
+  // so it doesn't require being inside a BOSS project. Local-only; nothing is sent.
+  insights(process.cwd());
 }
 
 function cmdList() {
@@ -296,6 +321,8 @@ export function run(argv) {
     case 'status': return cmdStatus(args);
     case 'board': return cmdBoard();
     case 'map': return cmdMap();
+    case 'brain': return cmdBrain(args);
+    case 'insights': return cmdInsights();
     case 'list': return cmdList();
     case 'sync': return cmdSync(args);
     case 'learn': return cmdLearn(args);
@@ -310,6 +337,8 @@ export function run(argv) {
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
       console.log('  boss map                 live cheatsheet: where you are + what\'s one unlock away');
       console.log('  boss board               a live read of what\'s in flight (captured → shipped)');
+      console.log('  boss brain               the conscience\'s read on this venture (its POV over time)');
+      console.log('  boss insights            read your own projects\' trace: where each loop stands (local · nothing sent)');
       console.log('  boss list                all connected projects');
       console.log('  boss sync [--apply]      pull current BOSS skills/agents/hooks into this project (DOWN)');
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);

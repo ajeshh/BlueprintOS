@@ -1,6 +1,6 @@
 ---
 name: close
-description: Session-end ritual — update docs/RESUME.md (state + next tasks + open decisions) and append a /log entry. Run this before stepping away so the next session starts with full context. Usage - /close
+description: Session-end ritual — update docs/RESUME.md (state + next tasks + open decisions), append a /log entry, and let the conscience update its read on the venture (.boss/brain/). Run this before stepping away so the next session starts with full context. Usage - /close
 ---
 
 # /close — leave the project ready for next session
@@ -30,11 +30,44 @@ It's the counterpart to *read `docs/RESUME.md` first thing*.
      against the actual RESUME. If you find yourself writing *"we're at v0.X"* or *"X just
      shipped"* in this block, delete it — that's what *State* is for.
 
-3. **Check the working tree.** If there are uncommitted changes the user wants to keep but isn't
+3. **Update the venture brain** (`.boss/brain/read.md`) — *the conscience's read on this venture,
+   not the task state*. This is the one thing in `/close` that isn't a status report: it's the
+   conscience forming a point of view it will *remember next session*. That continuity is what makes
+   the conscience feel like its own mind instead of a hook that forgets you. See the discipline below
+   — it is strict on purpose. Skip this step entirely if the session didn't reveal anything about the
+   *shape of the venture or how the founder is working* (a pure mechanical session has nothing to read).
+
+   - **Append, don't rewrite.** Add a dated `## YYYY-MM-DD` section to `.boss/brain/read.md` (create
+     the file if absent). The brain is append-mostly — history is the point.
+   - **First-person, from the conscience.** "I'm noticing…", "Three sessions in, the pattern is…".
+     It's a read, not a log.
+   - **Interpretation across time, never facts or claims.** Facts live in the canvas/RESUME/devlog. The
+     brain holds *only* what those can't: "they keep rebuilding onboarding instead of talking to a
+     user," "conviction on the wedge is hardening, not drifting," "last session they pushed back on the
+     drift nudge — and they were right." If a sentence could be a canvas edit or a RESUME task, it
+     belongs there, not here.
+   - **The must-nots (this is the trust line):** no flattery ("great work!"), no diagnosing the
+     founder, no certainty the sessions don't support. If you're not sure, say less. A wrong, confident
+     read about a *person* is the one mistake that makes BOSS feel creepy instead of alive.
+   - **Ground every claim.** Name what in the actual work supports the read (a FEAT, a devlog pattern,
+     a repeated capture). No claim the artifacts can't back. This groundedness is exactly what makes the
+     read land as "how did it know that" rather than a fortune cookie.
+   - **Honest when thin.** One session in, you don't have a read yet — write that, or write nothing.
+     Don't manufacture depth.
+   - **Confirmable.** Show the founder the section you're about to write and let them correct it before
+     it lands. It's an opinion *about them* — they get the edit. (This stays confirmable until the
+     brain-write eval proves the reads are trustworthy; then it can graduate to silent-but-inspectable.)
+   - **Stamp the index** after the prose lands: `boss brain record --headline "<one-line of the read>"`
+     so `boss brain` / `boss brain --diff` stay truthful without parsing the prose.
+   - The founder owns it: it's plain markdown they can read with `boss brain` and correct by editing
+     `.boss/brain/read.md` directly.
+
+4. **Check the working tree.** If there are uncommitted changes the user wants to keep but isn't
    committing now, mention them in RESUME's *State* so next-you isn't surprised. Don't auto-commit.
 
-4. **Report what you wrote.** One line: "RESUME updated · devlog entry added · N uncommitted change(s)
-   noted." Then stop — don't summarize the session further; the artifacts are the summary.
+5. **Report what you wrote.** One line: "RESUME updated · devlog entry added · brain read appended ·
+   N uncommitted change(s) noted." Then stop — don't summarize the session further; the artifacts are
+   the summary.
 
 ## The RESUME template (used when none exists yet)
 

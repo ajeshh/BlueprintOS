@@ -16,7 +16,54 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
 (Quickstart → MVP → V1 → Scale), with two agent classes — **builders** (make the app) and
 **mentors** (coach the founder). See [`PRINCIPLES.md`](../PRINCIPLES.md) and [`README.md`](../README.md).
 
-## State (shipped, v0.44.0)
+## State (shipped, v0.47.0)
+- **BOSS went PUBLIC + a humane two-way learning channel (v0.47.0, IDEA-024).** Repo flipped to
+  public/MIT (github.com/ajeshh/BlueprintOS) — verified safe first (MIT already in place, no secrets, no
+  home-path in tree; only history footnote = an old project literally named `margin` at a local path,
+  judged not worth a force-push). README install path de-placeholdered (real clone URL + prereqs +
+  `code .` editor handoff). Then the ask: "feedback from end-users + learn *passively* how they use it."
+  The passive half is IDEA-021's surveillance line; **applied BOSS's own conscience** (humane-before-
+  viable) and built the honest-trace version, founder chose it over telemetry: **`/feedback`** (direct,
+  user-initiated, shows-before-send, GitHub-issue channel + offline fallback, never a hook) +
+  **`boss insights`** (reads the trace your own work already leaves across your registered projects —
+  idea→canvas→build loop-closure, *graduation not activity*, local-only, zero-dep `src/insights.js`) +
+  **opt-in `shareUp: false`** config default (any future cross-user learning gated on flag + per-send
+  confirm, by construction). **Not built (deferred, IDEA-024):** silent cross-user telemetry (the line);
+  full `npm publish`/auto-update pipeline (premature at n≈1 — real risk is demand, not distribution;
+  `boss status` already nudges on drift). **`fraands` is still empty — resume it through `/import`.**
+- **Bring-your-own-material import — the on-ramp from "I jotted it somewhere" (v0.46.0, IDEA-023).**
+  Came straight out of a live founder-test (Ajesh dogfooding): `boss new fraands` succeeded, but the
+  idea lived elsewhere (Word/Google Doc/Obsidian/PDF/deck/URL) with **no on-ramp** — a working-but-idea-
+  less project read as *"empty… I'm stuck."* A first-run dead-end, not a nicety. **Load-bearing call:
+  import lives in the SKILL layer, not the zero-dep CLI** (the model parses heterogeneous formats; the
+  CLI can't take deps — same predicate/runner split as IDEA-008). Shipped: `/boss` §1 ingests 1+ sources
+  (files+URLs) → durable snapshot into `docs/source/` → synthesize-then-shape; a new `/import` skill
+  (L0 manifest) for adding material to an existing idea or as an alt spin-up door; **discoverability
+  fix** (the part that actually stuck him) across `boss new` output (+`code <name>` editor handoff),
+  `/welcome` (both depths), and L0 `CLAUDE.md`. **Deferred (named in IDEA-023):** material-first
+  ordering, binary/OCR formats, live-source re-pull, a CLI `boss import` door. **Dogfood target:
+  `~/Projects/fraands` — resume it through `/import` next.** Notes:
+  [SESSION-2026-06-19-founder-test](research/sessions/SESSION-2026-06-19-founder-test.md). **Still open
+  from the same session (not yet built): OBS-001 (`/welcome` too long — tie long content back to the
+  next step), OBS-004 (host-switching across Claude app/VSCode/Cursor → live pull on IDEA-006).**
+- **JIT working-context Phase 1 — every `boss new` project is now JIT-by-construction (v0.45.0,
+  FEAT-020).** The deny-list made projects secrets-safe by default; this makes them *context-lean* by
+  default. The `context-discipline` practice (RVW-005/010) only *described* path-scoped rules — now the
+  templates **ship** them: `.claude/rules/` examples with `paths:` frontmatter that load **only when
+  Claude opens a matching file** (L0 `your-app-code.md` = basic pattern; L1 `feature-context.md` = the
+  live feature's working notes). The durable-vs-working-state cut lives in the new `library/memory-seed/`
+  shelf (README + example seed); L0 `CLAUDE.md`'s Memory line names both halves. **Verified `.claude/rules/`
+  `paths:` against the official Claude Code docs before building** (real + JIT-loaded; not Cursor's
+  `globs:`). **This is Phase 1 of a 4-phase lifecycle — Phases 2-4 are specced + deferred with triggers
+  (see [`FEAT-020`](ideas/FEAT-020-jit-working-context-lifecycle.md)):** Phase 2 = `/close` as GC trigger
+  (`.boss/working-context.json` ledger; evict-on-FEAT-shipped; trace → CHANGELOG + devlog); Phase 3 =
+  promote-on-evict (model suggests / founder confirms → existing `/extract` judge); Phase 4 = the
+  freshness *moment* (new `stale_since` time-predicate — re-open trigger: `/close`-read proves too late
+  AND ledger shows headroom). **Restraint line:** Phases 2-4 risk BOSS gold-plating its own substrate;
+  the recency-window-by-hand is currently enough; first dogfood = BOSS's own repo (a Phase-1 slice going
+  stale is the Phase-2 re-open signal). `mentor-architect` pass + 4 forks decided with Ajesh, recorded
+  in the FEAT. Zero-dep held; tested end-to-end in `/tmp` (`boss new` + `boss unlock mvp`, both rules
+  coexist, no clobber).
 - **`secrets-guard` PreToolUse hook — opt-in high-stakes ceiling (v0.44.0, closes RVW-005 follow-on).**
   The deny-list (v0.42) is the universal zero-cost floor; this hook is broader coverage, shipped
   **dormant** (`library/hooks/secrets-guard.js` + L0 template), **not registered by default** — a
@@ -67,58 +114,8 @@ Scaffolds at the right level of ceremony and grows the project through **modes**
   `.claude/rules/` in template; ~~RESUME trim (RVW-002)~~ **done v0.42.1 (window=5)**; ADAPTs
   RVW-007 (couch-to-5k philosophy minus streak) + RVW-008 (categorize-agents mentor-architect frame)
   founder-facing/scope-gated.
-- **First `/vet --all` sweep — 10 verdicts, RVW-003…012 (v0.41.0).** Ajesh dropped a 10-item pile
-  (Reddit + Lenny's-newsletter AI/Claude-Code "best practices") and swept it. Distribution proves the
-  skill routes on merits: **2 ADOPT / 2 ADAPT / 3 NOT-YET / 3 REJECT.** **The two ADOPTs collapse into
-  ONE queued action** — a *"BOSS context discipline"* practice (RVW-005 deny secrets + RVW-010 lean
-  docs/path-scoped rules/deny bloat/hook-filter + RVW-002 RESUME recency-window; RVW-009 is its
-  rationale, RVW-012 its enforce-in-harness backing). ADAPTs (RVW-007 couch-to-5k *philosophy* minus
-  the streak-mechanic; RVW-008 categorize-agents as a mentor-architect frame) are founder-facing +
-  scope-gated. Caught a real bias: **6/10 drops were one author** → applied an author-concentration
-  discount. **Nothing built yet** — ADOPT/ADAPT hand-offs await Ajesh (the skill decides *whether*,
-  `/boss-learn` decides *where*). **Open follow-ups (Ajesh's call):**
-  1. ~~`/boss-learn` the context-discipline practice~~ — **DONE in v0.42.0** (see entry above).
-  2. **RVW-002 RESUME trim** still pending a window-size choice (3? 5?).
-  3. Optional: cite RVW-012 in IDEA-006; log RVW-003 (plumbing-awareness) + RVW-007/008 framings as
-     founder-facing candidates (IDEA-012 catalog).
-- **`/vet` batch sweep + first two verdicts (v0.40.1).** Dogfooding `/vet` showed the rhythm is
-  *accumulate-then-sweep*: `/vet --all` now vets every un-vetted inbox item (each a full pass + own
-  `RVW-NNN`) → summary table + hand-off list; "one claim per run" reworded to "one claim per verdict"
-  (protects depth, not sequence). First verdicts: **RVW-001** four-rule CLAUDE.md → REJECT (BOSS
-  already encodes it as principles + cohort-aware conscience; static rules regress toward the
-  brittleness the thread's own critique names = IDEA-014's thesis); **RVW-002** lean/modular CLAUDE.md
-  → ADAPT (recency-window for RESUME.md State, which duplicates CHANGELOG; UP candidate for
-  `library/practices/`). RVW-001 surfaced external confirmation of IDEA-014 (now cited there). **Two
-  open follow-ups for Ajesh:** (a) act on RVW-002 — trim RESUME State to a recency window pointing at
-  CHANGELOG (confirm window size); (b) optionally `/boss-learn` the RVW-002 generalizable practice UP.
-- **`/vet` — the skeptical inbox; the inverse of `/boss-learn` (v0.40.0, IDEA-016 Phase 1).** From
-  Ajesh: *"if i have new research or best practices, we should have a way where i can just drop it in,
-  and then our mentors review and see what we should integrate. reddit is full of best practices, but
-  that doesnt mean all are good ideas."* The last sentence is the design. **`/boss-learn` routes a
-  pattern you already proved (earned trust); `/vet` judges a claim from a stranger that has earned
-  nothing** — its job is the part `/boss-learn` never does: decide whether an unproven outside claim
-  deserves to become practice **at all**. ADOPT *hands to* `/boss-learn` (whether → where). **The
-  filter is the product** (a drop folder w/o judgment is a bookmark pile) — the skill is **biased
-  toward NO** and makes a claim earn an ADOPT. NO-biased rubric: (1) contradicts a PRINCIPLE? (#6 /
-  `mentor-humane` vetoes); (2) evidence grade (n=1 vibe / data / respected practitioner — most die
-  here); (3) duplicate or sharpen?; (4) who serves **& harms** (toxic-for-`first-product` → ADAPT-
-  with-scoping); (5) cost/ceremony (R&H #1). Four verdicts (mirrors `/extract`): **ADOPT** (→
-  `/boss-learn`), **ADAPT** (modified, reasoned), **REJECT — recorded with why** (the quietly
-  important one — verdict log = memory of what BOSS *deliberately didn't* adopt; no re-litigation),
-  **NOT-YET** (+ re-open condition). **Restraint (PRINCIPLE #2):** deliberate-invoke like `/extract` /
-  `/drift-deep` — **no loop, no hook moment, no nudge**; doesn't *find* research (that's
-  `/deep-research`), judges what you bring it. **Scope: internal-curation first** — BOSS-local
-  meta-skill (`.claude/skills/vet/`, with `/boss-learn` + `/boss-sync`, **not** the founder template);
-  founder-facing version + mentor+persona panel are deferred UP candidates. Shipped:
-  `.claude/skills/vet/SKILL.md`; `docs/research/inbox/` + `docs/research/verdicts/` (each w/ README);
-  new **`RVW-NNN`** ID type; IDEA-016 captured w/ both design forks decided. Zero-dep held (`npm pack`
-  ships **0** — BOSS-local + `docs/` neither in `files` allowlist). Gate+judgment suites unchanged (no
-  hook moment, no predicate change). **Riskiest assumption, tested in use now:** does `/vet` beat a
-  careful 30-second read? If first real drops produce verdicts Ajesh would've reached anyway, it stays
-  a folder + a habit; if it catches a principle-contradiction or harm-to-a-cohort a skim misses, it
-  earns the founder-facing build.
-- **Older State (≤ v0.40.0) → [`registry/CHANGELOG.md`](../registry/CHANGELOG.md)** carries the full
-  per-version detail (all 44 versions, 0.1.0→now). Kept to a ~5-entry recency window per the
+- **Older State (≤ v0.41.0) → [`registry/CHANGELOG.md`](../registry/CHANGELOG.md)** carries the full
+  per-version detail (all 45 versions, 0.1.0→now). Kept to a ~5-entry recency window per the
   **context-discipline** practice (RVW-002): the always-loaded session doc keeps recent state; history
   lives in the changelog it already maintains. BOSS eating its own dogfood.
 

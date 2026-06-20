@@ -86,6 +86,23 @@ founder is asking yet (Principle 2), so **don't port now.** The three moves, in 
 - 2026-06-02 — added the MCP mapping (above) after a conversation on MCP + non-Claude-Code setups.
   Confirmed the three-layer model holds; named the host-vs-model reframe, the three moves, and the
   split from [[IDEA-017]].
+- 2026-06-05 — distribution-shape conversation ("plugin for VSCode/Cursor/vim? build our own
+  VSCode/Claude Code? or a shell on top?"). Three-layer model resolved it cleanly; verdict recorded:
+  - **Build our own editor / Claude Code fork — NO** (no near horizon). Buys the permanent maintenance
+    tax of an *editor* to host a conscience that's a few files; competes with the real product;
+    violates zero-dep + small-reversible + "don't monetize lock-in." You only build a host the day you
+    need a hook primitive no one offers — and even then push it *into* Claude Code, not fork an IDE.
+  - **"Shell on top of them" — REFRAME, don't.** Shell-on-top = middleware chasing N hosts' APIs
+    forever. BOSS is already the better shape: a **substrate *underneath*** (files on disk — `.boss/`,
+    `.claude/`, registry — any host reads). Under beats on-top: durable, zero-integration, already built.
+  - **"Build out the plugin" — right instinct, wrong urgency.** Splits two conflated questions:
+    *where do I type?* (editor surface — **already solved**: Claude Code runs in CLI/VS Code/JetBrains/web,
+    so BOSS is already cross-surface at full strength) vs *what hosts the conscience?* (capability —
+    Claude-Code-only; a non-CC plugin/MCP server ships **Layer 1 only**, the magic doesn't travel).
+  - **Conclusion:** not three doors — already through the right one. Keep the architecture; the
+    temptation is to spend reach-money before a single non-Claude founder has asked (Principle 2).
+    Earned next move stays #2 (BOSS-as-MCP-server, Layer-1 verbs only); the trigger to watch stays #3
+    (a host shipping a real interrupt/hook primitive).
 
 ## Open questions (carried forward)
 - **What exactly is the host contract?** Enumerate the primitives the conscience uses in Claude Code

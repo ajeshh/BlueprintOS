@@ -18,11 +18,29 @@ Read, in order:
 
 Don't announce these reads. Just orient.
 
-## 1. Get the idea
+## 1. Get the idea (bring-your-own-material)
 
-- If the user passed a PRD path, read it. If they pasted/typed an idea, use that.
-- If nothing was given, ask **one** open question: *"What are you building? A sentence or a PRD path — either works."*
-- Treat a one-liner as complete. Ask a clarifying question only if genuinely blocked.
+The idea may already exist somewhere — a Word doc, a Google Doc, an Obsidian note, a PDF, a slide
+deck, a URL — not just a tidy PRD. **Pull it in; don't make the founder retype it.**
+
+- **One-or-more sources.** Accept anything the founder points at, in any mix:
+  - **Local files** — `.md`, `.txt`, `.pdf` (read it), `.docx` (extract the text), Obsidian notes,
+    slide decks. Read each directly.
+  - **URLs** — a Google Doc share link, a published doc, an online reference. Fetch each.
+  - **Pasted/typed text** — use as-is.
+  - **Nothing given** — ask **one** open question: *"What are you building? Point me at it — a
+    sentence, a file path, a URL, or a few of them (a doc, a deck, a link). I'll pull them in."*
+- **Snapshot what you read (the "create a dupe" step).** For each file or URL you ingest, write a
+  durable copy into `docs/source/` (create it if absent) — e.g. `docs/source/<original-name>` for a
+  file, or `docs/source/<slug>.md` capturing fetched text with the URL noted at the top. The project
+  should **own** the material so the idea survives if the original moves or changes. Mention briefly
+  what you pulled in (e.g. *"Pulled in 2 sources → docs/source/."*). Don't snapshot pasted one-liners.
+- **Synthesize across all of them.** If several sources were given, read them all before shaping —
+  they're facets of one idea, not separate ideas. Treat a one-liner as complete; ask a clarifying
+  question only if genuinely blocked.
+
+> If the founder is mid-flow and wants to *add* material to an already-captured idea later, that's
+> `/import` — same ingest, pointed at an existing `IDEA-NNN`.
 
 ## 2. Shape it (pm lens)
 

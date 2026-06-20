@@ -2,6 +2,93 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.47.0 — 2026-06-19
+
+- **Humane two-way learning channel — built the moment BOSS went public, the humane way (IDEA-024).**
+  Going public (MIT, github.com/ajeshh/BlueprintOS) turned a private dogfood into a thing strangers
+  run, which needs a way to learn + pivot. Ajesh asked for "feedback from end-users, and learn
+  *passively* how users use it." The second half is the exact surveillance line BOSS exists not to
+  cross ([IDEA-021](../docs/ideas/IDEA-021-passive-instrumentation-and-fleet-learning.md)). Applied
+  BOSS's own conscience (mentor-humane fork; PRINCIPLE: humane before viable) and built the honest-trace
+  version instead — **no silent telemetry.**
+  - **`/feedback` (direct, user-initiated).** A founder-facing skill in L0: send a bug / confusion /
+    wish back upstream. Shows the founder the exact title + body + the *one* line of context
+    (`BOSS <ver> · <mode> · <OS>`) before anything leaves the machine; files a GitHub issue via
+    `gh issue create`, or falls back to a prefilled issue link to paste. Public-repo warning stated.
+    Never automatic, never a hook.
+  - **`boss insights` (passive, the humane way).** Reads the trace your own work *already leaves* —
+    your registered projects on *this machine* — and reports where each venture's loop stands
+    (idea → canvas → build), flagging empty / untested / stale. **Measures graduation + loop-closure,
+    never activity/engagement** (the vanity metric BOSS refuses to expose). Local-only; nothing is
+    sent. Zero-dep (`src/insights.js`).
+  - **Opt-in share-up contract.** New `shareUp: false` default in `.boss/config.json` — any future
+    cross-user learning is gated on this flag being true *and* a per-send confirmation, by construction.
+    Telemetry is never a default.
+  - **Not built (deferred, named in IDEA-024):** silent cross-user telemetry (the line — not crossing
+    it); a full `npm publish` / auto-update pipeline (premature at n≈1 — `boss status` already nudges
+    on version drift; the real risk is demand, not distribution). Captured in
+    [SESSION-2026-06-19-founder-test](../docs/research/sessions/SESSION-2026-06-19-founder-test.md).
+
+## 0.46.0 — 2026-06-19
+
+- **Bring-your-own-material import — the on-ramp from "I jotted it somewhere" (IDEA-023).**
+  Occasioned by a live founder-test: a founder ran `boss new`, then stalled — the idea lived in a
+  Word doc / Google Doc / Obsidian note / PDF / deck / URL, and there was **no way to bring it in**.
+  A correctly-scaffolded but idea-less project read as *"empty… I'm stuck."* This closes that
+  first-run dead-end.
+  - **Load-bearing decision:** import lives in the **skill layer, not the zero-dep CLI** — the CLI
+    (Node built-ins only, Principle 4) can't parse PDF/docx or fetch a URL, but the model already
+    reads heterogeneous formats natively. Same predicate/runner split as the loop runtime (IDEA-008):
+    deterministic core stays deterministic; the model does the parsing + shaping.
+  - **What ships:** (1) `/boss` §1 now ingests **one-or-more sources** — local files *and* URLs, in
+    any mix — snapshots a durable copy of each into `docs/source/` ("the project owns a copy"), and
+    synthesizes across all of them before shaping the idea. (2) A new **`/import`** skill (registered
+    in the L0 manifest) for adding material to an *already-captured* idea, or as an alternate spin-up
+    door. (3) **Discoverability fix** — the part that actually stuck the founder: `boss new`'s "Next:"
+    block now shows `code <name>` (editor handoff) + the file/url/import options; `/welcome` (both the
+    full tour and the 30-second version) and the L0 `CLAUDE.md` template all advertise bring-your-own
+    material.
+  - **Deferred (named in [IDEA-023](../docs/ideas/IDEA-023-bring-your-own-material-import.md)):**
+    material-first ordering (point at material → BOSS names the folder), binary/OCR formats
+    (`.pptx` text, image-only PDFs), live-source re-pull vs. one-time snapshot, and a CLI
+    `boss import` second door (only if the skill path proves it's wanted outside Claude).
+  - Dogfood target: `~/Projects/fraands` (the project that surfaced the gap). Surfaced + captured in
+    [SESSION-2026-06-19-founder-test](../docs/research/sessions/SESSION-2026-06-19-founder-test.md)
+    (OBS-002/003/005).
+- **`/welcome` closes on the action — long content no longer buries the next step (OBS-001).**
+  Same founder-test: *"the welcome message is a bit too long… I forget what I'm supposed to do next."*
+  The skill already had an "end on one next step" rule, but the beginner tour printed three full
+  reference sections (conscience / modes / help) *after* the next step, walling it off. Fix: a new
+  voice rule ("close on the action — long content must tie back to the next step"), and a structural
+  **pivot** — after the shape + next step, the three reference sections are now **offered, not dumped**
+  (tagged `reference — expand only if asked`); the founder leaves on `/boss` or `/triage`, not on a
+  wall. (OBS-004 — host-switching across Claude app/VSCode/Cursor — logged, deferred to IDEA-006.)
+
+## 0.45.0 — 2026-06-05
+
+- **JIT working-context, Phase 1 — every `boss new` project is now JIT-by-construction (FEAT-020).**
+  The deny-list (v0.42) made projects secrets-safe by default; this makes them *context-lean* by
+  default. The principle was already vetted (`context-discipline` practice, RVW-005/010) but only
+  *described* path-scoped rules — now the templates **ship** them. This is Phase 1 of a 4-phase
+  lifecycle ([`docs/ideas/FEAT-020`](../docs/ideas/FEAT-020-jit-working-context-lifecycle.md)); Phases
+  2-4 (`/close` GC, promote-on-evict via `/extract`, a freshness moment) are specced + deferred with
+  triggers.
+  - **What ships:** `.claude/rules/` examples with `paths:` frontmatter that load **only when Claude
+    opens a matching file** (not at session start) — L0 `your-app-code.md` (the basic path-scoped
+    pattern), L1 `feature-context.md` (the live feature's working notes, which Phase 2's `/close` will
+    later compress to a one-liner). The two-memory cut that decides what goes where is documented in
+    the new `library/memory-seed/` shelf (README + an example durable-facts seed). L0 `CLAUDE.md`'s
+    Memory line now names both halves (durable → auto-memory; working-state → path-scoped rules).
+  - **Verified before building:** confirmed against the official Claude Code docs (2026-06-05) that
+    `.claude/rules/` with a `paths:` key is real and JIT-loaded — *not* a confusion with Cursor's
+    `.cursor/rules` (`globs:`). The `context-discipline` practice's "re-verify host syntax on every
+    build" rule, honored.
+  - **The restraint line (carried from the IDEA):** Phases 2-4 risk being BOSS gold-plating its own
+    substrate; the recency-window-by-hand is currently enough. First dogfood is BOSS's own repo — a
+    Phase-1 slice going stale and misinforming a session is the cleanest Phase-2 re-open signal.
+  - Zero-dep held; tested end-to-end in `/tmp` (`boss new` → rule present; `boss unlock mvp` → feature
+    rule added). `mentor-architect` pass + 4 forks decided with Ajesh recorded in the FEAT.
+
 ## 0.44.0 — 2026-06-02
 
 - **`secrets-guard` PreToolUse hook — the high-stakes ceiling, shipped opt-in (closes the RVW-005
