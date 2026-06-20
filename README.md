@@ -94,8 +94,8 @@ A project that stays in Quickstart forever is a legitimate project.
 - **Not a framework you have to learn.** First hour: `boss new`, `/boss`, `/triage`. That's
   the whole vocabulary you need.
 - **Not a replacement for talking to real users.** The proto-personas pre-filter what to ask
-  real founders; they don't replace the conversations. The advisory pass and the v1 playbook
-  are explicit about this — see [`docs/dossier/`](docs/dossier/).
+  real founders; they don't replace the conversations. BOSS's own advisory pass and v1 playbook
+  are explicit about this.
 - **Not a YC.** Doesn't take equity. Doesn't push toward venture-scale. Defaults to *"you
   should probably not raise; you should probably not hire; you should probably stay right-
   sized"* until evidence says otherwise.
@@ -154,16 +154,16 @@ authority).
 
 ## Where this is
 
-v0.44.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 40+ capability releases.
+v0.47.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 45+ capability releases.
 Self-hosted (BOSS itself runs in MVP mode, using BOSS). All discipline patterns demonstrated
 by BOSS-on-BOSS before they ship anywhere else.
 
 **This is alpha.** The conscience runs a gate-eval suite (105 passing) plus a model-verified
 judgment surface — its drift / caution / capture calls are graded against labeled sets, not
 just vibes. But it's been pressure-tested mostly against synthetic personas; real-founder
-validation hasn't happened yet (deliberate override — see
-[`docs/dossier/boss-advisory-pass-001.md`](docs/dossier/boss-advisory-pass-001.md)).
-If you try BOSS and it falls down, *that's the most useful thing you can tell me.*
+validation hasn't happened yet (a deliberate, recorded override).
+If you try BOSS and it falls down, *that's the most useful thing you can tell me* — run
+`/feedback` and it goes straight to this repo's issues.
 
 ## License + shape
 
@@ -172,9 +172,9 @@ state — your project's data stays in your repo + `~/.boss/registry.json` on yo
 a business model ever emerges, it'll be hosted advisory sessions or patronage; never the CLI
 itself.
 
-[The Humane Product Canvas](docs/ideas/CANVAS.md) makes BOSS's whole bet visible — the
-People, Problem, Promises, Risks & Harms, Principles, and the live riskiest assumption. Read
-it if you want to know what BOSS is betting on, and what could kill it.
+BOSS pressure-tests its own bet with a **Humane Product Canvas** — People, Problem, Promises,
+Risks & Harms, Principles, and the live riskiest assumption. It's the same `/canvas` skill BOSS
+hands you, turned on itself.
 
 ## Acknowledgements
 
@@ -183,8 +183,8 @@ Nielsen, Steve Krug, Ash Maurya, Eric Ries, Alberto Savoia, Rob Fitzpatrick, Bob
 Teresa Torres, Andrej Karpathy, Simon Willison, Ethan Mollick, Guillermo Rauch, Hamel Husain,
 Jason Liu, Christopher Noessel, Indi Young, John Maeda, April Dunford, Andy Raskin, Jason
 Fried & DHH, Rob Walling, Paul Jarvis, Erika Hall, Mike Monteiro, Tristan Harris, Cathy
-O'Neil, Cal Newport, and many more — see [`docs/mentor-practitioners.md`](docs/mentor-practitioners.md).
-Mentor agents cite specific practices by attribution; **no agent impersonates a person**.
+O'Neil, Cal Newport, and many more. Mentor agents cite specific practices by attribution;
+**no agent impersonates a person**.
 
 The Humane Product Canvas framework is by Ajesh Shah; reused as the spine of BOSS's `/canvas`
 skill.
@@ -193,5 +193,5 @@ skill.
 
 *[For the interior architecture — how the CLI works, how the loop primitive composes, how
 the conscience hook reads predicates, how the registry tracks projects, how sync works —
-read [`PRINCIPLES.md`](PRINCIPLES.md), [`docs/RESUME.md`](docs/RESUME.md), and the
-[`docs/ideas/`](docs/ideas/) backlog. Not necessary for first-use.]*
+read [`PRINCIPLES.md`](PRINCIPLES.md) and the source under [`src/`](src/). Not necessary for
+first-use.]*

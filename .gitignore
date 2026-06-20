@@ -6,6 +6,17 @@ node_modules/
 # Ignore any stray legacy copy so local project paths never get committed again.
 registry/projects.json
 
-# Business/pricing strategy — kept local by choice (not for public eyes yet).
-# Publish deliberately later if/when it should be open.
+# ── Development workspace — BOSS building BOSS. Kept LOCAL, not published. ──
+# The public repo ships the *usable* tool (bin/ src/ stages/ library/) + user-facing
+# docs (README, PRINCIPLES, GUIDE, CHEATSHEET, SKILLS, MENTORS, IDS, CHANGELOG).
+# Everything below is the dogfood workspace — roadmap, research, strategy, design.
 docs/business/
+docs/RESUME.md
+docs/ideas/
+docs/research/
+docs/dossier/
+docs/design/
+docs/architecture/
+docs/exports/
+docs/loops/
+docs/mentor-practitioners.md
