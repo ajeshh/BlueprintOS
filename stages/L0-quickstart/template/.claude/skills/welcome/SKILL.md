@@ -195,11 +195,22 @@ Two paths. Name both; let the founder pick.
 > [README](https://github.com/ajeshh/BlueprintOS) and `PRINCIPLES.md` are the canonical
 > references — short by design."*
 
-## 5. Wrap up
+## 5. Wrap up — end on ONE exact next step
 
-> *"That's the tour. Ready to start? Two ways: run `/boss <your idea or PRD path>` to spin
-> up, or `/triage <a thought>` to capture-then-shape. Pick whichever feels right; the wrong
-> one isn't wrong — you can always re-run."*
+The founder has just read a fair amount. The single most important thing now: they leave knowing
+*exactly what to type* — one literal command, not a menu. After a lot of content, a fork ("/boss or
+/triage, your pick") re-triggers the forgetting this whole skill exists to prevent. So **recommend one
+action, put the literal command on its own line, and demote the alternative to a single parenthetical:**
+
+> *"That's the tour. Your next step — just one thing:*
+>
+> ***`/boss <your idea>`** — a sentence, or a path to a doc / a link / a Google Doc. I'll pull it in,
+> shape it, and capture it. That's the whole start.*
+>
+> *(Only have a fragment, not a whole idea yet? `/triage <a thought>` instead — same start, lower stakes.)"*
+
+Never end on *"pick whichever feels right."* One bold, literal, do-it-now command; the fallback gets a
+parenthetical, not equal billing. The founder should be able to act without re-reading anything above.
 
 ## Rules
 

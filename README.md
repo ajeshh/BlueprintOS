@@ -28,9 +28,10 @@ BOSS is one answer.
 
 A CLI plus a set of skills, agents, and loops that run inside Claude Code:
 
-- **`boss new my-app`** — scaffolds a project at the lightest level (Quickstart). Five seconds
-  to working. One idea-capture skill, an optional private GitHub repo, a `CLAUDE.md` that
-  fits on a screen.
+- **`boss new my-app`** — scaffolds a project at the lightest level (Quickstart) in five seconds.
+  Then `/boss <your idea>` to spin up — point it at a sentence, a doc, a Google Doc, an Obsidian
+  note, a PDF, or a URL, and BOSS pulls the material in and shapes it. Optional private GitHub repo;
+  a `CLAUDE.md` that fits on a screen.
 - **`boss unlock mvp`** — adds the spec discipline (`/spec` with validated-learning + evals
   fields), the smoke gate, the demand-test step (`/pretotype` — Savoia), and JIT design-tokens
   scaffolding when your project earns it.
@@ -67,27 +68,18 @@ work around.
 
 ## What you actually get
 
-`boss new` (Quickstart mode):
-- 3 agents — `pm`, `coder-generalist`, `mentor-venture`
-- 6 skills — `/welcome`, `/boss`, `/triage`, `/canvas`, `/boss-sync`, `/boss-learn`
-- The conscience hook + 2 loops (`capture-loop`, `canvas-loop`)
+Four modes, unlocked additively as the project earns them:
 
-`boss unlock mvp` (additive):
-- 4 more agents — `tester`, `program-manager`, `mentor-architect`, `mentor-gtm`
-- 13 more skills — `/spec`, `/smoke`, `/evals`, `/pretotype`, `/design-tokens-init`, `/log`,
-  `/close`, `/extract`, `/drift-deep`, `/ai-first-init`, `/ai-cost`, `/ai-failure-states`,
-  `/cost-review`
-- 8 more loops — `spec-loop`, `pretotype-loop`, `design-tokens-loop`, `extraction-loop`,
-  `drift-loop`, `cost-budget-loop`, `cost-review-loop`, `ai-failure-state-loop`
+> **Quickstart** (capture an idea) → **MVP** (build it) → **V1** (ship it) → **Scale** (grow it)
 
-`boss unlock v1` (additive):
-- 7 more agents — `ui-designer`, `ux-designer`, `db-architect` + 4 template mentors (business,
-  fundraising, pitch, talent)
-- 3 more skills — `/board`, `/design-review`, `/ux-check`
-- 1 more loop — `design-drift-loop`
+Each mode adds skills, agents, and loops; nothing is ever ripped out, and every unlock is your
+call — a project that stays in Quickstart forever is a legitimate project. The exact, always-current
+list of what each mode includes lives where it can't go stale:
 
-Each unlock is additive; nothing gets ripped out. Each unlock is your call, not the tool's.
-A project that stays in Quickstart forever is a legitimate project.
+- **`boss map`** — the live cheatsheet for *your* project: where you are, what each command does,
+  and what's one unlock away.
+- **[`docs/CHEATSHEET.md`](docs/CHEATSHEET.md)** + **[`docs/SKILLS.md`](docs/SKILLS.md)** — generated
+  from the source, so they never drift.
 
 ## What BOSS isn't
 
@@ -154,7 +146,8 @@ authority).
 
 ## Where this is
 
-v0.47.0. Quickstart + MVP + V1 modes authored (Scale is stubbed). 45+ capability releases.
+Quickstart + MVP + V1 modes authored (Scale is stubbed); many capability releases in. For the
+exact current release, see [`VERSION`](VERSION) + the [changelog](registry/CHANGELOG.md).
 Self-hosted (BOSS itself runs in MVP mode, using BOSS). All discipline patterns demonstrated
 by BOSS-on-BOSS before they ship anywhere else.
 
