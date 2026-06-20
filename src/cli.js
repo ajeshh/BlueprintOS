@@ -36,8 +36,9 @@ function readStamp(dir) {
 }
 
 function cmdNew(args) {
-  const name = args[0];
-  if (!name) return fail('usage: boss new <project-name>');
+  const name = args.find((a) => !a.startsWith('--'));
+  const aiNative = args.includes('--ai'); // IDEA-022 Track 3 — additive, opt-in
+  if (!name) return fail('usage: boss new <project-name> [--ai]');
   const targetDir = resolve(process.cwd(), name);
   if (existsSync(targetDir)) return fail(`'${name}' already exists here.`);
 
@@ -81,6 +82,10 @@ function cmdNew(args) {
       // If a future version offers to share anonymized loop-closure signals UP to improve BOSS, it
       // is gated on this flag being true AND a per-send confirmation. Telemetry is never a default.
       shareUp: false,
+      // AI-native augmentation (IDEA-022 Track 3, opt-in via `--ai`). When true, `/comprehend` tailors
+      // the scaffold to what BOSS understands (seeds the venture brain, fills the overview). The
+      // deterministic template scaffold above is ALWAYS the reversible base — this only augments it.
+      aiNative,
     }, null, 2) + '\n',
   );
 
@@ -106,6 +111,9 @@ function cmdNew(args) {
   console.log(`    claude              # open Claude Code (works in the terminal or the editor panel)`);
   console.log(`    > /boss <your idea>     # spin up — a sentence, a doc, a deck, or a link`);
   console.log(`                            #   (first time? /welcome · already written it down? /import <file|url>)`);
+  if (aiNative) {
+    console.log(`    > /comprehend           # AI-native: tailor the scaffold to what BOSS understands (augments, never replaces)`);
+  }
   console.log('');
 }
 
@@ -193,6 +201,7 @@ function cmdAdopt(args) {
   if (!existsSync(cfgPath)) {
     writeFileSync(cfgPath, JSON.stringify({
       github: 'ask', visibility: 'private', license: 'proprietary', cohort: null, shareUp: false,
+      aiNative: !!flags.ai, // IDEA-022 Track 3 — `/comprehend` reads the adopted repo to tailor + seed the brain
     }, null, 2) + '\n');
   }
 
@@ -217,6 +226,9 @@ function cmdAdopt(args) {
   console.log(`\n  Next:`);
   console.log(`    claude              # open Claude Code here`);
   console.log(`    > /welcome              # what BOSS added + how the conscience works`);
+  if (flags.ai) {
+    console.log(`    > /comprehend           # AI-native: read this repo, tailor the scaffold + seed the venture brain`);
+  }
   console.log(`    boss map                # what's available · boss unlock <mode> to grow`);
   console.log('');
 }
@@ -452,8 +464,8 @@ export function run(argv) {
       return console.log(bossVersion());
     default:
       console.log(`BlueprintOS (BOSS) ${bossVersion()}\n`);
-      console.log('  boss new <name>          scaffold a new project in Quickstart mode + register it');
-      console.log('  boss adopt [--mode <m>]  bring BOSS into an already-started repo here, non-destructively');
+      console.log('  boss new <name> [--ai]   scaffold a new project in Quickstart mode + register it (--ai: tailor via /comprehend)');
+      console.log('  boss adopt [--mode <m>] [--ai]  bring BOSS into an already-started repo, non-destructively (--ai: comprehend it)');
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');
       console.log('  boss status              this project: mode, pinned version, drift');
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');

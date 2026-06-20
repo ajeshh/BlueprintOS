@@ -2,6 +2,27 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.64.0 — 2026-06-20
+
+- **AI-native scaffolder — `--ai` + `/comprehend` (IDEA-022 Track 3; the last track, most guarded).**
+  Scaffold from what BOSS *understands*, not just a fixed template copy — built exactly to the
+  guardrail: **additive, behind a flag, the deterministic template stays the default.** `boss new --ai`
+  / `boss adopt --ai` do the normal reversible scaffold, then set `aiNative` in `.boss/config.json` and
+  point at a new model-driven **`/comprehend`** skill (L0). The CLI never calls a model (zero-dep, layer
+  1) — the comprehension is the skill's job (same predicate/runner split as `/import`). `/comprehend`
+  reads what BOSS can honestly understand (an adopted repo with the wide context · the captured idea +
+  `docs/source/` · or nothing-yet → it says so and stops), then **non-destructively**: fills the
+  `AGENTS.md` overview with a real read, **seeds the venture brain** with an honest first dated read
+  (so the conscience has continuity from day one — connects Track 3 → Tracks 0/4) + stamps the index,
+  and **recommends** (never auto-applies) the disciplines that fit (`/ai-first-init`, `/design-tokens-init`,
+  `secrets-guard`+`/red-team`, `/persona`). **The guardrail is in the skill itself:** everything is a
+  plain-text, diffable, revertable write in the working tree — *"if it can't be diffed, it doesn't
+  ship"*; it never rewrites the deterministic scaffold. Verified: `--ai` sets the flag + surfaces
+  `/comprehend` (and plain `boss new` is unchanged, `aiNative:false`); eval 105/0, GRADED 24.
+  **IDEA-022 is now complete — all four tracks + the spine shipped.** (The fuller presence/identity
+  design + the proactive presence-moment stay deliberately deferred: a new unprompted trigger is the
+  over-fire risk the conscience guards against; the v0.63 voicing *is* the presence.)
+
 ## 0.63.0 — 2026-06-20
 
 - **The conscience now voices *with* the venture brain (IDEA-022 Track 4 — "the brain, voiced").** The

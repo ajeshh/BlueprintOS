@@ -1,10 +1,10 @@
 {
   "id": "L0-quickstart",
   "name": "Quickstart",
-  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony. /welcome runs first for new founders (v0.28). /prototype turns a rough idea into a runnable, clickable sketch fast — build-first as a legitimate lean-cycle start; the conscience helps fill the gaps after you see it, not before (v0.52, IDEA-030). /persona builds your app's target-user persona from the idea, grows it from what you know + research + dropped-in user research, and consults it as an agent voice — both to guide product decisions and to QA builds; a pre-filter that sharpens the questions you take to real users, never a replacement (v0.55, IDEA-031).",
+  "summary": "Light idea capture. The smallest agentic footprint: describe an idea, shape it, remember it — a PM + a coder + a venture mentor to coach the founder, almost no ceremony. /welcome runs first for new founders (v0.28). /prototype turns a rough idea into a runnable, clickable sketch fast — build-first as a legitimate lean-cycle start; the conscience helps fill the gaps after you see it, not before (v0.52, IDEA-030). /persona builds your app's target-user persona from the idea, grows it from what you know + research + dropped-in user research, and consults it as an agent voice — both to guide product decisions and to QA builds; a pre-filter that sharpens the questions you take to real users, never a replacement (v0.55, IDEA-031). /comprehend is AI-native scaffold tailoring (opt-in via `boss new --ai` / `boss adopt --ai`): reads what BOSS can understand (the idea / source / adopted repo), tailors the scaffold non-destructively, and seeds the venture brain with an honest first read so the conscience has continuity from day one — augments the deterministic template, never replaces it (v0.64, IDEA-022 Track 3).",
   "requires": null,
   "agents": ["pm", "coder-generalist", "mentor-venture"],
-  "skills": ["welcome", "boss", "import", "triage", "prototype", "canvas", "persona", "feedback", "boss-sync", "boss-learn"],
+  "skills": ["welcome", "boss", "import", "triage", "prototype", "canvas", "persona", "comprehend", "feedback", "boss-sync", "boss-learn"],
   "hooks": ["conscience"],
   "loops": ["capture-loop", "canvas-loop"],
   "unlocksNext": "L1-mvp",

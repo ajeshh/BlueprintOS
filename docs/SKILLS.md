@@ -3,7 +3,7 @@
 # BOSS Skill Reference
 
 > One line per skill, grouped by the mode that introduces it. Generated from each
-> skill's `SKILL.md` frontmatter, current as of **v0.63.0**.
+> skill's `SKILL.md` frontmatter, current as of **v0.64.0**.
 
 ## Quickstart
 
@@ -14,6 +14,7 @@
 - **`/prototype`** — Get the idea out of your head and onto the screen — fast  _(/prototype [IDEA-NNN | rough idea text])_
 - **`/canvas`** — Pressure-test an idea as a humane business — Ajesh Shah's Humane Product Canvas as the spine, with Lean/Lenny-style commercial prompts folded into each cell  _(/canvas [IDEA-NNN])_
 - **`/persona`** — Build your app's target-user persona from your idea, grow it from what you know + online research + any real user research you drop in, and consult it as an agent voice — both to guide product decisions ("would my user want this?") and to QA your builds ("how would she react to this screen?")  _(/persona [derive | enrich <slug> | consult <slug> "question"])_
+- **`/comprehend`** — AI-native scaffold tailoring — read what BOSS can actually understand about this project (the captured idea, the source material, or the adopted repo) and tailor the scaffold to it non-destructively, plus seed the venture brain with an honest first read so the conscience has continuity from day one  _(/comprehend)_
 - **`/feedback`** — Send feedback about BOSS itself back to the people who build it — a bug, a confusion, a wish, a "this got in my way." User-initiated and transparent: it shows you exactly what it will send (and the small bit of context attached) before anything leaves your machine, then files it as a GitHub issue upstream (or gives you a prefilled link to paste)  _(/feedback [what's on your mind])_
 - **`/boss-sync`** — Pull current BOSS practices into this project — bring the installed modes' skills/agents up to the latest version as a reviewed, narrated diff, then bump the project's BOSS pin  _(/boss-sync)_
 - **`/boss-learn`** — Route a proven pattern two ways — UP into the BOSS library as a reusable superset practice, or DOWN into this app as hardened core functionality  _(/boss-learn [what to promote])_
