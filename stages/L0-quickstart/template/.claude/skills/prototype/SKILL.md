@@ -9,13 +9,11 @@ Sometimes the fastest way to think about an idea is to **see it**. Not a spec, n
 small, real, clickable thing you can react to. `/prototype` builds that: the one core interaction of
 your idea, in whatever stack gets to "click it" fastest, running in front of you in minutes.
 
-This is **not vibe coding** (the conscience is still here) and it's **not gatekeeping** (you don't
-have to canvas or validate first). Building first is a legitimate way to start a lean cycle — get the
-idea out of your head, see the gist made tangible, then fill in the missing pieces once there's
-something concrete to fill them *around*.
+Building first is a legitimate way to start a lean cycle — get the idea out of your head, see the gist
+made tangible, then fill in the missing pieces once there's something concrete to fill them *around*.
+The conscience stays out of the way until the thing is on the screen.
 
-> **What this is:** a sketch to think with. **What it isn't:** your MVP. The difference matters and
-> BOSS will name it once — but only after you've seen the thing, not before.
+> It's a sketch to think with, not your MVP — BOSS names that once, *after* you've seen it.
 
 ## When to run it
 
@@ -37,30 +35,40 @@ it. Everything else can come after."*
 
 **3. Pick the fastest runnable stack** (Principle #4 — stack-neutral, but here optimize for
 *time-to-click*, not production-fitness):
+- **The founder can name it:** `/prototype --stack=<x>` is a first-class option — if they say it, use
+  it, no argument. Only auto-pick when they don't.
 - Simple UI / visual idea → a single self-contained HTML file (open it, done) or a minimal Vite +
   React app if it needs real interactivity.
 - A tool / transform / data idea → the smallest script with a tiny UI or CLI.
-- Pick the one that runs **fastest with fewest moving parts.** Note the choice + that it's a speed
-  pick, not a commitment.
-- If the project already chose a stack, respect it unless it'd slow the sketch down (say so if it
-  would).
+- Pick the one that runs **fastest with fewest moving parts.**
+- **Narrate the pick in plain words, not jargon** — to a beginner, say *"a single web page, nothing to
+  install"*, not *"a Vite stack."* Name it as a speed pick they can change, not a decision made for
+  them. (If the project already chose a stack, respect it unless it'd slow the sketch down.)
 
 **4. Build the minimal slice.** Just the core thing, made real. Use mock/sample data freely — the
-point is tangibility, not a backend. Apply the 5-token distinctiveness pass from `/design-tokens-init`
-so it doesn't look like generic-AI-app default (warm a neutral, pick a radius, one owned accent) —
-cheap, and it makes the sketch feel like *the idea*, not a template. Keep it in a clearly-a-sketch
-place (`prototype/` if the repo has other code; root if it's empty).
+point is tangibility, not a backend. **Don't gold-plate a throwaway** — tangible beats pretty (it's a
+sketch). Skip the design polish by default; only if the sketch is becoming something you'll keep (or
+an `eng-builder`/design-minded cohort asks) reach for the 5-token distinctiveness pass from
+`/design-tokens-init`. Keep it in a clearly-a-sketch place (`prototype/` if the repo has other code;
+root if it's empty).
 
 **5. Run it.** Use `/run` (or just open the file). Get it on the screen. This is the moment — don't
 bury it in narration.
 
-**6. Then — and only then — the conscience rides along (gently).** Once it's running:
-> *"There it is. Click around — does seeing it change what you thought the idea was? When you're
-> ready to pressure-test whether it's worth building for real (who's it for, what's the riskiest
-> assumption), `/canvas` is the next step. No rush — react first."*
+**6. Then — and only then — the conscience rides along (gently).** Once it's running, lead with a
+**concrete next action in plain words**, not a vocabulary word. The shape:
+> *"There it is. Click around — does seeing it change what you thought the idea was? Want me to fake
+> the next screen, or change the part that feels off?"*
 
-That's the whole conscience touch here: *after* the tangible thing, pointed at filling the gaps, never
-a gate before. Building first is the start of the loop, not a skip of it.
+Then, *only if they're ready*, introduce the next step **by what it does**, not its name: *"When you
+want to figure out who this is really for and what would make it worth building — there's a step for
+that (`/canvas`). And 'I don't know yet' is a fine answer; that's what it's for."* Never let the nudge
+imply the sketch *isn't real* or that not-knowing-the-user is a failure — they're building precisely
+to find out. Don't say `/canvas` / "pressure-test" cold to a beginner; let the step introduce itself
+when they get there.
+
+That's the whole conscience touch: *after* the tangible thing, a concrete action first and the
+vocabulary later, never a gate before.
 
 ## Cohort-aware delivery
 
@@ -88,6 +96,7 @@ Read `cohort` from `.boss/config.json`:
 - **Conscience after, never before.** No "have you validated this?" gate in front of the build. The
   whole point is that building *is* a legitimate first move. The nudge toward `/canvas` comes once
   there's something to react to.
-- **Don't quietly become the MVP.** When the sketch earns it, the real build path is
-  `boss unlock mvp` → `/spec` → `/evals` — deliberate, gated, honest. Fast to *see*; deliberate to
-  *build for real*. (The graduate ladder is what keeps a fast prototype from becoming a pseudo-app.)
+- **Don't quietly become the MVP.** The real failure isn't abstract — it's the sketch that picked up
+  4 real users and is now getting auth and a database bolted onto throwaway code nobody meant to keep.
+  When the sketch earns a real build, *restart it* on the deliberate path (`boss unlock mvp` → `/spec`
+  → `/evals`), don't grow the sketch into production. Fast to *see*; rebuild to *keep*.

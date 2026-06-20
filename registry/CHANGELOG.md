@@ -2,6 +2,35 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.55.0 — 2026-06-20
+
+- **`/persona` — your app's target-user as a consultable agent voice (IDEA-031).** Occasioned by
+  Ajesh: *"if I wanna build an app for moms to track chores, the first persona is moms… we can do a
+  Q&A with the builder, online research, or a UX researcher drops their research in… the app uses it
+  as an agent voice to guide product decisions"* — *"its also the QA, its both right?"* A new **L0
+  skill**: **derive** the primary target-user persona from the idea → `docs/personas/<slug>.md`
+  (who · context · jobs · pains · values · *what we don't know yet* · synthetic/real evidence ledger);
+  **enrich** from four sources (builder Q&A · `deep-research` online · drop-in real research via
+  `/import` · passive read of idea/canvas); **consult** in voice in **both directions** — *guidance*
+  ("would she want X?") and *QA* (Husain-discipline structured reactions on a build, comparable across
+  versions). **The discipline is the product:** every consult is framed as a *pre-filter, never
+  validation* — balances interest with concerns, names its blind spots, and closes with the
+  go-ask-a-real-one caveat (Fitzpatrick/Mom Test); synthetic shrinks as real grows, visibly. Reuses
+  [IDEA-009](../docs/ideas/IDEA-009-proto-personas-as-evolving-instruments.md)'s evolving-instrument
+  methodology pointed at the *founder's* users (vs. BOSS's internal cohort instruments). Registered in
+  L0; `boss map` + cheatsheet updated; eval 105/0.
+- **`/prototype` refined by its own persona-reactions pass (IDEA-009 instrument working).** Ran the 4
+  BOSS-internal personas on the new features (`/prototype`, kanban, upstream conscience); the
+  convergences drove real fixes: (1) the after-run nudge now leads with a **concrete plain-language
+  action** and lets *"I don't know yet"* be a fine answer (beginners bounced on `/canvas` /
+  "pressure-test" jargon); (2) the **5-token pass is skipped on throwaway sketches** by default
+  (eng-builder caught it contradicting "tangible beats pretty"); (3) **`--stack=<x>`** is now a
+  first-class option + the stack pick is narrated in plain words for beginners; (4) trimmed the
+  defensive over-explanation (dropped the "not vibe coding" protest; sketch-vs-MVP named once; the
+  "becomes the MVP" rule now names the *real* failure — bolting auth onto throwaway code). The
+  build-integrated eval channel caught design issues before a real founder hit them — first evidence
+  for IDEA-009's claim #1.
+
 ## 0.54.0 — 2026-06-20
 
 - **Upstream conscience — `/spec` now asks "is it worth building?" not just "is it built right?"
