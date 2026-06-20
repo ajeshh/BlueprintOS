@@ -25,10 +25,18 @@ being specced — i.e., the idea has no canvas, or its canvas has only placehold
 riskiest assumption is unfilled — **surface BOSS's restraint nudge in your own voice**, cohort-aware
 (read `.boss/config.json` `cohort` field; lean Fitzpatrick-plain):
 
-> Frame: name what's missing in one line, offer to back up to /canvas, hand the decision back. Never
-> block. The founder can override (record in `docs/devlog.md` with IDEA-008's grammar:
-> `- **OVERRIDE:** proceeded `spec-loop` without `canvas-loop` exit — rationale: <substantive
+> Frame: this is the cheapest place to catch the question AI made easy to skip — **not "is it built
+> right?" but "is it worth building?"** (the bottleneck moved from *how* to build to *what* to build —
+> Ng/Appleton, 2026). So don't surface a checklist gap; surface the substantive one: **who is this
+> for, and what's the bet that could sink it?** Name it in one line, offer to back up to /canvas, hand
+> the decision back. Never block. The founder can override (record in `docs/devlog.md` with IDEA-008's
+> grammar: `- **OVERRIDE:** proceeded `spec-loop` without `canvas-loop` exit — rationale: <substantive
 > reason>`).
+>
+> Respect the sketch: a throwaway prototype needs none of this — `/prototype` exists precisely to get
+> the gist out of your head, build-first, no gate. This fires only when you're committing to build it
+> **for real** (a FEAT you'll carry forward). Build-first is legitimate; building-for-keeps without
+> naming who it's for is the drift this catches.
 
 Then proceed with the spec if the founder confirms — overriding the conscience is a legitimate move;
 *recording the override* is the contract.

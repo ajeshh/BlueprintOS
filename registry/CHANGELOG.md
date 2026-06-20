@@ -2,6 +2,24 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.54.0 — 2026-06-20
+
+- **Upstream conscience — `/spec` now asks "is it worth building?" not just "is it built right?"
+  (IDEA-026 Part A, closes IDEA-026).** The biggest *conceptual* delta from the 2026 leader scan
+  (Ng's "PM bottleneck," Appleton's "align before the agent runs"), shipped the small + safe way the
+  host-subtraction audit found: **not a new always-on loop, a voice-sharpening of the existing
+  `spec-loop` restraint** (which already fires, skill-invoked, when the founder reaches for `/spec`
+  before the canvas closes). The restraint frame now surfaces the *substantive* gap — *who is this
+  for, and what's the bet that could sink it?* — not a checklist. **Respects `/prototype`:** a
+  throwaway sketch needs none of this (build-first is legitimate); the question fires only when
+  committing to build *for real*. eval gate 105/0 (skill-voice change, no predicate change).
+- **Positioning reframe — README opener now leads with the judgment gap (option C).** *"Everyone can
+  build now. Almost no one can tell a real business from a convincing demo. BOSS is the conscience
+  that keeps you honest while you move fast."* + the floor/ceiling subline (*vibe coding gets you a
+  demo; the discipline on top gets you a business*). The 2026-vocabulary update to positioning
+  (harness-is-the-moat / agentic-engineering-is-the-discipline), in BOSS's voice. Full draft +
+  rationale in the gitignored `docs/dossier/positioning-reframe-2026.md`.
+
 ## 0.53.0 — 2026-06-20
 
 - **`/judge-traces` — the deliberate reader for the trace substrate (IDEA-025 Phase 2).** v0.48 shipped

@@ -1,10 +1,11 @@
 # BlueprintOS
 
-> **For founders building with AI — the thinking layer that nudges when you're drifting and
-> pauses on command. No growth-hacking pressure. Override-friendly.**
+> **Everyone can build now. Almost no one can tell a real business from a convincing demo.**
+> **BOSS is the conscience that keeps you honest while you move fast** — the thinking layer that
+> nudges when you're drifting and pauses on command. No growth-hacking pressure. Override-friendly.
 >
-> *(The shorter version: BOSS is the just-in-time conscience for AI-native founders. Pause it
-> any time.)*
+> *(Vibe coding gets you a demo; the discipline on top gets you a business. BOSS is that discipline,
+> just-in-time. Pause it any time.)*
 >
 > Cursor and Lovable generate the code. BOSS scaffolds the *thinking about what to build, when
 > to ship, and when the discipline should get out of your way.* Brings a mentor board for the
