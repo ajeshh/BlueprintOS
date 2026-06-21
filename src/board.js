@@ -54,6 +54,18 @@ function firstHeading(text) {
   return m ? m[1].trim() : '';
 }
 
+// Owner-as-person (founder layer slice 2b, IDEA-037/FEAT-021): only a `@handle`
+// counts as a founder owner for the team lens — role owners (`pm`) and blanks are
+// ignored here. This is provenance (who's the DRI), surfaced ONLY when it's a team;
+// deliberately NOT aggregated into a per-person count (that's the credit-score line
+// mentor-humane drew — provenance, never a leaderboard).
+const personOwner = (o) => {
+  // Strip surrounding quotes first — a leading `@` is reserved in YAML, so the
+  // convention writes `owner: "@handle"` (quoted). Both forms resolve the same.
+  const v = (o || '').trim().replace(/^["']|["']$/g, '');
+  return v.startsWith('@') ? v : null;
+};
+
 // A title we'd actually want on a card. Drops template placeholders
 // ("<Title — one plain line>") and a leading "FEAT-NNN —" if the heading
 // repeats the id. Falls back to the id.
@@ -112,9 +124,9 @@ export function collectBoard(projectDir) {
     const priority = (fm.priority || '').trim().toLowerCase() === 'high' ? 'high' : null;
     if (/^FEAT/i.test(id)) {
       if (fm.source) featSources.add(fm.source);
-      feats.push({ id, title, status: fm.status, nextReview: fm.next_review, buildingSince: fm.building_since, shippedOn: fm.shipped_on, priority });
+      feats.push({ id, title, status: fm.status, nextReview: fm.next_review, buildingSince: fm.building_since, shippedOn: fm.shipped_on, priority, owner: fm.owner });
     } else {
-      ideas.push({ id, title, status: fm.status, nextReview: fm.next_review, priority });
+      ideas.push({ id, title, status: fm.status, nextReview: fm.next_review, priority, owner: fm.owner });
     }
   }
 
@@ -163,6 +175,7 @@ export function collectBoard(projectDir) {
       shippedAgeDays,
       archived: shippedAgeDays != null && shippedAgeDays > SHIPPED_WINDOW_DAYS,
       priority: ft.priority,
+      owner: personOwner(ft.owner),
     });
   }
   for (const id of ideas) {
@@ -177,6 +190,7 @@ export function collectBoard(projectDir) {
       blocked: false,
       reviewDue: reviewDue(id.nextReview, id.status),
       priority: id.priority,
+      owner: personOwner(id.owner),
     });
   }
 
@@ -253,11 +267,16 @@ function cardFlagText(c) {
   return '';
 }
 
-export function renderBoardText(projectName, { cards, hasIdeasDir }, opts = {}) {
+export function renderBoardText(projectName, data, opts = {}) {
   const showAll = opts.all === true;
+  const { hasIdeasDir } = data;
+  // `--mine` narrows the board to the cards I own (founder layer slice 2b) — "what am
+  // I on the hook for." A team lens; harmless solo (matches nothing until @owners exist).
+  let cards = data.cards;
+  if (opts.mine) cards = cards.filter((c) => c.owner && c.owner.toLowerCase() === opts.mine.toLowerCase());
   const lines = [];
   lines.push('');
-  lines.push(`  ${projectName} · board`);
+  lines.push(`  ${projectName} · board${opts.mine ? ' · ' + opts.mine : ''}`);
 
   const counts = Object.fromEntries(COLUMNS.map((c) => [c, 0]));
   for (const c of cards) counts[c.column] = (counts[c.column] || 0) + 1;
@@ -285,7 +304,8 @@ export function renderBoardText(projectName, { cards, hasIdeasDir }, opts = {}) 
         // `⬆` gutter marks priority: high; the status flag (blocked/aging/review) is
         // orthogonal and still shown as a suffix, so a high+aging card carries both.
         const prio = c.priority === 'high' ? '⬆ ' : '  ';
-        lines.push(`  ${prio}${c.id.padEnd(10)} ${c.title}${cardFlagText(c)}`);
+        const owner = (opts.owners && c.owner) ? `   ${c.owner}` : '';
+        lines.push(`  ${prio}${c.id.padEnd(10)} ${c.title}${cardFlagText(c)}${owner}`);
       }
       if (hidden > 0) lines.push(`    … +${hidden} shipped earlier  (\`boss board --all\`)`);
     }
@@ -600,6 +620,7 @@ export function boardJson(projectDir, projectName) {
     cards: ordered.map((c) => ({
       id: c.id, title: c.title, column: c.column,
       priority: c.priority || null,
+      owner: c.owner || null,
       blocked: c.blocked, reviewDue: c.reviewDue,
       aging: c.aging || false, ageDays: c.ageDays ?? null,
       archived: c.archived || false, shippedAgeDays: c.shippedAgeDays ?? null,
@@ -618,7 +639,7 @@ export function board(projectDir, projectName, opts = {}) {
   if (opts.next) return console.log(renderBoardNext(projectName, data));
   if (opts.blocked) return console.log(renderBoardBlocked(projectName, data));
   if (opts.json) return console.log(JSON.stringify(boardJson(projectDir, projectName), null, 2));
-  console.log(renderBoardText(projectName, data, { all: opts.all }));
+  console.log(renderBoardText(projectName, data, { all: opts.all, owners: opts.owners, mine: opts.mine }));
 }
 
 // Write the visual kanban to .boss/board.html and return its path.

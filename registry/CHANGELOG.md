@@ -2,6 +2,22 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.76.0 — 2026-06-20
+
+- **`boss board` owner lens — `owner:`-as-person + `--mine` (founder layer slice 2b; IDEA-037 / FEAT-021).**
+  The board (already a pure projection of frontmatter) now reads `owner:` and, **when the venture is a
+  team**, shows the founder who owns each card (`@handle`) — provenance of *who's the DRI*, surfaced as a
+  quiet suffix. `boss board --mine` narrows to the cards you own ("what am I on the hook for"); the JSON
+  projection (`--json`) carries `owner` per card for agent-readability. **Dormant-solo:** a solo founder
+  sees no owners and nothing changes — the lens only lights up once `boss team` has a cofounder. **Held the
+  humane line:** only a `@handle` counts (role owners like `pm` are ignored), and owners are shown as
+  per-card provenance, **never aggregated into a per-person count/leaderboard** (the credit-score line
+  mentor-humane drew). Quote-tolerant (`owner: "@handle"` — a leading `@` is reserved in YAML). Pure
+  projection preserved (no new state); zero-dep; eval gate **113/0**; `/tmp`-verified (team-shown /
+  solo-hidden / `--mine` filter / JSON field). *Deferred:* owner in the HTML board + `--next`/`--blocked`
+  views. **Next (FEAT-021): slice 3 — keep-in-the-loop + the shared/personal state cut** (the one
+  costly-to-reverse decision; to be recorded as BOSS's own `DEC` once the cut is chosen).
+
 ## 0.75.0 — 2026-06-20
 
 - **`boss team` — the team-aware foundation (founder layer slice 2; IDEA-037 / FEAT-021).** Makes BOSS
