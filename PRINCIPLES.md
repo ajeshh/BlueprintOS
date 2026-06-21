@@ -12,6 +12,12 @@ distribution). BOSS is the guidance layer between those two states.
 > evidence while continuously checking the work against real pain, real workflows, real buyers, real
 > economics, and real distribution. The goal is not more pseudo apps; it's real business value apps.
 
+What that buys is narrower — and stronger — than "discipline wins." Disciplined validation doesn't
+guarantee a win; it makes you **decide faster, including quitting faster** (Camuffo et al., 759-firm
+RCT [EVIDENCE]). Cheap AI lowers the cost of *building*, not the cost of *being wrong* — so the cheaper
+building gets, the more the loop matters, not less. BOSS's conscience exists to stop self-fooling, and
+that has to include BOSS not overclaiming its own promise.
+
 The six rules below are how that promise is kept.
 
 ---

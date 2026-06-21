@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.86.0 — 2026-06-20
+
+- **The thesis bundle — BOSS's own claim, made honest, plus two coaching blades (`/vet` sweep:
+  RVW-047 + RVW-049 + RVW-039 → `/boss-learn` UP).** Three [EVIDENCE]/[THOUGHT-LEAD] findings routed into
+  the surfaces where BOSS makes its case — no new machinery, exactly as each verdict scoped.
+  - **`PRINCIPLES.md` "why" reframe (RVW-047, Camuffo 759-firm RCT [EVIDENCE]).** The honest version of the
+    thesis: disciplined validation doesn't *guarantee a win* — it makes you **decide faster, including
+    quitting faster**. Cheap AI lowers the cost of *building*, not of *being wrong* — so the cheaper
+    building gets, the more the loop matters, not less. Named because BOSS's conscience exists to stop
+    self-fooling, and that has to include BOSS not overclaiming its own promise.
+  - **`mentor-venture` gains "the evidence you carry" (RVW-047/049/039).** Three coaching lines, judgment
+    first / cite-on-request: (1) validation buys faster decisions, not wins; (2) **the demoware test** —
+    *"if your AI product only replaces a prompt plus a copy/paste, it's a demo, not a product"* (Cagan/SVPG),
+    anchored at the `/prototype`→`/spec` graduation; (3) **the competence-gate** — AI advice *amplifies* the
+    judgment a founder already has and can harm the one least able to grade it (Otis et al. HBS RCT, 640
+    founders: high performers ~+15%, struggling ~−8%), so at a call they may not be equipped to judge, ask
+    *"are you set up to judge this answer?"* and point at who'd know.
+  - **`conscience-voicing.md` gains the competence-gate as a voicing (RVW-039).** A lens the `caution`/`drift`
+    moments can reach for — a humility prompt, rare and suggestive, never a gate, **explicitly not a new
+    hook predicate** (no signal detects over-trust; don't manufacture one). Cites Otis + CHI 2025
+    automation-bias (confidence in AI tracks *less* checking, not more).
+  - *Founder-facing, project-neutral; pulled via `/boss-sync`.* mentor-venture ships from Quickstart;
+    PRINCIPLES + the practice are BOSS-canonical, synced.
+
 ## 0.85.0 — 2026-06-20
 
 - **The `coordination` conscience moment — the founding-team seam, watched via artifacts (founder layer

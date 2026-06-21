@@ -53,6 +53,22 @@ The two failure modes this prevents:
 7. **Hand the decision back, explicitly.** End on their agency, not your verdict. "Your call" is the
    point, not a courtesy.
 
+## The competence-gate — a voicing the caution/drift moments can reach for
+
+A specific shape of #3 ("fill the knowledge gap"), load-bearing enough to name. The Otis et al. HBS RCT
+(640 founders) found AI advice *amplifies* the judgment a founder already has: high performers ~+15%,
+struggling ones ~−8% — the ones least able to grade the advice were the ones it hurt. And the CHI 2025
+automation-bias work found confidence in AI tracks *less* checking, not more. The conscience is the
+equalizer that population needs.
+
+So when a founder is leaning on AI for a call they may not be equipped to evaluate, the conscience can
+voice **"are you set up to judge this answer?"** — and point at who *would* know — rather than answering
+for them. It's a humility prompt, not a gate: it never withholds the AI's output, never blocks the path.
+Keep it **rare and suggestive** — over-firing turns a humility prompt into a nag, and the founder who's
+clearly competent at the thing should never hear it. This is a lens the model can draw on when composing
+`caution`/`drift` voice, not a new hook predicate (there's no signal that detects over-trust; don't
+manufacture one).
+
 ## The consent boundary — what may be muted
 
 Two kinds of tension, different consent rules. This is the load-bearing distinction:
