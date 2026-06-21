@@ -2,6 +2,25 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.68.0 — 2026-06-20
+
+- **De-rot pass — the hand-authored wayfinding caught up to 20 releases of new capability (IDEA-018).**
+  The generated surfaces (`boss map`, `CHEATSHEET.md`, `SKILLS.md`) stayed current automatically; the
+  *prose* a founder actually reads had drifted — the recurrence of the exact "19-release README drift"
+  IDEA-018 was built to catch. Surgical, scope-correct fixes (each surface names what fits *its* level,
+  and still points at `boss map` for the live list — no re-enumerating):
+  - **README** — the install flow now shows `/prototype` ("hit go") and, crucially, **`boss adopt`** for
+    an already-started repo (a stranger would otherwise read BOSS as greenfield-only — the exact gap
+    IDEA-005 closed). `--ai` mentioned.
+  - **`/welcome`** (the first-run orientation) — `/prototype` is now offered as a third path ("if you'd
+    rather *see* the idea than describe it"), and `/persona` is in the skill list.
+  - **L0 `CLAUDE.md`** — `/comprehend` added to the skills line.
+  - **`docs/GUIDE.md`** — the rung-by-rung walk now includes `/prototype` + `/persona` (Quickstart),
+    `/revalidate` + `/judge-traces` + `/red-team` + `/consult` (MVP), and a new "you already started —
+    there's a repo" entry for `boss adopt`.
+  No code change; eval 113/0. The lesson re-learned: generated wayfinding is drift-proof; curated prose
+  needs a deliberate de-rot pass after a big build run — this was it.
+
 ## 0.67.0 — 2026-06-20
 
 - **The `/vet` sweep's six ADAPTs, routed via `/boss-learn` (RVW-015→026).** A 12-claim skeptical sweep

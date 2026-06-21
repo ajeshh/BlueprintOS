@@ -62,6 +62,12 @@ nothing else. (In a project, `/welcome` asks you this and tunes itself; you can 
   path, but turn the harm lens on early: `/ai-failure-states` from the start, and lean on
   `mentor-humane` (it can override the other mentors). Go slower on any claim your product makes.
 
+- **You already started — there's a repo.** You built something before you found BOSS. → Don't start
+  over: `cd` into it and run **`boss adopt`** (add `--mode mvp` if it already has real users). It lays
+  BOSS down *non-destructively* — your files are untouched — at the lightest register that fits, and
+  you `unlock` up from there. Add `--ai` to have BOSS read the repo and tailor the scaffold
+  (`/comprehend`).
+
 ---
 
 ## The walk, rung by rung
@@ -71,8 +77,11 @@ always your call.
 
 ### Quickstart — *get the idea out of your head*
 Capture an idea, shape it, pressure-test whether it's real. Almost no ceremony.
-- **You'll actually use:** `/triage` (capture an idea and keep adding to it), `/canvas`
-  (pressure-test it as a humane business — who's served, what's the bet, what could kill it).
+- **You'll actually use:** `/triage` (capture an idea and keep adding to it), `/prototype` (drop an
+  idea and hit go — BOSS builds the smallest clickable version so you can *see* it, not just argue
+  with a blank page), `/canvas` (pressure-test it as a humane business — who's served, what's the bet,
+  what could kill it), `/persona` (your target user as a consultable voice — guide *and* QA, never a
+  replacement for talking to a real one).
 - **Ask:** `mentor-venture` — is this worth building, what's the riskiest assumption.
 - **Ready to climb when:** you're done capturing and ready to *build* one of these for real.
   → `boss unlock mvp`
@@ -82,10 +91,14 @@ Spec discipline, a build-health gate, demand-testing, and AI-cost/eval/failure-s
 your product leans on a model.
 - **You'll actually use:** `/spec` (an idea becomes a buildable FEAT with acceptance criteria),
   `/smoke` (is it even running?), `/pretotype` (test demand *before* you build), `/log` + `/close`
-  (keep a devlog and a clean session-end). If you're AI-native: `/ai-first-init`, `/ai-cost`,
-  `/evals`, `/ai-failure-states`.
+  (keep a devlog + a clean session-end — and the conscience updates its read on your venture),
+  `/revalidate` (the 3-line gate before paused work re-enters the build, so you never ship a zombie
+  feature). If you're AI-native: `/ai-first-init`, `/ai-cost`, `/evals`, `/ai-failure-states`,
+  `/judge-traces` (error-analysis on your real sessions), `/red-team` (test your defenses against the
+  OWASP LLM Top-10 — turns prevention into evidence).
 - **Ask:** `mentor-architect` (load-bearing tradeoffs, what to defer), `mentor-gtm` (first users,
-  channels).
+  channels), or **`/consult`** to convene several mentors on one cross-cutting decision (it keeps the
+  disagreement visible instead of averaging it away).
 - **Ready to climb when:** you have real users and the app needs design rigor, a real database, and
   prototypes. → `boss unlock v1`
 

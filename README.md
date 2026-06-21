@@ -114,7 +114,13 @@ code .                          # open the folder in your editor (or `claude` in
 claude                          # open Claude Code (terminal or editor panel)
 > /welcome                      # first time? ~1 min orientation
 > /boss <idea | file | url>     # spin up — point at a sentence, a doc, or a link; BOSS pulls it in
+> /prototype <your idea>        # or just hit go — BOSS builds the smallest clickable version to react to
 ```
+
+**Already started building?** You don't have to start over. `cd` into your existing repo and run
+`boss adopt` (add `--mode mvp` if it already has real users) — it lays BOSS down *non-destructively*,
+your files untouched, at the lightest register that fits. Add `--ai` to have BOSS read the repo and
+tailor the scaffold.
 
 After that:
 

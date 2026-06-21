@@ -120,8 +120,9 @@ Read the manifest. Name what's there in plain language:
 > *"You're in **Quickstart** mode right now. The folder has:*
 > - *`CLAUDE.md` — the working rules for this project. Read it first.*
 > - *`.boss/manifest.json` — what BOSS installed; `.boss/config.json` — your preferences.*
-> - *`.claude/skills/` — the skills you can run with `/<name>`. Today: `/boss`, `/triage`,
->    `/canvas`, `/welcome` (you're here), and a few others for syncing + learning.*
+> - *`.claude/skills/` — the skills you can run with `/<name>`. Today: `/boss` (spin up an idea),
+>    `/triage` (capture one), `/prototype` (hit go — see it running), `/canvas` (pressure-test it),
+>    `/persona` (your user's voice), `/welcome` (you're here), and a few more (`boss map` lists them all).*
 > - *`.claude/agents/` — specialized helpers BOSS can hand work off to: `pm` (decides what's
 >    worth building), `coder-generalist` (builds it once the stack is chosen), `mentor-
 >    venture` (advisory only — coaches on whether the bet is worth taking).*
@@ -140,6 +141,10 @@ Two paths. Name both; let the founder pick.
 > *Path B — you have a fragment, a hunch, or just a topic to noodle on. Run `/triage <one
 > sentence about it>`. I'll create a living idea doc you can keep adding to. Re-run `/triage`
 > anytime to add more. No commitment yet — capture first, decide later.*
+>
+> *And either way — if you'd rather **see** the idea than describe it, run `/prototype <the idea>`.
+> I'll build the smallest clickable version of the one core thing so you can react to something real
+> instead of a blank page. Building first is a fine place to start; we fill in the rest after.*
 >
 > *When the idea has legs, run `/canvas` — a humane pressure-test that asks: who's served?
 > what's the tension? what's the promise? who could be harmed? what's the riskiest assumption?
