@@ -69,6 +69,20 @@ On answer, write the value to `.boss/config.json` (don't disturb other fields). 
 leave `null`. Move on. **Don't argue their pick** — they can edit the file later, and live use
 will sharpen it.
 
+## 2.5 Ask: solo, or building with someone? (light, optional)
+
+One more quick one — it decides whether BOSS's team layer is even visible:
+
+> *"Are you building this **solo**, or **with a cofounder**? (You can change this anytime.)*
+> - *Solo — BOSS stays out of your way; the team features stay dormant.*
+> - *With someone — tell me their GitHub handle and BOSS keeps you both in the loop:*
+>   *`boss team add @their-handle "Their Name"`."*
+
+If solo (or unsure), do nothing — that's the default and nothing changes. If they name a cofounder,
+run `boss team add @handle "Name"` for them. The roster lights up the team layer (a shared decision
+log via `/decide`, and more as the venture grows). **Never pressure the team answer** — solo is a
+first-class, fully-supported path.
+
 ## 3. Branch by cohort
 
 ### 3a. Beginner cohorts → full orientation

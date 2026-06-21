@@ -11,6 +11,7 @@ import { board, boardHtml } from './board.js';
 import { map } from './map.js';
 import { brain } from './brain.js';
 import { insights } from './insights.js';
+import { renderTeam, addCollaborator, removeCollaborator } from './team.js';
 
 const STAMP = '.boss/manifest.json';
 
@@ -330,6 +331,35 @@ function cmdInsights() {
   insights(process.cwd());
 }
 
+function cmdTeam(args) {
+  // The venture's people (founder layer slice 2, IDEA-037/FEAT-021). Dormant-solo:
+  // an empty roster reads as a solo venture and changes nothing else.
+  const stamp = readStamp(process.cwd());
+  if (!stamp) return fail('not a BOSS project (no .boss/manifest.json here).');
+  const [sub, ...rest] = args;
+  const handle = rest.find((a) => !a.startsWith('--'));
+  const name = rest.filter((a) => a !== handle && !a.startsWith('--')).join(' ').trim() || null;
+  try {
+    if (sub === 'add') {
+      if (!handle) return fail('usage: boss team add <@github-username> ["Name"]');
+      const r = addCollaborator(process.cwd(), handle, name);
+      const msg = r.added ? `\n  ✦ Added ${r.handle} to the venture.`
+        : r.self ? `\n  ${r.handle} is you — you're already on the venture.`
+        : `\n  ${r.handle} is already on the venture.`;
+      console.log(msg);
+    } else if (sub === 'remove') {
+      if (!handle) return fail('usage: boss team remove <@github-username>');
+      const r = removeCollaborator(process.cwd(), handle);
+      console.log(r.removed ? '\n  ✦ Removed from the venture.' : '\n  Not on the roster.');
+    } else if (sub && sub !== 'list') {
+      return fail(`unknown subcommand 'team ${sub}'. options: (none) | add | remove`);
+    }
+    console.log(renderTeam(process.cwd()));
+  } catch (e) {
+    return fail(e.message);
+  }
+}
+
 function cmdList() {
   const projects = listProjects();
   if (!projects.length) {
@@ -463,6 +493,7 @@ export function run(argv) {
     case 'map': return cmdMap();
     case 'brain': return cmdBrain(args);
     case 'insights': return cmdInsights();
+    case 'team': return cmdTeam(args);
     case 'list': return cmdList();
     case 'sync': return cmdSync(args);
     case 'learn': return cmdLearn(args);
@@ -482,6 +513,7 @@ export function run(argv) {
       console.log('  boss brain [--diff|--relationship]  the conscience\'s read (POV); --diff = how it evolved; --relationship = what it said & what you did');
       console.log('  boss brain forget --before <date>   evict old reads (living memory; founder-invoked)');
       console.log('  boss insights            read your own projects\' trace: where each loop stands (local · nothing sent)');
+      console.log('  boss team [add @user|remove @user]   who\'s on the venture (solo by default; add a cofounder to light up the team layer)');
       console.log('  boss list                all connected projects');
       console.log('  boss sync [--apply]      pull current BOSS skills/agents/hooks into this project (DOWN)');
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);

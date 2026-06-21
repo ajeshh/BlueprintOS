@@ -2,6 +2,23 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.75.0 — 2026-06-20
+
+- **`boss team` — the team-aware foundation (founder layer slice 2; IDEA-037 / FEAT-021).** Makes BOSS
+  *know* whether a venture is solo or a founding team, keyed on **GitHub identity** (`@username` via
+  `gh api user` → `git config`, never fabricated — the principal id the whole team layer builds on).
+  `boss team` shows the venture's people; `boss team add @handle "Name"` / `remove @handle` manage the
+  roster (stored in `.boss/config.json`). **Dormant-solo by design** (the mentor-pass guardrail that
+  clears the solo test): with no cofounder declared, a solo founder sees nothing new and *nothing
+  changes* — the team layer only lights up when someone joins, so it's inert, never overhead. Guards
+  against adding yourself (you're already "you"). `/welcome` now asks the light, optional "solo or with
+  someone?" question at first run (flippable anytime); L0 `CLAUDE.md`/`AGENTS.md` wayfinding refreshed for
+  `/decide` + `DEC-NNN` + `boss team` (no drift). `src/team.js`, zero-dep; conscience eval gate **113/0**;
+  `/tmp`-verified (solo→add→team→remove + self-add rejection). **Where the roster lives is deliberately
+  LOCAL for now** — whether it should travel via git (so a cofounder sees it) is the shared-vs-personal
+  **state cut**, slice 3, which will be recorded as BOSS's own `DEC` (dogfooding `/decide`). **Next
+  (FEAT-021):** slice 2b `owner:`-as-person + board-by-owner · slice 3 keep-in-the-loop + the state cut.
+
 ## 0.74.0 — 2026-06-20
 
 - **`/decide` + `DEC-NNN` — the decision log (founder layer, slice 1; IDEA-037 → FEAT-021).** First build
