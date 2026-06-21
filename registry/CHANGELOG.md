@@ -2,6 +2,27 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.77.0 — 2026-06-20
+
+- **The founder-layer state cut — back up + share, keep the conscience private (slice 3a; IDEA-037 /
+  FEAT-021 / DEC-001).** Occasioned by Ajesh's insight that BOSS taught us the *released-app vs.
+  dev-codebase* split: BOSS gitignores its *own* docs (don't ship private strategy in a public OSS package),
+  but a **venture's `docs/` already commit** — so a scaffolded team's ideas, canvas, `DEC-NNN` decisions,
+  research, RESUME, and the venture brain's `read.md` are **already backed up (push = backup) and shared
+  (a cofounder who clones is in the loop)**. This release names that win and **plugs the one leak**: the
+  template now gitignores the **per-person** conscience state — `.boss/brain/relationship.md` (what the
+  conscience said to *you* and what you did with it) + `.boss/trace.jsonl` — so one founder's private nudge
+  history never travels to the other (Contextual Integrity). The backup/share framing is surfaced in
+  `/welcome` (first-run) and the L0 `AGENTS.md` conventions. **The decision is recorded as BOSS's own first
+  `/decide`** — [`DEC-001`](../docs/decisions/DEC-001-founder-layer-brain-cut.md): *venture brain `read.md`
+  SHARED (the hive-mind read, also seeds a joining cofounder's brain for free), conscience `relationship.md`
+  PER-PERSON* — drafted with the research- + 3-mentor-backed recommendation, **Ajesh to confirm or supersede**.
+  Reversible at a cost (the leak fix *prevents* the irreversible accident; sharing `read.md` confirms the
+  status quo). Deferred: per-founder namespacing (`.boss/founders/<handle>/`) — the structural fix, needs
+  `brain.js` path changes. Template-only + docs; `/tmp`-verified (per-person ignored, shared/backup commit).
+  **Next (FEAT-021): slice 4 — shared craft commons (Pain C, the most differentiated) · slice 5
+  mentor-the-team · slice 6 `boss credits` + the ownership moment.**
+
 ## 0.76.0 — 2026-06-20
 
 - **`boss board` owner lens — `owner:`-as-person + `--mine` (founder layer slice 2b; IDEA-037 / FEAT-021).**

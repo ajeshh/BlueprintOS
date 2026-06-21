@@ -83,6 +83,11 @@ run `boss team add @handle "Name"` for them. The roster lights up the team layer
 log via `/decide`, and more as the venture grows). **Never pressure the team answer** — solo is a
 first-class, fully-supported path.
 
+Either way, mention the quiet win once: *once you push this repo to GitHub, your thinking — ideas,
+decisions, the canvas — is **backed up**, and a cofounder who clones it is automatically in the loop.
+The only things that stay on your machine are your secrets and the conscience's private notes on how
+its nudges landed for you.* (Don't belabor it — one line, then back to the next step.)
+
 ## 3. Branch by cohort
 
 ### 3a. Beginner cohorts → full orientation

@@ -20,7 +20,7 @@
 - **IDs:** `IDEA-NNN` for raw ideas, `DEC-NNN` for load-bearing/hard-to-reverse decisions (see `docs/IDS.md`). More ID types unlock with later modes.
 - **Decisions:** record the load-bearing or one-way-door calls with `/decide` → a `DEC-NNN` (Context / Decision / Why / Consequences + who decided + how reversible). Supersede, don't edit. The rationale future-you and a cofounder can read instead of guessing.
 - **Frontmatter:** every new doc carries `id`, `type`, `owner`, `status`.
-- **Team:** building with a cofounder? `boss team add @their-handle "Name"` keeps you both in the loop (solo stays the default — the team layer is dormant until someone joins).
+- **Backup & share:** your `docs/` (ideas, canvas, `DEC-NNN` decisions, RESUME) and the venture brain's `read.md` commit with the repo — so **pushing backs up your thinking**, and a cofounder who clones is **in the loop**. Only secrets and the conscience's private relationship-with-you stay local. Building with a cofounder? `boss team add @their-handle "Name"` (solo stays the default — the team layer is dormant until someone joins).
 - **Git:** small commits, present-tense messages, never force-push shared branches without asking.
 
 ## Project overview

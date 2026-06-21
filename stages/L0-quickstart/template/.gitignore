@@ -10,3 +10,11 @@ secrets/
 .boss/cost-log.jsonl
 .boss/conscience-log.jsonl
 
+# Per-person conscience state — stays local, never shared with a cofounder (DEC-001).
+# Everything else BOSS writes (docs/ ideas, canvas, decisions, RESUME, and the venture
+# brain's read.md) DOES commit — so pushing backs up your thinking AND keeps your
+# cofounder in the loop. But the conscience's relationship with YOU — what it said and
+# what you did with it — is yours alone; it never travels to a teammate.
+.boss/brain/relationship.md
+.boss/trace.jsonl
+
