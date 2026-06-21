@@ -2,6 +2,52 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.80.0 — 2026-06-20
+
+- **New practice: `ai-adoption-culture.md` — bring AI to a team without breeding resentment (RVW-038,
+  via `/vet` → `/boss-learn`; feeds IDEA-037).** The second routed bundle from the research-feeds session,
+  and the most net-new: how a small founding team adopts AI so people **opt in** rather than comply.
+  Distilled from Stanford's **Human Agency Scale** (automate what's *wanted*; name the "Red Light"
+  capable-but-unwanted zone), **Edmondson** psychological safety (make it safe to admit "I don't know AI";
+  pair safety with high standards), Mollick's **"secret cyborgs"** (reward honest AI use, don't punish it
+  into hiding), and the **"workslop"** finding (sloppy AI output erodes trust *between cofounders* — own
+  your draft before you forward it). Ships a concrete **cofounder AI consent + norms conversation** and
+  stays JIT — dormant solo, surfaces when a second person joins, **never a mandate** (the conscience names
+  the Red-Light tension, never picks the answer). **Authored as a reviewable starting draft for the
+  IDEA-037 founding-teams build** — the handoff names the recommended wiring (a conscience Red-Light
+  moment, the consent conversation in `boss team`, mentor-the-team citing it) and leaves the hook/gate
+  changes to that build. Library practice, zero-dep (not scaffolded); folds in RVW-035 (Edmondson) when
+  slice 5 lands.
+
+## 0.79.0 — 2026-06-20
+
+- **Agent-security hardened for the 2026 agent-native surface (RVW-032/042/044/054, via `/vet` →
+  `/boss-learn`).** The first routed bundle from a research-feeds mining session (new
+  `docs/research/SOURCES.md` — a ~40-org institutional roster — plus a 25-verdict `/vet` sweep,
+  RVW-031…055). `library/practices/agent-security.md` + the L1 `/red-team` skill grow beyond the
+  stateless lethal-trifecta / LLM-Top-10 baseline to cover what a founder shipping an *agent* actually
+  faces:
+  - **Agent-native threat model** — the **OWASP Agentic ASI Top 10 (Dec 2025)** (goal hijack, tool
+    misuse, agentic supply chain, memory/context poisoning, identity/privilege abuse, rogue agents…)
+    added to `/red-team` for any target with tools + memory + autonomy; the stateless LLM Top 10 still
+    covers a plain prompt-in/text-out path. Plus **agentic misalignment** named as a *measured* failure
+    mode (Anthropic) — bound autonomy + sensitive access; don't assume good behaviour.
+  - **Containment defaults** beneath the Rule of Two (Anthropic "how we contain Claude" + Redwood
+    control): **match isolation to oversight** — read-only / read-write-no-delete mount tiers, **egress
+    allowlists**, inspect-tool-returns-before-context, and **gate the irreversible** behind a human or a
+    cheaper trusted check.
+  - **The shipped app is its own surface** — AI defaults to insecure code (Veracode: ~45% of
+    AI-generated code ships an OWASP-Top-10 vuln) and the classic vibe-coded leak is **client-side key
+    exposure** (the Tea breach; ~25k secrets found across vibe-coded sites). A new **pre-ship
+    app-security pass** in `/red-team` (no secrets/keys in the bundle + OWASP web basics),
+    **non-negotiable for `first-product` / `vibe-coder-newbie`**. Names the honest gap: **`secrets-guard`
+    does NOT cover this** — it stops the *agent* reading secrets into context; it does nothing about a
+    *shipped app* exposing a key.
+  - Held the JIT line (Principle #2): surfaces one trigger at a time — trifecta on first untrusted read,
+    the ASI list on first agent ship, the pre-ship scan on first deploy, the full battery for regulated
+    cohorts. Practice-doc + skill-text only (zero CLI / dependency change); provenance carries the RVW
+    trail.
+
 ## 0.78.0 — 2026-06-20
 
 - **`/practice` + `PRAC-NNN` — the shared craft commons (founder layer slice 4; IDEA-037 / FEAT-021).**
