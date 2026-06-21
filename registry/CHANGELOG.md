@@ -2,6 +2,32 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.85.0 — 2026-06-20
+
+- **The `coordination` conscience moment — the founding-team seam, watched via artifacts (founder layer
+  slice 5b; IDEA-037 / FEAT-021).** BOSS's first *team-aware* conscience moment, and the careful gate-piece
+  of the program. Built on the most-replicated human-AI-teaming finding: **AI accelerates each individual
+  but erodes the human-to-human seam invisibly** (Ju & Aral RCT: social/emotional comms −27% while
+  *perceived* teamwork stayed flat — so a "how's teamwork?" prompt is *proven blind*; you have to watch the
+  artifact channel). New `coordination-loop` (L1): **entry** = it's a team (`.boss/config.json` has a
+  cofounder `"handle"`) **AND** real work has happened (`docs/devlog.md` ≥3 entries); **exit** = ≥1
+  `DEC-NNN` recorded together. Open → the conscience reads a **bounded** slice (decisions dir · `boss board`
+  · `boss team`) and judges: is work flowing through one founder's agent *around* the cofounder, or is the
+  deciding just happening off-repo on a call? Fires only on a real seam; **stays silent on a quiet log**
+  (the evidence is weak-transfer — over-firing would punish a healthy team that talks on calls). **Dormant
+  by construction when solo** (no `"handle"` → unopenable); **fires at most once/session**; **serves the
+  partnership as the unit and NEVER takes a side** (surfaces the seam, never whose fault); points at
+  `/decide` + `mentor-cofounder`; mutable (`boss conscience mute coordination`). The **Red-Light** moment
+  from the ai-adoption handoff was deliberately **NOT** built as a hook (it's not predicate-gateable —
+  there's no artifact that says "about to automate a teammate's task"; forcing it = the over-fire failure
+  mode) — it lives as a framing in `mentor-cofounder` instead. **Conscience eval gate: 120/0** (113 + 7 new
+  `moment-coordination` cases — fire / dormant-solo / decided-together / too-early / no-team / empty);
+  `/tmp`-verified end-to-end (fires on the seam, goes silent once a `DEC` is recorded). Zero-dep.
+  **FEAT-021 slice 5 (mentor-the-team) now complete** (5a `mentor-cofounder` + 5b the moment). **Next:
+  slice 6 — `boss credits` + the ownership/equity moment (reshaped by the research: refuse-to-score,
+  CRediT/IBM-validated, contribution kinds, structural-trigger equity — the worst solo-test profile, build
+  the evidence substrate only and get it in front of a real team).**
+
 ## 0.84.0 — 2026-06-20
 
 - **Humane harm-taxonomy as a shippable practice + the mentor internal/shipped boundary made explicit
