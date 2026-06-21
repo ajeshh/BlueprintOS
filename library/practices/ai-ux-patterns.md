@@ -73,6 +73,25 @@ JIT ethos — name it so it's designed, not accidental.
 When running degraded — model uncertain, on a fallback path, low confidence — *say so*, so the person
 recalibrates. Treat "I don't know" as a first-class, well-worded output, not a failure to hide.
 
+## 9. Generative UI — decide who holds the controls
+
+When an agent *renders the interface itself* (not just emits text), the load-bearing question is how
+much control the frontend keeps. A spectrum: **static** (the model fills slots in UI you designed —
+safest) → **declarative** (the model picks from an approved component set + props) → **open-ended** (the
+model emits arbitrary UI/markup — most power, highest stakes). Open-ended belongs in §4's irreversibility
+tier: an injected or confused prompt can now redraw what the user sees and clicks. Default to the
+least-open rung that still proves the bet; earn open-ended with a real reason, not convenience.
+(CopilotKit/AG-UI 2026 — keep the judgment, drop the protocol.)
+
+## 10. Memory is a reviewable object, not a black box
+
+If the product *remembers* the person across sessions, that memory needs a control surface — **view /
+edit / correct / delete / scope** what the AI holds about them. It's the §5 footprints principle extended
+from *what the agent did* to *what the system knows*: wrong-but-invisible memory silently degrades every
+future response and the user can't tell why. This pattern is also dogfood — BOSS is itself a
+memory-carrying tool (`.boss/`, `MEMORY.md`, the venture brain), so it should hold the pattern it is an
+instance of.
+
 ## Dark patterns — the manipulative inverse (recognize as you build)
 
 Patterns 1–8 are the *good* shape; this is the named *bad* shape, so a founder can catch one **while

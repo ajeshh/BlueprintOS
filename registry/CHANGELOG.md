@@ -2,6 +2,33 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.90.0 — 2026-06-20
+
+- **The rest of the `/vet` routing sweep — reliability, generative-UI/memory, anti-sameness, calibrated
+  pitch (RVW-040/043 + RVW-051/052 + RVW-037 → `/boss-learn` UP).** Final batch of the queued ADAPT/ADOPT
+  sweep, three surfaces, all judgment-aids — no new gates or hook predicates. (Bundled into one release to
+  minimize version churn during the concurrent FEAT-023 practice stream.)
+  - **`/evals` — correctness ≠ safety + pass^k (RVW-040/043, L1).** New "Correctness ≠ safety — the
+    adversarial half" section: a clean `/evals` pass isn't *done* until `/red-team` runs the adversarial
+    half (safety degrades under jailbreak across every model — Stanford HAI AI Index 2026; OWASP-Agentic is
+    what to probe). Sharpening gains **pass^k** (τ-bench): non-deterministic ≠ run-once — run each
+    load-bearing case k times, count how often it *all* succeeds; zero-dependency, a loop around the case
+    you already wrote. Two new Rules lines.
+  - **`ai-ux-patterns` — two net-new patterns (RVW-051, practice).** **§9 generative-UI control spectrum**
+    (static → declarative → open-ended; open-ended sits in the §4 irreversibility tier — an injected prompt
+    can redraw what the user sees) and **§10 memory-as-a-reviewable-object** (view/edit/correct/delete/scope
+    — the footprints principle extended from *what the agent did* to *what the system knows*; BOSS dogfoods
+    it as a memory-carrying tool).
+  - **`design-system` — AI-default = indistinguishable (RVW-052, practice).** Sharpened the "aesthetic
+    ambition" section: AI-default isn't just generic, it's *indistinguishable from every competitor* (the
+    Tailwind `bg-indigo-500` apology as the hook); *build faster ≠ build sameness*; **spend the time the AI
+    saved on the ~5% that's yours** — pointed at the existing distinctiveness pass, no new mechanism.
+  - **`mentor-pitch` — calibrate claims to evidence (RVW-037, L2/V1).** One attributed heuristic:
+    overclaiming *measurably lowers what founders raise* (HBR 2025); match the verb to the proof
+    (shows/suggests/we believe/we're testing). Calibration, not suppression — tied to the existing anti-hype
+    voice. The `/vet` routing sweep is now complete; remaining verdicts are NOT-YET watches (034/055/035).
+  - *Pulled via `/boss-sync`; `/evals`+`mentor-pitch` arrive at MVP/V1 unlock, practices are BOSS-canonical.*
+
 ## 0.89.0 — 2026-06-20
 
 - **`scalable-architecture` practice — architecture that survives the climb (FEAT-023 thread 2,

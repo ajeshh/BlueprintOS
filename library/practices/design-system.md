@@ -70,6 +70,14 @@ else gets: Inter or Roboto, a purple gradient, a centered card on a gray backgro
 isn't there. It reads as *fine* on one screen and as *forgettable* by the third. Naming the slop is
 half the cure — the founder has to *ask* for character, because the model won't volunteer it.
 
+**The sharper framing (RVW-052): AI-default isn't just generic — it's *indistinguishable from every
+competitor*.** When Tailwind shipped `bg-indigo-500` as a default, its own creator later apologized that
+"every AI-generated UI on earth" went indigo — because the models all converged on the same shadcn/Tailwind
+default. Ship that default and you ship something a user can't tell apart from the ten other tools they
+tried this week. *Build faster ≠ build sameness.* The move: **spend the time the AI just saved you on the
+~5% that's actually yours** — the brand, the voice, the one memorable thing — instead of banking the speed
+and shipping the mean. That 5% is the whole distinctiveness pass below; it's where the saved hours should go.
+
 **The load-bearing line:** *intentionality, not intensity.* Both bold maximalism and refined
 minimalism work — what fails is the absence of a decision. For a first-time founder, **minimalism
 done precisely is the safer bet than maximalism done loosely** — restraint hides fewer mistakes.

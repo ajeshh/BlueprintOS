@@ -14,6 +14,15 @@ The MVP rule: **20 examples beats 0.** Even an unsophisticated eval set caught v
 no eval set ever could. Categorize failures so the next iteration can target a category, not just
 "make it better."
 
+## Correctness ≠ safety — the adversarial half
+
+A clean `/evals` pass means the AI part is *correct* — not that it's *safe*. Safety holds under normal
+use and **degrades under adversarial / jailbreak prompts across every model** (Stanford HAI AI Index
+2026: 362 AI incidents in 2025, up from 233; the industry reports capability benchmarks and almost never
+the responsibility half). So an `/evals` run isn't *done* until **`/red-team`** has run the adversarial
+half — its OWASP-Agentic battery is what that pass should probe. Correctness is `/evals`; resistance
+under attack is `/red-team`; shipping an AI feature needs **both**, not either alone.
+
 ## When to run it
 
 - A FEAT-NNN involves an LLM call whose output drives behaviour (not just user-facing prose).
@@ -112,6 +121,11 @@ The 2026 update to the eval discipline, from the people who teach it. Fold these
 - **Cost hierarchy.** Cheap deterministic assertions first; reserve LLM-as-judge for the persistent,
   genuinely-semantic failures. A useful mix to aim for: ~60% deterministic / ~30% LLM-as-judge /
   ~10% human-in-the-loop.
+- **Reliability ≠ single-shot — measure pass^k.** Non-deterministic output means a case that passes
+  once can fail the next call. Run each load-bearing case **k times and count how often it *all*
+  succeeds** (pass^k, from τ-bench) — that consistency rate, not one green run, is the real reliability
+  signal. Zero-dependency: a loop around the case you already wrote. (τ-bench / UK AISI Inspect are the
+  graduate-grade harnesses to point at when you outgrow it, never a CLI dependency.)
 
 ## Structured outputs (Liu discipline) — strongly recommended
 
@@ -135,3 +149,6 @@ practice eliminates ~80% of LLM-pipeline brittleness (Jason Liu).
   doctor reviewing 30 outputs beats GPT reviewing 3,000 in the same domain.
 - **Eval is not CI — yet.** Run on commit when the cost is small. Run on every commit when the
   cost is justified. Decide deliberately.
+- **Correctness isn't safety.** A green `/evals` pass isn't *done* until `/red-team`'s adversarial pass
+  runs — safety degrades under attack even when correctness holds (AI Index 2026). Two rails, both required.
+- **Non-deterministic ≠ run-once.** Measure consistency across k trials (pass^k), not a single happy-path run.
