@@ -2,6 +2,26 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.74.0 — 2026-06-20
+
+- **`/decide` + `DEC-NNN` — the decision log (founder layer, slice 1; IDEA-037 → FEAT-021).** First build
+  of "BOSS for founding teams," green-lit on **real-founder demand** (past-pain stories from founder
+  conversations — the first field signal against the canvas's n=0 demand risk, Risk #6 antidote). New L0
+  skill `/decide` records a **load-bearing or hard-to-reverse** choice as a durable ADR-lite record in
+  `docs/decisions/DEC-NNN-<slug>.md`: Context / Decision / **Why** / Consequences, stamped with the
+  **decider** (`@github-username`, resolved from `gh api user` → `git config user.name`, never fabricated)
+  and a **`reversibility:`** flag (`reversible | costly | one-way`, Bezos two-way/one-way doors).
+  **Supersede-don't-edit** — a changed mind writes a new `DEC` with `supersedes:` and flips the old to
+  `status: superseded`, so the chain *is* the story of how thinking evolved. The rationale future-you (and
+  a cofounder who wasn't in the room) can read instead of guessing — and in a team, the artifact both can
+  point at instead of misremembering. New `DEC-NNN` ID type in `docs/IDS.md`; registered in the L0
+  manifest (decisions happen from day one). **Bright lines held** (mentor-vetted, IDEA-037): records a
+  decision, never gates one; never a cap table or legal advice (points at a real attorney for
+  equity/vesting); the conscience may surface a tension but **never picks a side between cofounders**.
+  Zero-dep, skill-layer only (no `src/` change). **Slice 1 of a 6-slice program** (team-aware foundation →
+  keep-in-the-loop → shared craft commons → mentor-the-team → credit + the ownership moment) — each later
+  slice records *into* this one. See [`FEAT-021`](../docs/ideas/FEAT-021-founder-layer-decision-log.md).
+
 ## 0.73.0 — 2026-06-20
 
 - **`mentor-business` (V1) gains the on-ramp + tier-design layers — the founder's pricing menu, completed
