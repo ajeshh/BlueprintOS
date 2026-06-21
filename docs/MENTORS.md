@@ -29,6 +29,24 @@ Project `.claude/agents/`, `mentor-` prefixed (decided: keeps them discoverable 
 `boss sync` carry them like any managed agent, and the prefix keeps the two classes legible). They're
 **seeded just-in-time per mode** — you don't get a fundraising advisor while capturing your first idea.
 
+## Internal vs. shipped (the boundary that prevents misroutes)
+
+The real axis is **"is this an artifact a founder's *project* consumes, or tooling for authoring BOSS
+itself?"** — *not* "mentors ship, builders don't" (`pm`/`coder`/`tester` ship too). Name it so a
+`/boss-learn` routing lands in a shippable container, not BOSS's gitignored `/.claude/`.
+
+| | Ships to founders (`stages/<id>/template/`) | BOSS-only (gitignored `/.claude/`) |
+|---|---|---|
+| **Builders** | `pm`, `coder-*`, `tester`, `designer`, `db-architect` | the designer/architect *of BOSS itself* |
+| **Mentors** | `mentor-venture/architect/gtm/cofounder/business/fundraising/pitch/talent` | `mentor-humane` (the *agent* — see below) |
+| **Authoring tooling** | — | proto-personas, `voice-keeper`, `prompt-coach` |
+
+**The humane case (the one that bit, RVW-045):** the humane *lens* ships from Quickstart (conscience +
+`mentor-venture` + `/canvas` §3 + the dark-pattern checklist + `/red-team --humane` + the
+[`harm-taxonomy`](../library/practices/harm-taxonomy.md) practice). The standalone `mentor-humane` *agent*
+stays Scale — ethics wants a cross-cutting / hook shape, not an opt-in door you might never open. See
+`docs/architecture/2026-06-20-mentor-internal-vs-shipped-boundary.md` + IDEA-038/039.
+
 ## Roster + JIT-per-mode
 
 Each mentor unlocks only when the project earns the questions it asks (Principle 2). The cornerstone,
@@ -44,7 +62,7 @@ Each mentor unlocks only when the project earns the questions it asks (Principle
 | `mentor-pitch` | The story + deck: clarity, arc, what to cut. | V1 |
 | `mentor-talent` | First hires, team shape, what to keep vs delegate. | V1 |
 | `mentor-business` | Model, pricing, unit economics, willingness-to-pay. | V1 |
-| `mentor-humane` | The ethics/stewardship lens — who could be harmed, what's the humane call. (Pairs with `/canvas` §3.) | Scale (board) |
+| `mentor-humane` | The ethics/stewardship lens — who could be harmed, what's the humane call. (Pairs with `/canvas` §3.) | **Lens: Quickstart** (conscience + `harm-taxonomy` practice + `/red-team --humane`). **Agent: Scale** (board). |
 
 > *The full board convenes at Scale.* This roster is provisional — it gets sharpened by encoding real
 > practitioners (see "Encoding real people" below).

@@ -2,6 +2,27 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.84.0 — 2026-06-20
+
+- **Humane harm-taxonomy as a shippable practice + the mentor internal/shipped boundary made explicit
+  (RVW-045 re-homed; `mentor-architect` verdict).** Caught while routing: RVW-045's harm-taxonomy had landed
+  in BOSS's *gitignored* `mentor-humane` agent — shipping to nobody. `mentor-architect` reframed it — the
+  humane lens is **cross-cutting**, so it belongs in a practice every mentor + the conscience can cite, not
+  inside one agent ("the agent was the wrong container, not just the wrong location").
+  - New **`library/practices/harm-taxonomy.md`** — Anthropic's 5 harm dimensions + Ada Lovelace's 4
+    relationship-harms (manipulation / dependence / anthropomorphism / overreliance), the shared vocabulary
+    the conscience, every mentor, and `/canvas` §3 reason against. Pairs with the dark-pattern checklist +
+    `/red-team --humane`.
+  - **`docs/MENTORS.md`** gains an **internal-vs-shipped boundary table** on the real axis ("artifact a
+    founder's *project* consumes" vs. "tooling for authoring BOSS itself") — the thing that would have caught
+    the misroute. Clarifies: the humane *lens* ships from Quickstart; the standalone `mentor-humane` *agent*
+    stays Scale (ethics wants a hook / cross-cutting shape, not an opt-in door).
+  - Captured, not built: **IDEA-038** (`library/` as the canonical managed-artifact shelf; templates become
+    thin manifests — deferred, to be *pulled* by the learning loop, not pushed by a routing bug) +
+    **IDEA-039** (humane lens as conscience-moments + practice vs. a standalone agent — decided by a future
+    humane-moment eval set, `tester` territory) + an architecture decision record. Practice + doc only;
+    zero CLI / dependency change.
+
 ## 0.83.0 — 2026-06-20
 
 - **`/decide` gains a cheap falsifier + AI-decision provenance (founder layer slice 1 iteration; IDEA-037 /
