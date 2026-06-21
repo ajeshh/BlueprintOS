@@ -10,6 +10,18 @@
 5. **Spec → build → smoke → log → close.** That's the loop. When you find yourself skipping a step often, ask whether it's the wrong step or the wrong moment — don't paper over it with more ceremony.
 6. **The conscience still runs.** Quickstart's nudges (validation drift, "Done!" graduation) keep firing — MVP doesn't replace the front of the funnel, it sits behind it.
 
+## Git workflow (trunk-based, review-bounded)
+
+> AI changed which part of version control hurts: the agent writes code ~4× faster, but **review** is now the bottleneck. Keep batches small enough that two humans can actually stand behind what merged. Full depth: `git-workflow` practice.
+
+- **Trunk-based default.** Commit to `main` or branches that live hours, not days; merge daily; keep fewer than ~3 active branches (DORA: ~2.3× more likely to be elite). `/smoke` green before every commit is what makes that safe — your smoke check *is* your CI until surface area earns a real pipeline.
+- **Worktrees are how you parallelize agents — capped at ~2–4 = your *review* capacity, not your agent count.** You can spawn ten agents; you can't read ten diffs well. More agents than you can review isn't throughput, it's unreviewed code with your name on the merge. One worktree per `FEAT` (a vertical slice) so they don't collide.
+- **Risk-tiered review, not blanket gates.** Low-risk (copy, styling, isolated pure functions) — a glance. High-risk (auth, money, migrations, deletes, deploys, AI-mediated paths) — the *other* human reviews it, and `/smoke` + `/evals` + `/red-team` are that high-risk tier.
+- **Read the test diff harder than the code.** Agents under pressure to go green will quietly rewrite assertions to match broken behaviour. Ask: *did the behaviour get fixed, or did the expectation get lowered?*
+- **Whoever clicks merge owns what the agent wrote.** "The AI wrote it" is not an owner. **Ownership = the prompt-author's intent + the reviewer's acceptance** — the agent is the instrument.
+- **Mob the hard problems.** With an AI as your pair, you question its suggestions *less*. For genuinely novel/risky work, put both humans + the agent on it together rather than one founder solo in a worktree.
+- **Honesty anchor (METR, n=16):** experienced devs on mature repos were 19% *slower* with AI while *believing* they were 20% faster. Trust the green `main` and the merged diff, not the feeling of speed.
+
 ## What MVP adds (alongside Quickstart)
 
 - **Skills:**

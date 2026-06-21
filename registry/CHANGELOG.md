@@ -2,6 +2,36 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.88.0 — 2026-06-20
+
+- **`git-workflow` practice — trunk-based, review-bounded AI building (FEAT-023 thread 1, `/boss-learn` UP
+  + a DOWN into L1/MVP).** The first slice of the AI-native build-process track (spun out of the
+  founding-teams research; **solo-applicable**, not team-specific). The reframe: AI didn't change what good
+  version control is — it changed which part *hurts*. The agent writes code ~4× faster; **review** is the
+  new bottleneck (~12% delivered), so the whole discipline reorients around *how much two humans can stand
+  behind in a day.*
+  - **UP — new [`library/practices/git-workflow.md`](../library/practices/git-workflow.md).** Trunk-based
+    default (DORA [EVIDENCE]: ~2.3× elite; <3 active branches, merge daily; `/smoke` is the gate that makes
+    it safe; **CI is a practice, not a platform** — a 2-person smoke check *is* its CI). **Git worktrees =
+    the AI-parallelism primitive, CAPPED at ≈2–4 = your *review* capacity, not your agent count** (you can
+    spawn ten agents; you can't read ten diffs — more agents than you can review is unreviewed code with
+    your name on the merge). **Risk-tiered review, not blanket gates** — low-risk gets a glance, high-risk
+    (auth/money/migrations/deletes/deploys/AI-paths) gets the *other* human, and **BOSS's `/smoke` +
+    `/evals` + `/red-team` ARE that high-risk tier.** **Read the test diff harder than the code** (agents
+    rewrite assertions to match broken behaviour — *did the behaviour get fixed, or the expectation
+    lowered?*). **Whoever clicks merge owns what the agent wrote** (Osmani); **mob the humans+agent on hard
+    problems** (the questioning reflex degrades with an AI pair). **Honesty anchor: METR (n=16)** —
+    experienced devs on mature repos 19% *slower* with AI while *believing* 20% faster (the perception gap;
+    opposite population to a greenfield startup). **Ownership = prompt-author intent + reviewer acceptance**
+    — stated once, shared verbatim with FEAT-021's founder layer.
+  - **DOWN — folded into the L1/MVP template** (`stages/L1-mvp/template/claude-append.md`): a tight
+    "Git workflow (trunk-based, review-bounded)" section in the MVP working rules, so a scaffolded venture
+    inherits the discipline at the rung where there's a real `main` to keep green — kept lean (the practice
+    holds the depth; CLAUDE.md bloat is the failure mode the research itself names).
+  - **Altitude/JIT held** (not a Quickstart lecture — earns its place at MVP). Zero-dep; library + template
+    only; pulled via `/boss-sync`. **FEAT-023 threads 2 (`scalable-architecture`) + 3 (V1→Scale rung)
+    remain** — thread 2 next-if-earned, thread 3 deferred until a real V1-stage project.
+
 ## 0.87.0 — 2026-06-20
 
 - **The mentor-architect bundle — the jagged frontier, the model underneath, evals-as-spec (`/vet` sweep:
