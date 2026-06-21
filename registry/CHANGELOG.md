@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.83.0 — 2026-06-20
+
+- **`/decide` gains a cheap falsifier + AI-decision provenance (founder layer slice 1 iteration; IDEA-037 /
+  FEAT-021, from the research realignment).** The single highest-leverage change the founding-teams research
+  surfaced: a decision log that only assigns blame **fails — verification cost is the bottleneck**, not
+  accountability. So `DEC-NNN` now carries:
+  - **A `## Falsifier` field — *"what would prove this wrong, and by when?"*** (*"if signups don't move by
+    July, X was wrong"*), mirrored into an optional `revisit_by:` date. **Required for `costly`/`one-way`
+    calls, encouraged for reversible** — it makes finding out you were wrong *cheap and scheduled*.
+  - **`decided_by:`** — `founder` / `ai-suggested-ratified` / `ai-autonomous`, so over-delegation of
+    load-bearing calls to the model is *visible* (where automation bias enters).
+  - **Reversibility-scaled ceremony** — reversible = a line + the **consent** question (*"is it safe enough
+    to try?"*, which gives a non-technical cofounder honest language to agree without fully evaluating a
+    technical call); `costly`/`one-way` = require the falsifier + weigh the alternatives.
+  - **A mild skeptic prompt at irreversible *AI-suggested* decisions** (*"what's the one thing you'd check
+    before you can't undo it?"*) — **a prompt, never a gate** (forced verification *backfires*; disposition
+    beats process). BOSS's own `DEC-001` updated to dogfood the new format.
+  Evidence: automation-bias review + "Bias in the Loop" (accountability-alone insufficient; forced
+  verification backfires; skepticism beats every design factor), "Don't Vibe" (over-delegation seam),
+  sociocratic consent. Skill-layer only, zero-dep; eval gate **113/0**; `/tmp`-verified. **Also triaged the
+  research:** FEAT-021 sharpened across all slices; build-process/scaling work **spun out to FEAT-023**
+  (`git-workflow` + scalable-architecture + the V1→Scale rung — not team-specific). **Next: slice 5b (the
+  teams-conscience family — Red-Light + watch-the-seam + moral-crumple-zone, gate-evalled).**
+
 ## 0.82.0 — 2026-06-20
 
 - **The humane lens, operationalized — dark-pattern checklist + `/red-team --humane` + a harm taxonomy

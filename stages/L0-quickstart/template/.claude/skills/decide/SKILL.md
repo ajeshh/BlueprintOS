@@ -1,6 +1,6 @@
 ---
 name: decide
-description: Record a load-bearing decision as a durable DEC-NNN record — Context / Decision / Why / Consequences, stamped with who decided and how reversible it is. The rationale future-you (and a cofounder who wasn't in the room) can read instead of guessing. Lighter than an RFC, denser than a commit message. Usage - /decide <the decision, or describe it>
+description: Record a load-bearing decision as a durable DEC-NNN record — Context / Decision / Why / a cheap Falsifier (what would prove this wrong, and by when) / Consequences, stamped with who decided (founder vs AI-suggested-ratified vs AI-autonomous) and how reversible it is. The rationale future-you (and a cofounder who wasn't in the room) can read instead of guessing — and the falsifier makes finding out you were wrong cheap and scheduled. Lighter than an RFC, denser than a commit message. Usage - /decide <the decision, or describe it>
 ---
 
 # /decide — the decision record
@@ -32,7 +32,10 @@ If it's a reversible two-way door, don't ceremonialize it — a `/log` line is e
    gh api user --jq '.login' 2>/dev/null || git config user.name
    ```
 
-   Use it as `@<login>`. If neither resolves, leave `@you` — never fabricate a name.
+   Use it as `@<login>`. If neither resolves, leave `@you` — never fabricate a name. Also set **how the
+   call was made** in `decided_by`: `founder` (a human chose it), `ai-suggested-ratified` (the model
+   proposed it, a human signed off), or `ai-autonomous` (the model decided and acted). This makes
+   over-delegation of load-bearing calls *visible* — it's where automation bias quietly enters.
 
 2. **Pick the next number.** Look in `docs/decisions/` for the highest `DEC-NNN`; add one. First one is
    `DEC-001`. Create the directory if it doesn't exist.
@@ -44,10 +47,12 @@ If it's a reversible two-way door, don't ceremonialize it — a `/log` line is e
    id: DEC-NNN
    type: decision
    owner: "@<github-login of the decider>"
+   decided_by: founder        # founder | ai-suggested-ratified | ai-autonomous
    status: decided
    created: {{today}}
    reversibility: reversible | costly | one-way
-   # supersedes: DEC-MMM   # only if this replaces an earlier decision
+   revisit_by: <YYYY-MM-DD>   # optional — the "by when" of the Falsifier below
+   # supersedes: DEC-MMM      # only if this replaces an earlier decision
    ---
 
    # DEC-NNN — <the decision, in one line>
@@ -60,8 +65,15 @@ If it's a reversible two-way door, don't ceremonialize it — a `/log` line is e
    decider (pairing, a cofounder who weighed in), name them here — credit the thinking.
 
    ## Why
-   The reasoning. Why this over the alternatives. **This is the load-bearing section** — it's the thing
-   that's impossible to reconstruct later. Name the alternative you rejected and what would change your mind.
+   The reasoning. Why this over the alternatives. Name the alternative you rejected and what would change
+   your mind. (For `costly`/`one-way` calls, weigh the real options: considered · chosen · why-not.)
+
+   ## Falsifier — what would prove this wrong, and by when?
+   The cheapest signal you were wrong, with a date. *"If signups don't move by July, X was wrong."*
+   This is the load-bearing field: naming who decided and who's accountable **is not enough** — the real
+   bottleneck is the *cost of finding out later* that the call was wrong. A falsifier makes the check cheap
+   and scheduled (mirror the date into `revisit_by:`). **Required for `costly`/`one-way`; encouraged for
+   `reversible`.**
 
    ## Consequences
    What this commits you to, what it rules out, what to watch. If `reversibility` is `costly`/`one-way`,
@@ -72,8 +84,21 @@ If it's a reversible two-way door, don't ceremonialize it — a `/log` line is e
    leave **Why** as a single honest question prompt rather than inventing rationale. Blanks are honest;
    fabricated reasoning is worse than a gap.
 
-5. **Set `reversibility` truthfully** — `reversible` (undo in minutes), `costly` (real switching cost), or
-   `one-way` (effectively permanent). It changes how much the decision deserves to be revisited.
+5. **Scale the ceremony to `reversibility` — never block, just match the rigor:**
+   - **`reversible`** (undo in minutes) — keep it to a line or two. The bar isn't "is this provably right?"
+     but **"is it safe enough to try?"** (the consent question — it gives a non-technical cofounder honest
+     language to agree to a reversible call without fully evaluating the technical detail). A falsifier is
+     encouraged, not required. Don't ceremonialize a two-way door.
+   - **`costly` / `one-way`** (real switching cost / effectively permanent) — **require the Falsifier**
+     (what would prove this wrong, by when) and **weigh the alternatives** in `## Why` (considered · chosen
+     · why-not). These are the calls worth the extra minutes.
+
+6. **If `decided_by` is `ai-suggested-ratified` or `ai-autonomous` AND it's `costly`/`one-way`, ask one
+   skeptical question — then stop.** *"This came from the model — what's the one thing you'd check before
+   you can't undo it?"* Disposition (a moment of skepticism) catches more than any process; install it at
+   the single moment it matters. **It's a prompt, never a gate** — forcing verification backfires (it raises
+   the odds people rubber-stamp). Record their answer in the Falsifier; if they wave it off, that's their
+   call — note it and move on.
 
 ## Superseding, not editing
 
