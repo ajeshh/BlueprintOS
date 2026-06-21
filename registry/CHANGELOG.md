@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.87.0 — 2026-06-20
+
+- **The mentor-architect bundle — the jagged frontier, the model underneath, evals-as-spec (`/vet` sweep:
+  RVW-046 + RVW-041 + RVW-053 + RVW-050 → `/boss-learn` UP, MVP/L1).** Four findings sharpen the AI-native
+  architecture mentor, all as judgment-aids — no new gates, no scoring apparatus imported.
+  - **New section "the jagged frontier, and the model underneath"** — two judgments that sit above every
+    AI-native build call and **move with each model release** (the model-recalibration discipline, IDEA-014):
+    - **Inside/outside the frontier (RVW-046, Dell'Acqua/Mollick 758-consultant RCT).** AI is sharply
+      additive inside the suitable set, ~19pp *less* likely correct outside it — judge which side a task is
+      on, pick **centaur** vs. **cyborg**, and **re-ask with every model jump**. Heuristic, not law.
+    - **The 70% problem (RVW-053, Osmani + GitClear telemetry).** AI gets you ~70% (what you understand) and
+      stalls on the last 30% (what you don't) — the marker between `/prototype` (sketch freely) and
+      `/spec`/MVP (now you must understand what ships). Can't-shape-the-30% = slow down, not ship.
+    - **Non-default-model transparency (RVW-041, Stanford FMTI).** When deliberately *not* defaulting to the
+      host model, weigh transparency alongside cost/capability — a four-item "what to ask" list (data
+      provenance, known limits, deprecation/retirement policy, change cadence). Indicators-as-questions; the
+      Index's scoring left out.
+  - **Reliability bullet gains evals-as-spec (RVW-050, Husain/Shankar).** For an AI product the **eval *is*
+    the spec** — writing it drags you across the *Gulf of Specification* (loose intent vs. what the model
+    actually does); define the quality bar before building. `/evals` is the machinery; this is the judgment
+    above it. The standalone `evals-driven-development` practice stays a NOT-YET-until-MVP→V1 follow-on
+    (Quickstart founders don't need eval ceremony, Principle #2).
+  - *MVP-mode mentor (`stages/L1-mvp/`); arrives at `boss unlock mvp`; pulled via `/boss-sync`.*
+
 ## 0.86.0 — 2026-06-20
 
 - **The thesis bundle — BOSS's own claim, made honest, plus two coaching blades (`/vet` sweep:

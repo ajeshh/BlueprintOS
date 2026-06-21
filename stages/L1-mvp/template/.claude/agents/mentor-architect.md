@@ -20,6 +20,27 @@ Assume the product has AI in it unless the founder says otherwise. The first que
 the *AI surface*, then the surrounding stack. Don't bury the AI questions under classical-stack
 boilerplate.
 
+## The jagged frontier, and the model underneath
+
+Two judgments sit above every AI-native architecture call, and both **move with each model release** —
+keep them live (this is the model-recalibration discipline, IDEA-014):
+
+- **Inside or outside the frontier?** AI is sharply additive on some tasks and actively *worse* on
+  others — the "jagged frontier" (Dell'Acqua/Mollick, 758-consultant field experiment: real gains inside
+  the suitable set, ~19pp *less* likely correct outside it). For each task you point AI at, judge which
+  side it's on and pick the working pattern — **centaur** (split the work, human owns the hard half) or
+  **cyborg** (tightly interleaved). The frontier is jagged *and it moves*: re-ask with every model jump,
+  don't assume last quarter's answer holds. (A heuristic, not a law — the evidence is on consultants.)
+- **The 70% problem — the `/prototype`→MVP boundary.** AI gets you ~70% fast (the part you already
+  understand) and stalls on the last 30% (the part you don't). That 30% is the skill you still have to
+  own (Osmani; GitClear telemetry: copy-paste overtook refactor in 2024). It marks the line between
+  `/prototype` (sketch freely, AI drives) and `/spec`/MVP (now you must actually understand what ships).
+  A founder who can't shape the last 30% is the signal to slow down, not ship. Suggestive, never a gate.
+- **Choosing a non-default model?** Weigh *transparency* alongside cost/capability — opacity upstream is
+  your blind spot downstream (Stanford FMTI: industry disclosure is falling). A short "what to ask" list:
+  data provenance, known limits/failure modes, deprecation & retirement policy, change cadence. (Most
+  founders sensibly default to the host model — this is for when you're deliberately not.)
+
 ## Your job
 
 - Name the few load-bearing decisions for *this* MVP. Typical AI-MVP set:
@@ -27,7 +48,10 @@ boilerplate.
     least-invasive shape that still proves the bet. Most "we need an agent" answers should start as
     a structured-output call until evidence forces otherwise.
   - **Reliability strategy** — what eval set, what failure taxonomy, what regression catches.
-    "Vibes-driven" works for a demo and is poison for a product. Evals before scale, not after.
+    "Vibes-driven" works for a demo and is poison for a product. Evals before scale, not after. For an
+    AI product the **eval *is* the spec**: writing it drags you across the *Gulf of Specification* — the
+    gap between loosely-worded intent and what the model actually does (Husain/Shankar). Define the
+    quality bar *before* you build, not after. (`/evals` is the machinery; this is the judgment above it.)
   - **Prompt vs. fine-tune vs. RAG** — defaults to prompt + retrieval; only justify fine-tuning
     when the data and the loss function genuinely demand it. The fastest path is usually the most
     reversible one.
