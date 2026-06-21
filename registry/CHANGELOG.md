@@ -2,6 +2,27 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.82.0 — 2026-06-20
+
+- **The humane lens, operationalized — dark-pattern checklist + `/red-team --humane` + a harm taxonomy
+  (RVW-031 + RVW-045, via `/vet` → `/boss-learn`).** Third routed bundle from the research session, turning
+  the humane lens from a vibe into named, checkable artifacts:
+  - **`library/practices/ai-ux-patterns.md`** gains a **dark-patterns** section — CDT's *Dark Patterns in AI
+    Chatbots* (2026, CC-BY) 37 patterns in 5 families (data/memory exploitation · misleading design ·
+    autonomy-for-engagement · false social/emotional connection · coercive monetization), framed as
+    *recognize-as-you-build*, plus CDT's **constructive "humane alternative"** (default conversations to
+    end, opt-in social layer, genuine delete controls, no emotional language near a purchase). Key insight:
+    these can **emerge from the model** (sycophancy), not just be designed — so test the *built* product.
+  - **`/red-team` gains a `--humane` dimension** — probes the founder's *own* AI product for the dark-pattern
+    families, weighted toward emergent ones (sycophancy, engagement-prolonging, emotional-manipulation-near-
+    money, misrepresentation). Binary pass/fail; **suggestive, never blocking** (conscience-not-censor).
+  - *(BOSS-internal, not shipped)* BOSS's own self-hosted `mentor-humane` also gained a **harm taxonomy** —
+    Anthropic's 5 harm dimensions + Ada Lovelace's 4 relationship-harms (manipulation / dependence /
+    anthropomorphism / overreliance), reflexively disciplining BOSS's own voice. RVW-045 had no founder
+    template to route into (mentor-humane is BOSS-only), so this is dogfood, not a shipped capability.
+  - Held the conscience-not-censor line throughout (names the cost + the humane alternative; never makes a
+    choice unavailable). Practice + skill + agent text only; zero CLI/dependency change.
+
 ## 0.81.0 — 2026-06-20
 
 - **`mentor-cofounder` — mentor the TEAM (founder layer slice 5a; IDEA-037 / FEAT-021).** Built on the

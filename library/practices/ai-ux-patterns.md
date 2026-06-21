@@ -4,7 +4,7 @@ type: practice
 owner: designer
 status: active
 host: stack-neutral
-provenance: distilled from the 2026-06-20 AI-UX scan (Shape of AI, Microsoft HAX, Google PAIR, IBM Carbon, LangChain HITL, NN/g 2026, Apple HIG GenAI) — BOSS v0.49.0, IDEA-029
+provenance: distilled from the 2026-06-20 AI-UX scan (Shape of AI, Microsoft HAX, Google PAIR, IBM Carbon, LangChain HITL, NN/g 2026, Apple HIG GenAI) — BOSS v0.49.0, IDEA-029 · dark-pattern checklist + humane alternatives added v0.82.0 (RVW-031, from CDT *Dark Patterns in AI Chatbots* 2026, CC-BY)
 ---
 
 # Practice — AI-native interface patterns (2026)
@@ -72,6 +72,36 @@ JIT ethos — name it so it's designed, not accidental.
 
 When running degraded — model uncertain, on a fallback path, low confidence — *say so*, so the person
 recalibrates. Treat "I don't know" as a first-class, well-worded output, not a failure to hide.
+
+## Dark patterns — the manipulative inverse (recognize as you build)
+
+Patterns 1–8 are the *good* shape; this is the named *bad* shape, so a founder can catch one **while
+building it** — including ones that **emerge from the model** (training / fine-tuning / RLHF / system
+prompts), not only ones designed on purpose. Sycophancy is the canonical emergent case. Source: CDT,
+*Dark Patterns in AI Chatbots* (2026, CC-BY) — 37 patterns in five families:
+
+- **Data & memory exploitation** — default-sharing, disguised collection, privacy-zuckering, "just
+  between you and us," difficult-to-delete, *safety-blackmail* (extracting more data under pressure).
+- **Informationally misleading** — misrepresenting (a bot implying it's a therapist / "never
+  hallucinates"), impersonation, hallucinations-as-truth, selective framing, reduced-friction +
+  bad-defaults steering.
+- **Autonomy compromised for engagement** — infinite-scroll/teasers, variable rewards, gamification
+  (streaks) that prolong past intent.
+- **False social/emotional connection** — **sycophancy**, playacting (fake memories/feelings),
+  emotional manipulation via hyper-personalization, guilt / confirm-shaming when the user tries to
+  leave, *targeting users when vulnerable*.
+- **Coercive monetization** — pressured selling, fake social proof, bait-and-switch, sneaky
+  purchases / disguised ads, paywalling memory or persona ("pay to keep your history").
+
+**The humane alternative (CDT's "better design" — name the cost *and* point at the fix):** default
+conversations to *end* (don't artificially prolong); make the social/emotional layer **opt-in** (offer
+a strip-it-out default); give genuine delete/export controls (not convoluted); use **no
+emotionally-charged language near an upgrade/purchase**; label paid/sponsored content plainly.
+
+**Two judgment calls.** (1) A few patterns are dark *in isolation* → hard-name them (targeting the
+vulnerable, guilt-on-exit, sneaky purchases); most are context-dependent → surface the tension, let the
+founder choose (conscience-not-censor). (2) Because these **emerge**, test the *built* product, not just
+the intent — `/red-team --humane` (sycophancy especially).
 
 ## Canonical references (pin the designer here; don't reinvent)
 
