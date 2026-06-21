@@ -94,6 +94,8 @@ export function renderTeam(dir) {
     }
     out.push('');
     out.push('    /decide records who decided what (DEC-NNN) — the rationale you can both point at.');
+    out.push('    New to building together? mentor-cofounder coaches the partnership — start with the');
+    out.push('    AI consent + norms conversation (who automates what · what stays human · no workslop).');
     out.push('    boss team add @user "Name"   ·   boss team remove @user');
   }
   out.push('');

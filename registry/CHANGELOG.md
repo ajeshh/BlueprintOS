@@ -2,6 +2,29 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.81.0 — 2026-06-20
+
+- **`mentor-cofounder` — mentor the TEAM (founder layer slice 5a; IDEA-037 / FEAT-021).** Built on the
+  founders' Pain B (*"different founding skill sets — an engineer who's a first-time CTO, or a non-tech
+  person who doesn't know how to work with an engineer cofounder on building together"*). Every other
+  mentor coaches *a* founder; this new L1 mentor coaches the **relationship between founders** — the
+  differentiated "mentor the team" value. It helps a team **divide work across skill sets** (record
+  who-owns-what as a `DEC`), **bridge the skill gap both directions**, **surface the hard conversations**
+  (roles/pace/equity — the talks that kill teams by never happening), and **name decision rights** (one
+  DRI; equal equity fine, 50-50 control-deadlock the trap). **Folds in the inherited AI-adoption-culture
+  knowledge** (from the v0.80.0 practice, the handoff source): the **Human Agency Scale / Red-Light** zone
+  (don't automate a teammate's task they don't want automated), **psychological safety paired with high
+  standards** (Edmondson / RVW-035 — not niceness), killing the **secret-cyborg** dynamic (reward honest AI
+  use, shared via `/practice`), and the **no-workslop norm** (*"would I be proud to hand this to my
+  cofounder?"*). **Wires the AI consent + norms conversation into the `boss team` flow** — a one-time nudge
+  on the solo→team transition + a standing pointer in the team view. **The bright line is built in:** it
+  serves the **partnership-as-the-unit** and **NEVER takes a side** between cofounders (facilitate, name the
+  tradeoff, they decide; the only override is harm, not preference; not a lawyer or cap table). **Dormant
+  when solo.** Registered in the L1 manifest + `docs/MENTORS.md` (arrives at MVP). Zero-dep; eval gate
+  **113/0**; `/tmp`-verified. **Next: slice 5b — the conscience Red-Light *moment* (new hook detector +
+  eval cases through the gate; the deliberate, careful piece) · then slice 6 (`boss credits` + the
+  ownership moment).**
+
 ## 0.80.0 — 2026-06-20
 
 - **New practice: `ai-adoption-culture.md` — bring AI to a team without breeding resentment (RVW-038,

@@ -347,11 +347,19 @@ function cmdTeam(args) {
   try {
     if (sub === 'add') {
       if (!handle) return fail('usage: boss team add <@github-username> ["Name"]');
+      const firstCofounder = !isTeam(process.cwd()); // solo → team transition
       const r = addCollaborator(process.cwd(), handle, name);
       const msg = r.added ? `\n  ✦ Added ${r.handle} to the venture.`
         : r.self ? `\n  ${r.handle} is you — you're already on the venture.`
         : `\n  ${r.handle} is already on the venture.`;
       console.log(msg);
+      // One-time, on the solo→team transition: point the new partnership at the
+      // consent conversation (founder layer slice 5 / ai-adoption-culture practice).
+      if (r.added && firstCofounder) {
+        console.log('\n  You\'re a team now. Before you divide the work, have the AI consent + norms');
+        console.log('  conversation — ask `mentor-cofounder` to walk you through it (who automates what,');
+        console.log('  what stays human, "would I be proud to hand this to my cofounder?").');
+      }
     } else if (sub === 'remove') {
       if (!handle) return fail('usage: boss team remove <@github-username>');
       const r = removeCollaborator(process.cwd(), handle);

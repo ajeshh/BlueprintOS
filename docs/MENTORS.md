@@ -39,6 +39,7 @@ Each mentor unlocks only when the project earns the questions it asks (Principle
 | `mentor-venture` | The whole arc: is this worth pursuing, what's the riskiest assumption, what's the next real step. Owns the canvas conversation. **Cornerstone.** | **Quickstart** |
 | `mentor-architect` | Technical strategy (advisory, not implementation): stack trade-offs, what to defer, scaling shape. | MVP |
 | `mentor-gtm` | Go-to-market: first users, distribution, positioning, the wedge. | MVP |
+| `mentor-cofounder` | The founding-team *relationship*: working together across skill sets (non-tech ↔ eng), dividing the work, decision rights, the hard conversations. Serves the partnership-as-unit; **never takes a side.** Dormant when solo. | MVP |
 | `mentor-fundraising` | Whether/when to raise, narrative, what investors will probe, the data room. | V1 |
 | `mentor-pitch` | The story + deck: clarity, arc, what to cut. | V1 |
 | `mentor-talent` | First hires, team shape, what to keep vs delegate. | V1 |
