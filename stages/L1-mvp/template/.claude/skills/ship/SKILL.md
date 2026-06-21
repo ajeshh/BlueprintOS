@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Put {{PROJECT_NAME}} where a real user can hit it — the CD half of building. Detects the stack, runs a deploy-time pre-flight (no secrets in the client bundle; server-side authz/RLS actually on — the signature vibe-coded-leak surface), picks or confirms the cheapest reversible host, deploys, and hands back the live URL + the rollback path. Stack-neutral (no baked-in target — Vercel / Fly / Railway / Cloudflare / Render / a VPS, learned per project). The pre-flight is a check, not a gate. "localhost is not shipped" — reachability is what turns a pseudo app into one a user can prove. Full depth - library/practices/ship-it-live.md. Usage - /ship [--preview | --rollback]
+description: Put {{PROJECT_NAME}} where a real user can hit it — the CD half of building. Detects the stack, runs a deploy-time pre-flight (no secrets in the client bundle; server-side authz/RLS actually on — the signature vibe-coded-leak surface), picks or confirms the cheapest reversible host, deploys, and hands back the live URL + the rollback path. Stack-neutral (no baked-in target — Vercel / Fly / Railway / Cloudflare / Render / a VPS, learned per project). The pre-flight is a check, not a gate. "localhost is not shipped" — reachability is what turns a pseudo app into one a user can prove. And at the live moment it voices the one leg the conscience otherwise skips — reachable isn't found: "who's the first real user, and how do they hit this?" (once, situation-not-person, points at mentor-gtm — never a marketing nag). Full depth - library/practices/ship-it-live.md. Usage - /ship [--preview | --rollback]
 ---
 
 # /ship — localhost is not shipped
@@ -59,6 +59,20 @@ First ship of a new stack? The host + deploy command + rollback path + env bound
 output worth keeping — offer to capture it as a `PRAC-NNN` (`/practice`) so the next project of this kind
 starts from a known-good deploy recipe instead of rediscovering it (Principle #4).
 
+### 6. One more thing — who finds it? (the demand voicing, once)
+Reachable is the line between a pseudo app and a real one — but **reachable isn't found.** This is the one
+leg of a real-value app the conscience otherwise never voices: *"will anyone pay?"* gets asked in the flow;
+*"will anyone ever find it?"* doesn't. So at the moment it goes live — and only then — name the cost once:
+
+> **It's reachable now. Who's the first real user, and how do they hit this?**
+
+Keep it the *demand* question, not a marketing checklist. Ask *who specifically* and *what's the one channel
+to them* — that's the n=0 risk itself. Do **not** turn it into "have you posted on Product Hunt?" (that's the
+growth-hacking nag that repels the founders BOSS most wants). **Describe the situation, never the person** —
+it's about the work's path to a user, never a judgment that the founder hasn't hustled. Say it once, point at
+`mentor-gtm` for the depth, and drop it — a founder who's already got a first user or who's deliberately not
+distributing yet hears it and moves on. Never a gate.
+
 ## Cohort-aware
 
 - `first-product` / `vibe-coder-newbie` — plain language; the pre-flight is **non-negotiable** (they can't
@@ -68,6 +82,9 @@ starts from a known-good deploy recipe instead of rediscovering it (Principle #4
   but explain *why* in their terms (your users' data is reachable if this is wrong).
 - `eng-builder` / `returning-founder` — terse; assume they know deploy mechanics, lead with the pre-flight
   findings and the rollback caveat, skip the hand-holding.
+- `indie-hacker` and any anti-growth-hacking founder — the **demand voicing (step 6) needs the lightest
+  touch**: this cohort flees a marketing nag. Ask the genuine first-user question, never the channel-checklist;
+  if they've clearly already got a user or a deliberate no-distribution stance, skip it entirely.
 
 ## Rules
 
@@ -82,3 +99,7 @@ starts from a known-good deploy recipe instead of rediscovering it (Principle #4
   needs an artifact a real user can reach.
 - **Graceful when there's nothing to ship.** If the project has no deployable artifact yet, say so and point
   at what's missing — don't invent a deploy.
+- **The demand voicing is once, suggestive, and situation-not-person.** Reachable → discoverable: name the
+  first-user question at the live moment, point at `mentor-gtm`, drop it. It's the demand question, not a
+  marketing checklist, and never a judgment of the founder. (Closes the distribution-leg asymmetry IDEA-041
+  named — voiced at the `/ship` moment rather than as an unprompted hook.)

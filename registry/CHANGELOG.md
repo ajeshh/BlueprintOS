@@ -2,6 +2,26 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.93.0 — 2026-06-21
+
+- **Distribution as a voicing leg — `/ship` now asks "who finds it?" (IDEA-041, the FEAT-024 sequel).**
+  Closes a real asymmetry: `PRINCIPLES.md` names *path to distribution* as a co-equal leg of a real-value
+  app, but it was the only leg the conscience never voiced — *"will anyone pay?"* fires in the flow (moment
+  #1 + `mentor-business`), *"will anyone ever find it?"* didn't. **Decided the leg-vs-mentor question with
+  Ajesh:** not an auto-firing hook (its predicate needs the reachability detection deliberately parked in
+  FEAT-024 slice 3 — building it would be the over-fire nag that repels the anti-growth-hacking cohort
+  IDEA-019 protects), and not left as mentor-only (the gap stays). Instead a **third answer**: a single
+  **demand voicing wired into `/ship`** at the live moment — *"it's reachable now; who's the first real user,
+  and how do they hit this?"* Leg-like (fires in the flow, at the right moment, names the cost) without a
+  hook (rides the founder's deliberate `/ship` invocation → zero over-fire). Governed by IDEA-019's
+  **situation-not-person** rule (about the work's path to a user, never a judgment of the founder), kept to
+  the *demand* question (not a Product-Hunt checklist — that's the growth-hacking nag), once + suggestive +
+  points at `mentor-gtm` for depth, never a gate. Cohort-aware (lightest touch for `indie-hacker` /
+  anti-growth-hacking; skip entirely if they've a first user or a deliberate no-distribution stance).
+  `ship-it-live` practice gains a short "reachable → discoverable" note. `/tmp`-verified (skill scaffolds
+  clean, 0 placeholders). **The full distribution *hook* stays deferred** — earned only if a reliable
+  reachable-but-undiscovered predicate ever exists (shares FEAT-024 slice 3's parked substrate question).
+
 ## 0.92.0 — 2026-06-21
 
 - **`ship-it-live` practice + `/ship` skill — the CD half of building (FEAT-024 slices 1+2).** `git-workflow`

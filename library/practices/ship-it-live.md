@@ -139,5 +139,11 @@ the lethal-trifecta containment), and [`scalable-architecture.md`](scalable-arch
 the deploy-specific judgment a pre-AI CD guide wouldn't have carried: the client-bundled-key trap as the
 *signature* AI-built failure, and rollback-is-not-reversibility. The runner is **`/ship`** — the
 deterministic "put it where a real user can hit it" verbs, with the secrets/authz pre-flight wired in as
-a *check, not a gate* (conscience-not-censor). See [`git-workflow.md`](git-workflow.md) (the CI half this
-extends), and FEAT-024.
+a *check, not a gate* (conscience-not-censor).
+
+**Reachable → discoverable.** Reachability is the *first* leg this practice closes; the next is the one the
+conscience otherwise never voices — *will anyone find it?* `/ship` carries a single demand voicing at the
+live moment (*"who's the first real user, and how do they hit this?"*), situation-not-person, pointing at
+`mentor-gtm` for depth — never a marketing nag. That's the distribution-leg asymmetry (IDEA-041) closed at
+the `/ship` moment rather than as an unprompted hook. See [`git-workflow.md`](git-workflow.md) (the CI half
+this extends), and FEAT-024.
