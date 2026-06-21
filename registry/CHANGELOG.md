@@ -2,6 +2,35 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.89.0 — 2026-06-20
+
+- **`scalable-architecture` practice — architecture that survives the climb (FEAT-023 thread 2,
+  `/boss-learn` UP).** Second slice of the AI-native build-process track (solo-applicable). The spine:
+  *the value is never the rule — it's the **enforcement loop**.* An agent re-derives a codebase's
+  conventions every session, so anything you only *wrote down* drifts and anything you *encoded as a check*
+  compounds (Factory.ai: "documented conventions rot; enforced conventions compound"). Two moves — **defer
+  the architecture tax you can defer, encode the conventions you can't afford to lose**:
+  - **Modular-monolith-first, extract when forced** (Fowler MonolithFirst; Shopify's 2.8M-line modular
+    monolith [EVIDENCE]; microservice envy on Hold). The *modular* half is load-bearing — clear module
+    seams inside one deployable so the eventual extraction is cheap; a `FEAT` is a natural module.
+  - **Spend rigor on the one-way doors — the schema is the one.** Migrations-as-code from the first table
+    (Bezos doors + evodb), the single thing genuinely expensive to retrofit. **The migration log is also
+    the guardrail against AI schema drift** — wire schema changes into git-workflow's high-risk review tier.
+  - **Conventions as code, enforced not remembered** — formatting-as-law (Biome's single binary is
+    agent-friendly), boundaries-as-lint + architectural fitness functions (principle + writable lint now;
+    heavy custom-plugin tooling NOT-YET), strict types at the boundary.
+  - **The ratchet holds the line, not the reviewer** — extends the existing
+    [`quality-ratchet`](../library/practices/quality-ratchet.md) (no-new-violations baseline gated in
+    `/smoke`), pointed at an architecture metric; doesn't restate it. Plus a pointer to
+    [`context-discipline`](../library/practices/context-discipline.md) for the one-canonical-context-file
+    finding (failure mode is over-length, not under-spec).
+  - **UP-only this slice** (no template DOWN): the practice is the deliverable and mentors cite practices by
+    reference; the natural `mentor-architect` DOWN is **deferred to avoid a live edit collision** with a
+    concurrent session, not on judgment. Altitude/JIT held — modular seams at MVP, migrations at the first
+    table, conventions-as-code at the second author (a second *agent* counts), services at V1→Scale. Zero-dep;
+    library only; eval gate **120/0**. **FEAT-023 thread 3 (V1→Scale org rung) remains — deferred until a
+    real V1-stage project.**
+
 ## 0.88.0 — 2026-06-20
 
 - **`git-workflow` practice — trunk-based, review-bounded AI building (FEAT-023 thread 1, `/boss-learn` UP
