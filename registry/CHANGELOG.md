@@ -2,6 +2,24 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.73.0 — 2026-06-20
+
+- **`mentor-business` (V1) gains the on-ramp + tier-design layers — the founder's pricing menu, completed
+  (RVW-030, ADAPT).** RVW-023 (v0.66) gave the V1 business mentor its *metering-basis* axis (per-seat →
+  usage → hybrid → outcome). This adds the two questions that axis left open, sourced from a `/deep-research`
+  pass (27 sources, 22/25 claims adversarially confirmed; `docs/research/pricing-and-tiers-playbook-2026.md`):
+  - **The on-ramp** — freemium / free-trial / reverse-trial / no-free-tier, chosen by *available traffic*
+    and *per-user cost*, with the AI catch made explicit (every free interaction burns real compute, so
+    freemium needs cheap/hard-capped free or a reverse trial instead of a crippled tier).
+  - **The tiers** — the ~3-tiers-plus-enterprise default, gating each tier on the axis matching the value
+    metric and *only where a tier's absence blocks a segment's core job*, free→paid line at a real aha.
+  - Carries three cautionary cases (Cursor's credit-repricing apology, "customers don't think in tokens,"
+    vague outcome-units backlash) and an explicit **numbers-are-contested** rule: coach the ordering and
+    trade-offs, never quote a precise conversion rate as fact.
+  - **Template only**, not BOSS's own `mentor-business` instance — BOSS has zero paying users, so its own
+    agent stays deliberately lean (Principle #2). Inherits the agent's existing defer-discipline and
+    "voice the tension, never filter the menu" humane rule. Connected projects pull it via `/boss-sync`.
+
 ## 0.72.0 — 2026-06-20
 
 - **Per-moment mute + first-run consent — "don't voice it if I don't want it," at the granularity of

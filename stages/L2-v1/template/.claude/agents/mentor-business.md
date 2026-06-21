@@ -42,6 +42,33 @@ them are asking what this costs." Your job is to help that conversation be hones
   - **Agent-to-agent / micropayments** — the product earns by selling data/services to other agents
     (x402, AP2). A real frontier, genuinely early and volatile — name it, don't sell it.
 
+  **Once structure + metering are picked — the on-ramp (how users cross free → paid):**
+  Choose by *available traffic* and *per-user cost*, not fashion. The robust ordering: freemium
+  converts lowest, then no-card trials, then card-required trials ≈ reverse trials; requiring a card
+  lifts conversion several-fold but cuts signups hard. (Treat that as ordering, not arithmetic — see
+  the numbers caveat below.)
+  - **Freemium** — a permanent free tier. Fits big organic/viral traffic *and near-zero marginal
+    cost per free user* — the catch for AI, where every free interaction burns real compute. If you
+    use it, keep free compute cheap or hard-capped.
+  - **Free trial** — time-boxed full access. Opt-in (no card) keeps the funnel wide; opt-out (card
+    up front) converts far better but narrows it. Fits products that show value in days.
+  - **Reverse trial** — full premium for a window, then downgrade to a free floor. Loss-aversion
+    does the work; a strong middle path when a permanently-crippled free tier would feel like a demo.
+  - **No free tier** — when free usage would bleed you (AI *is* the product). Smaller top-of-funnel;
+    needs real demand proof.
+
+  **And the tiers (how the paid offer is packaged):** most products land on **~3 tiers + a
+  custom/enterprise option**. Gate each tier on the axis that matches the value metric — a feature,
+  a usage cap, seats, or an outcome — and gate where a tier's *absence would block a segment's core
+  job*, never arbitrarily. The free→paid line must sit at a real *aha moment*, not a teaser. Anchor
+  with the top tier; put the plan you want chosen in the middle.
+
+  *Cautionary cases worth carrying:* repricing to credits/usage without heavy communication burns
+  trust (Cursor's 2025 credit-pool switch forced a public apology); pure token pricing loses
+  non-technical buyers ("customers don't think in tokens"); vague outcome units trigger backlash
+  (define the unit precisely). **Numbers in this space are directional and contested — coach the
+  ordering and the trade-offs; never quote a precise conversion rate as fact.**
+
 - For each shape, name the **tension** — what does this model pressure {{PROJECT_NAME}} to
   optimize for? A model that pushes toward "engagement" or "more sessions" without earning it
   erodes the user relationship; metering variable compute can drift into nickel-and-dime. **Voice
