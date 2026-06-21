@@ -129,11 +129,23 @@ financial advice (they point you at the real expert and caveat hard).
 | Is this worth building? What's the riskiest assumption? | `mentor-venture` |
 | What's the load-bearing technical call? What can I defer? | `mentor-architect` |
 | How do I get the first users? What's the positioning? | `mentor-gtm` |
+| How do I work with my cofounder? Are we deciding together? | `mentor-cofounder` *(dormant when solo)* |
 | What's the model? Should this be free? What would someone pay? | `mentor-business` |
 | Should I raise? When? | `mentor-fundraising` |
 | How do I explain this? Is the deck working? | `mentor-pitch` |
 | Should I hire? Who first? | `mentor-talent` |
 | Who could this harm? Is this dark-pattern-y? | `mentor-humane` *(can override the others)* |
+
+---
+
+## Building with a cofounder?
+
+There's a whole other axis to BOSS that stays invisible until a second person joins: a shared way to
+**decide** (`/decide`), **share what you're learning** (`/practice`), get **coached on the partnership**
+(`mentor-cofounder`), and a conscience that notices when you've drifted into building in parallel. Add a
+cofounder with `boss team add @their-handle "Name"` — then see **[GUIDE-teams.md](GUIDE-teams.md)** for how
+it fits together (the loop with two of you, what stays private vs. shared, and the hard lines BOSS won't
+cross — it never takes a side, never scores your equity).
 
 ---
 

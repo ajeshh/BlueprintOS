@@ -2,6 +2,23 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.91.0 — 2026-06-20
+
+- **Team wayfinding — close the gap between the shipped founder layer and the docs (IDEA-037 / FEAT-021
+  follow-on).** FEAT-021 shipped 12 releases of team functionality (v0.74→v0.85: `boss team`, `/decide`,
+  `/practice`, `mentor-cofounder`, the `coordination` moment, the state cut) but the *wayfinding* lagged —
+  exactly the README-drift pattern IDEA-018/035 exist to catch. Closed it three ways: (1) **`boss map` now
+  lists `boss team`** in its standing controls, so the command is discoverable in a live install (it was
+  invisible there before); (2) **new [`docs/GUIDE-teams.md`](../docs/GUIDE-teams.md)** — a founder-facing
+  guide to working with a cofounder: how to add a team, the loop with two of you (`/decide` · `/practice` ·
+  `boss board --mine` · `mentor-cofounder`), what the `coordination` conscience moment watches, **what's
+  shared vs. private** (push = backup + keep-in-the-loop; the conscience's relationship notes stay yours),
+  the lightweight working agreement (Driver/Approver + consent), and the hard lines (never arbitrates,
+  never scores equity); (3) **`docs/GUIDE.md` + `README.md`** gained a "Building with a cofounder?" pointer
+  + `mentor-cofounder` in the mentor table / advisor list. Docs + one `src/map.js` line; eval gate **120/0**;
+  `/tmp`-verified (`boss map` shows `boss team`). All dormant-solo framing preserved (solo founders see no
+  team noise).
+
 ## 0.90.0 — 2026-06-20
 
 - **The rest of the `/vet` routing sweep — reliability, generative-UI/memory, anti-sameness, calibrated

@@ -44,11 +44,16 @@ A CLI plus a set of skills, agents, and loops that run inside Claude Code:
   Cohort-aware (set yours during spin-up; it adjusts the voice). Always overridable; never
   blocking. Silence it for a sprint (`boss conscience pause --for 8h`), or turn down just one
   nudge while the rest keep speaking (`boss conscience mute <moment>`).
-- **A mentor board.** Eight advisors (venture, architect, GTM, business, fundraising, pitch,
+- **A mentor board.** Nine advisors (venture, architect, GTM, cofounder, business, fundraising, pitch,
   talent, humane) for the parts code can't teach. Plus a builder team (designer, voice-keeper, prompt-
   coach) for the craft. Plus eight proto-personas (vibe-coder-newbie, eng-builder,
   indie-hacker, returning-founder, domain-expert, …) you can show features to before showing
   them to real founders.
+- **Built for founding teams, not just solo.** Building with a cofounder? `boss team add @their-handle`
+  lights up a shared way to decide (`/decide`), share what you're each learning about AI (`/practice`),
+  a mentor for the partnership itself (`mentor-cofounder`), and a conscience that notices when you've
+  drifted into building in parallel — all *dormant when you're solo*, and it never takes a side or scores
+  your equity. See [`docs/GUIDE-teams.md`](docs/GUIDE-teams.md).
 
 Built on Node — zero dependencies. Markdown + YAML everywhere a human reads; predicate-based
 loops everywhere a machine evaluates. Lives in Claude Code. Everything runs locally.
