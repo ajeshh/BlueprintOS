@@ -54,7 +54,11 @@ Then proceed with the spec if the founder confirms — overriding the conscience
    - `building_since:` anchors the board's time-in-build aging (`boss board` flags a FEAT that's sat
      in Building past ~3 weeks — the zombie-feature smell). It's **frontmatter-true, never guessed**:
      set it to today when the FEAT enters `building`, and refresh it if a paused FEAT is re-opened
-     (so the age reflects *this* build run, not the original). Drop it when status moves to `shipped`.
+     (so the age reflects *this* build run, not the original).
+   - When status moves to `shipped`, **drop `building_since:` and stamp `shipped_on: <today>`.** The
+     board archives a shipped FEAT older than ~30 days into the "shipped earlier" fold (a true date
+     window, not just the recent-count cap), so the Shipped column shows what landed *lately* instead
+     of every ship forever. Frontmatter-true: no `shipped_on:` → it falls back to the count cap.
    - `priority: high` is **optional** — add it only when a FEAT genuinely jumps the queue. The board
      floats it to the top of its column with a `⬆` marker and leads `boss board --next` with it. One
      level by design (no P0/P1/P2 ladder — that turns the board into a planning surface you tend

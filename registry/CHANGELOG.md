@@ -2,6 +2,18 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.69.0 — 2026-06-20
+
+- **`shipped_on:` — a true date-windowed Shipped archive (IDEA-034 follow-on).** The board's Shipped
+  column was bounded only by a recent-*count* cap (v0.66). This adds the *date* half the founder asked
+  for: stamp `shipped_on: <date>` when a FEAT ships (in `/spec`'s lifecycle note, alongside
+  `building_since:`), and `boss board` folds any ship older than ~30 days into the "+N shipped earlier"
+  `<details>` — so the column shows what landed *lately*, not every ship forever. **Frontmatter-true,
+  never guessed:** no `shipped_on:` → graceful fallback to the count cap (legacy ships still bounded).
+  Shipped now sorts newest-first by ship date (dated ahead of undated, then id). `--all` still reveals
+  everything; `--json` carries `archived` + `shippedAgeDays`. Zero-dep; verified in `/tmp` (a 30+-day
+  ship archives, recent ones show, undated legacy falls back to the cap; HTML folds the same).
+
 ## 0.68.0 — 2026-06-20
 
 - **De-rot pass — the hand-authored wayfinding caught up to 20 releases of new capability (IDEA-018).**

@@ -24,12 +24,15 @@ const COLUMNS = ['Captured', 'Taking shape', 'Building', 'Shipped'];
 const AGING_DAYS = 21;
 
 // The Shipped column is otherwise unbounded — every shipped item shows forever,
-// which buries the live work under history. Show the most recent N (by id, which
-// increments ~monotonically, so newest-first ≈ recency) and collapse the rest to
-// a count. `--all` expands them. We cap by COUNT, not a 30-day window, on purpose:
-// nothing stamps a trustworthy ship date, and the board's rule is frontmatter-true
-// over guessed (a `shipped_on:` stamp would unlock a real date window later).
+// which buries the live work under history. Two honest archive rules combine:
+//   - DATE: a FEAT with a `shipped_on:` older than SHIPPED_WINDOW_DAYS is archived
+//     (folded), regardless of count — frontmatter-true, the real "older than a
+//     month" filter (stamped by /spec when status → shipped).
+//   - COUNT: among the still-recent (and any undated legacy) shipped items, show at
+//     most SHIPPED_RECENT so the column stays bounded even before dates exist.
+// Everything folded collapses into a "+N shipped earlier" line; `--all` expands it.
 const SHIPPED_RECENT = 6;
+const SHIPPED_WINDOW_DAYS = 30;
 
 // Parse the first `--- ... ---` frontmatter block. Zero-dep, tolerant of the
 // flat `key: value` frontmatter BOSS's templates use.
@@ -109,7 +112,7 @@ export function collectBoard(projectDir) {
     const priority = (fm.priority || '').trim().toLowerCase() === 'high' ? 'high' : null;
     if (/^FEAT/i.test(id)) {
       if (fm.source) featSources.add(fm.source);
-      feats.push({ id, title, status: fm.status, nextReview: fm.next_review, buildingSince: fm.building_since, priority });
+      feats.push({ id, title, status: fm.status, nextReview: fm.next_review, buildingSince: fm.building_since, shippedOn: fm.shipped_on, priority });
     } else {
       ideas.push({ id, title, status: fm.status, nextReview: fm.next_review, priority });
     }
@@ -132,19 +135,23 @@ export function collectBoard(projectDir) {
   // smell /revalidate targets. Reads `building_since:` (stamped by /spec when it
   // sets status: building); no date → no age signal, exactly like reviewDue.
   const todayMs = Date.parse(today);
-  const ageInBuild = (buildingSince, column) => {
-    if (column !== 'Building') return null;
-    const d = (buildingSince || '').trim();
+  const daysSince = (date) => {
+    const d = (date || '').trim();
     if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return null;
     const ms = Date.parse(d);
     if (Number.isNaN(ms)) return null;
     return Math.max(0, Math.floor((todayMs - ms) / 86400000));
   };
+  const ageInBuild = (buildingSince, column) => (column === 'Building' ? daysSince(buildingSince) : null);
+  // How long ago a FEAT shipped (frontmatter-true, IDEA-034 follow-on). Only
+  // meaningful in the Shipped column; null when no `shipped_on:` is stamped.
+  const shippedAge = (shippedOn, column) => (column === 'Shipped' ? daysSince(shippedOn) : null);
 
   const cards = [];
   for (const ft of feats) {
     const column = featColumn(ft.status);
     const ageDays = ageInBuild(ft.buildingSince, column);
+    const shippedAgeDays = shippedAge(ft.shippedOn, column);
     cards.push({
       id: ft.id,
       title: ft.title,
@@ -153,6 +160,8 @@ export function collectBoard(projectDir) {
       reviewDue: reviewDue(ft.nextReview, ft.status),
       ageDays,
       aging: ageDays != null && ageDays >= AGING_DAYS,
+      shippedAgeDays,
+      archived: shippedAgeDays != null && shippedAgeDays > SHIPPED_WINDOW_DAYS,
       priority: ft.priority,
     });
   }
@@ -204,11 +213,30 @@ function sortColumn(list, col) {
       return a.id.localeCompare(b.id, undefined, { numeric: true });
     };
   } else if (col === 'Shipped') {
-    tiebreak = (a, b) => b.id.localeCompare(a.id, undefined, { numeric: true });
+    // Newest-shipped first: dated items (by shipped_on age, younger first) ahead of
+    // undated legacy items, then id-desc as the proxy when no date exists.
+    tiebreak = (a, b) => {
+      const aa = a.shippedAgeDays, bb = b.shippedAgeDays;
+      if (aa != null && bb != null) return aa - bb;
+      if (aa != null) return -1;
+      if (bb != null) return 1;
+      return b.id.localeCompare(a.id, undefined, { numeric: true });
+    };
   } else {
     tiebreak = (a, b) => a.id.localeCompare(b.id, undefined, { numeric: true });
   }
   return [...list].sort((a, b) => byPriority(a, b) || tiebreak(a, b));
+}
+
+// Decide which Shipped cards to show vs. fold. Archives anything dated older than
+// the window (frontmatter-true), then caps the still-recent (+ undated legacy) to
+// SHIPPED_RECENT so the column stays bounded. Returns { shown, hidden }. `--all`
+// (showAll) reveals everything. Expects `sorted` already in newest-first order.
+function shippedView(sorted, showAll) {
+  if (showAll) return { shown: sorted, hidden: 0 };
+  const live = sorted.filter((c) => !c.archived); // not date-archived
+  const shown = live.slice(0, SHIPPED_RECENT);
+  return { shown, hidden: sorted.length - shown.length };
 }
 
 // Days → a compact "3w" / "5d" age string for the in-build flag.
@@ -245,10 +273,10 @@ export function renderBoardText(projectName, { cards, hasIdeasDir }, opts = {}) 
 
   for (const col of COLUMNS) {
     const inCol = sortColumn(cards.filter((c) => c.column === col), col);
-    // Cap the otherwise-unbounded Shipped column to the most recent few.
-    const shown = col === 'Shipped' && !showAll && inCol.length > SHIPPED_RECENT
-      ? inCol.slice(0, SHIPPED_RECENT) : inCol;
-    const hidden = inCol.length - shown.length;
+    // Cap/age-archive the otherwise-unbounded Shipped column.
+    const { shown, hidden } = col === 'Shipped'
+      ? shippedView(inCol, showAll)
+      : { shown: inCol, hidden: 0 };
     lines.push(`  ${col} (${inCol.length})`);
     if (!inCol.length) {
       lines.push('    —');
@@ -331,11 +359,16 @@ export function renderBoardHtml(projectName, { cards, hasIdeasDir }, stampedAt) 
     let cardsHtml;
     if (!inCol.length) {
       cardsHtml = '<div class="empty">—</div>';
-    } else if (col === 'Shipped' && inCol.length > SHIPPED_RECENT) {
-      // Cap the unbounded Shipped column; the rest fold into a native <details>.
-      const recent = inCol.slice(0, SHIPPED_RECENT).map(cardHtml).join('\n');
-      const rest = inCol.slice(SHIPPED_RECENT).map(cardHtml).join('\n');
-      cardsHtml = `${recent}\n<details class="more"><summary>+${inCol.length - SHIPPED_RECENT} shipped earlier</summary>\n<div class="cards rest">${rest}</div></details>`;
+    } else if (col === 'Shipped') {
+      // Date-archive old ships + cap the rest; the folded ones go in a <details>.
+      const { shown, hidden } = shippedView(inCol, false);
+      if (!hidden) {
+        cardsHtml = inCol.map(cardHtml).join('\n');
+      } else {
+        const shownIds = new Set(shown.map((c) => c.id));
+        const rest = inCol.filter((c) => !shownIds.has(c.id));
+        cardsHtml = `${shown.map(cardHtml).join('\n')}\n<details class="more"><summary>+${hidden} shipped earlier</summary>\n<div class="cards rest">${rest.map(cardHtml).join('\n')}</div></details>`;
+      }
     } else {
       cardsHtml = inCol.map(cardHtml).join('\n');
     }
@@ -569,6 +602,7 @@ export function boardJson(projectDir, projectName) {
       priority: c.priority || null,
       blocked: c.blocked, reviewDue: c.reviewDue,
       aging: c.aging || false, ageDays: c.ageDays ?? null,
+      archived: c.archived || false, shippedAgeDays: c.shippedAgeDays ?? null,
     })),
     next: { finish, start, pressureTest: pressure, unblock },
     stuck: {
