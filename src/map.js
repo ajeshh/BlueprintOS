@@ -88,7 +88,8 @@ export function renderMap(projectDir, stamp) {
   lines.push('    boss brain                       the conscience\'s read on this venture');
   lines.push('    boss insights                    how far your ventures have gotten (local)');
   lines.push('    boss status --conscience         loop states + cohort + recent overrides');
-  lines.push('    boss conscience pause --for 8h   silence the conscience for a sprint');
+  lines.push('    boss conscience pause --for 8h   silence the whole conscience for a sprint');
+  lines.push('    boss conscience mute <moment>    turn down just one nudge (drift|caution|…)');
   lines.push('    /boss-sync                       pull the latest BOSS practices into this project');
   lines.push('');
   lines.push('  The map is a read of your install. To change it, climb a rung: boss unlock <mode>.');

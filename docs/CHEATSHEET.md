@@ -3,7 +3,7 @@
 # BOSS Cheatsheet
 
 > The whole ladder at a glance — every mode and what it adds. Generated from the stage
-> manifests, current as of **v0.71.0**. Inside a project, run `boss map` for the live,
+> manifests, current as of **v0.72.0**. Inside a project, run `boss map` for the live,
 > personalized version (where you are + what’s one unlock away).
 
 ## The ladder
@@ -20,8 +20,9 @@ removed, and a project that stays in Quickstart forever is a legitimate project.
 | `boss board` | what’s in flight (captured → shipped) |
 | `boss status [--conscience]` | mode / pinned version / drift (+ loop states) |
 | `boss unlock <mode>` | climb a rung: quickstart → mvp → v1 → scale |
-| `boss conscience pause --for 8h` | silence the conscience for a bounded sprint |
+| `boss conscience pause --for 8h` | silence the whole conscience for a bounded sprint |
 | `boss conscience resume` | re-enable the conscience |
+| `boss conscience mute <moment>` | turn down ONE moment (drift|caution|…); unmute to bring it back |
 | `/boss-sync` | pull the latest BOSS practices into this project (DOWN) |
 | `/boss-learn` | route a proven pattern UP into the library or DOWN into the app |
 

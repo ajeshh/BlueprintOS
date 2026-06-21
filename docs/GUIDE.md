@@ -32,9 +32,11 @@ Three mechanics carry it:
   project that stays in Quickstart forever is a real project.
 - **The conscience** is the one piece of BOSS that speaks on its own. When the work drifts from the
   bet you named, it says one thing, hands the decision back, and goes quiet. It never blocks. You
-  can pause it (`boss conscience pause --for 8h`) and every override is recorded, never punished.
+  can pause the whole thing (`boss conscience pause --for 8h`) or turn down a single nudge
+  (`boss conscience mute <moment>`), and every override is recorded, never punished.
 - **A board of advisors** — *mentors* coach you on the founder-craft code can't teach (business,
-  architecture, GTM, fundraising, pitch, talent, and a humane lens with veto power). *Builders*
+  architecture, GTM, fundraising, pitch, talent, and a humane lens that can override the *other
+  mentors* — though never you). *Builders*
   (PM, coder, tester, designers) make the thing.
 
 ---

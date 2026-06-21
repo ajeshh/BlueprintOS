@@ -42,7 +42,8 @@ A CLI plus a set of skills, agents, and loops that run inside Claude Code:
 - **A conscience that nudges.** When you've captured three ideas and tested none, it speaks
   once. When you're spec'ing a feature your canvas never validated, it surfaces restraint.
   Cohort-aware (set yours during spin-up; it adjusts the voice). Always overridable; never
-  blocking. Silence it for a sprint: `boss conscience pause --for 8h`.
+  blocking. Silence it for a sprint (`boss conscience pause --for 8h`), or turn down just one
+  nudge while the rest keep speaking (`boss conscience mute <moment>`).
 - **A mentor board.** Eight advisors (venture, architect, GTM, business, fundraising, pitch,
   talent, humane) for the parts code can't teach. Plus a builder team (designer, voice-keeper, prompt-
   coach) for the craft. Plus eight proto-personas (vibe-coder-newbie, eng-builder,
@@ -131,6 +132,7 @@ boss status --conscience        # loops state + recent overrides + cohort
 boss unlock mvp                 # earn the next layer when ready
 boss conscience pause --for 8h  # silence everything for a bounded sprint
 boss conscience resume          # bring it back
+boss conscience mute caution    # turn down ONE moment; unmute (or --all) to restore
 ```
 
 `boss map` is the live cheatsheet — run it any time to see what's available in your current mode and
