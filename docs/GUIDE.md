@@ -81,7 +81,8 @@ Capture an idea, shape it, pressure-test whether it's real. Almost no ceremony.
   idea and hit go — BOSS builds the smallest clickable version so you can *see* it, not just argue
   with a blank page), `/canvas` (pressure-test it as a humane business — who's served, what's the bet,
   what could kill it), `/persona` (your target user as a consultable voice — guide *and* QA, never a
-  replacement for talking to a real one).
+  replacement for talking to a real one), `/import` (bring existing material in — a doc, a folder, or
+  a URL becomes durable context in `docs/source/` that BOSS builds from).
 - **Ask:** `mentor-venture` — is this worth building, what's the riskiest assumption.
 - **Ready to climb when:** you're done capturing and ready to *build* one of these for real.
   → `boss unlock mvp`
@@ -93,7 +94,8 @@ your product leans on a model.
   `/smoke` (is it even running?), `/pretotype` (test demand *before* you build), `/log` + `/close`
   (keep a devlog + a clean session-end — and the conscience updates its read on your venture),
   `/revalidate` (the 3-line gate before paused work re-enters the build, so you never ship a zombie
-  feature). If you're AI-native: `/ai-first-init`, `/ai-cost`, `/evals`, `/ai-failure-states`,
+  feature). If you're AI-native: `/ai-first-init`, `/ai-cost` (+ `/cost-review` to read the spend ledger against
+  budget), `/evals`, `/ai-failure-states`,
   `/judge-traces` (error-analysis on your real sessions), `/red-team` (test your defenses against the
   OWASP LLM Top-10 — turns prevention into evidence).
 - **Ask:** `mentor-architect` (load-bearing tradeoffs, what to defer), `mentor-gtm` (first users,
@@ -151,3 +153,8 @@ financial advice (they point you at the real expert and caveat hard).
 - **[`SKILLS.md`](SKILLS.md)** — one line per skill, grouped by mode.
 - **[`../PRINCIPLES.md`](../PRINCIPLES.md)** — the six rules that define BOSS.
 - **[`../README.md`](../README.md)** — what BOSS is and why.
+
+Two standing utilities, available in any mode (they're about BOSS itself, not a rung step):
+- **`/boss-sync`** — pull the latest BOSS practices into your project when a new version ships.
+- **`/feedback`** — tell the people who build BOSS what got in your way; it shows you exactly what it
+  sends before it sends anything.

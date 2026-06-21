@@ -13,6 +13,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { BOSS_ROOT, bossVersion } from '../src/paths.js';
 import { loadModes, packageSkillMd, skillGloss, modeWord } from '../src/modes.js';
+import { reportWayfindingDrift } from './check-wayfinding-drift.js';
 
 const V = bossVersion();
 const banner = (cmd) =>
@@ -136,3 +137,7 @@ const docsDir = join(BOSS_ROOT, 'docs');
 writeFileSync(join(docsDir, 'CHEATSHEET.md'), cheatsheet());
 writeFileSync(join(docsDir, 'SKILLS.md'), skillsReference());
 console.log(`  ✦ Generated docs/CHEATSHEET.md + docs/SKILLS.md (v${V})`);
+
+// Courtesy nudge: the generated docs just refreshed automatically — did the
+// hand-authored GUIDE.md keep up? (IDEA-035; never blocks.)
+reportWayfindingDrift();

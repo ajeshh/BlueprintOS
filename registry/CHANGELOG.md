@@ -2,6 +2,48 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.71.0 — 2026-06-20
+
+- **Conscience voicing — name the tension, never filter the menu.** Closes a paternalism seam found
+  while auditing what BOSS recommends to founders: the conscience is *suggestive*, but in a few places
+  it had drifted toward *withholding*. Three moves, one principle (a conscience makes a cost **visible**;
+  a censor makes a choice **unavailable**):
+  - **`mentor-business` (V1 template) gained a second axis.** The model menu was structure/licensing
+    only (OSS, open-core, patronage, cohort, SaaS…); it now also names the **metering basis** the AI era
+    runs on — per-seat → usage → hybrid → outcome → service-as-software → agent-to-agent — each with its
+    humane tension as an *overridable note*. Founders see the full menu including the models BOSS is wary
+    of; omitting them "to protect" is itself a dignity cost. New rule: **voice the tension once, then
+    yield.** (Re-opens **RVW-023** NOT-YET → **ADAPT**: per-seat assumptions are now demonstrably stale —
+    Intercom/Zendesk/SAP/Adobe live — and the verdict had conflated *should BOSS adopt this for itself*
+    (still NOT-YET) with *should BOSS tell founders it exists* (yes).)
+  - **`mentor-humane` override authority clarified — over other mentors, never over the founder.** The
+    "lens is non-negotiable" language was the one place the conscience read like a censor. Reframed: the
+    lens makes a harm *un-ignorable*, not a choice *unavailable*. Encodes the consent boundary —
+    **self-regarding** tension (the founder's own venture) is fully muteable; **third-party harm**
+    (someone not in the room) is named once even if unwelcome, because the harmed party never consented
+    to being silenced. Always *name*; never *override*.
+  - **New library practice `conscience-voicing.md`** (UP via `/boss-learn`) — the inheritable spine:
+    the conscience-vs-censor line, the 7-habit craft of voicing concern without blocking, the
+    consent-boundary table, where it applies (hook moments, every mentor, `/vet`, any menu), and the
+    existing machinery (`conscience pause`, `relationship.md`) to build on rather than reinvent.
+
+## 0.70.0 — 2026-06-20
+
+- **Wayfinding-drift check — the de-rot pass becomes a standing guard (IDEA-035, built).** v0.68 was a
+  *manual* catch-up after the hand-authored prose lagged 20 releases of new capability. The generated
+  surfaces (`boss map`, `CHEATSHEET.md`, `SKILLS.md`) can't rot — they're rebuilt from `src/modes.js`;
+  the curated prose can, and nothing flagged it. New dev-only `scripts/check-wayfinding-drift.js`
+  (`npm run check:wayfinding`, and a courtesy nudge at the end of `gen:docs`) greps `GUIDE.md` — the one
+  prose doc *meant* to walk the whole ladder — against the manifest skill lists and warns on any skill
+  named in **no** rung. **The trap, designed around:** README/`/welcome` deliberately don't enumerate
+  skills (they point at `boss map`), so the check guards *only* `GUIDE.md`, never blanket coverage —
+  and it **nudges, never blocks** (exit 0 always; a drift check that fails a commit is the ceremony BOSS
+  refuses). Internal/meta skills carry a *printed* exempt list (`boss-learn`, `design-tokens-init`,
+  `extract`, `drift-deep`), never silent. Cleared the drift it found on first run: `GUIDE.md` now names
+  `/import` + `/cost-review` in their rungs and `/boss-sync` + `/feedback` as standing utilities.
+  Dev-only (not shipped in the package); the founder-facing `boss sync` generalization stays a NOT-YET
+  UP candidate (PRINCIPLE #2). Zero-dep.
+
 ## 0.69.0 — 2026-06-20
 
 - **`shipped_on:` — a true date-windowed Shipped archive (IDEA-034 follow-on).** The board's Shipped
