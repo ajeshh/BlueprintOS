@@ -2,6 +2,26 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.78.0 — 2026-06-20
+
+- **`/practice` + `PRAC-NNN` — the shared craft commons (founder layer slice 4; IDEA-037 / FEAT-021).**
+  The most *differentiated* slice, built on the founders' Pain C: *"either of us could be discovering best
+  new ways to use agentic AI — it changes so fast — and we want to keep sharing + staying current, using
+  best practices, so we can focus on building, with mentorship so we're not worrying whether we're outdated
+  or expensive."* New L1 skill `/practice` captures a **craft learning** (a better/cheaper/newer way to
+  build with AI) as a shared, attributed `docs/practices/PRAC-NNN-<slug>.md` (What we learned / Why it
+  works / How to apply), stamped with **who learned it** (`@github-username`) so a teammate gets it *and*
+  knows who to ask. **Shared by construction** (commits with the repo per the slice-3a cut — push backs it
+  up, a cofounder who clones has it). **Staleness-aware — the part that keeps you *current*, not just
+  documented:** a practice tied to a specific model/price/tool can carry `review_by:`, and when it passes,
+  `/revalidate` asks *"still the best way? anything changed?"* → keep / update / retire — the team's quiet
+  defense against being outdated or overspending, the model-recalibration discipline ([[IDEA-014]])
+  team-scoped. **Held the humane line:** attribution is recognition + a pointer, **never a scoreboard**
+  ("measures what the team knows, never who contributed more"). New `PRAC-NNN` ID type (`docs/IDS.md`);
+  registered in the L1 manifest. Zero-dep, skill-layer only; eval gate **113/0**; `/tmp`-verified (ships,
+  `boss map` lists it, `PRAC-001` parses with attribution). **Next (FEAT-021): slice 5 mentor-the-team ·
+  slice 6 `boss credits` + the ownership moment.**
+
 ## 0.77.0 — 2026-06-20
 
 - **The founder-layer state cut — back up + share, keep the conscience private (slice 3a; IDEA-037 /
