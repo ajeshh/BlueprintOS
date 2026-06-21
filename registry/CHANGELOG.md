@@ -2,6 +2,77 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.96.0 — 2026-06-21
+
+- **First `/humane-refresh` sweep, pass 2 → the cohort & frontier patterns (RVW-059–064).** The second
+  `/deep-research` pass (111 agents, 24/25 claims 3-vote verified) covered the families the AI-chatbot lens
+  and the classic-web checklist both miss. Folded into
+  [`ai-ux-patterns.md`](../library/practices/ai-ux-patterns.md) as a new **"cohort & frontier patterns"**
+  block (conditional — surfaces when the product touches that surface, not on every Quickstart):
+  - **Accessibility / exclusion-by-design (RVW-059)** — an inaccessible flow (unlabeled element, inaccessible
+    CAPTCHA, screen-reader-invisible pre-ticked box) is *"effectively deceptive"* to anyone who can't perceive
+    or escape it, **even unintentionally** — the sharpest case of "effect, not intent." WCAG is the floor, not
+    the ceiling; test deceptiveness *under assistive tech*. (CHI/CSCW '25.)
+  - **Minors & vulnerable-by-design (RVW-061)** — price in real currency + disclose odds (loot-box/gacha
+    currency-laundering; FTC's $20M Genshin action), ship addictive-design OFF by default for minors
+    (streaks/autoplay/push — EU DSA), age assurance not age-gate theater. (UK Children's Code, statutory.)
+  - **Agentic dark patterns (RVW-060)** — *the keystone for BOSS, which builds agents.* Two directions: your
+    agent as **perpetrator** (commit/purchase without consent, over-broad permissions → scope + confirm, §4's
+    risk gate) and your agent as **victim** (manipulated by UI dark patterns **70%+ vs 31% for humans, worse
+    as models scale** — Stanford DECEPTICON / OWASP Agentic 2026). The victim half also hardens
+    [`agent-security.md`](../library/practices/agent-security.md): UI dark patterns are an injection surface,
+    and **recognition ≠ protection** (in-context prompting, guardrail models, *and human oversight* were each
+    shown insufficient — don't oversell a fix).
+  - **Algorithmic management (RVW-063)** — when a product scores/ranks/pays people, opaque unpredictable
+    scoring + "algorithmic gamblification" is the worker-facing dark pattern → transparent predictable
+    formula. (HRW *The Gig Trap* 2025.)
+  - **Junk fees (RVW-062)** sharpens the v0.95 drip-pricing line — the all-in total must be the *most
+    prominent* price (FTC Junk Fees Rule). Regulatory-teeth pointer extended (Genshin, EU DSA minors, UK
+    Children's Code, ADA/EAA) **with an honest caveat that the FTC click-to-cancel rule was vacated (8th Cir.
+    2025).**
+  - **Sludge (RVW-064) held NOT-YET** — Family 1 returned zero verified claims (its *mechanics* already
+    landed under Obstruction in v0.95); needs a dedicated pass, alongside the click-to-cancel status. Watchlist
+    edges updated.
+  - *Founder-facing, project-neutral; pulled via `/boss-sync`.*
+
+## 0.95.0 — 2026-06-21
+
+- **`/humane-refresh` — the humane lens stops being a snapshot (IDEA-042).** BOSS's dark-pattern catalog was
+  adopted once (the CDT 37, v0.82) and frozen. Dark patterns are an arms race — new research and regulation
+  name them, new models open new emergent surfaces, new tools (generative UI, agents-on-your-behalf) create
+  surfaces nobody's named. So the catalog now has a **standing freshness discipline** instead of a one-time
+  read. The staleness-twin of model recalibration ([IDEA-014](../docs/ideas/IDEA-014-model-recalibration-discipline.md));
+  they share trigger events.
+  - **New skill [`.claude/skills/humane-refresh`](../.claude/skills/humane-refresh/SKILL.md)** (a
+    BOSS-curating-BOSS meta-skill, sits with `/vet`/`/boss-learn`/`/boss-sync`). It *orchestrates skills that
+    already exist* — `/deep-research` **finds** (scoped since last run) → diff against the live catalog →
+    `/vet` **judges** (default NO) → `/boss-learn` **routes**. Three triggers: on-demand, quarterly via
+    `/schedule`, or `--event` for a new model / tool / regulation. Honest about what it can't auto-detect
+    (the event trigger is you running it, not performed magic). **Re-runs research, never freezes a list**
+    (the RVW-001 anti-rot guard made into a skill).
+  - **New [watchlist](../docs/research/watchlists/humane-lens.md)** — the focused half of `SOURCES.md`: the
+    regulators + canonical taxonomies it lacked (FTC, EDPB, CPPA, DSA, Brignull, Mathur, CHI/SOUPS/FAccT),
+    the standing query, and a `last_refresh` marker so each sweep scopes to "since last time."
+- **First sweep, pass 1 → the classic-web patterns the AI-chatbot lens omits (RVW-056/057).** Two
+  `/deep-research` passes, adversarially verified (3-vote). Folded into
+  [`ai-ux-patterns.md`](../library/practices/ai-ux-patterns.md):
+  - **Four named families an AI product inherits the moment it has an account, a paywall, or a checkout** —
+    **Obstruction** (roach-motel / un-deletable accounts, hard-to-cancel), **Sneaking** (sneak-into-basket,
+    hidden costs, drip pricing), **Manufactured urgency & scarcity** (fake timers/low-stock), **Interface
+    interference** (visual misdirection, trick questions, bad defaults) — each with its humane alternative.
+    Canon pinned (Brignull / Mathur / Gray), not enumerated (anti-freeze).
+  - **"Effect, not intent"** — a dark pattern needs no malice (CCPA judges by effect); you can ship one by
+    accident, which is exactly where the conscience earns its keep.
+  - **"Symmetry in choice"** as the concrete, testable bar under the existing asymmetry principle (CCPA
+    § 7004: the good door can't take more clicks than the bad one).
+  - **Regulatory teeth as a reference pointer** (CCPA, EU AI Act Art. 5, EDPB, FTC) — "is this regulated?",
+    explicitly *not* legal advice, *not* a gate.
+  - Pass-1 *under-sourced* claims (token-cost surprise, AI-washing, deepfake social proof, FTC
+    click-to-cancel specifics) held at **NOT-YET** (RVW-058) — named in blogs, not yet verifiable; the
+    watchlist re-sweeps them. Pass 2 (sludge, accessibility, minors, agentic-AI, financial, attention/labor)
+    folds in next.
+  - *Founder-facing, project-neutral; pulled via `/boss-sync`.*
+
 ## 0.94.0 — 2026-06-21
 
 - **The generative half of the humane lens — first additions (composted from the humane-tech corpus).**

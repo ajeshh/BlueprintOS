@@ -4,7 +4,7 @@ type: practice
 owner: mentor-architect
 status: active
 host: claude-code
-provenance: distilled from Simon Willison's 2026 agentic-security writing (lethal trifecta; "Agents Rule of Two"; classifiers are non-deterministic) — BOSS v0.48.0, IDEA-026 Part B · hardened v0.79.0 with the 2026 agent-native surface — OWASP Agentic ASI Top 10 (RVW-042), agentic misalignment (RVW-032), Anthropic containment + Redwood control (RVW-044), insecure AI-generated code & client-side key exposure (RVW-054)
+provenance: distilled from Simon Willison's 2026 agentic-security writing (lethal trifecta; "Agents Rule of Two"; classifiers are non-deterministic) — BOSS v0.48.0, IDEA-026 Part B · hardened v0.79.0 with the 2026 agent-native surface — OWASP Agentic ASI Top 10 (RVW-042), agentic misalignment (RVW-032), Anthropic containment + Redwood control (RVW-044), insecure AI-generated code & client-side key exposure (RVW-054) · UI-dark-patterns-as-injection-surface added v0.96.0 (RVW-060, /humane-refresh sweep pass 2)
 ---
 
 # Practice — Agent security (a deterministic guard around a non-deterministic model)
@@ -49,6 +49,16 @@ opens — the **agent itself** going wrong. Two things to hold:
   rogue agents. Each has a real 2025 incident behind it (EchoLeak, the GitHub-MCP exploit, the Replit
   production-DB wipe). If you ship an agent, this is the list to defend — and the one to `/red-team`
   against. The stateless LLM Top 10 still covers a plain prompt-in/text-out path.
+- **UI dark patterns are an injection surface (RVW-060).** An agent that browses or acts on the web is
+  manipulated by the *same* dark patterns built for humans — Sneaking, Urgency, Forced-Action — and it's
+  **worse off than a person**: Stanford's DECEPTICON steered agents to the manipulated outcome in **70%+ of
+  tasks vs a 31% human average**, and it **gets worse as models scale**. The trap is assuming awareness is a
+  defence: agents that noticed a pre-ticked box still didn't deselect it (goal-driven optimization), and
+  **in-context "watch out for tricks" prompting, guardrail models, and even human oversight were each shown
+  insufficient** in testing. So **recognition ≠ protection** — defend it the structural way: narrow
+  permissions, an explicit confirm before any purchase/commitment, and inspect what a page is steering the
+  agent to *do*, the same as inspecting a poisoned tool return. (This is the security face of
+  [`ai-ux-patterns.md`](ai-ux-patterns.md)'s agentic dark patterns — the agent there is the *victim*.)
 
 ## Concrete defaults (what to actually do)
 

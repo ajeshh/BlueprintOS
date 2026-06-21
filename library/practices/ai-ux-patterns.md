@@ -4,7 +4,7 @@ type: practice
 owner: designer
 status: active
 host: stack-neutral
-provenance: distilled from the 2026-06-20 AI-UX scan (Shape of AI, Microsoft HAX, Google PAIR, IBM Carbon, LangChain HITL, NN/g 2026, Apple HIG GenAI) — BOSS v0.49.0, IDEA-029 · dark-pattern checklist + humane alternatives added v0.82.0 (RVW-031, from CDT *Dark Patterns in AI Chatbots* 2026, CC-BY)
+provenance: distilled from the 2026-06-20 AI-UX scan (Shape of AI, Microsoft HAX, Google PAIR, IBM Carbon, LangChain HITL, NN/g 2026, Apple HIG GenAI) — BOSS v0.49.0, IDEA-029 · dark-pattern checklist + humane alternatives added v0.82.0 (RVW-031, from CDT *Dark Patterns in AI Chatbots* 2026, CC-BY) · classic-web pattern families + regulatory teeth (effect-not-intent, symmetry-in-choice) added v0.95.0 (RVW-056/057, first /humane-refresh sweep, IDEA-042) · cohort & frontier patterns (accessibility, minors, agentic, algorithmic-management) + junk-fees teeth added v0.96.0 (RVW-059/060/061/062/063, sweep pass 2)
 ---
 
 # Practice — AI-native interface patterns (2026)
@@ -122,6 +122,68 @@ vulnerable, guilt-on-exit, sneaky purchases); most are context-dependent → sur
 founder choose (conscience-not-censor). (2) Because these **emerge**, test the *built* product, not just
 the intent — `/red-team --humane` (sycophancy especially).
 
+### The classic-web patterns an AI product inherits (RVW-056)
+
+The CDT list above is *AI-chatbot-shaped*. But the moment a product grows an **account, a paywall, or a
+checkout**, it inherits the dark patterns the web has named for a decade — and that's exactly where a
+first-time founder ships one without knowing it has a name. Four families the chatbot lens omits (canonical
+sources: Brignull's deceptive.design, Mathur et al. *Dark Patterns at Scale*, Gray et al.'s CHI-2024
+ontology — pinned below, don't re-enumerate):
+
+- **Obstruction** — making the exit artificially hard. *Roach motel / immortal accounts* (sign-up is one
+  click; deletion is a support-ticket maze), hard-to-cancel, forced continuity. **Humane:** exit as easy as
+  entry — one-click delete/cancel that matches the ease of sign-up.
+- **Sneaking** — slipping in what the user didn't choose. Sneak-into-basket, hidden costs, **drip /
+  partitioned pricing** (advertise part of the price, reveal mandatory fees at the end — FTC-named; ~20%
+  higher spend when fees are hidden), forced enrollment. **Humane:** the all-in total **shown most
+  prominently, before any commitment step** (the FTC Junk Fees Rule bar, RVW-062); nothing on the cart or the
+  bill the user didn't pick.
+- **Manufactured urgency & scarcity** — fake pressure. Countdown timers that reset after they expire, false
+  low-stock counts, fabricated "12 people viewing this." **Humane:** real deadlines and real inventory only —
+  if the urgency isn't true, don't manufacture it.
+- **Interface interference / misdirection** — the UI steering the eye and the click. Visual interference,
+  trick questions, confirmshaming (generalized beyond the exit), pre-ticked **bad defaults**. **Humane:** the
+  choice you'd make for yourself is the visually-equal default; neutral wording; no shame.
+
+**Effect, not intent (RVW-057).** A dark pattern needs no malice — California law (CCPA § 1798.140(l)) judges
+it by its *effect* on the user's choice, not the designer's intent, so you can ship one **by accident** (the
+checkout you copied, the deletion flow you never built). That's where the conscience earns its keep: it's
+worth most catching the dark pattern the founder *didn't mean to build*.
+
+### The cohort & frontier patterns (who the checklist above misses)
+
+The lists above are mostly *who's-looking-at-a-screen*. Three more surfaces — a cohort, a population, and a
+new actor — carry their own patterns. These are **conditional**: they surface when the product touches that
+surface, not on every Quickstart (Principle #2).
+
+- **Accessibility / exclusion-by-design (RVW-059).** An inaccessible flow — an unlabeled element, an
+  inaccessible CAPTCHA, an unsubscribe buried low in keyboard-nav order, a pre-ticked box invisible to a
+  screen reader — is **"effectively deceptive" to anyone who can't perceive or escape it**, *even when
+  unintentional* (the sharpest case of "effect, not intent"). It also *amplifies* every pattern above:
+  blind/low-vision users via AT, and ADHD/neurodivergent users who recognize far fewer of them. **Humane:**
+  **WCAG is the floor, not the ceiling** — label every interactive element, give cancel/unsubscribe
+  equal-or-higher nav priority, offer non-visual auth, and test the flow's *deceptiveness under assistive
+  tech*, not just its compliance. (CHI/CSCW '25.)
+- **Minors & vulnerable-by-design (RVW-061)** — *when the product may reach minors.* Three enforced rules:
+  **price in real currency and disclose odds** (multi-tier virtual currency that hides real-money cost is the
+  loot-box dark pattern — FTC's $20M Genshin action); **ship addictive-design features OFF by default for
+  minors** (streaks, autoplay, push — the EU's named list; a clean extension of Humane defaults below); and
+  **age assurance, not age-gate theater** (a clickable "I am 18" is not age assurance). Pro-privacy nudges
+  *toward* the safer default are explicitly fine. (FTC; EU DSA minor guidelines 2025; UK Children's Code.)
+- **Agentic dark patterns (RVW-060)** — *when your product has an agent that acts for the user.* Two
+  directions. (a) **Your agent as perpetrator:** commitment/purchase without explicit consent, over-broad
+  permission grants, opaque autonomous decisions. **Humane:** scope permissions narrowly, surface what it's
+  about to do, and confirm before money/irreversibility — this is §4's risk-tiered gate pointed at agent
+  actions. (b) **Your agent as victim:** an agent browsing the web is manipulated by these same dark patterns
+  *more* than a human (70%+ vs 31%), and *worse* as models scale — see
+  [`agent-security.md`](agent-security.md) (recognition ≠ protection; don't rely on "tell the agent to watch
+  out"). (Stanford DECEPTICON; CHI 2026; OWASP Agentic 2026.)
+- **Algorithmic management (RVW-063)** — *when the product scores, ranks, or pays people.* Opaque,
+  unpredictable scoring/pay the person can't understand, plus gambling-style bonus/quest/surge incentives
+  ("algorithmic gamblification"), is the worker-facing dark pattern. **Humane:** a transparent, predictable
+  formula with disclosed factors and no gambling mechanics. (HRW *The Gig Trap* 2025 — documented harm; EU/UK
+  platform-work rules are the maturing teeth.)
+
 ## Humane defaults — the build-time inverse (ship the fix, keep the door, record the crossing)
 
 The checklist above is what to *catch*; this is what to *build by default* — friction-as-ethics, done
@@ -133,7 +195,10 @@ because it's *already done for you* — not because anything else was blocked.
 the humane path; you **never add** friction to the harmful one. Deliberately slowing, burying, or
 complicating a choice you disapprove of is a dark pattern aimed at a goal you happen to like — and
 manipulation is manipulation regardless of whose side it's on. Means matter; you can't dark-pattern your
-way to a humane product. Sovereignty is non-negotiable: **keep every door equally open.**
+way to a humane product. Sovereignty is non-negotiable: **keep every door equally open.** The concrete,
+testable bar is **symmetry in choice** (codified in California's 11 CCR § 7004): the privacy-protective path
+must be no longer, harder, or slower than the less-protective one — opt-out in as few steps as opt-in, "Decline
+All" as prominent as "Accept All." If the good door takes more clicks than the bad one, you've already failed.
 
 **So what about when the founder chooses the dark pattern anyway?** Don't block it; don't sabotage it —
 make it *accountable*. The conscience names the cost once, then offers to **record the crossing** as a
@@ -155,6 +220,23 @@ a lecture — caught, not taught, baked into the scaffold instead of spoken by t
 - **Apple HIG Generative AI**, **OpenAI Apps SDK UX**, **Anthropic "building effective agents"** —
   vendor-current; show-the-plan / checkpoint-before-irreversible / refine-and-feedback.
 - Community catalogs (e.g. agentic-design.ai) — route through `/vet` before adopting, not `/boss-learn`.
+
+**Dark-pattern canon (the named-pattern superset — pinned, not enumerated here):**
+- **deceptive.design** (Harry Brignull) — the canonical pattern library + the "deceptive patterns" taxonomy.
+- **Mathur et al. (Princeton, 2019)** *Dark Patterns at Scale* — the empirical 7-category / 15-type scheme.
+- **Gray et al. (CHI 2024)** *Ontology of Dark Patterns Knowledge* — 64 types harmonized from 10 taxonomies.
+- The standing refresh of this canon lives in [`/humane-refresh`](../../.claude/skills/humane-refresh/SKILL.md)
+  + its [watchlist](../../docs/research/watchlists/humane-lens.md) (IDEA-042), not in this list.
+
+**Regulatory teeth (reference, not legal advice — BOSS doesn't give legal advice):** dark patterns are now
+named and penalized — California **CCPA/CPRA** (effect-not-intent; symmetry rule § 7004), the **EU AI Act**
+Art. 5(1)(a)/(b) (binding ban on manipulative/vulnerability-exploiting AI; fines to €35M / 7% turnover),
+**EDPB** Guidelines 03/2022 (six-category consent taxonomy), the **FTC** 2022 report (four harm-based
+categories) + the **FTC Junk Fees Rule** (2024, drip-pricing/total-price) + the **$20M Genshin loot-box
+action** (2025), the **EU DSA minor-protection guidelines** (2025) and **UK Children's Code** (statutory),
+and **ADA / EU Accessibility Act** (accessibility as a floor). *Caveat: the FTC "click-to-cancel" Negative
+Option Rule was vacated by the 8th Circuit in 2025 — verify status before relying on it (RVW-064).* A pointer
+for "is this regulated?", never a compliance gate.
 
 ## Altitude / anti-rot
 

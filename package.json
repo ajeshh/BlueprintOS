@@ -1,13 +1,28 @@
 {
   "name": "blueprintos",
-  "version": "0.94.0",
+  "version": "0.96.0",
   "description": "BlueprintOS (BOSS) — a just-in-time startup incubator: cold-starts new projects at the right level of agentic ceremony, grows them through modes (Quickstart → MVP → V1 → Scale), and mentors the founder.",
+  "keywords": [
+    "Agentic",
+    "framework",
+    "humanetech"
+  ],
+  "homepage": "https://github.com/ajeshh/BlueprintOS#readme",
+  "bugs": {
+    "url": "https://github.com/ajeshh/BlueprintOS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajeshh/BlueprintOS.git"
+  },
+  "license": "MIT",
+  "author": "Ajesh Shah",
   "type": "module",
   "bin": {
     "boss": "bin/boss"
   },
-  "engines": {
-    "node": ">=18"
+  "directories": {
+    "doc": "docs"
   },
   "files": [
     "bin/",
@@ -28,5 +43,7 @@
     "eval": "npm run eval:gate && npm run eval:judgment",
     "regrade": "node docs/architecture/conscience-evals/judgment/regrade.js"
   },
-  "license": "MIT"
+  "engines": {
+    "node": ">=18"
+  }
 }
