@@ -274,6 +274,38 @@ export function readBrainContext(projectDir) {
   }
 }
 
+// Read a BOUNDED slice of the relationship log (.boss/brain/relationship.md) — the
+// most recent session of what the conscience SAID and what the founder DID with it.
+// This is what lets the conscience LEARN: "I've raised this before and you moved
+// past it" / "last time I nudged drift you ran a test — good." Returns null when
+// there's no log yet (byte-identical output, evals unaffected).
+export function readRelationshipContext(projectDir) {
+  try {
+    const f = join(projectDir, '.boss', 'brain', 'relationship.md');
+    if (!existsSync(f)) return null;
+    const text = readFileSync(f, 'utf8');
+    if (!text.trim()) return null;
+    const dateRe = /^##\s+\d{4}-\d{2}-\d{2}\b/;
+    const blocks = [];
+    let cur = null;
+    let preamble = [];
+    for (const l of text.split('\n')) {
+      if (dateRe.test(l)) { if (cur) blocks.push(cur); cur = [l]; }
+      else if (cur) cur.push(l);
+      else preamble.push(l);
+    }
+    if (cur) blocks.push(cur);
+    // The most recent 1-2 logged sessions — recent outcomes, not the whole history.
+    const recent = blocks.slice(-2).map((b) => b.join('\n').trim()).join('\n\n');
+    let out = recent || preamble.join('\n').trim();
+    const CAP = 900;
+    if (out.length > CAP) out = out.slice(0, CAP).trimEnd() + ' …';
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
 // Read the conscience pause state from .boss/config.json (v0.23.0+, IDEA-011).
 // Returns { mode, since, expires, reason } or null. Mode is 'paused' or 'active'
 // (or null when never set). When paused, the hook exits silent if not expired.
@@ -369,11 +401,18 @@ export function composeContext(signals, opts = {}) {
   const brainLine = opts.brain
     ? `\n\nContinuity — your standing read on this venture (the conscience's own POV over time, from .boss/brain/). Voice the nudge *with* this: make it specific to what you already understand instead of generic, and ground it in the read. Don't read it back as fact or restate it — let it sharpen the one line you say. If it conflicts with what you see now, trust what you see (the founder can correct the brain):\n${opts.brain}`
     : '';
+  // Learning (IDEA-022 — the relationship half): what you said recently and what the
+  // founder DID with it. Use it to adjust: if you've raised this before and they moved
+  // past it with a good reason, say it lighter or drop it; if a past nudge landed, you can
+  // build on it. Don't nag a point they've already answered.
+  const relationshipLine = opts.relationship
+    ? `\n\nWhat happened last time (from the relationship log — what you said and what they did): use this to *calibrate*, not repeat. If you've already raised this and they moved past it for a stated reason, don't say it again the same way (lighten it, or stay silent). If a past nudge landed, you can build on it rather than restart:\n${opts.relationship}`
+    : '';
   if (signals.length === 1) {
-    return signalAsContext(signals[0]) + cohortLine + brainLine;
+    return signalAsContext(signals[0]) + cohortLine + brainLine + relationshipLine;
   }
   const parts = signals.map((s, i) => `(${i + 1}) ${signalAsContext(s)}`);
-  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n') + cohortLine + brainLine;
+  return `[BOSS conscience — ${signals.length} signals]\n` + parts.join('\n') + cohortLine + brainLine + relationshipLine;
 }
 
 function signalAsContext(s) {

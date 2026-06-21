@@ -471,7 +471,7 @@ export function run(argv) {
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
       console.log('  boss map                 live cheatsheet: where you are + what\'s one unlock away');
       console.log('  boss board [--html]      a live read of what\'s in flight (captured → shipped); --html opens a visual kanban');
-      console.log('  boss brain [--diff]      the conscience\'s read on this venture (its POV over time); --diff = how it evolved');
+      console.log('  boss brain [--diff|--relationship]  the conscience\'s read (POV); --diff = how it evolved; --relationship = what it said & what you did');
       console.log('  boss brain forget --before <date>   evict old reads (living memory; founder-invoked)');
       console.log('  boss insights            read your own projects\' trace: where each loop stands (local · nothing sent)');
       console.log('  boss list                all connected projects');

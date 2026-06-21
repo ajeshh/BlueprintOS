@@ -2,6 +2,32 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.65.0 — 2026-06-20
+
+- **`relationship.md` — the venture brain's missing half: the conscience learns whether its nudges
+  land (IDEA-022 / FEAT-022).** The architecture designed two model-owned files — `read.md` (the POV,
+  shipped) **and** `relationship.md` (what the conscience *said* and what the founder *did* with it).
+  Only the read existed; this builds the relationship log, which closes the loop the frequency ledger
+  (IDEA-013) only *counts*: did the nudge **land**?
+  - **`/close` writes it** — *only when the conscience actually fired this session* — a dated entry:
+    what was flagged + what the founder did, tagged honestly (*landed* / *ignored* / *overrode, with the
+    reason* / *pushed back and was right* — the last being the most valuable: it's how the conscience
+    learns to fire better). The must-nots carry over: it logs the conscience's *own* hit rate, never
+    scores the founder.
+  - **The conscience reads it back to calibrate (the payoff).** When a moment fires, the hook hands the
+    model a **bounded** slice of the recent log (last ~1-2 sessions) so it *adjusts instead of repeats*:
+    if it's raised a point and the founder moved past it for a stated reason, it says it lighter or stays
+    silent; if a past nudge landed, it builds on it. This is what makes the conscience feel like it
+    *remembers the conversation*, not just the venture.
+  - **CLI:** `boss brain --relationship` (view the log), `boss brain record --kind relationship`
+    (stamp it; the index now carries `kind` to distinguish read vs relationship), `boss brain` surfaces
+    a one-line pointer, and `boss brain forget --before <date>` prunes **both** files symmetrically
+    (living memory across both).
+  - **Cost + safety held:** read only when a moment is firing, bounded (~900 chars), **byte-identical
+    when no log exists** → 105 gate + 24 GRADED judgment evals stay green (verified). Zero-dep; the
+    model owns the prose, the CLI owns the index. **FEAT-022 (the venture brain) is now complete —
+    read + relationship + index + living memory.**
+
 ## 0.64.0 — 2026-06-20
 
 - **AI-native scaffolder — `--ai` + `/comprehend` (IDEA-022 Track 3; the last track, most guarded).**

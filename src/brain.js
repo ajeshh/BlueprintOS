@@ -9,9 +9,14 @@
 //                          can read and correct it. Markdown is the TRUST
 //                          mechanism — this is the one surface that records an
 //                          opinion about the person, so it must be inspectable.
+//   .boss/brain/relationship.md  model-owned. The relationship log: what the
+//                          conscience SAID and what the founder DID with it (acted /
+//                          ignored / pushed back / overrode). This is how the
+//                          conscience learns whether its nudges land — the outcome
+//                          half of the frequency ledger (IDEA-013). Written at /close.
 //   .boss/brain/index.json CLI-owned. A thin ledger over the prose so the CLI can
-//                          stamp/diff/gate WITHOUT parsing the read. Nothing
-//                          semantic lives here — just {id, ts, headline}.
+//                          stamp/diff/gate WITHOUT parsing it. Just {id, ts, kind,
+//                          headline} — `kind` distinguishes read vs relationship.
 //
 // This module is layer-1 (IDEA-006): zero-dep, host-agnostic, deterministic. It
 // never calls a model. The *writing* of the read is the model's job (the /close
@@ -30,6 +35,9 @@ function brainDir(projectDir) {
 }
 function readPath(projectDir) {
   return join(brainDir(projectDir), 'read.md');
+}
+function relationshipPath(projectDir) {
+  return join(brainDir(projectDir), 'relationship.md');
 }
 function indexPath(projectDir) {
   return join(brainDir(projectDir), 'index.json');
@@ -60,12 +68,13 @@ function writeIndex(projectDir, idx) {
 // /close skill AFTER it writes the dated prose block into read.md, so the index
 // stays a truthful ledger of the read without the model hand-authoring JSON.
 // Returns the entry. The prose is the model's; the index integrity is the CLI's.
-export function recordBrainEntry(projectDir, { headline, id } = {}) {
+export function recordBrainEntry(projectDir, { headline, id, kind } = {}) {
   const h = (headline || '').trim();
-  if (!h) throw new Error('usage: boss brain record --headline "<one-line summary of the read>"');
+  if (!h) throw new Error('usage: boss brain record --headline "<one-line summary>" [--kind read|relationship]');
+  const k = kind === 'relationship' ? 'relationship' : 'read'; // default read (back-compat)
   const idx = readIndex(projectDir);
   const ts = new Date().toISOString();
-  const entry = { id: id || `b${idx.next_seq}`, ts, headline: h };
+  const entry = { id: id || `b${idx.next_seq}`, ts, kind: k, headline: h };
   idx.entries.push(entry);
   idx.next_seq = (idx.next_seq || idx.entries.length) + 1;
   idx.last_write_ts = ts;
@@ -151,13 +160,16 @@ export function forgetBrain(projectDir, { before, id } = {}) {
     throw new Error('usage: boss brain forget --before <YYYY-MM-DD>   (or: forget --id <bN>)');
   }
 
-  if (existsSync(rf)) {
-    const { preamble, blocks } = parseDatedBlocks(readFileSync(rf, 'utf8'));
+  // Symmetric eviction: prune read.md AND relationship.md dated blocks older than
+  // the date, keeping each file's preamble (the standing summary survives).
+  for (const f of [rf, relationshipPath(projectDir)]) {
+    if (!existsSync(f)) continue;
+    const { preamble, blocks } = parseDatedBlocks(readFileSync(f, 'utf8'));
     const kept = blocks.filter((b) => b.date >= before); // lexical YYYY-MM-DD compare
-    evictedBlocks = blocks.length - kept.length;
+    evictedBlocks += blocks.length - kept.length;
     const body = [preamble, ...kept.map((b) => b.lines.join('\n').replace(/\s+$/, ''))]
       .filter(Boolean).join('\n\n') + '\n';
-    writeFileSync(rf, body);
+    writeFileSync(f, body);
   }
   const keptEntries = idx.entries.filter((e) => e.ts.slice(0, 10) >= before);
   evictedEntries = idx.entries.length - keptEntries.length;
@@ -181,6 +193,9 @@ export function renderBrain(projectDir, stamp) {
     lines.push('  The brain is empty — the conscience hasn\'t formed a read yet.');
     lines.push('  It writes one at /close, once there\'s a session of work to look at.');
     lines.push(`  ${dim('Nothing to show after 0 sessions. This is the honest empty state, not a bug.')}`);
+    if (existsSync(relationshipPath(projectDir)) && readFileSync(relationshipPath(projectDir), 'utf8').trim()) {
+      lines.push(`  ${dim('(a relationship log exists, though — `boss brain --relationship`)')}`);
+    }
     lines.push('');
     return lines.join('\n');
   }
@@ -201,7 +216,32 @@ export function renderBrain(projectDir, stamp) {
   if (blockCount > BRAIN_WINDOW) {
     lines.push(`  ${dim(`the read spans ${blockCount} sessions — \`boss brain forget --before <date>\` to evict old ones, or let /close compress`)}`);
   }
+  // Point at the relationship log when one exists — the outcome half of the brain.
+  if (existsSync(relationshipPath(projectDir))) {
+    const rel = parseDatedBlocks(readFileSync(relationshipPath(projectDir), 'utf8')).blocks.length;
+    lines.push(`  ${dim(`relationship log: ${rel} session${rel === 1 ? '' : 's'} of what-I-said-and-what-you-did · \`boss brain --relationship\``)}`);
+  }
   lines.push(`  ${dim('This is yours to correct — edit .boss/brain/read.md if the read is wrong.')}`);
+  lines.push('');
+  return lines.join('\n');
+}
+
+// `boss brain --relationship` — the relationship log: what the conscience said and
+// what the founder did with it. This is the loop the frequency ledger (IDEA-013)
+// only counts: did the nudge land? The conscience reads this to learn (Track 4).
+export function renderRelationship(projectDir, stamp) {
+  const lines = [`\n  ${stamp.name} · brain · relationship`,
+    `  ${dim('what the conscience said — and what you did with it (the outcome of its nudges)')}`, ''];
+  const rf = relationshipPath(projectDir);
+  if (!existsSync(rf) || !readFileSync(rf, 'utf8').trim()) {
+    lines.push('  No relationship log yet — the conscience records it at /close, once it has');
+    lines.push('  said something and seen what you did with it.', '');
+    return lines.join('\n');
+  }
+  const rel = readFileSync(rf, 'utf8').replace(/\s+$/, '');
+  for (const l of rel.split('\n')) lines.push(`  ${l}`);
+  lines.push('');
+  lines.push(`  ${dim('the conscience reads this to learn whether its nudges land; yours to correct too')}`);
   lines.push('');
   return lines.join('\n');
 }
@@ -214,10 +254,11 @@ export function brain(projectDir, stamp, args = []) {
     for (let i = 0; i < rest.length; i++) {
       if (rest[i].startsWith('--')) { flags[rest[i].slice(2)] = rest[i + 1]; i++; }
     }
-    const entry = recordBrainEntry(projectDir, { headline: flags.headline, id: flags.id });
-    console.log(`\n  ✦ Brain entry recorded — ${entry.id}`);
+    const entry = recordBrainEntry(projectDir, { headline: flags.headline, id: flags.id, kind: flags.kind });
+    const file = entry.kind === 'relationship' ? 'relationship.md' : 'read.md';
+    console.log(`\n  ✦ Brain entry recorded — ${entry.id} (${entry.kind})`);
     console.log(`    ${entry.headline}`);
-    console.log(`    ${dim('(the prose lives in .boss/brain/read.md; this stamps the index)')}\n`);
+    console.log(`    ${dim(`(the prose lives in .boss/brain/${file}; this stamps the index)`)}\n`);
     return;
   }
   if (sub === 'forget') {
@@ -234,8 +275,12 @@ export function brain(projectDir, stamp, args = []) {
     console.log(renderBrainDiff(projectDir, stamp));
     return;
   }
+  if (sub === '--relationship' || args.includes('--relationship')) {
+    console.log(renderRelationship(projectDir, stamp));
+    return;
+  }
   if (sub) {
-    console.error(`  boss: unknown subcommand 'brain ${sub}'. options: (none) | --diff | record | forget`);
+    console.error(`  boss: unknown subcommand 'brain ${sub}'. options: (none) | --diff | --relationship | record | forget`);
     process.exitCode = 1;
     return;
   }
