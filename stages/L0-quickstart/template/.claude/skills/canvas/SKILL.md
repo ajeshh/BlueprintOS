@@ -67,7 +67,7 @@ _Impact, risks, and the values that guide decisions._
 
 | Cell | Humane prompt | Sharpen with |
 |---|---|---|
-| **Metrics** | What does meaningful success look like — for people and planet? | What numbers show real pull? Activation, retention, conversion, willingness to pay. |
+| **Metrics** | What does meaningful success look like — for people and planet? | Real pull: activation, retention, conversion, willingness to pay. **And the regenerative ones, weighted as seriously:** what people *learn* or gain in well-being, what makes the venture more *resilient* over time — growth that renews, not just extracts. |
 | **Risks & Harms** | What could unintentionally go wrong? Who might be harmed or excluded? | Rank the assumptions that could kill the idea. Be honest about harm at scale. |
 | **Build or buy?** _(for tool-shaped ideas)_ | Is the honest move to *build* this — or would using/buying something that already solves it serve the person better? | Only ask for internal-tool / process-automation ideas (Jason Fried, 2026: most people want the problem *gone*, not a system to maintain). For a genuine product venture, building **is** the move — skip this cell. The humane answer is sometimes "don't build it yourself." |
 | **Principles** | What values will guide your decisions? | The non-negotiables you'll hold even when it's costly. |

@@ -12,6 +12,26 @@ walk back into cold.
 
 It's the counterpart to *read `docs/RESUME.md` first thing*.
 
+## Before the housekeeping: mark what was crossed
+
+`/close` is also the natural moment to *register a threshold* — because the relentless build never makes
+room for it, and a builder who only ever measures what's left slowly forgets that anything was achieved
+(see the `celebration-of-done` practice). If this session genuinely crossed one — a FEAT closed, the
+first live URL, a mode graduation, the riskiest assumption finally tested — pause and mark it **before**
+the forward-looking housekeeping below. The order matters: look back at what you crossed before you look
+ahead to what's next.
+
+- **Name what's real, specifically** — not "great session," but *what* got done and *what it now unlocks*.
+- **Re-anchor on the why and the who** — reconnect the thing you crossed to the bet (why it mattered) and
+  the person you built it for. The build pulls you into the *how*; this pulls you back to the *why*.
+- **Let it turn into curiosity** — *"does this land for them now?"* is the honest next feeling, and it's
+  the bridge back to the real user. A well-marked threshold makes the founder *want* to go find out — the
+  validation instinct, arriving through satisfaction instead of obligation.
+- **Proportional, no performed warmth, no streak.** Real thresholds only; most sessions cross none, and
+  silence is correct. This is the conscience's restraint with the polarity flipped — never "🎉 great job!"
+  (the exact flattery the brain-read step below forbids). Emotional acknowledgement is *making space for
+  the founder to feel it*, not BOSS emoting at them.
+
 ## How to run it
 
 1. **Append a devlog entry** by running the `/log` flow (FEAT, landed, next, surprises). If `/log`

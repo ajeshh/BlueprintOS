@@ -122,6 +122,29 @@ vulnerable, guilt-on-exit, sneaky purchases); most are context-dependent → sur
 founder choose (conscience-not-censor). (2) Because these **emerge**, test the *built* product, not just
 the intent — `/red-team --humane` (sycophancy especially).
 
+## Humane defaults — the build-time inverse (ship the fix, keep the door, record the crossing)
+
+The checklist above is what to *catch*; this is what to *build by default* — friction-as-ethics, done
+right. **Ship the humane choice as the default:** privacy on, consent opt-in, the metric hideable, the
+escape hatch already wired, the action reversible. The humane path becomes the path of least resistance
+because it's *already done for you* — not because anything else was blocked.
+
+**The asymmetry is the whole discipline, and the easy way to get it wrong.** You *remove* friction from
+the humane path; you **never add** friction to the harmful one. Deliberately slowing, burying, or
+complicating a choice you disapprove of is a dark pattern aimed at a goal you happen to like — and
+manipulation is manipulation regardless of whose side it's on. Means matter; you can't dark-pattern your
+way to a humane product. Sovereignty is non-negotiable: **keep every door equally open.**
+
+**So what about when the founder chooses the dark pattern anyway?** Don't block it; don't sabotage it —
+make it *accountable*. The conscience names the cost once, then offers to **record the crossing** as a
+`DEC-NNN` (the *why* and the *when*). Not a penalty, not a gate — a memory. Later, future-them (or a
+cofounder, a buyer, a regulator) can ask *"why did we do that, and when?"* and trace it back. That record
+is the antidote to humanity eroding *invisibly*: the thousand small decisions stop accreting in the dark
+the moment each crossing is defaulted-humane, kept-open, named, and logged.
+
+The quiet bonus: a humane default *teaches*. The founder building on it absorbs the decent pattern without
+a lecture — caught, not taught, baked into the scaffold instead of spoken by the conscience.
+
 ## Canonical references (pin the designer here; don't reinvent)
 
 - **Shape of AI** (shapeof.ai) — the working pattern vocabulary; the "Governors" category maps ~1:1

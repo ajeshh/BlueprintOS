@@ -2,6 +2,35 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.94.0 — 2026-06-21
+
+- **The generative half of the humane lens — first additions (composted from the humane-tech corpus).**
+  BOSS's humane lens has been *defensive* (harm-taxonomy, dark-patterns, conscience-not-censor = *don't
+  harm*). This batch begins the *generative* half — *cultivate flourishing* — drawn from a founder
+  humane-tech corpus (the Humane Product Canvas lineage, permaculture, the "Celebration of Done," play,
+  kinship). All judgment/voice/default touches, no new gates.
+  - **New [`library/practices/celebration-of-done.md`](../library/practices/celebration-of-done.md) +
+    wired into `/close`.** BOSS *records* done everywhere and *marks* it nowhere. Done is a threshold, not
+    perfection: a pause that registers what was crossed (against AI-speed build-amnesia), re-anchors on the
+    *why* and the *who*, and turns into curiosity about whether it resonates *now* — the bridge back to the
+    real user. The hard rule: celebrate **without performed warmth** ("🎉 great job!" is voice-mode bleed) —
+    genuine, specific, proportional, no streaks. It's a conscience moment with the polarity flipped.
+  - **`/prototype` gains the *magic circle*.** Named BOSS's one licensed *play* space — bounded,
+    safe-to-fail, nothing precious, the conscience waits outside. The generative register BOSS lacked.
+  - **`conscience-voicing` — not-knowing as a doorway.** Folded into the never-imply-an-intelligence-gap
+    rule: a founder's gap is an invitation ("haven't learned to appreciate it *yet*"), never a deficit.
+  - **`/canvas` Metrics cell — regenerative metrics, weighted as seriously as commercial:** what people
+    *learn* / gain in well-being, what makes the venture *resilient* — growth that renews, not just extracts.
+  - **`ai-ux-patterns` — "Humane defaults" (the build-time inverse of the dark-pattern checklist).**
+    Friction-as-ethics, done right: ship the humane choice as the default (remove friction from the good
+    path), **never** sabotage the other path (that's a dark pattern aimed at a goal you like — means matter,
+    sovereignty is non-negotiable, keep every door open). When the founder crosses anyway: name the cost
+    once, then **record the crossing** as a `DEC-NNN` — accountability, not a gate, so "why did we do that,
+    and when?" stays traceable. The antidote to humanity eroding *invisibly* through a thousand small
+    decisions.
+  - *Founder-facing, project-neutral; pulled via `/boss-sync`. The defensive + generative halves now both
+    ship.*
+
 ## 0.93.0 — 2026-06-21
 
 - **Distribution as a voicing leg — `/ship` now asks "who finds it?" (IDEA-041, the FEAT-024 sequel).**

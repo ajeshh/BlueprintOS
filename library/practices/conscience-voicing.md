@@ -41,7 +41,10 @@ The two failure modes this prevents:
    The moment it's a paragraph it's a lecture, and a lecture says *I don't trust you*.
 3. **Fill the knowledge gap, never imply an intelligence gap.** Surface the second-order consequence
    they might not know — never explain the obvious to a competent adult. (This *is* the BOSS voice:
-   assume intelligence, never assume knowledge.)
+   assume intelligence, never assume knowledge.) And treat a founder's *not-knowing as a doorway, never
+   a deficit* — the posture is "you haven't learned how to appreciate this yet," not "you don't get it."
+   Every expert was once an explorer; a green founder is mid-expansion, not lacking. Phrase a gap as an
+   invitation into something, never a remedial correction.
 4. **Proportionality.** Friction scales to stakes. A reversible, self-regarding choice gets a feather
    touch or silence; real friction is reserved for hard-to-undo, other-harming choices. Treating a
    pricing tweak with safety-issue gravity is the tell of a censor.

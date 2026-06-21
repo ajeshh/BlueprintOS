@@ -15,6 +15,12 @@ The conscience stays out of the way until the thing is on the screen.
 
 > It's a sketch to think with, not your MVP — BOSS names that once, *after* you've seen it.
 
+> **This is BOSS's one licensed play space.** A prototype is a *magic circle* — bounded, safe-to-fail,
+> nothing precious, nothing shipped. Build it badly, build three of them, build the wrong one on purpose;
+> the only job here is to learn by doing. The walls of the circle (it's labelled a sketch, it gets thrown
+> away when it earns a real build, the conscience waits outside until you step out) are exactly what make
+> playing safe. Play isn't the warm-up to the work — for an idea you can't yet see, it *is* the work.
+
 > **The frame, plainly (Marty Cagan, 2026):** this is *building to **learn*** — a throwaway to discover
 > whether the idea's worth it. Building it *for real* is *building to **earn*** — the `/spec` path, with
 > a build you'll keep. Cheap building made delivery easy, which made *fooling yourself* easy too; the
