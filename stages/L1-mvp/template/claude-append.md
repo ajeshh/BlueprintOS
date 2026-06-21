@@ -22,6 +22,15 @@
 - **Mob the hard problems.** With an AI as your pair, you question its suggestions *less*. For genuinely novel/risky work, put both humans + the agent on it together rather than one founder solo in a worktree.
 - **Honesty anchor (METR, n=16):** experienced devs on mature repos were 19% *slower* with AI while *believing* they were 20% faster. Trust the green `main` and the merged diff, not the feeling of speed.
 
+## Shipping (localhost is not shipped)
+
+> The CI half above keeps `main` green; this is the **CD** half — *is this where a real user can hit it, or just you?* An app only you can reach is a pseudo app: you can't prove pain, fit, or willingness-to-pay on it. Full depth: `ship-it-live` practice; the runner: `/ship`.
+
+- **Deploy early, cheap, reversible.** Get a real URL at MVP, not at launch — smallest viable host, reversible-and-cheap over impressive. "I'll deploy when it's polished" costs you the only thing that's scarce this early: contact with a real user. (The "reliability is premature at MVP" counter doesn't survive scrutiny — what staying on localhost saves you isn't worth what it costs.)
+- **Secrets & authz at the boundary — the leg with teeth.** Never ship a secret in the client bundle, and if the app talks to a database with a public/anon key, the row-level security is what stands between your users and the internet — and the AI does **not** configure it by default. This is the signature vibe-coded leak (CVE-2025-48757 / MoltBook — 170+ apps, 1.5M credentials, founders who wrote no code). `/ship`'s pre-flight + `/red-team`'s pre-ship pass catch it; run them before the first public URL.
+- **Rollback ≠ reversible.** Instant rollback restores the *app*, not the *database* — a migration that ran doesn't un-run. Name the revert path before you deploy, and make schema changes backward-compatible (expand-migrate-contract) so a code rollback never strands the data.
+- **Honesty anchor (DORA 2024):** AI adoption correlated with *worse* delivery stability and throughput. Faster shipping isn't safer shipping — the instrument is measured (change-fail rate, time-to-restore), not the feeling.
+
 ## What MVP adds (alongside Quickstart)
 
 - **Skills:**
@@ -64,6 +73,11 @@
     it. Verdict (on-aim / drifting / mixed) → `docs/drift-audits/DRIFT-YYYY-MM-DD.md`.
     Deliberate + founder-invoked (the cost discipline: a whole-project read can't be
     per-prompt) — no loop, no nudge, you run it when you want the truth.
+  - `/ship` — put it where a real user can hit it (v0.92.0+, FEAT-024). The CD half: detect
+    the stack → deploy-time pre-flight (no client-bundled secrets; server-side authz/RLS
+    actually on — the CVE-2025-48757 / MoltBook vibe-coded-leak surface) → cheapest reversible
+    host → hand back the live URL + the rollback path. Stack-neutral (no baked-in target);
+    the pre-flight is a check, not a gate. Full depth: `ship-it-live` practice.
   - `/log` — devlog
   - `/close` — session-end RESUME update
 - **Builder agents:** `tester` (owns the smoke gate + acceptance checks for FEATs);

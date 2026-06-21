@@ -2,6 +2,38 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.92.0 — 2026-06-21
+
+- **`ship-it-live` practice + `/ship` skill — the CD half of building (FEAT-024 slices 1+2).** `git-workflow`
+  shipped the CI half ("is `main` green"); this ships the **CD** half: *is this where a real user can hit it,
+  or just you?* An app that only runs on `localhost` is a pseudo app — the validation conscience has no teeth
+  if the artifact was never put where someone could prove it. Shaped past "starter spec" by a `/deep-research`
+  pass (21 sources, 25 claims adversarially verified 3-vote, 22 confirmed / 3 killed).
+  - **UP — new [`library/practices/ship-it-live.md`](../library/practices/ship-it-live.md)** (stack-neutral,
+    Principle #4 — no baked-in deploy target): **"localhost is not shipped"**; **deploy early/cheap/reversible**
+    (the *"reliability is premature at MVP"* counter was killed 0-3 — the headline stands un-hedged);
+    **secrets & authz at the boundary = the leg with teeth** — the signature vibe-coded failure is a
+    client-bundled DB key + RLS the AI never configured (**CVE-2025-48757 / Lovable** — 170+ apps, ~10.3%
+    leaking PII + keys; **MoltBook** — 1.5M credentials, founder wrote no code) [EVIDENCE]; **rollback ≠
+    reversible** (instant rollback restores the *app*, not the *database* — Vercel documents this against its
+    own feature → expand-migrate-contract, Fowler); a **deploy honesty anchor** (DORA 2024: AI ↔ *worse*
+    stability + throughput — the METR twin; small-batches-offset-it was killed 1-2, so it's stated not
+    oversold); **preview-per-branch demoted** from "the review primitive" to a JIT-gated judgment (its
+    loop-tightening efficacy is vendor-positioning only — the one verified counter-argument; over-ceremony for
+    a 2-person team).
+  - **DOWN — new `/ship` skill (L1/MVP)** — the deterministic "put it where a real user can hit it" runner:
+    detect the stack → **deploy-time pre-flight** (no client-bundled secrets; server-side authz/RLS actually
+    on) → cheapest reversible host → hand back the **live URL** + the rollback path → capture the recipe as a
+    `PRAC-NNN`. The pre-flight is a **check, not a gate** (conscience-not-censor) and **points at** `/red-team`'s
+    pre-ship pass + `agent-security` rather than restating them (the secret-scan surface `secrets-guard`
+    deliberately doesn't cover). Cohort-aware (the pre-flight is non-negotiable for `first-product` /
+    `non-tech-founder` — they can't spot a leaked key). Plus a tight **"Shipping (localhost is not shipped)"**
+    DOWN section in the L1/MVP working rules. Skill-layer (predicate/runner split — the model parses the stack
+    + shells out, so `src/` stays zero-dep, Principle #4 / working-rule #4).
+  - **Slice 3 (the `reachable?` conscience moment) deliberately deferred** — voicing-first; a hook needs a real
+    reachability predicate, and manufacturing one is the over-fire trap BOSS guards against. Ties to
+    IDEA-041 (reachable → discoverable: *"does anyone know it exists?"*).
+
 ## 0.91.0 — 2026-06-20
 
 - **Team wayfinding — close the gap between the shipped founder layer and the docs (IDEA-037 / FEAT-021
