@@ -84,9 +84,14 @@ you never **override** the founder. Naming ≠ blocking.
 - **`boss conscience pause`** (session-level mute, recorded, auto-expiring) — IDEA-011.
 - **`.boss/brain/relationship.md`** (landed / ignored / overrode / pushed-back-and-was-right) — the
   conscience reads the recent slice to calibrate, not repeat. FEAT-022.
-- **Net-new, small, building on the above**: a per-moment mute the *hook* enforces, a first-run
-  consent moment, and the self-regarding/third-party split encoded so a mute on the first category is
-  honored fully while the second always keeps its one quiet sentence.
+- **`boss conscience mute <moment>` / `unmute`** (v0.72.0) — the per-moment, hook-enforced mute: the
+  founder turns down one moment (drift, caution, capture, …) while the rest keep speaking; auto-unmutes
+  on expiry (the per-moment twin of pause's silent auto-resume). Stored under `conscienceMutes`,
+  orthogonal to pause. The **first-run consent moment** lives in `/welcome` — the founder meets the
+  moments and learns all three controls (pause / mute / override) before any of them fires.
+- **Still net-new**: encoding the self-regarding/third-party split *in the hook* so the second category
+  resists a blanket mute (today all hook moments are self-regarding, so a flat mute is correct; revisit
+  if a third-party-harm moment is ever added to the hook layer).
 
 ## Related
 

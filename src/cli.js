@@ -6,7 +6,7 @@ import { applyStage, applyStageSafe, appendClaudeBlock, appendMarkedBlock, readS
 import { registerProject, listProjects, findByPath } from './registry.js';
 import { planSync, applySync, computeSettingsMerge } from './sync.js';
 import { learn, LIBRARY_CATEGORIES } from './learn.js';
-import { statusConscience, consciencePause, conscienceResume, conscienceActivity } from './conscience.js';
+import { statusConscience, consciencePause, conscienceResume, conscienceMute, conscienceUnmute, conscienceActivity } from './conscience.js';
 import { board, boardHtml } from './board.js';
 import { map } from './map.js';
 import { brain } from './brain.js';
@@ -431,6 +431,8 @@ function cmdConscience(args) {
   try {
     if (sub === 'pause') return consciencePause(flags);
     if (sub === 'resume') return conscienceResume();
+    if (sub === 'mute') return conscienceMute(flags);
+    if (sub === 'unmute') return conscienceUnmute(flags);
     if (sub === 'activity') return conscienceActivity(process.cwd());
     if (sub === 'cost') return conscienceActivity(process.cwd(), { asCost: true });
     if (sub === 'status' || !sub) {
@@ -439,7 +441,7 @@ function cmdConscience(args) {
       console.log(`\n  ${stamp.name}`);
       return statusConscience(process.cwd());
     }
-    return fail(`unknown subcommand 'conscience ${sub}'. options: pause | resume | status | activity | cost`);
+    return fail(`unknown subcommand 'conscience ${sub}'. options: pause | resume | mute | unmute | status | activity | cost`);
   } catch (e) {
     return fail(e.message);
   }
@@ -485,6 +487,8 @@ export function run(argv) {
       console.log(`  boss learn <p> --as <c>  promote a pattern UP into the library (${LIBRARY_CATEGORIES.join('|')})`);
       console.log('  boss conscience pause    silence the conscience for a bounded session [--for 8h|--until-resume]');
       console.log('  boss conscience resume   re-enable the conscience');
+      console.log('  boss conscience mute     silence ONE moment (drift|caution|…) [--for 7d|--until-resume]');
+      console.log('  boss conscience unmute   un-silence a moment (or --all)');
       console.log('  boss conscience activity how often the conscience fires (over-fire check; alias: cost)');
       console.log('  boss version             BOSS version\n');
       console.log('  modes: Quickstart (capture an idea) · MVP (build it) · V1 (ship it) · Scale (grow it)\n');

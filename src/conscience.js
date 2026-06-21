@@ -12,7 +12,7 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { loadLoops, classifyLoop, readPauseState } from '../stages/L0-quickstart/template/.claude/hooks/lib/loop-runtime.js';
+import { loadLoops, classifyLoop, readPauseState, readMuteState } from '../stages/L0-quickstart/template/.claude/hooks/lib/loop-runtime.js';
 
 // Parse a duration spec for `boss conscience pause --for <spec>`.
 // Accepted: <N>m / <N>h / <N>d (minutes / hours / days). Returns ms or throws.
@@ -82,6 +82,75 @@ export function conscienceResume() {
   cfg.conscience = { mode: 'active' };
   writeConfig(path, cfg);
   console.log(`\n  ✦ Conscience resumed.\n`);
+}
+
+// The moments this project can actually fire — derived from the loops present
+// (each hook-loop's `drift_moment`), so mute validates against reality rather than
+// a hardcoded list that rots as moments are added. Used to catch typos and to show
+// the founder what's muteable.
+function availableMoments(projectDir) {
+  try {
+    return [...new Set(loadLoops(projectDir).map((l) => l.drift_moment).filter(Boolean))].sort();
+  } catch { return []; }
+}
+
+// `boss conscience mute <moment> [--for <duration> | --until-resume] [--reason "..."]`
+// Default duration: 7d. The surgical companion to pause — silence ONE moment, not
+// the whole conscience. This is "voice the tension, never filter the menu" made
+// operational: the founder consents to (or declines) each moment individually.
+// Stored under `conscienceMutes` so pause/resume never clobber it (orthogonal).
+export function conscienceMute(flags) {
+  const { path, cfg } = readConfigOrFail(process.cwd());
+  const moment = (flags._ && flags._[0]) || '';
+  if (!moment) {
+    throw new Error('which moment? e.g. `boss conscience mute drift`. `boss conscience status` lists what can fire.');
+  }
+  const moments = availableMoments(process.cwd());
+  if (moments.length && !moments.includes(moment)) {
+    throw new Error(`no '${moment}' moment in this project's loops. Available: ${moments.join(', ')}.`);
+  }
+
+  const reason = typeof flags.reason === 'string' ? flags.reason : '';
+  let until = null;
+  if (!flags['until-resume']) {
+    const spec = typeof flags.for === 'string' ? flags.for : '7d';
+    until = new Date(Date.now() + parseDuration(spec)).toISOString();
+  }
+
+  cfg.conscienceMutes = cfg.conscienceMutes || {};
+  cfg.conscienceMutes[moment] = { until, since: new Date().toISOString(), reason };
+  writeConfig(path, cfg);
+
+  console.log(`\n  ✦ Muted the '${moment}' moment.`);
+  if (until) console.log(`    auto-unmutes: ${until}`);
+  else console.log(`    no expiry — \`boss conscience unmute ${moment}\` to end.`);
+  if (reason) console.log(`    reason: ${reason}`);
+  console.log(`    ${dim('Other moments still speak; `boss conscience pause` silences all of them.')}`);
+  console.log('');
+}
+
+// `boss conscience unmute <moment>` (or `--all`) — the explicit un-silence.
+// (A mute with an expiry also lapses on its own, via the hook's clearExpiredMutes.)
+export function conscienceUnmute(flags) {
+  const { path, cfg } = readConfigOrFail(process.cwd());
+  const mutes = cfg.conscienceMutes || {};
+  const moment = (flags._ && flags._[0]) || '';
+
+  if (flags.all === true) {
+    if (Object.keys(mutes).length === 0) { console.log('\n  No moments are muted.\n'); return; }
+    delete cfg.conscienceMutes;
+    writeConfig(path, cfg);
+    console.log('\n  ✦ Unmuted all moments.\n');
+    return;
+  }
+  if (!moment) throw new Error('which moment? e.g. `boss conscience unmute drift` (or `--all`).');
+  if (!mutes[moment]) { console.log(`\n  '${moment}' isn't muted.\n`); return; }
+
+  delete mutes[moment];
+  if (Object.keys(mutes).length === 0) delete cfg.conscienceMutes;
+  else cfg.conscienceMutes = mutes;
+  writeConfig(path, cfg);
+  console.log(`\n  ✦ Unmuted the '${moment}' moment.\n`);
 }
 
 // Read the optional cohort declaration from .boss/config.json. Returns null if
@@ -234,7 +303,8 @@ export function conscienceActivity(projectDir = process.cwd(), { asCost = false 
     console.log(`    ⚠ over-fire smell — the conscience may be talking too often:`);
     for (const s of smells) console.log(`      • ${s}`);
     console.log(`      ${dim('A moment firing this often erodes trust like a false alarm. Worth a look —')}`);
-    console.log(`      ${dim('tune the loop, or `boss conscience pause` if you need quiet.')}`);
+    console.log(`      ${dim('tune the loop, `boss conscience mute <moment>` to turn down just that one,')}`);
+    console.log(`      ${dim('or `boss conscience pause` to silence everything for a while.')}`);
   } else {
     console.log(`    No over-fire smell — fires are spread out.`);
   }
@@ -287,6 +357,19 @@ export function statusConscience(projectDir = process.cwd()) {
       }
       if (pause.reason) console.log(`       reason:       ${pause.reason}`);
     }
+    console.log('');
+  }
+  // Per-moment mutes (v0.72.0) — surfaced like pause so a forgotten mute doesn't
+  // silently swallow a moment forever. Only live (unexpired) mutes are shown.
+  const mutes = readMuteState(projectDir);
+  const liveMutes = Object.entries(mutes).filter(([, m]) => !m.until || new Date(m.until) > new Date());
+  if (liveMutes.length) {
+    console.log(`    🔇 muted moments:`);
+    for (const [moment, m] of liveMutes) {
+      const when = m.until ? `until ${m.until.slice(0, 10)}` : 'until unmuted';
+      console.log(`       ${moment.padEnd(12)} ${when}${m.reason ? `  — ${m.reason}` : ''}`);
+    }
+    console.log(`       ${dim('`boss conscience unmute <moment>` to bring one back')}`);
     console.log('');
   }
   console.log(`    cohort:  ${cohort ? cohort : '(unspecified — set via `/boss` or edit .boss/config.json)'}`);

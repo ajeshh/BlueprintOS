@@ -86,8 +86,9 @@ If cohort is `eng-builder`, `vibe-virtuoso`, `indie-hacker`, or `returning-found
 > agents the project has access to). Run `/boss` to spin up — point it at your idea however it
 > exists (a sentence, a file, a Google Doc / Obsidian / PDF / deck, a URL, or several); it pulls
 > a copy into `docs/source/` and shapes it. `/import` adds more material to an idea later.
-> The conscience (`UserPromptSubmit` hook) will nudge if it sees drift; pause it with
-> `boss conscience pause` if it's in the way. That's it. Ready when you are."*
+> The conscience (`UserPromptSubmit` hook) will nudge if it sees drift; `boss conscience pause`
+> silences all of it, or `boss conscience mute <moment>` turns down just one (drift|caution|…)
+> if a single nudge keeps missing. That's it. Ready when you are."*
 
 Then **stop**. Don't elaborate. They'll ask if they want more.
 
@@ -170,14 +171,21 @@ Two paths. Name both; let the founder pick.
 > a block) — and I decide whether to surface it in my own voice. It's never canned text;
 > it's never a gate.*
 >
-> *Two override controls:*
-> - *`boss conscience pause --for 8h` — silences the conscience for a build session.
+> *There are a handful of these drift patterns — each one is a **moment** (drift, caution,
+> capture, focus…). You don't have to take all of them. Three controls, from broadest to
+> most surgical:*
+> - *`boss conscience pause --for 8h` — silences the **whole** conscience for a build session.
 >   Auto-resumes after 8 hours (or use `--until-resume` for indefinite + `boss conscience
 >   resume` later).*
+> - *`boss conscience mute <moment> --for 7d` — turns down **one** moment (e.g.
+>   `boss conscience mute capture`) while the others keep speaking. Auto-unmutes when it
+>   expires, or `boss conscience unmute <moment>` / `--all`. Use this when one nudge keeps
+>   landing wrong but the rest are useful. (`boss conscience status` shows what's muted.)*
 > - *In your devlog or commit, write `- **OVERRIDE:** <decision> — rationale: <why>`. BOSS
 >   records the override; it doesn't argue.*
 >
-> *The pattern is: deviation conscious, recorded, never blocked, never forgotten."*
+> *The pattern is: deviation conscious, recorded, never blocked, never forgotten. If a moment
+> isn't for you, mute it — that's a feature, not a fight."*
 
 ### How modes level up _(reference — expand only if asked)_
 

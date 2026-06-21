@@ -16,7 +16,7 @@
 //
 // Always exits 0. Empty output = no signal = stay silent.
 
-import { detectSignals, composeContext, readCohort, readBrainContext, readRelationshipContext, readPauseState, clearPauseState, logActivity } from './lib/loop-runtime.js';
+import { detectSignals, composeContext, readCohort, readBrainContext, readRelationshipContext, readPauseState, clearPauseState, readMuteState, isMomentMuted, clearExpiredMutes, logActivity } from './lib/loop-runtime.js';
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
@@ -33,7 +33,18 @@ try {
     clearPauseState(projectDir);
   }
 
-  const signals = detectSignals(projectDir);
+  const detected = detectSignals(projectDir);
+  if (detected.length === 0) {
+    process.exit(0);
+  }
+
+  // Per-moment mute (v0.72.0) — the founder turned this specific moment down.
+  // Surgical sibling of pause: drop only signals whose moment is muted-and-unexpired,
+  // then prune any expired mutes (the per-moment silent auto-resume). If muting
+  // leaves nothing to say, exit silent, exactly like pause.
+  clearExpiredMutes(projectDir);
+  const mutes = readMuteState(projectDir);
+  const signals = detected.filter((s) => !isMomentMuted(mutes, s.moment));
   if (signals.length === 0) {
     process.exit(0);
   }

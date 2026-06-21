@@ -332,6 +332,60 @@ export function clearPauseState(projectDir) {
   } catch { /* fail silent — hook must never block */ }
 }
 
+// Per-moment mute (v0.72.0) — the surgical companion to pause. `pause` silences
+// the WHOLE conscience for a bounded session; a mute silences ONE moment (drift,
+// caution, capture, …) until it expires or is unmuted. This is the hook-enforced
+// "don't voice it if I don't want it" — consent at the granularity of the moment,
+// not all-or-nothing.
+//
+// Stored under its OWN top-level key (`conscienceMutes`), deliberately NOT inside
+// `cfg.conscience`: pause/resume overwrite `cfg.conscience` wholesale, so nesting
+// mutes there would let a `resume` silently wipe them. The two controls are
+// orthogonal by construction. Shape:
+//   cfg.conscienceMutes = { <moment>: { until: ISO|null, since: ISO, reason } }
+export function readMuteState(projectDir) {
+  const f = join(projectDir, '.boss', 'config.json');
+  if (!existsSync(f)) return {};
+  try {
+    return JSON.parse(readFileSync(f, 'utf8')).conscienceMutes || {};
+  } catch { return {}; }
+}
+
+// Is this moment muted right now (and not expired)? Pure read; expiry pruning is
+// clearExpiredMutes's job. Used by the hook to filter signals and by the CLI to
+// show only live mutes.
+export function isMomentMuted(mutes, moment, now = new Date()) {
+  const m = mutes[moment];
+  if (!m) return false;
+  if (m.until && new Date(m.until) <= now) return false; // expired → speaks again
+  return true;
+}
+
+// Prune any mutes whose `until` has passed — the per-moment twin of pause's silent
+// auto-resume. The founder learns a mute lapsed because the moment starts speaking
+// again, not via a "your mute expired" announcement (that would be the performative
+// noise IDEA-011 rejected). Returns true if it wrote. Swallows errors — like every
+// hook-path write, it must never block the prompt.
+export function clearExpiredMutes(projectDir) {
+  const f = join(projectDir, '.boss', 'config.json');
+  if (!existsSync(f)) return false;
+  try {
+    const cfg = JSON.parse(readFileSync(f, 'utf8'));
+    const mutes = cfg.conscienceMutes || {};
+    const now = new Date();
+    let changed = false;
+    for (const [moment, m] of Object.entries(mutes)) {
+      if (m && m.until && new Date(m.until) <= now) { delete mutes[moment]; changed = true; }
+    }
+    if (changed) {
+      if (Object.keys(mutes).length === 0) delete cfg.conscienceMutes;
+      else cfg.conscienceMutes = mutes;
+      writeFileSync(f, JSON.stringify(cfg, null, 2) + '\n');
+    }
+    return changed;
+  } catch { return false; }
+}
+
 // Append one line to .boss/conscience-log.jsonl — a FREQUENCY ledger (v0.34.0).
 //
 // BOSS eating its own /ai-cost dogfood — HONESTLY. The hook never calls a model,

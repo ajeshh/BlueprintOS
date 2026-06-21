@@ -2,6 +2,30 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.72.0 — 2026-06-20
+
+- **Per-moment mute + first-run consent — "don't voice it if I don't want it," at the granularity of
+  the moment (v0.71.0 conscience-voicing follow-on).** Pause (v0.23) silenced the *whole* conscience for
+  a bounded session; this adds the surgical half the founder can't get from pause:
+  - **`boss conscience mute <moment> [--for 7d | --until-resume] [--reason]`** + **`unmute <moment>`
+    / `--all`** — turn down ONE moment (drift, caution, capture, focus…) while the rest keep speaking.
+    Hook-enforced (the conscience filters muted signals after detection, then exits silent if nothing's
+    left — same shape as pause). **Auto-unmutes on expiry**, the per-moment twin of pause's silent
+    auto-resume. Stored under a separate `conscienceMutes` key in `.boss/config.json` so pause/resume
+    (which overwrite `cfg.conscience`) can never clobber a mute — the two controls are orthogonal by
+    construction. Moment names validate against the project's actual loops (typo → the available list).
+  - **`boss conscience status` now surfaces live mutes** (like it surfaces an active pause), so a
+    forgotten mute can't silently swallow a moment forever; the over-fire-smell hint in
+    `boss conscience activity` now points at mute as the surgical alternative to pause.
+  - **First-run consent moment** — `/welcome` now introduces the moments as a set and names all three
+    controls (pause / mute / override) *before* any fires, cohort-aware (full tour gets the three-control
+    walk; the 30-second version gets pause + mute in one breath). The founder meets the conscience and
+    learns they can dial each moment, rather than discovering the controls only after being nudged.
+  - This operationalizes the `conscience-voicing` practice's consent boundary: all current hook moments
+    are *self-regarding* (about the founder's own venture discipline), so a flat per-moment mute is the
+    correct, fully-honored control. Zero-dep; single source (the L0 hook + runtime feed both the hook and
+    the `boss conscience` CLI).
+
 ## 0.71.0 — 2026-06-20
 
 - **Conscience voicing — name the tension, never filter the menu.** Closes a paternalism seam found
