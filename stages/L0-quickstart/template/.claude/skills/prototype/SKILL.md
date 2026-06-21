@@ -15,6 +15,12 @@ The conscience stays out of the way until the thing is on the screen.
 
 > It's a sketch to think with, not your MVP — BOSS names that once, *after* you've seen it.
 
+> **The frame, plainly (Marty Cagan, 2026):** this is *building to **learn*** — a throwaway to discover
+> whether the idea's worth it. Building it *for real* is *building to **earn*** — the `/spec` path, with
+> a build you'll keep. Cheap building made delivery easy, which made *fooling yourself* easy too; the
+> two modes stay separate on purpose. `/prototype` is build-to-learn; `boss unlock mvp` → `/spec` is
+> build-to-earn.
+
 ## When to run it
 
 - You have an idea (a sentence, or an `IDEA-NNN` from `/triage`) and you want to *see* it, now.

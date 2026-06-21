@@ -39,6 +39,12 @@ It's the counterpart to *read `docs/RESUME.md` first thing*.
 
    - **Append, don't rewrite.** Add a dated `## YYYY-MM-DD` section to `.boss/brain/read.md` (create
      the file if absent). The brain is append-mostly — history is the point.
+   - **The brain evolves; it doesn't just accrete (staleness is a write-side job).** Before you append,
+     re-read the standing summary at the top: has the work *overtaken* any claim in it? A riskiest
+     assumption that shifted, a pivot that happened, a "they keep doing X" that's no longer true — a
+     once-accurate read becomes *confidently wrong* the moment the venture moves past it. **Revise or
+     retire stale lines** in the standing summary as you write the new dated block. The most dangerous
+     brain isn't the empty one — it's the one citing yesterday's truth with today's confidence.
    - **Living memory, not infinite memory — compress when the read gets long.** If `boss brain` flags
      that the read spans many sessions (the recency-window nudge), fold the *oldest* dated reads' lasting
      conclusions into the standing summary at the **top** of `read.md` (the preamble, above the first

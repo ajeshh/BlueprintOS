@@ -51,6 +51,15 @@ Then proceed with the spec if the founder confirms — overriding the conscience
 4. Update the source IDEA's `status` to `building` and add a one-line pointer at the top:
    `> Building as [FEAT-NNN](FEAT-NNN-<slug>.md).`
 5. Add a FEAT row to `docs/ideas/INDEX.md` so it shows alongside ideas.
+   - `building_since:` anchors the board's time-in-build aging (`boss board` flags a FEAT that's sat
+     in Building past ~3 weeks — the zombie-feature smell). It's **frontmatter-true, never guessed**:
+     set it to today when the FEAT enters `building`, and refresh it if a paused FEAT is re-opened
+     (so the age reflects *this* build run, not the original). Drop it when status moves to `shipped`.
+   - `priority: high` is **optional** — add it only when a FEAT genuinely jumps the queue. The board
+     floats it to the top of its column with a `⬆` marker and leads `boss board --next` with it. One
+     level by design (no P0/P1/P2 ladder — that turns the board into a planning surface you tend
+     instead of ship). The honest caveat the seasoned hand would add: *re-prioritizing isn't progress;
+     finishing is.* Most FEATs need no priority field at all.
 6. Hand off to `coder-generalist` (or the stack's coder, if specialized) with the FEAT as the brief.
 
 ## The FEAT template
@@ -62,6 +71,7 @@ type: feature
 owner: pm
 status: building
 created: {{today}}
+building_since: {{today}}
 source: IDEA-NNN
 ---
 
@@ -121,5 +131,11 @@ _Open questions, links to the idea/canvas, anything the builder needs._
 - One FEAT per concern. A feature that needs three smoke checks is probably two features.
 - Acceptance criteria are testable statements, not vibes. "Feels fast" → "Initial page render < 1s on a cold reload."
 - Out-of-scope is load-bearing. Naming what's *not* in this FEAT prevents the scope creep that kills MVPs.
+- Spec a delegation, not just a feature (Ethan Mollick, 2026). A FEAT is a brief you hand to a coder
+  (human or agent), so it should answer two things the acceptance criteria don't: **what will *you*
+  verify** before it's done (not "tests pass" — the one or two things you'll click/read to trust it),
+  and **what's out of the agent's authority** (decisions it must surface to you, not make — a schema
+  change, a new dependency, anything irreversible). Don't write "know what good looks like" platitudes;
+  write the checkable line.
 - The spec is a contract with future-you, not paperwork. Keep it short enough that you'll actually re-read it mid-build.
 - Don't spec a maybe. If the riskiest assumption is still wide open, you're not ready — go run an experiment instead.

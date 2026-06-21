@@ -134,6 +134,31 @@ function readActivity(projectDir) {
   } catch { return []; }
 }
 
+// The OUTCOME side of the ledger (RVW-021, the humane alternative to a hard
+// notification cap). The frequency log says how OFTEN the conscience fired; the
+// relationship log (.boss/brain/relationship.md, written at /close) says whether
+// those fires LANDED. A persistently-low acted-on rate is the honest over-fire
+// smell — better than a raw count, and it never muzzles a load-bearing warning.
+// Heuristic read of the founder-owned prose (the tags /close is told to use);
+// returns null when there's no relationship log yet.
+function readRelationshipOutcomes(projectDir) {
+  const f = join(projectDir, '.boss', 'brain', 'relationship.md');
+  if (!existsSync(f)) return null;
+  let text;
+  try { text = readFileSync(f, 'utf8').toLowerCase(); } catch { return null; }
+  const n = (re) => (text.match(re) || []).length;
+  const landed = n(/\blanded\b/g);
+  const overrode = n(/\boverr(?:ode|ide)\b/g);
+  const pushedBack = n(/\bpushed[-\s]back\b/g);
+  const ignored = n(/\bignored\b/g);
+  const total = landed + overrode + pushedBack + ignored;
+  if (total === 0) return null;
+  // "Acted on" = the founder engaged: it landed, they deliberately overrode, or it
+  // was wrong and they pushed back (the conscience learns). Only `ignored` is noise.
+  const actedOn = landed + overrode + pushedBack;
+  return { total, landed, overrode, pushedBack, ignored, actedOnRate: Math.round((actedOn / total) * 100) };
+}
+
 const median = (xs) => {
   if (!xs.length) return 0;
   const s = [...xs].sort((a, b) => a - b);
@@ -212,6 +237,20 @@ export function conscienceActivity(projectDir = process.cwd(), { asCost = false 
     console.log(`      ${dim('tune the loop, or `boss conscience pause` if you need quiet.')}`);
   } else {
     console.log(`    No over-fire smell — fires are spread out.`);
+  }
+
+  // Outcome ledger (RVW-021): did the fires LAND? The deeper over-fire signal —
+  // frequency says how often it spoke; this says whether it was worth listening to.
+  const out = readRelationshipOutcomes(projectDir);
+  if (out) {
+    console.log('');
+    console.log(`    acted-on:       ${out.actedOnRate}%  of nudges landed or were engaged  ${dim(`(${out.landed} landed · ${out.overrode} overrode · ${out.pushedBack} pushed-back · ${out.ignored} ignored)`)}`);
+    if (out.actedOnRate < 50 && out.total >= 4) {
+      console.log(`      ${dim('⚠ a low acted-on rate is the real over-fire smell — the conscience is talking past you.')}`);
+      console.log(`      ${dim('This beats a hard cap: tune the loops that get ignored, don\'t silence the ones that land.')}`);
+    } else {
+      console.log(`      ${dim('the nudges are landing — measured from .boss/brain/relationship.md, not a guess.')}`);
+    }
   }
   console.log('');
 }

@@ -2,6 +2,72 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.67.0 — 2026-06-20
+
+- **The `/vet` sweep's six ADAPTs, routed via `/boss-learn` (RVW-015→026).** A 12-claim skeptical sweep
+  of the research inbox (2 REJECT · 4 NOT-YET · 6 ADAPT · 0 ADOPT — a good skeptic's spread) produced six
+  scoped adaptations, now landed. The headline two sharpen what just shipped:
+  - **Outcome ledger (RVW-021) — the humane alternative to a notification cap.** `boss conscience
+    activity` now reads `.boss/brain/relationship.md` and reports an **acted-on rate** ("75% of nudges
+    landed or were engaged · N landed · N overrode · N ignored"). A persistently-low acted-on rate is the
+    *real* over-fire smell — better than a raw count, and it **never muzzles a load-bearing warning** the
+    way an arbitrary daily cap would (BOSS's fires are predicate-earned, not engagement push). **Completes
+    IDEA-013's deferred self-throttle by outcome, not by fiat.**
+  - **Brain staleness is a write-side job (RVW-026).** `/close`'s brain-write step now re-checks the
+    standing summary *before* appending and **revises/retires stale claims** — "the brain evolves, it
+    doesn't just accrete; the most dangerous brain cites yesterday's truth with today's confidence."
+    Hardens the v0.65 venture brain.
+  - Four lighter skill sharpenings: **`/prototype`** gains the build-to-learn / build-to-earn frame
+    (Cagan; RVW-016); **`/canvas`** gains a scoped humane *build-or-buy?* cell for tool-shaped ideas
+    (Fried; RVW-018); **`/spec`** gains a delegation line — *what will you verify + what's out of the
+    agent's authority* (Mollick's checklist kernel, minus the "know what good looks like" platitude;
+    RVW-020); **`/evals`** gains an AISI-Inspect pointer for trajectory eval (RVW-025; the principle was
+    already there). The 2 REJECTs (AI-runs-your-interviews → fails #6; single-strong-agent → confirms
+    IDEA-028) and 4 NOT-YETs (constrained-decoding, MCP-publishing, OTel-GenAI, outcome-pricing) are
+    recorded with re-open conditions. eval **113/0** + GRADED 24 (the conscience change is to the
+    *activity readout*, not the hook firing). Research hygiene: inbox cleared to a clean drop-zone, 12
+    new verdicts written, sources archived to `reviewed/`.
+
+## 0.66.0 — 2026-06-20
+
+- **Board intelligence — the board stops being a mirror and becomes something you (and the agent)
+  steer by (IDEA-034).** The board was already ahead of most "AI board" advice — it's a *pure
+  projection* of `status:` frontmatter, never a maintained doc (IDEA-015). So this pass doesn't add
+  richer kanban (drag-drop, swimlanes, story points, a `board.json` are all **refused** — each
+  reintroduces a second source of truth or premature ceremony); it makes the projection answer harder
+  questions and feed the conscience. Four tracks:
+  - **A — Agent-readable board.** `boss board --next` (an ordered "what to pick up," finish-before-you-
+    start), `--blocked` (everything not moving — blocked + aging + review-due, in one place), and
+    `--json` (the machine-readable projection — the actual agent-readability contract; the agent reads
+    the board as task-queue instead of re-deriving state). CLI-level, every mode; a lighter cousin of
+    the V1 `/board` skill.
+  - **B — Time-in-build aging + a bounded Shipped column.** A FEAT that's sat in Building past ~3 weeks
+    now flags `⌛ Nw in build` (the zombie-feature smell `/revalidate` targets) — **frontmatter-true,
+    never guessed**: `/spec` stamps `building_since:` when it sets `status: building`; no date → no
+    flag. Building sorts longest-running-first (finish what's been open longest). The otherwise-unbounded
+    Shipped column caps to the most recent few (`--all` / a `<details>` expander to see the rest).
+  - **C — Honest flow in `boss insights`.** Idea→build cycle time (median, from recorded `created:`
+    dates only — omitted, never guessed, when absent). Loop-closure cycle time, **never throughput /
+    velocity** (the vanity metric BOSS refuses to expose).
+  - **D — Board → conscience `focus` moment.** ≥4 FEATs in Building with nothing Shipped opens a new
+    `focus-loop` (L1-mvp): the "stop starting, start finishing" smell. Judge-style (the model reads the
+    board and distinguishes scattered abandonment from honest parallel work before voicing), at most
+    once per session, **never a gate** — and it auto-silences the moment anything ships (exit = ≥1
+    shipped). Conservative threshold + auto-silence are the over-fire guards.
+  - **E — Lightweight priority.** Optional `priority: high` in FEAT/IDEA frontmatter floats a card to
+    the top of its column (a `⬆` marker) and leads `--next` — **one level, frontmatter-true, never a
+    drag-to-reorder.** Deliberately no P0/P1/P2 ladder (that turns the board into a planning surface you
+    tend instead of ship); the caveat — *re-prioritizing isn't progress; finishing is* — ships in
+    `/spec`. Priority is the one explicit ordering signal layered over the default finish-first sort.
+  - **HTML kanban — a real visual refresh, then a sharpening pass** (the founder asked if it could
+    "feel more legit," then for stronger hierarchy): owned accent + signature dot + uppercase kicker,
+    count pills, card depth/hover, **bold titles with a quiet monospace id**, **tinted backgrounds so
+    aging/blocked/review cards pull the eye first**, a priority pill, the Shipped `<details>` fold —
+    calm and crafted, still zero-dep / single-file / light-dark (not a startup-bro dashboard).
+  - **Discipline held:** zero-dep; the model owns judgment, the CLI owns the projection. Conscience gate
+    **113/0** (105 + 8 new `moment-focus` cases) and the 24 GRADED judgment evals stay green; verified
+    end-to-end in `/tmp`.
+
 ## 0.65.0 — 2026-06-20
 
 - **`relationship.md` — the venture brain's missing half: the conscience learns whether its nudges

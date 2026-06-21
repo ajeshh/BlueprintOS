@@ -300,7 +300,12 @@ function cmdBoard(args = []) {
     try { spawn(opener, [out], { stdio: 'ignore', detached: true, shell: process.platform === 'win32' }).unref(); } catch { /* path already printed */ }
     return;
   }
-  board(process.cwd(), stamp.name);
+  board(process.cwd(), stamp.name, {
+    next: args.includes('--next'),
+    blocked: args.includes('--blocked'),
+    json: args.includes('--json'),
+    all: args.includes('--all'),
+  });
 }
 
 function cmdMap() {
@@ -471,6 +476,7 @@ export function run(argv) {
       console.log('  boss status --conscience this project: loop states + cohort + recent overrides');
       console.log('  boss map                 live cheatsheet: where you are + what\'s one unlock away');
       console.log('  boss board [--html]      a live read of what\'s in flight (captured → shipped); --html opens a visual kanban');
+      console.log('  boss board --next|--blocked|--json   what to pick up next · what\'s not moving · the projection as JSON (agent-readable)');
       console.log('  boss brain [--diff|--relationship]  the conscience\'s read (POV); --diff = how it evolved; --relationship = what it said & what you did');
       console.log('  boss brain forget --before <date>   evict old reads (living memory; founder-invoked)');
       console.log('  boss insights            read your own projects\' trace: where each loop stands (local · nothing sent)');

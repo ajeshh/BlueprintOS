@@ -106,7 +106,9 @@ The 2026 update to the eval discipline, from the people who teach it. Fold these
 - **Don't let the model grade its own homework.** If you use LLM-as-judge, the judge must be a
   *separate* pass from the call that produced the output, with its own examples of the judge being
   wrong. A right answer reached through a bad/dangerous tool path is still a failure — evaluate the
-  *trajectory*, not just the endpoint.
+  *trajectory*, not just the endpoint. (For a FEAT with a real multi-step tool flow, assert on the
+  tool *sequence*, not only the final output; **UK AISI's Inspect** is the graduation-grade harness to
+  reach for if you outgrow hand-rolled trajectory checks — point at it, don't rebuild it.)
 - **Cost hierarchy.** Cheap deterministic assertions first; reserve LLM-as-judge for the persistent,
   genuinely-semantic failures. A useful mix to aim for: ~60% deterministic / ~30% LLM-as-judge /
   ~10% human-in-the-loop.
