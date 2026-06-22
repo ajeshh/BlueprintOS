@@ -14,7 +14,7 @@
 
 ## If this is you
 
-You've been using Cursor or Claude Code for a few months. You've shipped one project this
+You've been using Claude Code for a few months. You've shipped one project this
 year. There are two more in `~/projects/` you didn't finish, and a folder of ideas you didn't
 start. Each new project, you re-invent the same scaffolding — and somewhere around screen 3
 the design starts drifting (47 different blues, every component a snowflake), or you realize

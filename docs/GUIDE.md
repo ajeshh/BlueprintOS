@@ -50,7 +50,7 @@ nothing else. (In a project, `/welcome` asks you this and tunes itself; you can 
   then `/boss`. Stay in Quickstart a while — capture ideas, pressure-test one, let the conscience
   teach you the rhythm. Don't rush to `unlock`; the next mode will still be there.
 
-- **You've shipped a couple of small things.** A few months on Cursor or Claude Code; the *building*
+- **You've shipped a couple of small things.** A few months on Claude Code; the *building*
   feels possible, the *what's-worth-finishing* less so. → Start at `/boss`. Capture freely with
   `/triage`; the payoff is `/canvas` — that's where BOSS earns its keep for you. `unlock mvp` when
   you're actually building, not before.
