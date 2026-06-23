@@ -1,4 +1,8 @@
-# BlueprintOS
+# BOSS
+
+### Make it real.
+
+*B.O.S.S. — Build Out Solid Stuff.*
 
 > **Everyone can build now. Almost no one can tell a real business from a convincing demo.**
 > **BOSS is the conscience that keeps you honest while you move fast** — the thinking layer that
@@ -110,8 +114,8 @@ list of what each mode includes lives where it can't go stale:
 
 ```bash
 # alpha install — clone the repo, link the CLI globally
-git clone https://github.com/ajeshh/BlueprintOS.git
-cd BlueprintOS
+git clone https://github.com/ajeshh/bossbuild.git
+cd bossbuild
 npm install -g .                # puts `boss` on your PATH (zero runtime deps)
 
 boss new my-app                 # 5 seconds — scaffolds + git-inits + registers

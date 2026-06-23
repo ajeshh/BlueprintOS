@@ -1,6 +1,6 @@
 # The patterns behind BOSS
 
-*For builders of agent tooling. BOSS (BlueprintOS) is a zero-dependency CLI that scaffolds a startup
+*For builders of agent tooling. BOSS is a zero-dependency CLI that scaffolds a startup
 project for Claude Code and rides alongside the founder as a "conscience" — nudging when the work
 drifts from the bet that could sink it. This doc names the engineering patterns it's built on, with
 real numbers, because the patterns generalize past this one tool.*
@@ -102,5 +102,5 @@ inspectable and reversible.
 
 ---
 
-*BOSS is MIT/open: [github.com/ajeshh/BlueprintOS](https://github.com/ajeshh/BlueprintOS). The
+*BOSS is MIT/open: [github.com/ajeshh/bossbuild](https://github.com/ajeshh/bossbuild). The
 principles it enforces on its users are in [PRINCIPLES.md](../PRINCIPLES.md); it holds itself to them.*

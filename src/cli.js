@@ -160,7 +160,7 @@ function cmdAdopt(args) {
   //     (so BOSS's working discipline lands alongside theirs).
   if (agentsPreexisted) {
     appendMarkedBlock(join(targetDir, 'AGENTS.md'), 'adopt',
-      `## BlueprintOS (BOSS) working rules — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
+      `## BOSS working rules — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
       `1. **Capture before you build** (every idea → \`IDEA-NNN\`; see \`docs/ideas/INDEX.md\`).\n` +
       `2. **Stack-neutral until decided.** 3. **Docs are source of truth, not chat.**\n` +
       `4. **Small, reversible steps.** 5. **Ask before irreversible actions.** 6. **Don't over-build.**\n` +
@@ -173,7 +173,7 @@ function cmdAdopt(args) {
   if (claudePreexisted) {
     appendClaudeBlock('adopt', targetDir,
       `@AGENTS.md\n\n` +
-      `## BlueprintOS (BOSS) — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
+      `## BOSS — adopted ${stageVars(name, stageId, manifest.name).DATE}\n\n` +
       `This repo was adopted into BOSS at **${manifest.name}** mode (non-destructively — your files were untouched).\n` +
       `Host-neutral working rules are imported from \`@AGENTS.md\` above. New: \`.claude/skills/\` + \`.claude/agents/\` for this mode, a conscience hook, and \`docs/\` capture surfaces.\n` +
       `Run **\`/welcome\`** to orient, **\`/boss\`** to spin up an idea, or **\`boss map\`** to see what's available.\n` +
@@ -514,7 +514,7 @@ export function run(argv) {
     case 'version': case '--version': case '-v':
       return console.log(bossVersion());
     default:
-      console.log(`BlueprintOS (BOSS) ${bossVersion()}\n`);
+      console.log(`BOSS ${bossVersion()}\n`);
       console.log('  boss new <name> [--ai]   scaffold a new project in Quickstart mode + register it (--ai: tailor via /comprehend)');
       console.log('  boss adopt [--mode <m>] [--ai]  bring BOSS into an already-started repo, non-destructively (--ai: comprehend it)');
       console.log('  boss unlock <mode>       level up: quickstart → mvp → v1 → scale');

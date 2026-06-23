@@ -2,7 +2,7 @@
 
 @AGENTS.md
 
-> Scaffolded by BlueprintOS (BOSS) {{BOSS_VERSION}} in **{{MODE}}** mode ({{STAGE}}) on {{DATE}}.
+> Scaffolded by BOSS {{BOSS_VERSION}} in **{{MODE}}** mode ({{STAGE}}) on {{DATE}}.
 > The host-neutral **working rules + conventions live in `@AGENTS.md`** (imported above — read it
 > first). This file adds only what's Claude-specific: the skills, the conscience, and the mode ladder.
 > Keep it short — compliance drops past ~200 lines.

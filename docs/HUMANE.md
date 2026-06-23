@@ -8,7 +8,7 @@ updated: 2026-06-21
 
 # A conscience, not a censor
 
-> The humane side of BlueprintOS (BOSS) — a just-in-time tool for building software with AI — and the
+> The humane side of BOSS — a just-in-time tool for building software with AI — and the
 > practices behind it. Written for people who care about humane technology, and who can smell
 > ethics-washing from a mile off. So: mechanism first, honesty about the stage, and credit to the work
 > this is built on.
@@ -164,7 +164,7 @@ stands on — not as an authority above it.
 - The practices above are usable on their own — lift them.
 - Tell us where the conscience is **wrong**: a moment it would over-fire (the censor failure) or miss.
   That's the most useful thing you can give us, and it goes straight into the eval set.
-- The full repo is public and MIT: <https://github.com/ajeshh/BlueprintOS>.
+- The full repo is public and MIT: <https://github.com/ajeshh/bossbuild>.
 
 ## The bet under the bet
 

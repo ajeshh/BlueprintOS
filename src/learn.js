@@ -22,7 +22,7 @@ export function bossSourceRoot() {
   if (process.env.BOSS_SRC && looksLikeSource(process.env.BOSS_SRC)) {
     return process.env.BOSS_SRC;
   }
-  const self = listProjects().find((p) => p.selfHosted || /^blueprintos$/i.test(p.name || ''));
+  const self = listProjects().find((p) => p.selfHosted || /^(boss|bossbuild|blueprintos)$/i.test(p.name || ''));
   if (self && looksLikeSource(self.path)) return self.path;
   if (existsSync(join(BOSS_ROOT, '.git')) && looksLikeSource(BOSS_ROOT)) return BOSS_ROOT;
   return null;
@@ -57,7 +57,7 @@ export function learn({ srcPath, category, note, versionKind = 'minor', explicit
   const root = bossSourceRoot();
   if (!root) {
     throw new Error(
-      'cannot locate the BOSS source repo. Set BOSS_SRC=/path/to/blueprintos, or run from the checkout.',
+      'cannot locate the BOSS source repo. Set BOSS_SRC=/path/to/bossbuild, or run from the checkout.',
     );
   }
 

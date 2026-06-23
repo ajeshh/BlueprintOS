@@ -1,6 +1,6 @@
 # AGENTS.md — {{PROJECT_NAME}}
 
-> Working rules for **any** AI coding agent in this repo (host-neutral). Scaffolded by BlueprintOS
+> Working rules for **any** AI coding agent in this repo (host-neutral). Scaffolded by BOSS
 > (BOSS) {{BOSS_VERSION}} on {{DATE}}. Claude Code reads these through `CLAUDE.md` (which imports this
 > file); other agent tools (Codex, Cursor, Copilot, Devin, …) read this file directly. Keep it the
 > source of truth for how work is done here — `CLAUDE.md` adds only the Claude-specific layer.

@@ -1,4 +1,4 @@
-# BlueprintOS — Operating Principles
+# BOSS — Operating Principles
 
 ## The why (the problem BOSS exists for)
 

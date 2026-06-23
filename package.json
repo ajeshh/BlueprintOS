@@ -1,19 +1,19 @@
 {
-  "name": "blueprintos",
-  "version": "0.96.0",
-  "description": "BlueprintOS (BOSS) — a just-in-time startup incubator: cold-starts new projects at the right level of agentic ceremony, grows them through modes (Quickstart → MVP → V1 → Scale), and mentors the founder.",
+  "name": "bossbuild",
+  "version": "0.97.0",
+  "description": "BOSS (Build Out Solid Stuff) — a just-in-time startup incubator that cold-starts projects at the right level of agentic ceremony, grows them through modes (Quickstart → MVP → V1 → Scale), and mentors the founder. Make it real.",
   "keywords": [
     "Agentic",
     "framework",
     "humanetech"
   ],
-  "homepage": "https://github.com/ajeshh/BlueprintOS#readme",
+  "homepage": "https://github.com/ajeshh/bossbuild#readme",
   "bugs": {
-    "url": "https://github.com/ajeshh/BlueprintOS/issues"
+    "url": "https://github.com/ajeshh/bossbuild/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ajeshh/BlueprintOS.git"
+    "url": "git+https://github.com/ajeshh/bossbuild.git"
   },
   "license": "MIT",
   "author": "Ajesh Shah",

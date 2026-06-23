@@ -2,6 +2,20 @@
 
 Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's new since its pin.
 
+## 0.97.0 — 2026-06-23
+
+- **Rebrand: "BlueprintOS" → BOSS (Build Out Solid Stuff).** The name "BlueprintOS" collided with
+  [gj1342/blueprint-os](https://github.com/gj1342/blueprint-os) (an "OS for AI agents" using the same
+  skills/specs-as-markdown vocabulary), so the long form is retired and the earned **BOSS** wordmark
+  re-founded: **B.O.S.S. = Build Out Solid Stuff**, slogan **"Make it real."** (the anti-pseudo-app thesis
+  in three words). Dropped the "Operating System" framing entirely — BOSS is an incubator with a conscience,
+  not an OS. **Renamed across the shipped surface:** npm package `blueprintos` → **`bossbuild`**, repo URLs →
+  `github.com/ajeshh/bossbuild`, README / PRINCIPLES / docs headers, scaffold templates ("Scaffolded by
+  BOSS"), and CLI version/working-rules strings. **The `boss` command, the voice, the `mentor-*` roster, and
+  PRINCIPLES are unchanged** (package ≠ command — the bin name is always ours). Decision recorded in DEC-002;
+  full identity in `docs/design/BRAND.md`. Easter-egg full forms: *Builds, Or Stays Silent* · *Bosses Only
+  Self-Sabotage*. **Next:** GitHub repo rename, npm publish as `bossbuild`, Homebrew tap, domain `boss.build`.
+
 ## 0.96.0 — 2026-06-21
 
 - **First `/humane-refresh` sweep, pass 2 → the cohort & frontier patterns (RVW-059–064).** The second
@@ -1158,7 +1172,7 @@ Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's ne
 ## 0.47.0 — 2026-06-19
 
 - **Humane two-way learning channel — built the moment BOSS went public, the humane way (IDEA-024).**
-  Going public (MIT, github.com/ajeshh/BlueprintOS) turned a private dogfood into a thing strangers
+  Going public (MIT, github.com/ajeshh/bossbuild) turned a private dogfood into a thing strangers
   run, which needs a way to learn + pivot. Ajesh asked for "feedback from end-users, and learn
   *passively* how users use it." The second half is the exact surveillance line BOSS exists not to
   cross ([IDEA-021](../docs/ideas/IDEA-021-passive-instrumentation-and-fleet-learning.md)). Applied
@@ -2668,7 +2682,7 @@ Each entry = a BOSS version. `/boss-sync` reads this to tell a project what's ne
 
 ## 0.6.0 — 2026-05-21
 
-- **BOSS now dogfoods itself.** BlueprintOS is its own first registered project (`.boss/` stamp,
+- **BOSS now dogfoods itself.** BOSS is its own first registered project (`.boss/` stamp,
   mode MVP, self-hosted) — retrofitted ahead of the MVP-mode template, which will be *extracted UP*
   from this repo's working practice (Principle 1).
 - Added BOSS's own dogfooded docs: root `CLAUDE.md`, `docs/IDS.md`, `docs/ideas/` (IDEA-001 learning
